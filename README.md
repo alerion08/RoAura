@@ -1,8 +1,10 @@
-# RoAura 3.4.0
+# RoAura 3.5.0
 
 Windows x64 overlay for Ragnarok Online. It tracks cooldowns and statuses from incoming RO packets via Npcap and displays configurable overlays.
 
 Gold Goblin calculates the value of the current SpringRO/ToC loot session using NPC sell prices, Overcharge, current Vending offers or manual price rules. The calculated value can be included in loot notifications and Zeny-per-hour statistics.
+
+Version 3.5.0 adds regular monster timers, numbered restart shortcuts, EXP bars, the MuhRO profile, and five built-in video guides. See [3.5.0 release notes](docs/releases/3.5.0.md).
 
 Version 3.4.0 adds shared session Start/Pause/Reset, EXP totals, local pickup-price history,
 silent existing-offer market baselines, offline MVP maps/kill markers, in-game timer creation
@@ -26,7 +28,7 @@ for migration details and the remaining manual ToC acceptance checks.
 - server-duration countdown and remaining-time fill on active buff/debuff icons;
 - missing-status Reminder icons with centered, configurable icon/text presentation;
 - learned equipment tracking by packet, inventory index, Item ID and wear slot;
-- searchable server-specific MVP timers with restart/reset, movable list and dedicated hotkey;
+- searchable MVP and regular monster timers with minimaps, restart/reset, and numbered hotkeys;
 - packet-based loot, Zeny and Base/Job EXP notifications with aggregation, independent colors, numbered groups, movable positions and per-group line limits;
 - separate RTM, SpringRO and ToC item databases with Equip/Card/Loot/Consumable classification;
 - separate RTM, SpringRO and ToC MVP catalogs;

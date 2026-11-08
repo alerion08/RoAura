@@ -9,7 +9,6 @@ public static class FeatureAvailability
     public static bool CanUse(string? server, bool packets, AppFeature feature) =>
         (!RequiresPackets(feature) || packets) && (feature switch
         {
-            AppFeature.MvpTimers or AppFeature.Statistics => GameServerProfile.SupportsServerDatabases(server),
             AppFeature.GoldGoblin => GameServerProfile.SupportsGoldGoblin(server),
             AppFeature.Database => GameServerProfile.SupportsDatabaseOverlay(server),
             _ => true

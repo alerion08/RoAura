@@ -71,6 +71,10 @@ public sealed class NpcapPacketCapture : IDisposable
                 CharacterSessionChanged?.Invoke(snapshot);
             };
     }
+    private readonly MapLoginHandoff _mapLoginHandoff = new();
+    private readonly Dictionary<(int ProcessId, uint CharacterId), (CharacterRosterLevel Levels, long SeenAt)> _rosterLevels = new();
+    private const int RosterLevelLifetimeMs = 120_000;
+    private string? _discoveryServer;
     private CancellationTokenSource? _cancellation;
     private int _generation;
     private int _activeDevices;
@@ -78,8 +82,6 @@ public sealed class NpcapPacketCapture : IDisposable
     private int _activeGeneration;
     private string _lastState = "";
     private string _language = "ru";
-    private ConcurrentDictionary<ushort, RoEquipmentPacket> _equipmentIdentityCache = new();
-    private ConcurrentDictionary<ushort, RoEquipmentPacket> _pendingEquipmentEvents = new();
 
     private readonly PacketLayoutDiagnostics _layoutDiagnostics = new();
     private volatile bool _springRoStatusCorrelationEnabled;
@@ -106,7 +108,8 @@ public sealed class NpcapPacketCapture : IDisposable
     public event Action<RoPacketObservation<RoSkillPacket>>? SkillUsed;
     public event Action<RoPacketObservation<RoSkillCooldownPacket>>? SkillCooldown;
     public event Action<RoPacketSource>? TrackingSourceClosed;
-    public event Action<RoEquipmentPacket>? EquipmentChanged;
+    public event Action<RoPacketObservation<RoEquipmentPacket>>? EquipmentChanged;
+    public event Action<RoPacketObservation<RoEquipmentPacket>>? EquipmentIdentityMissing;
     public event Action<RoItemAddedPacket>? ItemAdded;
     public event Action<RoExperiencePacket>? ExperienceChanged;
     public event Action<RoProgressPacket>? ProgressChanged;
@@ -126,10 +129,13 @@ public sealed class NpcapPacketCapture : IDisposable
         _language = settings.Language;
         CancellationTokenSource? oldCancellation;
         CancellationTokenSource? newCancellation = null;
-        ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache;
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents;
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows;
         CharacterLoginObserver? loginObserver;
+        var target = new CaptureTarget(settings.PacketServerAddress, settings.PacketServerPort,
+            AppEnvironment.CharacterSessionsEnabled && settings.AutoDetectConnection && settings.PacketCaptureEnabled
+                ? settings.AllowedProcesses.Select(name => Path.GetFileNameWithoutExtension(name.Trim()))
+                    .Where(name => !string.IsNullOrEmpty(name)).ToHashSet(StringComparer.OrdinalIgnoreCase)
+                : null);
         int generation;
         lock (_lifecycleLock)
         {
@@ -145,7 +151,7 @@ public sealed class NpcapPacketCapture : IDisposable
             _clientStatusBridge?.Dispose();
             _clientStatusBridge = null;
             _springRoStatusCorrelationEnabled =
-                settings.PacketCaptureEnabled && !AppEnvironment.IsSmokeTest && GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo;
+                settings.PacketCaptureEnabled && !AppEnvironment.IsSmokeTest && GameServerProfile.UsesSpringRoClientStatus(settings.ServerProfile);
             if (_springRoStatusCorrelationEnabled)
             {
                 _clientStatusBridge = new SpringRoClientStatusBridge();
@@ -155,16 +161,23 @@ public sealed class NpcapPacketCapture : IDisposable
                 _ = Task.Run(bridge.Prepare);
             }
             if (AppEnvironment.IsDevelopment) _layoutDiagnostics.Begin(DateTime.UtcNow);
-            // Replace rather than clear: workers from the cancelled generation
-            // may finish parsing one last frame and must not repopulate the new
-            // connection's identity table.
-            _equipmentIdentityCache = new();
-            _pendingEquipmentEvents = new();
-            equipmentCache = _equipmentIdentityCache;
-            pendingEquipmentEvents = _pendingEquipmentEvents;
             tcpFlows = new();
             _playerAidObserver.Reset();
             if (AppEnvironment.CharacterSessionsEnabled) _characterSessions.OnCaptureInterrupted();
+            var discoveryServer = target.AutoDiscovery ? settings.ServerProfile : null;
+            if (discoveryServer is null || _discoveryServer != discoveryServer)
+            {
+                _mapLoginHandoff.Clear();
+                _rosterLevels.Clear();
+            }
+            _discoveryServer = discoveryServer;
+            if (discoveryServer is not null &&
+                _mapLoginHandoff.Take(target.Matches, target.IsOwnedGameConnection, Environment.TickCount64) is { } handoff)
+            {
+                _characterSessions.OnCandidate(discoveryServer, CharacterSessionFlow.FromOutbound(handoff.Flow),
+                    handoff.Login.CharacterId, handoff.Login.PlayerAid);
+                DebugLog.Write($"CHARACTER LOGIN RETAINED ACROSS ENDPOINT CHANGE: mapPort={handoff.Flow.DestinationPort}");
+            }
             loginObserver = AppEnvironment.CharacterSessionsEnabled ? new CharacterLoginObserver() : null;
             if (loginObserver is not null)
             {
@@ -193,12 +206,9 @@ public sealed class NpcapPacketCapture : IDisposable
             _cancellation = newCancellation;
         }
 
-        var address = settings.PacketServerAddress;
-        var port = settings.PacketServerPort;
         var cancellation = newCancellation!;
         SetState(generation, L("Пакеты: подключение к Npcap…", "Packets: connecting to Npcap…"));
-        _ = Task.Run(() => StartCaptureAsync(address, port, generation, equipmentCache,
-            pendingEquipmentEvents, tcpFlows, loginObserver, cancellation), CancellationToken.None);
+        _ = Task.Run(() => StartCaptureAsync(target, generation, tcpFlows, loginObserver, cancellation), CancellationToken.None);
     }
 
     private enum SessionResult
@@ -217,9 +227,7 @@ public sealed class NpcapPacketCapture : IDisposable
         public int FailedFirstOpen;
     }
 
-    private async Task StartCaptureAsync(string address, int port, int generation,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
+    private async Task StartCaptureAsync(CaptureTarget target, int generation,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
         CharacterLoginObserver? loginObserver,
         CancellationTokenSource cancellation)
@@ -241,11 +249,21 @@ public sealed class NpcapPacketCapture : IDisposable
                 return;
             }
 
-            var filter = BuildFilter(address, port);
+            var filter = BuildFilter(target.Address, target.Port);
+            if (target.AutoDiscovery)
+            {
+                // Other connections contribute only SYN metadata and matching
+                // login or roster headers. Their gameplay bytes stay filtered.
+                const string opcode = "tcp[((tcp[12] & 0xf0) >> 2):2]";
+                const string afterAccountEcho = "tcp[(((tcp[12] & 0xf0) >> 2) + 4):2]";
+                filter = $"({filter}) or (ip and tcp and ((tcp[13] & 0x12) = 0x02 or " +
+                         $"{opcode} = 0x7200 or {opcode} = 0x3604 or " +
+                         $"{opcode} = 0x6b00 or {opcode} = 0x9d09 or {opcode} = 0x720b or {opcode} = 0x2d08 or " +
+                         $"{afterAccountEcho} = 0x2d08 or {afterAccountEcho} = 0x6b00))";
+            }
             var stats = new GenerationStats();
             var workers = devices.Select(device => Task.Run(
-                () => CaptureDevice(device, filter, port, generation, stats, equipmentCache,
-                    pendingEquipmentEvents, tcpFlows, loginObserver, cancellationToken),
+                () => CaptureDevice(device, filter, target, generation, stats, tcpFlows, loginObserver, cancellationToken),
                 CancellationToken.None)).ToArray();
 
             // Report the aggregated first-open result once every adapter has
@@ -287,7 +305,7 @@ public sealed class NpcapPacketCapture : IDisposable
         }
         catch (Exception ex)
         {
-            SetState(generation, L($"Пакеты: ошибка запуска — {ex.Message}", $"Packets: startup error — {ex.Message}"));
+            SetState(generation, L("Пакеты: не удалось запустить захват", "Packets: could not start capture"));
             DebugLog.Write($"PACKET CAPTURE START ERROR: {ex}");
         }
         finally
@@ -300,10 +318,8 @@ public sealed class NpcapPacketCapture : IDisposable
         }
     }
 
-    private async Task CaptureDevice(PcapDeviceInfo device, string filter, int port, int generation,
+    private async Task CaptureDevice(PcapDeviceInfo device, string filter, CaptureTarget target, int generation,
         GenerationStats stats,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
         CharacterLoginObserver? loginObserver,
         CancellationToken cancellationToken)
@@ -321,8 +337,7 @@ public sealed class NpcapPacketCapture : IDisposable
             attempts++;
             var logFailure = attempts == 1 ||
                              Environment.TickCount64 - lastFailureLogTick >= FailureLogIntervalMs;
-            var result = CaptureDeviceSession(device, filter, port, generation, stats, equipmentCache,
-                pendingEquipmentEvents, tcpFlows, loginObserver, cancellationToken, logFailure, attempts == 1);
+            var result = CaptureDeviceSession(device, filter, target, generation, stats, tcpFlows, loginObserver, cancellationToken, logFailure, attempts == 1);
             if (cancellationToken.IsCancellationRequested ||
                 generation != Volatile.Read(ref _generation))
                 break;
@@ -360,10 +375,8 @@ public sealed class NpcapPacketCapture : IDisposable
         }
     }
 
-    private SessionResult CaptureDeviceSession(PcapDeviceInfo device, string filter, int port, int generation,
+    private SessionResult CaptureDeviceSession(PcapDeviceInfo device, string filter, CaptureTarget target, int generation,
         GenerationStats stats,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
         CharacterLoginObserver? loginObserver,
         CancellationToken cancellationToken, bool logFailure, bool firstAttempt)
@@ -432,10 +445,9 @@ public sealed class NpcapPacketCapture : IDisposable
             if (firstAttempt) Interlocked.Increment(ref stats.Opened);
 
             var linkType = NpcapNative.pcap_datalink(handle);
-            var active = IncrementActive(generation);
+            IncrementActive(generation);
             countedAsActive = true;
-            SetState(generation, L($"Пакеты: слушаю {active} интерфейс(а), фильтр {filter}",
-                $"Packets: listening on {active} adapter(s), filter {filter}"));
+            SetState(generation, L("Пакеты: захват работает", "Packets: capture is active"));
             DebugLog.Write($"PCAP LISTEN {device.Description}: dlt={linkType}; filter={filter}");
 
             breakRegistration = cancellationToken.Register(() =>
@@ -471,11 +483,27 @@ public sealed class NpcapPacketCapture : IDisposable
                         out var payload, out var flowKey, out var sequence, out var tcpFlags))
                 {
                     var closing = (tcpFlags & 0x05) != 0; // FIN or RST
+                    var incoming = target.Matches(flowKey.SourceAddress, flowKey.SourcePort);
+                    var outgoing = target.Matches(flowKey.DestinationAddress, flowKey.DestinationPort);
+                    if (!incoming && !outgoing && target.AutoDiscovery)
+                    {
+                        var roster = CharacterRosterLevels.ReadPayload(payload);
+                        if (roster.Length > 0)
+                            RememberRosterLevels(generation, target, flowKey, roster);
+                        lock (_lifecycleLock)
+                        {
+                            if (generation == _generation)
+                                _mapLoginHandoff.Observe(flowKey, sequence, tcpFlags, payload,
+                                    target.IsOwnedGameConnection, Environment.TickCount64);
+                        }
+                        continue;
+                    }
+
                     // Client-to-server first-packet inspection runs in
                     // a separate bounded observer. NEVER feed outbound bytes
                     // into the existing server-to-client packet parser.
                     if (loginObserver is not null &&
-                        flowKey.DestinationPort == port && flowKey.SourcePort != port)
+                        outgoing && !incoming)
                     {
                         loginObserver.Observe(flowKey, sequence, payload, closing);
                         if (closing && generation == Volatile.Read(ref _generation))
@@ -486,7 +514,7 @@ public sealed class NpcapPacketCapture : IDisposable
                         }
                         continue;
                     }
-                    if (flowKey.SourcePort != port || flowKey.DestinationPort == port)
+                    if (!incoming || outgoing)
                         continue;
 
                     if (!tcpFlows.TryGetValue(flowKey, out var flow))
@@ -500,18 +528,38 @@ public sealed class NpcapPacketCapture : IDisposable
                             if (!tcpFlows.TryGetValue(flowKey, out flow))
                             {
                                 PruneIdleFlows(tcpFlows, generation);
-                                flow = new TcpFlowState(CreateScanner(generation, equipmentCache,
-                                    pendingEquipmentEvents, CharacterSessionFlow.FromInbound(flowKey)));
+                                var scanner = CreateScanner(generation, CharacterSessionFlow.FromInbound(flowKey));
+                                if (target.AutoDiscovery)
+                                    scanner.CharacterRosterObserved += roster => RememberRosterLevels(generation, target, flowKey, roster);
+                                flow = new TcpFlowState(scanner);
                                 tcpFlows[flowKey] = flow;
                             }
                         }
                     }
                     if (AppEnvironment.CharacterSessionsEnabled && generation == Volatile.Read(ref _generation) &&
                         !payload.IsEmpty)
-                        _characterSessions.OnServerPayload(CharacterSessionFlow.FromInbound(flowKey));
+                    {
+                        var sessionFlow = CharacterSessionFlow.FromInbound(flowKey);
+                        if (_characterSessions.Current.Phase == CharacterSessionPhase.Connecting)
+                        {
+                            lock (_lifecycleLock)
+                            {
+                                if (generation == _generation &&
+                                    _characterSessions.Current.Phase == CharacterSessionPhase.Connecting &&
+                                    _characterSessions.CurrentFlow == sessionFlow)
+                                {
+                                    _characterSessions.OnServerPayload(sessionFlow);
+                                    if (target.AutoDiscovery)
+                                        ApplyRosterLevels(generation, target, flowKey, sessionFlow);
+                                }
+                            }
+                        }
+                    }
                     flow.Process(sequence, payload);
                     if (AppEnvironment.CharacterSessionsEnabled && generation == Volatile.Read(ref _generation) && closing)
                     {
+                        loginObserver?.Observe(new TcpFlowKey(flowKey.DestinationAddress, flowKey.DestinationPort,
+                            flowKey.SourceAddress, flowKey.SourcePort), 0, ReadOnlySpan<byte>.Empty, closing: true);
                         _characterSessions.OnConnectionClosed(CharacterSessionFlow.FromInbound(flowKey));
                         _playerAidObserver.OnClosed(CharacterSessionFlow.FromInbound(flowKey));
                         CloseTrackingSource(CharacterSessionFlow.FromInbound(flowKey));
@@ -581,10 +629,12 @@ public sealed class NpcapPacketCapture : IDisposable
     }
 
     private RoPacketStreamScanner CreateScanner(int generation,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         CharacterSessionFlow packetFlow)
     {
+        // All adapters share the retained TcpFlowState/scanner, but different
+        // TCP lifetimes must never resolve the same inventory index together.
+        var equipmentCache = new ConcurrentDictionary<ushort, RoEquipmentPacket>();
+        var pendingEquipmentEvents = new ConcurrentDictionary<ushort, RoPacketObservation<RoEquipmentPacket>>();
         var scanner = new RoPacketStreamScanner(equipmentCache);
         var clientStatusBridge = _clientStatusBridge;
         scanner.CaptureStatusWireBytes = _springRoStatusCorrelationEnabled &&
@@ -658,6 +708,8 @@ public sealed class NpcapPacketCapture : IDisposable
             correlatedHiding?.Reset();
             decodedHidingBeforeSkill = null;
             pendingStatuses.Reset();
+            equipmentCache.Clear();
+            pendingEquipmentEvents.Clear();
             source = RegisterTrackingSource(generation, packetFlow);
         };
         scanner.StatusChanged += packet => Forward(generation, () =>
@@ -698,7 +750,7 @@ public sealed class NpcapPacketCapture : IDisposable
         });
         scanner.SkillUsed += packet => Forward(generation, () => SkillUsed?.Invoke(Observe(packet, source)));
         scanner.SkillCooldown += packet => Forward(generation, () => SkillCooldown?.Invoke(Observe(packet, source)));
-        scanner.EquipmentChanged += packet => HandleEquipmentPacket(generation, packet,
+        scanner.EquipmentChanged += packet => HandleEquipmentPacket(Observe(packet, source),
             equipmentCache, pendingEquipmentEvents);
         scanner.ItemAdded += packet => Forward(generation, () =>
         {
@@ -790,6 +842,43 @@ public sealed class NpcapPacketCapture : IDisposable
         }
     }
 
+    private void RememberRosterLevels(int generation, CaptureTarget target, TcpFlowKey inbound,
+        CharacterRosterLevel[] roster)
+    {
+        if (target.OwnedGameProcess(Reverse(inbound)) is not { } processId) return;
+        lock (_lifecycleLock)
+        {
+            if (generation != _generation) return;
+            var now = Environment.TickCount64;
+            foreach (var (key, entry) in _rosterLevels.ToArray())
+                if (now - entry.SeenAt > RosterLevelLifetimeMs) _rosterLevels.Remove(key);
+            if (_rosterLevels.Count + roster.Length > 128) _rosterLevels.Clear();
+            foreach (var level in roster)
+                _rosterLevels[(processId, level.CharacterId)] = (level, now);
+        }
+    }
+
+    private void ApplyRosterLevels(int generation, CaptureTarget target, TcpFlowKey inbound,
+        CharacterSessionFlow flow)
+    {
+        if (!_characterSessions.TryResolve(flow, out var session) || session.CharacterId is not { } cid ||
+            target.OwnedGameProcess(Reverse(inbound)) is not { } processId)
+            return;
+        lock (_lifecycleLock)
+        {
+            if (generation != _generation || !_characterSessions.IsCurrent(session) ||
+                !_rosterLevels.Remove((processId, cid), out var entry) ||
+                Environment.TickCount64 - entry.SeenAt > RosterLevelLifetimeMs)
+                return;
+
+            ForwardCharacterPacket(flow, new RoProgressPacket(11, entry.Levels.BaseLevel), CharacterProgressChanged);
+            ForwardCharacterPacket(flow, new RoProgressPacket(55, entry.Levels.JobLevel), CharacterProgressChanged);
+        }
+    }
+
+    private static TcpFlowKey Reverse(TcpFlowKey flow) =>
+        new(flow.DestinationAddress, flow.DestinationPort, flow.SourceAddress, flow.SourcePort);
+
     private void ForwardCharacterPacket<T>(CharacterSessionFlow flow, T packet,
         Action<CharacterSessionPacket<T>>? callback)
     {
@@ -803,41 +892,42 @@ public sealed class NpcapPacketCapture : IDisposable
         if (generation == Volatile.Read(ref _generation)) action();
     }
 
-    private void HandleEquipmentPacket(int generation, RoEquipmentPacket packet,
+    private void HandleEquipmentPacket(RoPacketObservation<RoEquipmentPacket> observation,
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents)
+        ConcurrentDictionary<ushort, RoPacketObservation<RoEquipmentPacket>> pendingEquipmentEvents)
     {
-        if (generation != Volatile.Read(ref _generation)) return;
-
+        if (!IsCurrentObservation(observation)) return;
+        var packet = observation.Packet;
         if (packet.ItemId > 0)
         {
             equipmentCache[packet.InventoryIndex] = packet;
-            EquipmentChanged?.Invoke(packet);
-
-            // An equip/unequip acknowledgement can arrive on one adapter before
-            // the inventory list is observed on another. Replay it as soon as
-            // the complete identity becomes available so swaps are never lost.
-            if (pendingEquipmentEvents.TryRemove(packet.InventoryIndex, out var pending))
+            EquipmentChanged?.Invoke(observation);
+            if (pendingEquipmentEvents.TryRemove(packet.InventoryIndex, out var pending) &&
+                IsCurrentObservation(pending))
             {
-                var resolved = CopyEquipmentIdentity(pending, packet);
+                var resolved = CopyEquipmentIdentity(pending.Packet, packet);
+                // A later snapshot is authoritative for current wear state.
+                // Keep the original receipt time so it cannot complete a newly
+                // armed learning window with an earlier equip action.
+                if (packet.PacketId is 0x00A4 or 0x0B39)
+                    resolved = resolved with { Equipped = packet.Equipped };
                 DebugLog.Write($"PACKET EQUIPMENT RESOLVED: packet=0x{resolved.PacketId:X4}; " +
-                               $"index={resolved.InventoryIndex}; item={resolved.ItemId}; " +
-                               $"variant={resolved.VariantKey}");
-                EquipmentChanged?.Invoke(resolved);
+                               $"index={resolved.InventoryIndex}; item={resolved.ItemId}");
+                EquipmentChanged?.Invoke(pending with { Packet = resolved });
             }
             return;
         }
-
         if (equipmentCache.TryGetValue(packet.InventoryIndex, out var identity))
         {
-            EquipmentChanged?.Invoke(CopyEquipmentIdentity(packet, identity));
+            EquipmentChanged?.Invoke(observation with { Packet = CopyEquipmentIdentity(packet, identity) });
             return;
         }
-
-        // Do not forward an unidentified acknowledgement: it cannot be matched
-        // reliably and could incorrectly clear another item in the same slot.
-        // Keep the latest state until the inventory identity arrives.
-        pendingEquipmentEvents[packet.InventoryIndex] = packet;
+        if (pendingEquipmentEvents.Count >= 256 && !pendingEquipmentEvents.ContainsKey(packet.InventoryIndex))
+            pendingEquipmentEvents.Clear();
+        pendingEquipmentEvents[packet.InventoryIndex] = observation;
+        // Diagnostic/UI event only: unidentified acknowledgements never change
+        // a tracked item or clear another item in the same slot.
+        EquipmentIdentityMissing?.Invoke(observation);
         DebugLog.Write($"PACKET EQUIPMENT PENDING: packet=0x{packet.PacketId:X4}; " +
                        $"index={packet.InventoryIndex}; location=0x{packet.WearLocation:X}; " +
                        $"equipped={packet.Equipped}");
@@ -855,6 +945,24 @@ public sealed class NpcapPacketCapture : IDisposable
         Card4 = identity.Card4,
         OptionsSignature = identity.OptionsSignature
     };
+
+    private sealed class CaptureTarget(string address, int port, IReadOnlySet<string>? allowedProcesses)
+    {
+        private readonly uint? _addressValue = IPAddress.TryParse(address, out var parsed) &&
+            parsed.AddressFamily == AddressFamily.InterNetwork
+            ? BinaryPrimitives.ReadUInt32BigEndian(parsed.GetAddressBytes()) : null;
+
+        public string Address => address;
+        public int Port => port;
+        public bool AutoDiscovery => allowedProcesses is { Count: > 0 };
+        public bool Matches(uint ip, ushort candidatePort) =>
+            port == candidatePort && (!_addressValue.HasValue || _addressValue == ip);
+
+        public bool IsOwnedGameConnection(TcpFlowKey flow) => OwnedGameProcess(flow).HasValue;
+
+        public int? OwnedGameProcess(TcpFlowKey flow) =>
+            allowedProcesses is null ? null : TcpConnectionDetector.OwnedGameProcess(flow, allowedProcesses);
+    }
 
     private static string BuildFilter(string address, int port)
     {
@@ -1190,11 +1298,10 @@ internal static class NetworkFrameParser
         tcpFlags = frame[tcpOffset + 13];
         var payloadOffset = tcpOffset + tcpHeaderLength;
         if (tcpHeaderLength < 20) return false;
-        // A pure FIN/RST segment carries no payload but must still close the
-        // flow, so report it with an empty payload.
+        // Bare SYN, FIN and RST still carry flow-lifetime information.
         if (payloadOffset >= ipEnd)
         {
-            if ((tcpFlags & 0x05) == 0) return false;
+            if ((tcpFlags & 0x07) == 0) return false;
             flowKey = new TcpFlowKey(
                 BinaryPrimitives.ReadUInt32BigEndian(frame.AsSpan(ipOffset + 12, 4)),
                 BinaryPrimitives.ReadUInt16BigEndian(frame.AsSpan(tcpOffset, 2)),

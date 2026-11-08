@@ -10,6 +10,7 @@ on:
       - "feature/settings-character-overlays"
       - "feature/roquestie-mvp"
       - "feature/farming-sessions-mvp-tools"
+      - "feature/muhro-packet-support"
   pull_request:
     branches:
       - "dev/roaura-2-ui"
@@ -40,7 +41,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Prepare pinned ROQuestie consumer for reader tests
-        if: (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools')
+        if: (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev')
         shell: python
         run: |
           import hashlib, os, pathlib, subprocess
@@ -56,14 +57,14 @@ jobs:
           assert hashlib.sha256(semantic).hexdigest() == 'af4de49aa11587dc6ec971aa019c6ff60e6ed4aa3fee802c61282db65ac7091d'
           pathlib.Path('Data/quest_semantic.sqlite').write_bytes(semantic)
 
-      - name: Bundle exact MVP minimaps
+      - name: Bundle timer minimaps and sprites
         shell: pwsh
         run: python tools/prepare_mvp_minimaps.py
 
       - name: Run logic and UI regression tests
         env:
-          ROAURA_QUEST_SEMANTIC_TEST_PATH: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools') && format('{0}/Data/quest_semantic.sqlite', github.workspace) || '' }}
-          ROAURA_QUEST_CATALOG_TEST_PATH: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools') && format('{0}/questie_catalog.sqlite', runner.temp) || '' }}
+          ROAURA_QUEST_SEMANTIC_TEST_PATH: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev') && format('{0}/Data/quest_semantic.sqlite', github.workspace) || '' }}
+          ROAURA_QUEST_CATALOG_TEST_PATH: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev') && format('{0}/questie_catalog.sqlite', runner.temp) || '' }}
         shell: pwsh
         run: dotnet test .\RoAura.Tests\RoAura.Tests.csproj -c Release --logger "trx;LogFileName=regression.trx"
 
@@ -84,9 +85,14 @@ jobs:
 
       - name: Build development portable package
         env:
-          ROAURA_QUEST_UI_SNAPSHOTS: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools') && format('{0}/artifacts/roquestie-ui', github.workspace) || '' }}
+          ROAURA_QUEST_UI_SNAPSHOTS: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev') && format('{0}/artifacts/roquestie-ui', github.workspace) || '' }}
         shell: pwsh
-        run: .\build-release.ps1
+        run: |
+          if ('${{ github.ref_name }}' -in @('feature/muhro-packet-support', 'integration/effects-video-guides', 'integration/current-dev')) {
+            .\build-development.ps1
+          } else {
+            .\build-release.ps1
+          }
 
       - name: Verify development package
         shell: pwsh
@@ -94,6 +100,11 @@ jobs:
           [xml]$project = Get-Content -Raw .\RoAura.csproj
           $version = [string]$project.Project.PropertyGroup.Version
           $archive = ".\artifacts\RoAura-$version-portable.zip"
+          if ('${{ github.ref_name }}' -in @('feature/muhro-packet-support', 'integration/effects-video-guides', 'integration/current-dev')) {
+            $archives = @(Get-ChildItem .\artifacts\dev\RoAura-Dev-*-portable.zip)
+            if ($archives.Count -ne 1) { throw 'Expected one isolated development portable.' }
+            $archive = $archives[0].FullName
+          }
           if (-not (Test-Path $archive -PathType Leaf)) {
             throw "Portable archive was not created: $archive"
           }
@@ -120,6 +131,7 @@ jobs:
           name: RoAura-development-${{ github.run_number }}-${{ github.sha }}
           path: |
             artifacts/*-portable.zip
+            artifacts/dev/*-portable.zip
             artifacts/roquestie-ui/*.png
           if-no-files-found: error
 

@@ -103,9 +103,8 @@ public sealed class RoPacketStreamScanner
     public RoPacketStreamScanner(
         ConcurrentDictionary<ushort, RoEquipmentPacket>? sharedEquipmentCache = null)
     {
-        // Npcap can observe the same connection through several adapters
-        // (especially with ExitLag/VPN/loopback). All scanners must resolve
-        // equip acknowledgements against one inventory identity table.
+        // The optional cache belongs to this TCP lifetime. Capture adapters
+        // share its retained scanner, never inventory from another connection.
         _inventoryEquipment = sharedEquipmentCache ?? new();
     }
 
@@ -125,6 +124,7 @@ public sealed class RoPacketStreamScanner
     public event Action<RoItemAddedPacket>? ItemAdded;
     public event Action<RoExperiencePacket>? ExperienceChanged;
     public event Action<RoProgressPacket>? ProgressChanged;
+    internal event Action<CharacterRosterLevel[]>? CharacterRosterObserved;
     public event Action<RoZenyPacket>? ZenyChanged;
 
     public void ResetStream()
@@ -132,6 +132,7 @@ public sealed class RoPacketStreamScanner
         _carry = [];
         _knownBoundary = true;
         _streamOffset = 0;
+        _inventoryEquipment.Clear();
         StreamReset?.Invoke();
     }
 
@@ -162,6 +163,16 @@ public sealed class RoPacketStreamScanner
                 LayoutProbed.Invoke(probe);
             switch (packetId)
             {
+                case 0x082D when frameLength == 29:
+                    offset += frameLength - 1;
+                    break;
+
+                case 0x006B or 0x099D or 0x0B72 when frameLength > 0 && CharacterRosterObserved is not null:
+                    var roster = CharacterRosterLevels.Read(combined.AsSpan(offset, frameLength));
+                    if (roster.Length > 0) CharacterRosterObserved.Invoke(roster);
+                    offset += frameLength - 1;
+                    break;
+
                 case 0x0B41 when TryReadRtmItemAdded(combined, offset, out var length, out var itemAdded):
                     if (TryReadRtmAddedEquipment(combined, offset, out var addedEquipment))
                     {
@@ -173,13 +184,23 @@ public sealed class RoPacketStreamScanner
                     offset += length - 1;
                     break;
 
-                case 0x0ACC when TryReadExperience(combined, offset, out var length, out var experience):
+                case 0x0ACC or 0x07F6 when TryReadExperience(combined, offset, packetId, out var length, out var experience):
                     ExperienceChanged?.Invoke(experience);
                     offset += length - 1;
                     break;
 
                 case 0x0ACB when TryReadProgress(combined, offset, out var length, out var progress):
                     ProgressChanged?.Invoke(progress);
+                    offset += length - 1;
+                    break;
+
+                case 0x00B0 when frameLength == 8 && TryReadExperienceLevel(combined, offset, out var level):
+                    ProgressChanged?.Invoke(level);
+                    offset += frameLength - 1;
+                    break;
+
+                case 0x00B1 when _knownBoundary && TryReadProgress(combined, offset, out var length, out var legacyProgress, legacy: true):
+                    ProgressChanged?.Invoke(legacyProgress);
                     offset += length - 1;
                     break;
 
@@ -366,9 +387,20 @@ public sealed class RoPacketStreamScanner
     // claim that SpringRO's complete packet table has been identified.
     private int KnownFrameLength(byte[] data, int offset, ushort opcode)
     {
+        if (CharacterRosterObserved is not null)
+        {
+            if (opcode == 0x082D)
+                return offset + 4 > data.Length ? -1 : ReadUInt16(data, offset + 2) == 29 ? 29 : 0;
+            if (_knownBoundary && opcode is 0x006B or 0x099D or 0x0B72)
+                return CharacterRosterLevels.FrameLength(data.AsSpan(offset));
+        }
+
+        if (opcode == 0x00B0 && !_knownBoundary)
+            return FindExperienceLevelBoundary(data, offset);
+
         var fixedLength = opcode switch
         {
-            0x0B41 => 70, 0x0ACC => 18, 0x0ACB => 12, 0x00B1 => 8,
+            0x0B41 => 70, 0x0ACC => 18, 0x07F6 => 14, 0x0ACB => 12, 0x00B1 => 8,
             0x00AA or 0x00AC => offset + 7 <= data.Length && data[offset + 6] > 1 ? 9 : 7,
             0x0999 => 11, 0x099A => 9,
             0x0283 when _knownBoundary => 6,
@@ -378,6 +410,10 @@ public sealed class RoPacketStreamScanner
             0x07FB => 25, 0x0B1A => 29, 0x013E => 24,
             0x011A => 15, 0x09CB => 17, 0x0117 => 18,
             0x0114 => 31, 0x01DE => 33, 0x043D => 8,
+            // Modern basic-attack notification. Muh.exe's dispatch reads its
+            // final DWORD at +30. Consume the opaque body instead of finding
+            // accidental skill/equipment opcode bytes inside damage values.
+            0x08C8 => 34,
             // Fixed common server frames whose payload is not interesting here.
             0x00B0 when _knownBoundary => 8,
             0x007F when _knownBoundary => 6,
@@ -649,17 +685,20 @@ public sealed class RoPacketStreamScanner
         return true;
     }
 
-    private static bool TryReadExperience(byte[] data, int offset, out int length,
+    private static bool TryReadExperience(byte[] data, int offset, ushort packetId, out int length,
         out RoExperiencePacket packet)
     {
         packet = default;
-        length = ExperiencePacketSize;
+        var modern = packetId == 0x0ACC;
+        length = modern ? ExperiencePacketSize : 14;
         if (offset + length > data.Length) return false;
 
         var aid = ReadUInt32(data, offset + 2);
-        var amount = BinaryPrimitives.ReadInt64LittleEndian(data.AsSpan(offset + 6, 8));
-        var experienceType = ReadUInt16(data, offset + 14);
-        var sourceType = ReadUInt16(data, offset + 16);
+        var amount = modern
+            ? BinaryPrimitives.ReadInt64LittleEndian(data.AsSpan(offset + 6, 8))
+            : BinaryPrimitives.ReadInt32LittleEndian(data.AsSpan(offset + 6, 4));
+        var experienceType = ReadUInt16(data, offset + length - 4);
+        var sourceType = ReadUInt16(data, offset + length - 2);
         if (aid == 0 || experienceType is not (1 or 2) || sourceType > 1 || amount == 0)
             return false;
 
@@ -668,15 +707,48 @@ public sealed class RoPacketStreamScanner
     }
 
     private static bool TryReadProgress(byte[] data, int offset, out int length,
-        out RoProgressPacket packet)
+        out RoProgressPacket packet, bool legacy = false)
     {
         packet = default;
-        length = ProgressPacketSize;
+        length = legacy ? 8 : ProgressPacketSize;
         if (offset + length > data.Length) return false;
 
         var parameter = ReadUInt16(data, offset + 2);
         if (parameter is not (1 or 2 or 22 or 23)) return false;
-        var value = BinaryPrimitives.ReadUInt64LittleEndian(data.AsSpan(offset + 4, 8));
+        var value = legacy ? ReadUInt32(data, offset + 4) :
+            BinaryPrimitives.ReadUInt64LittleEndian(data.AsSpan(offset + 4, 8));
+        packet = new RoProgressPacket(parameter, value);
+        return true;
+    }
+
+    // After unrecognized data, require a consecutive character parameter
+    // update before interpreting a level-shaped byte sequence as a frame.
+    private static int FindExperienceLevelBoundary(byte[] data, int offset)
+    {
+        var remaining = data.Length - offset;
+        if (remaining < 4) return -1;
+        if (ReadUInt16(data, offset + 2) is not (11 or 55)) return 0;
+        if (remaining < 8) return -1;
+        if (ReadUInt32(data, offset + 4) is 0 or > 1000) return 0;
+
+        var next = offset + 8;
+        if (remaining < 10) return -1;
+        var nextOpcode = ReadUInt16(data, next);
+        if (nextOpcode is not (0x00B0 or 0x00B1 or 0x0ACB)) return 0;
+        if (remaining < 12) return -1;
+        var parameter = ReadUInt16(data, next + 2);
+        return nextOpcode == 0x00B0
+            ? parameter <= 55 ? 8 : 0
+            : parameter is 1 or 2 or 20 or 22 or 23 ? 8 : 0;
+    }
+
+    private static bool TryReadExperienceLevel(byte[] data, int offset, out RoProgressPacket packet)
+    {
+        packet = default;
+        var parameter = ReadUInt16(data, offset + 2);
+        if (parameter is not (11 or 55)) return false;
+        var value = ReadUInt32(data, offset + 4);
+        if (value is 0 or > ushort.MaxValue) return false;
         packet = new RoProgressPacket(parameter, value);
         return true;
     }

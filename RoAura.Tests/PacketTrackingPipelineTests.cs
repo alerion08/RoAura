@@ -155,8 +155,7 @@ public sealed class PacketTrackingPipelineTests
     private static RoPacketStreamScanner Scanner(NpcapPacketCapture capture, CharacterSessionFlow flow) =>
         (RoPacketStreamScanner)typeof(NpcapPacketCapture).GetMethod("CreateScanner",
             BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(capture,
-            [0, new ConcurrentDictionary<ushort, RoEquipmentPacket>(),
-                new ConcurrentDictionary<ushort, RoEquipmentPacket>(), flow])!;
+            [0, flow])!;
 
     private static byte[] Status(uint actor)
     {

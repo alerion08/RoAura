@@ -1,5 +1,64 @@
 # Regression checklist
 
+## Effects video guides — 2026-11-05
+
+- [ ] In both UI languages, open both guides in the Effects list and the guide in the active panels tab. Verify the title and matching clip, including on an empty list.
+- [ ] With network disconnected, open a guide with the keyboard, let it loop, close it with Escape or the Close button, and reopen it. Repeat at the minimum application window size in light and dark themes.
+- [ ] Verify all three silent MP4s are included in the portable and installed application under `Assets/Tutorials`.
+
+## Effect tracking tutorial — 2026-11-05
+
+Automated evidence: [Windows run 135, attempt 2](https://github.com/alerion08/RoAura/actions/runs/42042386365/attempts/2) passed 409 tests, popup and local playback on `8dff7037`. Portable MP4 bytes match the approved tutorial.
+
+- [ ] In Effects, activate the tutorial hint with mouse and keyboard. The centered window plays the bundled six-step video with the network disconnected. Close it with Escape or the Close button and reopen it.
+- [ ] Verify the video is present beside the portable application and in the installer payload. On a Windows edition without the system media components, the popup shows a playback error and can be closed.
+
+## Timer form usability and quest status — 2026-11-05
+
+Automated evidence: [Windows run 134](https://github.com/alerion08/RoAura/actions/runs/42000698787) passed 409 tests and the native form/layout probe on `6919c1d7`. The boxes below cover manual acceptance.
+
+- [ ] Click the text and arrow of the MVP/Monsters field. The dropdown opens from either point and the editable search still accepts input.
+- [ ] Resize the timer form vertically. All locations are reachable with one scrollbar in the left column. Wheel over a card to scroll; the scrollbar disappears when the full column fits.
+- [ ] Check the BETA badge beside Quests in the sidebar and ROQuestie in the section header in both themes.
+
+## Mixed monster timers and panel appearance — 2026-11-05
+
+Automated evidence: [Windows run 131](https://github.com/alerion08/RoAura/actions/runs/41993544078) passed 409 tests and native startup/input on `694f57c7`. All 352 catalog maps and 1,437 sprites were bundled. The checks below cover real-client acceptance.
+
+- [ ] Add one timer from each category in the app and in game. Check search isolation after typing, clearing, closing the dropdown and switching category.
+- [ ] Choose another Poring location and restart RoAura. The saved timer retains its location and category. MVP and regular timers share the numbered list and hotkeys.
+- [ ] Run with network disconnected. Verify bundled sprites/minimaps, map-code badge and passive hover on the badge, timer name and countdown.
+- [ ] Set background color/opacity and border color/thickness. Toggle each independently and verify live preview, overlay and settings persistence. Move a transparent panel in layout mode.
+
+
+## Numbered MVP shortcuts and generic statistics — 2026-11-05
+
+Automated evidence: [Windows run 127](https://github.com/alerion08/RoAura/actions/runs/41964880912), tested source `4d15d2b0`: 408 tests and native startup/input passed, including slots 1/12, cancel/confirm, marker placement, focus and keypress timestamp. The boxes below remain real-client acceptance; automated windows do not establish live MuhRO traffic or fullscreen/DPI behavior.
+
+- [ ] Timers 1–12 in Settings match the numbers in the complete application/overlay list. A stopped/disabled timer keeps its slot; completion and hiding do not move other bindings. Extra timers beyond twelve remain usable without indexed shortcuts.
+- [ ] Assign/clear/reassign arbitrary exact chords for slots 1 and 12. Existing F8/F9/Add/quest/layout shortcuts keep priority. Duplicate indexed bindings are disabled and conflicts are shown. Settings/presets preserve all twelve values; old settings default to None.
+- [ ] A restart hotkey preloads the correct name/ID/interval/map and sound settings, sets kill time to keypress, and clears the old marker. Place a marker, wait, confirm: count/ID/object stay the same and the deadline uses keypress rather than confirmation. Repeat across midnight and with a custom timer absent from the current reference catalog.
+- [ ] Cancel/repeated hotkey leaves the existing timer unchanged. Different-slot hotkeys switch drafts. Closing/changing server/client/preset or deleting the target does not recreate it or apply an old draft.
+- [ ] Verify actual marker clicks, theme/layout, form dragging, focus restore and full-row minimap hover with numbered names; no ordinary overlay intercepts modifiers or screenshot keys.
+- [ ] MuhRO and Other: Statistics opens, EXP/Zeny/loot/session state update and reward/rate HUD is visible with packets on. Packets off disables Statistics but leaves manual MVP controls working. Database/market availability still follows its own supported servers.
+- [ ] Recheck SpringRO/RTM/ToC statistics and timers, per-profile timer collection selection, saved positions, existing hotkeys and accepted MuhRO packet functionality.
+
+
+## MuhRO packet support — development acceptance
+
+Automated fixtures use invented actor/character values and standard packet structures; they are not captured user traffic.
+
+- [ ] Select MuhRO in Settings; `Muh.exe` is found without entering a process name. Custom process names and prior server profiles remain intact.
+- [ ] Start before character login. Learn Enchant Poison (observed Status 6 / Skill 138 / 165 seconds), refresh it, remove it early and let it expire. Effects and standalone reminders follow the same state once.
+- [ ] Learn a second different finite/indefinite status and its removal; another actor cannot teach or toggle our status. No hardcoded skill-to-status mapping is accepted.
+- [ ] Learn/recast one damaging skill and one self buff. Check exact Skill ID, configured countdown and actorless 0x043D handling. Failed casts do not teach or trigger.
+- [ ] Start after game login, equip an item with an empty inventory cache: show the explicit relog/retry message, retain the tracker, and do not clear another slot. Relog with RoAura running; wait for inventory, then arm learning and equip again.
+- [ ] Learn two same-ID items with different refine/cards/options. Re-equip, swap, relog and repeat; reused inventory indices cannot replace fingerprints. A login snapshot never completes learning by itself.
+- [ ] Auto discovery ignores the client's news/HTTPS connection and accepts its real game/loopback connection. Switching windows/clients, disconnect and reconnect do not apply old-source queued events.
+- [ ] Repeat core status/skill/equipment checks on SpringRO and RTM; SpringRO's decoded client bridge remains specific to its verified EXE.
+- [ ] Confirm the isolated test package uses RoAura-Dev, without changing stable settings, and contains no private data. Gameplay acceptance is separate from Windows CI/native smoke results.
+
+
 ## Release 3.3.0 completion — 2026-11-03 documentation update
 
 Published v3.3.0 on 2026-11-02 from main commit `7d70b173b7c10cc4ab7ae3f268ff89cb9474e19e` (PR #10).
@@ -698,3 +757,15 @@ The generic GUIDE.md index heading was corrected to 3.4.0 before the final candi
 
 
 Published release evidence: [v3.4.0](https://github.com/alerion08/RoAura/releases/tag/v3.4.0), tagged commit `8bceb8c81c6530af4a634d09d53321b9b4953e22`, [successful main workflow 41827714651](https://github.com/alerion08/RoAura/actions/runs/41827714651) attempt 1. All 382 tests and eight ToC checks passed; native input/startup, portable, installer, silent installation and installed payload/clean package checks passed. Downloaded workflow payload/manifest hashes exactly match the three public release asset digests. Primary PE versions and all five Markdown headers are 3.4.0; 53 maps; no personal/runtime data. Published SHA256 values are in PROJECT_STATE.md. Remaining manual environment coverage above is retained, not marked complete by automation.
+
+## Statistics EXP bars
+
+- [ ] Enable the bars in Statistics. Check Base and Job level, EXP totals, remaining EXP and percentages against the client. Check elapsed time on the left and the correct EXP/hour on the right.
+- [ ] Change width, height and X/Y, then disable Job EXP. Verify Base EXP stays in place, settings survive restart and presets retain their own values.
+- [ ] Gain a Base or Job level. Verify only that level's timer restarts. Pause or reset the farming session, relog and switch characters to verify EXP rates and observed levels stay scoped correctly.
+
+## Character statistics capture recovery
+
+- [ ] With auto-detection enabled, enter the character on an endpoint different from the last saved one. Verify the CID and the next Base/Job EXP update after the capture target changes. Repeat via a local game proxy.
+- [ ] Relog from character A to B and back. Check that closed or competing connections do not contribute EXP to the wrong character, including when two clients use the same server endpoint.
+- [ ] Verify positive EXP on legacy and modern clients. EXP loss must not increase the farming total. With auto-detection off, the configured endpoint remains the only capture target.

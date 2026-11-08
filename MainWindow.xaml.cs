@@ -33,6 +33,7 @@ public partial class MainWindow : Window
     private EquipmentTracker? _learningEquipment;
     private DateTime _learningUntil;
     private int _learningGeneration;
+    private readonly PacketLearningDiagnostics _learningDiagnostics = new();
     private readonly ObservableCollection<MonsterEntry> _monsters;
     private IReadOnlyDictionary<int, ItemEntry> _items;
     private ICollectionView? _effectsView;
@@ -45,6 +46,7 @@ public partial class MainWindow : Window
     private readonly DispatcherTimer _goldGoblinSessionTimer;
     private readonly DispatcherTimer _saveDebounceTimer = new() { Interval = TimeSpan.FromMilliseconds(500) };
     private bool _appliedPacketCaptureEnabled;
+    private bool _appliedAutoDetectConnection;
     private string _appliedServerProfile = "";
     private string _appliedPacketServerAddress = "";
     private int _appliedPacketServerPort;
@@ -65,7 +67,7 @@ public partial class MainWindow : Window
         NpcapPacketCapture packetCapture, GoldGoblinService goldGoblin)
     {
         _goldGoblin = goldGoblin;
-        _monsters = new ObservableCollection<MonsterEntry>(MonsterCatalogService.Load(settings.MvpDatabaseVersion));
+        _monsters = new ObservableCollection<MonsterEntry>(MonsterCatalogService.LoadForTimers(settings.MvpDatabaseVersion));
         _items = ItemCatalogService.Load(settings.LootDatabaseVersion);
         RefreshGoldGoblinItemSuggestions();
         MvpMonsterView = CollectionViewSource.GetDefaultView(_monsters);
@@ -84,6 +86,7 @@ public partial class MainWindow : Window
         _packetCapture.SkillUsed += OnLearningSkillObserved;
         _packetCapture.SkillCooldown += OnLearningCooldownObserved;
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
+        _packetCapture.EquipmentIdentityMissing += OnLearningEquipmentObserved;
         DataContext = settings;
         RefreshMvpTimerDetails();
         _effectsView = CollectionViewSource.GetDefaultView(settings.Effects);
@@ -221,6 +224,7 @@ public partial class MainWindow : Window
 
     private void ApplyServerProfile(bool save)
     {
+        GameServerProfile.EnsureClientProcess(Settings);
         var profile = GameServerProfile.Normalize(Settings.ServerProfile);
         var supportsDatabases = GameServerProfile.SupportsServerDatabases(profile);
         var supportsOverlayDatabase = GameServerProfile.SupportsDatabaseOverlay(profile);
@@ -233,7 +237,7 @@ public partial class MainWindow : Window
             Settings.MvpDatabaseVersion = version;
             Settings.LootDatabaseVersion = version;
             _monsters.Clear();
-            foreach (var monster in MonsterCatalogService.Load(version)) _monsters.Add(monster);
+            foreach (var monster in MonsterCatalogService.LoadForTimers(version)) _monsters.Add(monster);
             MvpMonsterView.Refresh();
             RefreshMvpTimerDetails();
             _items = ItemCatalogService.Load(version);
@@ -253,7 +257,15 @@ public partial class MainWindow : Window
 
     private void Settings_RuntimeChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (_applyingPreset || e.PropertyName != nameof(AppSettings.PacketCaptureEnabled)) return;
+        if (_applyingPreset) return;
+        if (e.PropertyName is nameof(AppSettings.TimersShowBackground) or nameof(AppSettings.TimersBackgroundColor) or
+            nameof(AppSettings.TimersBackgroundOpacityPercent) or nameof(AppSettings.TimersShowBorder) or
+            nameof(AppSettings.TimersBorderColor) or nameof(AppSettings.TimersBorderThickness))
+        {
+            RequestSave();
+            return;
+        }
+        if (e.PropertyName != nameof(AppSettings.PacketCaptureEnabled)) return;
         // Stop workers before clearing the old status timeline. Enabling starts a fresh capture.
         EndOverlayEditModes();
         _learningGeneration++;
@@ -812,11 +824,11 @@ public partial class MainWindow : Window
     {
         if (DataContext is not AppSettings) return;
         _monsters.Clear();
-        foreach (var monster in MonsterCatalogService.Load(Settings.MvpDatabaseVersion))
+        foreach (var monster in MonsterCatalogService.LoadForTimers(Settings.MvpDatabaseVersion))
             _monsters.Add(monster);
         MvpMonsterView.Refresh();
-        SetStatus(T($"База MVP: {Settings.MvpDatabaseVersion} ({_monsters.Count} MVP).",
-            $"MVP database: {Settings.MvpDatabaseVersion} ({_monsters.Count} MVPs)."));
+        SetStatus(T($"Каталог таймеров: {Settings.MvpDatabaseVersion}.",
+            $"Timer catalog: {Settings.MvpDatabaseVersion}."));
     }
 
     private void CreatePreset_Click(object sender, RoutedEventArgs e)
@@ -974,6 +986,7 @@ public partial class MainWindow : Window
     private void RememberPacketCaptureConfiguration()
     {
         _appliedPacketCaptureEnabled = Settings.PacketCaptureEnabled;
+        _appliedAutoDetectConnection = Settings.AutoDetectConnection;
         _appliedServerProfile = Settings.ServerProfile;
         _appliedPacketServerAddress = Settings.PacketServerAddress;
         _appliedPacketServerPort = Settings.PacketServerPort;
@@ -986,6 +999,7 @@ public partial class MainWindow : Window
         if (App.IsSmokeTest()) return true;
         var changed = force || _appliedServerProfile != Settings.ServerProfile ||
                       _appliedPacketCaptureEnabled != Settings.PacketCaptureEnabled ||
+                      _appliedAutoDetectConnection != Settings.AutoDetectConnection ||
                       !string.Equals(_appliedPacketServerAddress, Settings.PacketServerAddress,
                           StringComparison.OrdinalIgnoreCase) ||
                       _appliedPacketServerPort != Settings.PacketServerPort;
@@ -1010,6 +1024,7 @@ public partial class MainWindow : Window
     {
         Settings.AutoDetectConnection = true;
         DetectConnection(userInitiated: true, restartCapture: true);
+        ApplyPacketCaptureIfChanged();
     }
 
     private bool DetectConnection(bool userInitiated, bool restartCapture)
@@ -1020,8 +1035,10 @@ public partial class MainWindow : Window
             .ToList();
         if (processNames.Count == 0) processNames = Settings.AllowedProcesses;
 
+        var preferredPid = ForegroundProcess.TryFindWindow(processNames, out var game, out _)
+            ? ForegroundProcess.ProcessIdForWindow(game) : 0;
         var connection = TcpConnectionDetector.Detect(processNames,
-            Settings.PacketServerAddress, Settings.PacketServerPort);
+            Settings.PacketServerAddress, Settings.PacketServerPort, preferredPid);
         if (!connection.HasValue)
         {
             if (userInitiated)
@@ -1499,6 +1516,7 @@ public partial class MainWindow : Window
         _learningReminder = null;
         _learningEquipment = null;
         _learningStartedUtc = DateTime.UtcNow;
+        _learningDiagnostics.Begin(_learningStartedUtc);
         _learningUntil = _learningStartedUtc.AddSeconds(20);
         _learningObservedSummary = "";
         // Learning only observes the already-running packet stream. Restarting
@@ -1507,8 +1525,8 @@ public partial class MainWindow : Window
         if (!captureWasEnabled || !_packetCapture.IsActive)
             ApplyPacketCaptureIfChanged(force: true);
         _packetCapture.BeginLearningDiagnostics();
-        if (AppEnvironment.IsDevelopment)
-            DebugLog.Write($"PACKET LEARN armed; captureActive={_packetCapture.IsActive}; windowSeconds=20");
+        DebugLog.Write($"PACKET LEARN armed; server={Settings.ServerProfile}; captureActive={_packetCapture.IsActive}; " +
+                       $"identityKnown={_packetCapture.VerifiedPlayerAid != 0}; windowSeconds=20");
     }
 
     private bool IsLearningObservation<T>(RoPacketObservation<T> observation, int generation) =>
@@ -1535,13 +1553,15 @@ public partial class MainWindow : Window
 
     private void OnLearningStatusObserved(RoPacketObservation<RoStatusPacket> observation)
     {
-        if (!observation.Packet.Active) return;
         var generation = _learningGeneration;
         Dispatcher.BeginInvoke(() =>
         {
-            if ((_learningEffect is null && _learningReminder is null) ||
-                !IsLearningObservation(observation, generation)) return;
             var packet = observation.Packet;
+            var armed = _learningEffect is not null || _learningReminder is not null;
+            var valid = IsLearningObservation(observation, generation);
+            LogLearning("status", packet.PacketId, packet.StatusId, armed, valid,
+                observation.SelfAid != 0, observation.IsOwnActor(packet.Aid));
+            if (!packet.Active || !armed || !valid) return;
             if (!ReportLearningActor(observation, "Status ID", packet.StatusId, packet.Aid)) return;
             string name;
             if (_learningEffect is { } effect)
@@ -1575,12 +1595,9 @@ public partial class MainWindow : Window
         {
             var skill = _learningSkill;
             var valid = IsLearningObservation(observation, generation);
-            if (AppEnvironment.IsDevelopment && DateTime.UtcNow <= _learningUntil &&
-                _learningUntil != default)
-                DebugLog.Write($"PACKET LEARN skill event; id={observation.Packet.SkillId}; " +
-                               $"armed={skill is not null}; valid={valid}; " +
-                               $"own={observation.IsOwnActor(observation.Packet.SourceAid)}; " +
-                               $"identityKnown={observation.SelfAid != 0}");
+            LogLearning("skill", observation.Packet.PacketId, observation.Packet.SkillId,
+                skill is not null, valid, observation.SelfAid != 0,
+                observation.IsOwnActor(observation.Packet.SourceAid));
             if (skill is null || !valid) return;
             var packet = observation.Packet;
             if (!ReportLearningActor(observation, "Skill ID", packet.SkillId, packet.SourceAid)) return;
@@ -1602,10 +1619,8 @@ public partial class MainWindow : Window
         {
             var skill = _learningSkill;
             var valid = IsLearningObservation(observation, generation);
-            if (AppEnvironment.IsDevelopment && DateTime.UtcNow <= _learningUntil &&
-                _learningUntil != default)
-                DebugLog.Write($"PACKET LEARN post-delay event; id={observation.Packet.SkillId}; " +
-                               $"armed={skill is not null}; valid={valid}");
+            LogLearning("post-delay", 0x043D, observation.Packet.SkillId,
+                skill is not null, valid, observation.SelfAid != 0, null);
             if (skill is null || !valid) return;
             // Post-delay is sent to this client, has no actor ID and does not
             // require a separate CID or AID handshake to learn its SKID.
@@ -1620,11 +1635,23 @@ public partial class MainWindow : Window
         });
     }
 
-    private void OnLearningEquipmentObserved(RoEquipmentPacket packet)
+    private void LogLearning(string kind, ushort opcode, int id, bool armed, bool valid,
+        bool identityKnown, bool? own)
     {
+        if (_learningDiagnostics.Format(DateTime.UtcNow, kind, opcode, id, armed, valid, identityKnown, own) is { } line)
+            DebugLog.Write(line);
+    }
+
+    private void OnLearningEquipmentObserved(RoPacketObservation<RoEquipmentPacket> observation)
+    {
+        var packet = observation.Packet;
         if (!packet.Success || !packet.Equipped) return;
+        var generation = _learningGeneration;
         Dispatcher.BeginInvoke(() =>
         {
+            var valid = IsLearningObservation(observation, generation);
+            LogLearning("equipment", packet.PacketId, packet.ItemId, _learningEquipment is not null,
+                valid, observation.SelfAid != 0, null);
             // Inventory snapshots are emitted when the character enters the game.
             // They are useful for restoring overlay state, but they are not an
             // explicit equip action and must never complete the learning wizard.
@@ -1632,7 +1659,7 @@ public partial class MainWindow : Window
                 return;
 
             var item = _learningEquipment;
-            if (item is null || DateTime.UtcNow > _learningUntil) return;
+            if (item is null || !valid) return;
 
             if (packet.ItemId <= 0)
             {
@@ -1765,8 +1792,9 @@ public partial class MainWindow : Window
         if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group || PanelEffectChoiceBox.SelectedItem is not TrackedEffect effect) return;
         effect.GroupNumber = group.GroupNumber;
         effect.ShowOnBuffPanel = true;
+        effect.Enabled = true;
         Settings.SyncBuffPanelGroups();
-        BuffPanelGroupBox.Items.Refresh();
+        PanelEffectChoiceBox.SelectedItem = null;
         SaveSettings();
     }
 
@@ -1889,10 +1917,10 @@ public partial class MainWindow : Window
 
     private void AddMvpTimer_Click(object sender, RoutedEventArgs e)
     {
-        var wizard = new MvpTimerWizardWindow(_monsters) { Owner = this };
+        var wizard = new MvpTimerWizardWindow(_monsters, usesReferenceCatalog: UsesReferenceTimerCatalog) { Owner = this };
         if (wizard.ShowDialog() != true || wizard.CreatedTimer is not { } timer) return;
-        timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
         Settings.ActiveMvpTimers.Add(timer);
+        MvpTimerHotkeys.RefreshNumbers(Settings.ActiveMvpTimers);
         MvpTimersGrid.SelectedItem = timer;
         MvpTimersGrid.ScrollIntoView(timer);
         SaveSettings();
@@ -1954,7 +1982,7 @@ public partial class MainWindow : Window
     private void MvpMonster_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (_updatingMvpMonsterSelection || _suppressMvpMonsterTextChanged || MvpTimersGrid.SelectedItem is not MvpTimer timer ||
-            sender is not ComboBox box || box.SelectedItem is not MonsterEntry monster) return;
+            sender is not ComboBox box || box.SelectedItem is not MonsterEntry monster || monster.IsMvp != timer.IsMvp) return;
         // Only overwrite a custom timer name when the user actually picked a
         // monster from the dropdown, or when the name still equals the catalog
         // name of the previously selected monster.
@@ -1970,8 +1998,9 @@ public partial class MainWindow : Window
 
     private void RefreshMvpTimerDetails()
     {
+        MvpTimerHotkeys.RefreshNumbers(Settings.ActiveMvpTimers);
         foreach (var timer in Settings.ActiveMvpTimers)
-            timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
+            timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId && monster.IsMvp == timer.IsMvp));
     }
 
     private void MvpMonsterBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -1982,9 +2011,10 @@ public partial class MainWindow : Window
         try
         {
             box.IsDropDownOpen = false;
-            MvpMonsterView.Filter = null;
-            box.SelectedItem = e.NewValue is MvpTimer timer
-                ? _monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId) : null;
+            var timer = e.NewValue as MvpTimer;
+            FilterTimerMonsterEditor(timer);
+            box.SelectedItem = timer is null ? null : _monsters.FirstOrDefault(monster =>
+                monster.Id == timer.MonsterId && monster.IsMvp == timer.IsMvp);
         }
         finally { _updatingMvpMonsterSelection = wasUpdating; }
     }
@@ -2010,11 +2040,7 @@ public partial class MainWindow : Window
         _suppressMvpMonsterTextChanged = true;
         try
         {
-            MvpMonsterView.Filter = value => value is MonsterEntry monster &&
-                (string.IsNullOrWhiteSpace(query) ||
-                 monster.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-                 monster.NameRu.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-                 monster.Id.ToString().Contains(query, StringComparison.OrdinalIgnoreCase));
+            FilterTimerMonsterEditor(MvpMonsterBox.DataContext as MvpTimer, query);
             // Refresh can clear the selection/text. Restore only this synchronous
             // typing draft; never queue stale text across a timer selection change.
             editor.Text = text;
@@ -2024,15 +2050,24 @@ public partial class MainWindow : Window
         finally { _suppressMvpMonsterTextChanged = false; }
     }
 
+    private void FilterTimerMonsterEditor(MvpTimer? timer, string query = "")
+    {
+        var isMvp = timer?.IsMvp ?? true;
+        MvpMonsterView.Filter = value => value is MonsterEntry monster && monster.MatchesTimerSearch(isMvp, query);
+    }
+
+    private void TimerLocationChanged(object sender, EventArgs e) => RequestSave();
+
     private void MvpMonster_DropDownClosed(object sender, EventArgs e)
     {
         var wasUpdating = _updatingMvpMonsterSelection;
         _updatingMvpMonsterSelection = true;
         try
         {
-            var id = (MvpTimersGrid.SelectedItem as MvpTimer)?.MonsterId;
-            MvpMonsterView.Filter = null;
-            MvpMonsterBox.SelectedItem = _monsters.FirstOrDefault(m => m.Id == id);
+            var timer = MvpTimersGrid.SelectedItem as MvpTimer;
+            FilterTimerMonsterEditor(timer);
+            MvpMonsterBox.SelectedItem = timer is null ? null : _monsters.FirstOrDefault(monster =>
+                monster.Id == timer.MonsterId && monster.IsMvp == timer.IsMvp);
         }
         finally { _updatingMvpMonsterSelection = wasUpdating; }
     }
@@ -2217,6 +2252,18 @@ public partial class MainWindow : Window
         (Application.Current as App)?.RefreshLanguage();
         SaveSettings();
     }
+
+    private void EffectTutorial_Click(object sender, RoutedEventArgs e) =>
+        ShowEffectTutorial("AddEffect.mp4", "EffectTutorialTitle");
+
+    private void EffectSettingsTutorial_Click(object sender, RoutedEventArgs e) =>
+        ShowEffectTutorial("EffectSettings.mp4", "EffectSettingsTutorialTitle");
+
+    private void EffectPanelsTutorial_Click(object sender, RoutedEventArgs e) =>
+        ShowEffectTutorial("ActiveEffectPanels.mp4", "EffectPanelsTutorialTitle");
+
+    private void ShowEffectTutorial(string videoFileName, string titleResourceKey) =>
+        new EffectTutorialWindow(videoFileName, titleResourceKey) { Owner = this }.ShowDialog();
 
     private void About_Click(object sender, RoutedEventArgs e) => new AboutWindow { Owner = this }.ShowDialog();
 

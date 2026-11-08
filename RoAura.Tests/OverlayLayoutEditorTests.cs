@@ -58,7 +58,11 @@ public sealed class OverlayLayoutEditorTests
         Assert.DoesNotContain(keys, key => key.StartsWith("cooldown:") || key.StartsWith("statistics:") || key.StartsWith("reward:"));
         Assert.Contains("mvp", keys); Assert.Contains("quest", keys);
         settings.ServerProfile = "Other";
-        Assert.DoesNotContain(OverlayLayoutTargets.Build(settings), target => target.Key == "mvp" || target.Key == "market");
+        var otherTargets = OverlayLayoutTargets.Build(settings);
+        Assert.Contains(otherTargets, target => target.Key == "mvp");
+        Assert.DoesNotContain(otherTargets, target => target.Key == "market" || target.Key.StartsWith("statistics:"));
+        settings.PacketCaptureEnabled = true;
+        Assert.Contains(OverlayLayoutTargets.Build(settings), target => target.Key.StartsWith("statistics:"));
     }
 
     [Fact]

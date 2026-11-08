@@ -35,6 +35,30 @@ public sealed class AppSettings : INotifyPropertyChanged
     private string _startSessionHotkey = "None";
     private string _interfaceLayoutHotkey = "None";
     private string _addMvpTimerHotkey = "F4";
+    private string _restartMvpTimer1Hotkey = "None";
+    public string RestartMvpTimer1Hotkey { get => _restartMvpTimer1Hotkey; set => Set(ref _restartMvpTimer1Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer2Hotkey = "None";
+    public string RestartMvpTimer2Hotkey { get => _restartMvpTimer2Hotkey; set => Set(ref _restartMvpTimer2Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer3Hotkey = "None";
+    public string RestartMvpTimer3Hotkey { get => _restartMvpTimer3Hotkey; set => Set(ref _restartMvpTimer3Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer4Hotkey = "None";
+    public string RestartMvpTimer4Hotkey { get => _restartMvpTimer4Hotkey; set => Set(ref _restartMvpTimer4Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer5Hotkey = "None";
+    public string RestartMvpTimer5Hotkey { get => _restartMvpTimer5Hotkey; set => Set(ref _restartMvpTimer5Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer6Hotkey = "None";
+    public string RestartMvpTimer6Hotkey { get => _restartMvpTimer6Hotkey; set => Set(ref _restartMvpTimer6Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer7Hotkey = "None";
+    public string RestartMvpTimer7Hotkey { get => _restartMvpTimer7Hotkey; set => Set(ref _restartMvpTimer7Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer8Hotkey = "None";
+    public string RestartMvpTimer8Hotkey { get => _restartMvpTimer8Hotkey; set => Set(ref _restartMvpTimer8Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer9Hotkey = "None";
+    public string RestartMvpTimer9Hotkey { get => _restartMvpTimer9Hotkey; set => Set(ref _restartMvpTimer9Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer10Hotkey = "None";
+    public string RestartMvpTimer10Hotkey { get => _restartMvpTimer10Hotkey; set => Set(ref _restartMvpTimer10Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer11Hotkey = "None";
+    public string RestartMvpTimer11Hotkey { get => _restartMvpTimer11Hotkey; set => Set(ref _restartMvpTimer11Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer12Hotkey = "None";
+    public string RestartMvpTimer12Hotkey { get => _restartMvpTimer12Hotkey; set => Set(ref _restartMvpTimer12Hotkey, NormalizeHotkey(value, "None")); }
     public double? MvpAddWindowX { get; set; }
     public double? MvpAddWindowY { get; set; }
     private bool _sessionPaused;
@@ -45,7 +69,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string AddMvpTimerHotkey { get => _addMvpTimerHotkey; set => Set(ref _addMvpTimerHotkey, NormalizeHotkey(value, "F4")); }
     [JsonIgnore] public bool HotkeyConflicts => new[] { SettingsHotkey, OverlaysHotkey, FinishMoveHotkey, TimersHotkey, DatabaseHotkey,
         QuestBrowserHotkey, QuestTrackerHotkey, PauseSessionHotkey, StartSessionHotkey, AddMvpTimerHotkey, InterfaceLayoutHotkey }
-        .Where(value => Services.HotkeyChord.TryParse(value,out _)).Select(Services.HotkeyChord.Canonical).GroupBy(value=>value).Any(group=>group.Count()>1);
+        .Concat(Services.MvpTimerHotkeys.Keys(this)).Where(value => Services.HotkeyChord.TryParse(value,out _)).Select(Services.HotkeyChord.Canonical).GroupBy(value=>value).Any(group=>group.Count()>1);
     [JsonIgnore] public bool FarmingHotkeyConflict => Services.FarmingHotkeys.HasConflict(this);
     private double _marketBackgroundRefreshMinutes = 10;
     private int _marketWatchHistoryRetentionDays = 30;
@@ -55,6 +79,12 @@ public sealed class AppSettings : INotifyPropertyChanged
     private double _timersTextSize = 24;
     private double _timersGap = 6;
     private string _timersTextColor = "#FFFFFFFF";
+    private bool _timersShowBackground = true;
+    private string _timersBackgroundColor = "#FF11141B";
+    private double _timersBackgroundOpacityPercent = 69;
+    private bool _timersShowBorder = true;
+    private string _timersBorderColor = "#B8C5CBD4";
+    private double _timersBorderThickness = 1;
     private bool _rewardsEnabled = true;
     private bool _showJobExperience;
     private double _rateStatisticsRefreshSeconds = 5;
@@ -128,6 +158,12 @@ public sealed class AppSettings : INotifyPropertyChanged
     public double TimersTextSize { get => _timersTextSize; set => Set(ref _timersTextSize, Math.Clamp(value, 10, 72)); }
     public double TimersGap { get => _timersGap; set => Set(ref _timersGap, Math.Clamp(value, 0, 40)); }
     public string TimersTextColor { get => _timersTextColor; set => Set(ref _timersTextColor, value); }
+    public bool TimersShowBackground { get => _timersShowBackground; set => Set(ref _timersShowBackground, value); }
+    public string TimersBackgroundColor { get => _timersBackgroundColor; set => Set(ref _timersBackgroundColor, value); }
+    public double TimersBackgroundOpacityPercent { get => _timersBackgroundOpacityPercent; set => Set(ref _timersBackgroundOpacityPercent, Math.Clamp(value, 0, 100)); }
+    public bool TimersShowBorder { get => _timersShowBorder; set => Set(ref _timersShowBorder, value); }
+    public string TimersBorderColor { get => _timersBorderColor; set => Set(ref _timersBorderColor, value); }
+    public double TimersBorderThickness { get => _timersBorderThickness; set => Set(ref _timersBorderThickness, Math.Clamp(value, 0, 10)); }
     public bool RewardsEnabled { get => _rewardsEnabled; set => Set(ref _rewardsEnabled, value); }
     public bool ShowJobExperience { get => _showJobExperience; set => Set(ref _showJobExperience, value); }
     public int GoldGoblinOverchargeLevel { get => _goldGoblinOverchargeLevel; set => Set(ref _goldGoblinOverchargeLevel, Math.Clamp(value, 0, 10)); }
@@ -135,6 +171,36 @@ public sealed class AppSettings : INotifyPropertyChanged
     public bool IncludeGoldGoblinInZenyPerHour { get => _includeGoldGoblinInZenyPerHour; set => Set(ref _includeGoldGoblinInZenyPerHour, value); }
     private bool _goldGoblinIgnoreZenyIncome;
     public bool GoldGoblinIgnoreZenyIncome { get => _goldGoblinIgnoreZenyIncome; set => Set(ref _goldGoblinIgnoreZenyIncome, value); }
+    private bool _showExperienceBars;
+    private bool _showJobExperienceBar = true;
+    private double _experienceBarWidth = 520;
+    private double _experienceBarHeight = 24;
+    private double _experienceBarsX = 20;
+    private double _experienceBarsY = 180;
+
+    public bool ShowExperienceBars { get => _showExperienceBars; set => Set(ref _showExperienceBars, value); }
+    public bool ShowJobExperienceBar { get => _showJobExperienceBar; set => Set(ref _showJobExperienceBar, value); }
+    public double ExperienceBarWidth
+    {
+        get => _experienceBarWidth;
+        set { if (double.IsFinite(value)) Set(ref _experienceBarWidth, Math.Clamp(value, 180, 2000)); }
+    }
+    public double ExperienceBarHeight
+    {
+        get => _experienceBarHeight;
+        set { if (double.IsFinite(value)) Set(ref _experienceBarHeight, Math.Clamp(value, 12, 120)); }
+    }
+    public double ExperienceBarsX
+    {
+        get => _experienceBarsX;
+        set { if (double.IsFinite(value)) Set(ref _experienceBarsX, Math.Max(0, value)); }
+    }
+    public double ExperienceBarsY
+    {
+        get => _experienceBarsY;
+        set { if (double.IsFinite(value)) Set(ref _experienceBarsY, Math.Max(0, value)); }
+    }
+
     public double RateStatisticsRefreshSeconds
     {
         get => _rateStatisticsRefreshSeconds;
@@ -162,7 +228,6 @@ public sealed class AppSettings : INotifyPropertyChanged
 
     public void UpdatePacketCaptureState(string state)
     {
-        PacketCaptureStateText = state;
         var normalized = state.ToLowerInvariant();
         var error = normalized.Contains("ошибка") || normalized.Contains("error") ||
                     normalized.Contains("не установлен") || normalized.Contains("not installed") ||
@@ -172,13 +237,19 @@ public sealed class AppSettings : INotifyPropertyChanged
                     normalized.Contains("только в windows") || normalized.Contains("windows only") || normalized.Contains("only on windows");
         PacketCaptureStateKind = error
             ? "Error"
-            : normalized.Contains("слушаю") || normalized.Contains("listening")
+            : normalized is "пакеты: захват работает" or "packets: capture is active" ||
+              normalized.StartsWith("пакеты: слушаю", StringComparison.Ordinal) ||
+              normalized.StartsWith("packets: listening", StringComparison.Ordinal)
             ? "Ready"
             : normalized.Contains("подключ") || normalized.Contains("connecting") || normalized.Contains("запуск") || normalized.Contains("restarting")
                 ? "Searching"
                 : normalized.Contains("отключ") || normalized.Contains("disabled")
                     ? "Warning"
                     : "Error";
+        if (PacketCaptureStateKind == "Ready")
+            RefreshPacketCaptureStateLanguage();
+        else
+            PacketCaptureStateText = state;
     }
 
     public void RefreshPacketCaptureStateLanguage()

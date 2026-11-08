@@ -7,7 +7,7 @@ namespace RoAura.Models;
 public sealed class MvpTimer : INotifyPropertyChanged
 {
     private string _name = "MVP";
-    private string _monsterImageUrl = "";
+    private string _monsterImagePath = "";
     private int _monsterId;
     private double _durationMinutes = 60;
     private DateTime? _killedAtUtc;
@@ -18,6 +18,8 @@ public sealed class MvpTimer : INotifyPropertyChanged
     private bool _completionSoundEnabled;
     private string _completionSoundPath = "";
     private double _completionSoundVolumePercent = 100;
+    private int _displayNumber;
+    private bool _isMvp = true;
 
     private string _locationCode = "";
     private double? _markerX, _markerY;
@@ -38,14 +40,21 @@ public sealed class MvpTimer : INotifyPropertyChanged
     public void ClearMarker() { MarkerX = null; MarkerY = null; }
 
     public Guid Id { get; set; } = Guid.NewGuid();
-    public string Name { get => _name; set => Set(ref _name, value); }
+    public bool IsMvp { get => _isMvp; set => Set(ref _isMvp, value); }
+    public string Name { get => _name; set { if (Set(ref _name, value)) { OnPropertyChanged(nameof(NumberedName)); OnPropertyChanged(nameof(DisplayText)); } } }
+    [JsonIgnore] public int DisplayNumber
+    {
+        get => _displayNumber;
+        set { if (Set(ref _displayNumber, value)) OnPropertyChanged(nameof(NumberedName)); }
+    }
+    [JsonIgnore] public string NumberedName => DisplayNumber > 0 ? $"{DisplayNumber}. {Name}" : Name;
     public int MonsterId
     {
         get => _monsterId;
         set
         {
             if (!Set(ref _monsterId, Math.Max(0, value))) return;
-            _monsterImageUrl = "";
+            _monsterImagePath = "";
             OnPropertyChanged(nameof(MonsterImagePath));
         }
     }
@@ -108,7 +117,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
     {
         get
         {
-            if (!string.IsNullOrWhiteSpace(_monsterImageUrl)) return _monsterImageUrl;
+            if (!string.IsNullOrWhiteSpace(_monsterImagePath)) return _monsterImagePath;
             var path = Path.Combine(AppContext.BaseDirectory, "Data", "MvpImages", $"{MonsterId}.png");
             return File.Exists(path) ? path : "";
         }
@@ -137,7 +146,8 @@ public sealed class MvpTimer : INotifyPropertyChanged
 
     public void SetMonsterDetails(MonsterEntry? monster)
     {
-        _monsterImageUrl = monster?.ImageUrl ?? "";
+        if (monster is not null) IsMvp = monster.IsMvp;
+        _monsterImagePath = monster?.LocalImagePath ?? "";
         RespawnHints = monster is null ? Array.Empty<MonsterSpawnEntry>() : monster.Spawns;
         SelectFirstLocationIfMissing();
         OnPropertyChanged(nameof(RespawnHints));
@@ -147,6 +157,35 @@ public sealed class MvpTimer : INotifyPropertyChanged
     public void Restart()
     {
         StartFromKillTime(DateTime.Now);
+    }
+
+    public MvpTimer CreateRestartDraft(DateTime killedAtUtc)
+    {
+        var draft = new MvpTimer
+        {
+            Id = Id, Name = Name, MonsterId = MonsterId, IsMvp = IsMvp, DurationMinutes = DurationMinutes,
+            Enabled = Enabled, LocationCode = LocationCode, DisplayNumber = DisplayNumber,
+            CompletionSoundEnabled = CompletionSoundEnabled, CompletionSoundPath = CompletionSoundPath,
+            CompletionSoundVolumePercent = CompletionSoundVolumePercent,
+            _monsterImagePath = _monsterImagePath, RespawnHints = RespawnHints
+        };
+        draft.SelectFirstLocationIfMissing();
+        draft.StartFromKillTime(killedAtUtc);
+        // A new kill needs a new location marker; the live timer is untouched.
+        return draft;
+    }
+
+    public void ApplyRestartDraft(MvpTimer draft)
+    {
+        if (draft.Id != Id || draft.KilledAtUtc is null)
+            throw new ArgumentException("Restart draft must belong to this timer and contain a kill time.", nameof(draft));
+        Name = draft.Name; MonsterId = draft.MonsterId; IsMvp = draft.IsMvp; DurationMinutes = draft.DurationMinutes;
+        Enabled = draft.Enabled; LocationCode = draft.LocationCode; MarkerX = draft.MarkerX; MarkerY = draft.MarkerY;
+        CompletionSoundEnabled = draft.CompletionSoundEnabled; CompletionSoundPath = draft.CompletionSoundPath;
+        CompletionSoundVolumePercent = draft.CompletionSoundVolumePercent;
+        _monsterImagePath = draft._monsterImagePath; RespawnHints = draft.RespawnHints;
+        OnPropertyChanged(nameof(MonsterImagePath)); OnPropertyChanged(nameof(RespawnHints));
+        StartFromKillTime(draft.KilledAtUtc.Value);
     }
 
     public void StartFromKillTime(DateTime killedAtLocal)

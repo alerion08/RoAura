@@ -1,3 +1,4 @@
+using System.Buffers.Binary;
 using System.Diagnostics;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -19,7 +20,8 @@ public static class TcpConnectionDetector
     public static DetectedTcpConnection? Detect(
         IEnumerable<string> processNames,
         string? currentAddress = null,
-        int currentPort = 0)
+        int currentPort = 0,
+        int preferredProcessId = 0)
     {
         if (!OperatingSystem.IsWindows()) return null;
 
@@ -50,11 +52,46 @@ public static class TcpConnectionDetector
             .ToList();
         if (candidates.Count == 0) return null;
 
+        return Select(candidates, currentAddress, currentPort, preferredProcessId);
+    }
+
+    // HTTP connections belong to patchers, news and account services. Automatic
+    // discovery waits for a game connection; manual endpoint settings can still
+    // use any port. Loopback is valid for local RO proxies.
+    public static DetectedTcpConnection? Select(IEnumerable<DetectedTcpConnection> connections,
+        string? currentAddress = null, int currentPort = 0, int preferredProcessId = 0)
+    {
+        var candidates = connections.Where(connection => connection.RemotePort is > 0 and <= 65535 &&
+            connection.RemotePort is not (80 or 443)).ToList();
+        if (preferredProcessId != 0)
+            candidates = candidates.Where(connection => connection.ProcessId == preferredProcessId).ToList();
+        if (candidates.Count == 0) return null;
         return candidates
             .OrderByDescending(connection => Score(connection, currentAddress, currentPort))
             .ThenBy(connection => connection.ProcessId)
             .ThenBy(connection => connection.RemotePort)
             .First();
+    }
+
+    internal static int? OwnedGameProcess(TcpFlowKey flow, IReadOnlySet<string> allowedProcesses)
+    {
+        if (!OperatingSystem.IsWindows() || allowedProcesses.Count == 0) return null;
+        foreach (var row in ReadEstablishedConnections())
+        {
+            if (row.LocalAddress != flow.SourceAddress || row.LocalPort != flow.SourcePort ||
+                row.RemotePort != flow.DestinationPort || row.RemoteAddressValue != flow.DestinationAddress)
+                continue;
+            try
+            {
+                using var process = Process.GetProcessById(row.ProcessId);
+                return allowedProcesses.Contains(process.ProcessName) ? row.ProcessId : null;
+            }
+            catch (Exception error) when (error is ArgumentException or InvalidOperationException or System.ComponentModel.Win32Exception)
+            {
+                return null;
+            }
+        }
+        return null;
     }
 
     private static int Score(DetectedTcpConnection connection, string? currentAddress, int currentPort)
@@ -104,7 +141,9 @@ public static class TcpConnectionDetector
                 var remotePort = PortFromNetworkOrder(row.RemotePort);
                 if (remotePort <= 0) continue;
                 rows.Add(new TcpRow((int)row.OwningPid,
-                    new IPAddress(row.RemoteAddress).ToString(), remotePort));
+                    new IPAddress(row.RemoteAddress).ToString(), remotePort,
+                    BinaryPrimitives.ReverseEndianness(row.LocalAddress), PortFromNetworkOrder(row.LocalPort),
+                    BinaryPrimitives.ReverseEndianness(row.RemoteAddress)));
             }
             return rows;
         }
@@ -120,7 +159,8 @@ public static class TcpConnectionDetector
         return (bytes[0] << 8) | bytes[1];
     }
 
-    private readonly record struct TcpRow(int ProcessId, string RemoteAddress, int RemotePort);
+    private readonly record struct TcpRow(int ProcessId, string RemoteAddress, int RemotePort,
+        uint LocalAddress, int LocalPort, uint RemoteAddressValue);
 
     private enum TcpTableClass
     {

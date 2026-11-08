@@ -103,6 +103,13 @@ public static class ForegroundProcess
         }
     }
 
+    public static int ProcessIdForWindow(IntPtr handle)
+    {
+        if (handle == IntPtr.Zero || !OperatingSystem.IsWindows()) return 0;
+        GetWindowThreadProcessId(handle, out var pid);
+        return (int)pid;
+    }
+
     public static bool TryFindWindow(IEnumerable<string> processNames, out IntPtr handle, out WindowBounds bounds)
     {
         handle = IntPtr.Zero;

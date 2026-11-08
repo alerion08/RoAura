@@ -119,9 +119,10 @@ public partial class OverlayWindow : Window
 
     public void RefreshServerProfile()
     {
-        var supported = GameServerProfile.SupportsServerDatabases(_settings.ServerProfile);
+        var supported = FeatureAvailability.CanUse(_settings.ServerProfile, _settings.PacketCaptureEnabled, AppFeature.Statistics);
         RewardGroupsPanel.Visibility = supported ? Visibility.Visible : Visibility.Collapsed;
         RateIndicatorsPanel.Visibility = supported ? Visibility.Visible : Visibility.Collapsed;
+        ExperienceBarsPanel.Visibility = RateIndicatorsPanel.Visibility;
         MarketWatchPanel.Visibility = _settings.ServerProfile == GameServerProfile.SpringRo ? Visibility.Visible : Visibility.Collapsed;
         if (_settings.ServerProfile != GameServerProfile.SpringRo) _settings.ActiveMarketNotifications.Clear();
         UpdateTimerPanelVisibility();
@@ -522,7 +523,7 @@ public partial class OverlayWindow : Window
         long amount, double percentage, string? itemType = null, int itemId = 0)
     {
         if (!_settings.RewardsEnabled || amount <= 0 ||
-            !GameServerProfile.SupportsServerDatabases(_settings.ServerProfile)) return;
+            !FeatureAvailability.CanUse(_settings.ServerProfile, _settings.PacketCaptureEnabled, AppFeature.Statistics)) return;
         var channel = _settings.RewardChannel(kind);
         if (channel is null) return;
         _settings.SyncRewardGroups();
@@ -649,6 +650,8 @@ public partial class OverlayWindow : Window
 
     public void ResetRateStatistics()
     {
+        _observedBaseLevel = default;
+        _observedJobLevel = default;
         if (_characterStatisticsSource is not null) { UpdateRateIndicators(true); return; }
         ResetRateSessionCounters();
         _currentBaseExperience = 0;
@@ -704,6 +707,8 @@ public partial class OverlayWindow : Window
         var jobXpPerHour = _jobExperienceStartedUtc.HasValue
             ? _sessionJobExperience / Math.Max((now - _jobExperienceStartedUtc.Value).TotalHours, 1d / 3600d)
             : 0;
+        UpdateExperienceBars(now, _observedBaseLevel, _currentBaseExperience, _nextBaseExperience, xpPerHour,
+            _observedJobLevel, _currentJobExperience, _nextJobExperience, jobXpPerHour);
         var timeToLevel = "--:--:--";
         if (xpPerHour > 0 && _nextBaseExperience > _currentBaseExperience)
         {
@@ -790,6 +795,9 @@ public partial class OverlayWindow : Window
         var record = _characterStatisticsSource?.Invoke();
         var baseRate = record?.BaseExperiencePerHour ?? 0;
         var jobRate = record?.JobExperiencePerHour ?? 0;
+        UpdateExperienceBars(nowUtc, record?.BaseLevel ?? default, record?.CurrentBaseExperience ?? 0,
+            record?.NextBaseExperience ?? 0, baseRate, record?.JobLevel ?? default,
+            record?.CurrentJobExperience ?? 0, record?.NextJobExperience ?? 0, jobRate);
         var activeHours = record?.SessionActiveHours ?? 0;
         var zenyTotal = record is null ? 0 : FarmingSessionActions.CalculateIncome(
             _settings, record.SessionZenyGained, _goldGoblin.SessionTotal);
@@ -1050,6 +1058,7 @@ public partial class OverlayWindow : Window
         foreach (var notification in staleNotifications) _settings.ActiveNotifications.Remove(notification);
         if (staleNotifications.Count > 0) ReflowNotifications();
 
+        MvpTimerHotkeys.RefreshNumbers(_settings.ActiveMvpTimers);
         foreach (var timer in _settings.ActiveMvpTimers.Where(timer => timer.EndsAtUtc.HasValue))
         {
             var remaining = (timer.EndsAtUtc!.Value - now).TotalSeconds;
@@ -1097,7 +1106,7 @@ public partial class OverlayWindow : Window
     {
         var hasRunningTimers = _settings.ActiveMvpTimers.Any(timer => timer.IsVisible);
         MvpTimerPanel.Visibility = (_settings.TimersOverlayVisible || _layoutTimerPreview) &&
-                                   GameServerProfile.SupportsServerDatabases(_settings.ServerProfile) &&
+                                   FeatureAvailability.CanUse(_settings.ServerProfile, _settings.PacketCaptureEnabled, AppFeature.MvpTimers) &&
                                    (_timerPanelEditMode || _layoutTimerPreview || hasRunningTimers)
             ? Visibility.Visible
             : Visibility.Collapsed;

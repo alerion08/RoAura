@@ -48,6 +48,11 @@ internal static class QuestInputSmoke
             var startSessionPresses=0;hook.StartSessionPressed+=()=>Interlocked.Increment(ref startSessionPresses);
             hook.InterfaceLayoutPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>((MainWindow)settingsWindow).ToggleInterfaceLayout());
             hook.AddMvpTimerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>((MainWindow)settingsWindow).AddMvpTimerInGame());
+            hook.RestartMvpTimerPressed+=number=>
+            {
+                var killedAt = DateTime.UtcNow;
+                settingsWindow.Dispatcher.BeginInvoke(()=>((MainWindow)settingsWindow).RestartMvpTimerInGame(number,killedAt));
+            };
             hook.EscapePressed+=()=>((App)Application.Current).ExitOverlayEditMode();
             hook.ToggleOverlaysPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>host.SetGlobalVisible(!host.GlobalVisible));
             void KeyboardMode()=>hook.SetKeyboardBlocked(host.BrowserRequested && host.BrowserShowing);
@@ -315,6 +320,7 @@ internal static class QuestInputSmoke
                     if(restarted.KilledAtUtc<restartAt || restarted.RemainingSeconds<restarted.DurationMinutes*60-2)
                         throw new InvalidOperationException("Restart reused an old/invalid kill-clock draft.");
                     DebugLog.Write("MVP RESTART PASS: existing kill-clock draft replaced with now.");
+                    await VerifyNumberedMvpRestart((MainWindow)settingsWindow,workspace.Settings,hook,game,restarted);
                     workspace.Settings.ActiveMvpTimers.RemoveAt(workspace.Settings.ActiveMvpTimers.Count-1);
                     await Press(workspace.Settings.AddMvpTimerHotkey);
                     await Until(()=>Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible), "MVP wizard reopens");
@@ -328,6 +334,7 @@ internal static class QuestInputSmoke
                     Click(cancel.PointToScreen(new Point(cancel.ActualWidth/2,cancel.ActualHeight/2)));
                     await Until(()=>!Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible) && QuestWindowNative.GetForegroundWindow()==game,"MVP cancel and exact-game focus restore");
                     if(workspace.Settings.ActiveMvpTimers.Count!=beforeTimers)throw new InvalidOperationException("Cancel created an MVP timer.");
+                    await VerifyRegularTimerCreation(workspace.Settings, game);
                     var oldTimerX=workspace.Settings.TimersX;var oldTimerY=workspace.Settings.TimersY;
                     try
                     {
@@ -461,6 +468,119 @@ internal static class QuestInputSmoke
         }
     }
 
+    private static async Task VerifyRegularTimerCreation(AppSettings settings, IntPtr game)
+    {
+        var timers = settings.ActiveMvpTimers;
+        var count = timers.Count;
+        await Press(settings.AddMvpTimerHotkey);
+        await Until(() => Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w => w.IsVisible), "regular timer form opens");
+        var wizard = Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w => w.IsVisible);
+        await Until(() => wizard.MonsterBox.IsLoaded, "regular timer form loads");
+        if (wizard.MonsterView.Cast<MonsterEntry>().Any(monster => !monster.IsMvp))
+            throw new InvalidOperationException("The MVP category includes regular monsters.");
+        var category = wizard.TimerKindBox;
+        Click(category.PointToScreen(new Point(18, category.ActualHeight / 2)));
+        await Until(() => category.IsDropDownOpen, "timer category opens from the field body");
+        wizard.TimerKindBox.SelectedIndex = 1;
+        category.IsDropDownOpen = false;
+        if (wizard.MonsterView.Cast<MonsterEntry>().Any(monster => monster.IsMvp))
+            throw new InvalidOperationException("The regular category includes MVPs.");
+        Click(wizard.MonsterBox.PointToScreen(new Point(18, wizard.MonsterBox.ActualHeight / 2)));
+        await Until(() => wizard.MonsterBox.IsDropDownOpen, "regular monster search opens");
+        await Press("P"); await Press("O");
+        var poring = wizard.MonsterView.Cast<MonsterEntry>().Single(monster => monster.Id == 1002);
+        if (!File.Exists(poring.ImagePath)) throw new InvalidOperationException("Poring sprite is not bundled.");
+        wizard.MonsterBox.SelectedItem = poring;
+        wizard.MonsterBox.IsDropDownOpen = false;
+        var locations = Descendants<RoAura.Controls.MvpLocationSelector>(wizard).Single();
+        locations.SelectedItem = wizard.Draft.RespawnHints.Single(spawn => spawn.Code == "pay_fild04");
+        var map = Descendants<RoAura.Controls.MvpMapEditor>(wizard).Single();
+        await Until(() => map.DisplayedMapCode == "pay_fild04", "selected regular monster minimap paints");
+        SaveDesktop(wizard, "regular-timer-add-native");
+        var confirm = wizard.ConfirmButton;
+        Click(confirm.PointToScreen(new Point(confirm.ActualWidth / 2, confirm.ActualHeight / 2)));
+        await Until(() => timers.Count == count + 1 && QuestWindowNative.GetForegroundWindow() == game,
+            "regular timer saves and restores game focus");
+        var timer = timers[^1];
+        if (timer.IsMvp || timer.MonsterId != poring.Id || timer.LocationCode != "pay_fild04" || timer.DisplayNumber != count + 1)
+            throw new InvalidOperationException("Regular timer lost its category, location or common number.");
+        timers.Remove(timer);
+    }
+
+    private static async Task VerifyNumberedMvpRestart(MainWindow main, AppSettings settings,
+        GlobalInputHook hook, IntPtr game, MvpTimer template)
+    {
+        var timers = settings.ActiveMvpTimers;
+        var saved = timers.ToArray();
+        var key1 = settings.RestartMvpTimer1Hotkey; var key12 = settings.RestartMvpTimer12Hotkey;
+        try
+        {
+            timers.Clear();
+            for (var i = 1; i <= 12; i++)
+            {
+                var timer = template.CreateRestartDraft(DateTime.UtcNow.AddMinutes(-20));
+                timer.Id = Guid.NewGuid(); timer.Name = $"{i} custom MVP";
+                timer.MarkerX = .2; timer.MarkerY = .3; timer.CompletionSoundEnabled = false;
+                timers.Add(timer);
+            }
+            MvpTimerHotkeys.RefreshNumbers(timers);
+            settings.RestartMvpTimer1Hotkey = "Ctrl+Shift+F11";
+            settings.RestartMvpTimer12Hotkey = "Ctrl+Alt+F12";
+            await Pause();
+            if (!hook.IsHotkeyEnabled(settings.RestartMvpTimer1Hotkey) || !hook.IsHotkeyEnabled(settings.RestartMvpTimer12Hotkey))
+                throw new InvalidOperationException("Numbered MVP shortcuts were not registered.");
+            var first = timers[0]; var originalEnd = first.EndsAtUtc;
+            QuestWindowNative.SetForegroundWindow(game);
+            await Press("F11");
+            if (main.IsMvpWizardOpen) throw new InvalidOperationException("Numbered MVP shortcut ignored modifiers.");
+            await Press(settings.RestartMvpTimer1Hotkey);
+            await Until(() => main.IsMvpWizardOpen, "numbered timer 1 opens");
+            var wizard = Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w => w.IsVisible);
+            if (!wizard.IsRestart || wizard.Draft.Id != first.Id || wizard.Draft.Name != first.Name ||
+                wizard.Draft.DurationMinutes != first.DurationMinutes || wizard.Draft.LocationCode != first.LocationCode ||
+                wizard.Draft.MarkerX is not null || wizard.Draft.MarkerY is not null || first.EndsAtUtc != originalEnd)
+            {
+                SaveDesktop(wizard, "mvp-restart-prefill-failure");
+                throw new InvalidOperationException($"Numbered MVP draft mismatch: restart={wizard.IsRestart}; id={wizard.Draft.Id == first.Id}; name={wizard.Draft.Name}/{first.Name}; minutes={wizard.Draft.DurationMinutes}/{first.DurationMinutes}; location={wizard.Draft.LocationCode}/{first.LocationCode}; marker={wizard.Draft.MarkerX},{wizard.Draft.MarkerY}; sourceEndUnchanged={first.EndsAtUtc == originalEnd}.");
+            }
+            await Press(settings.RestartMvpTimer1Hotkey);
+            await Until(() => !main.IsMvpWizardOpen && QuestWindowNative.GetForegroundWindow() == game, "numbered timer repeated shortcut cancels");
+            if (first.EndsAtUtc != originalEnd || first.MarkerX != .2 || first.MarkerY != .3 || timers.Count != 12)
+                throw new InvalidOperationException("Cancelled numbered MVP draft mutated a timer.");
+
+            var last = timers[11]; var pressedAfter = DateTime.UtcNow;
+            await Press(settings.RestartMvpTimer12Hotkey);
+            await Until(() => main.IsMvpWizardOpen, "numbered timer 12 opens");
+            wizard = Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w => w.IsVisible);
+            if (wizard.Draft.Id != last.Id || wizard.Draft.KilledAtUtc < pressedAfter)
+                throw new InvalidOperationException("Twelfth MVP shortcut targeted the wrong timer/time.");
+            var killedAt = wizard.Draft.KilledAtUtc;
+            var map = Descendants<RoAura.Controls.MvpMapEditor>(wizard).Single();
+            await Until(() => map.IsMapReady, "restart minimap loads");
+            var picture = (FrameworkElement)map.Content;
+            Click(picture.PointToScreen(new Point(125, 125)));
+            await Until(() => wizard.Draft.MarkerX is not null && wizard.Draft.MarkerY is not null, "restart marker is placed");
+            await Pause(1100);
+            SaveDesktop(wizard, "mvp-restart-12-native");
+            var confirm = wizard.ConfirmButton;
+            Click(confirm.PointToScreen(new Point(confirm.ActualWidth / 2, confirm.ActualHeight / 2)));
+            await Until(() => !main.IsMvpWizardOpen && QuestWindowNative.GetForegroundWindow() == game, "numbered restart confirms and restores focus");
+            if (timers.Count != 12 || !ReferenceEquals(last, timers[11]) || last.KilledAtUtc != killedAt ||
+                last.EndsAtUtc != killedAt?.AddMinutes(last.DurationMinutes) || last.MarkerX is null || last.MarkerY is null ||
+                first.EndsAtUtc != originalEnd)
+                throw new InvalidOperationException("Numbered restart duplicated a timer or shifted the kill time.");
+            settings.RestartMvpTimer12Hotkey = "None";
+            if (hook.IsHotkeyEnabled("Ctrl+Alt+F12")) throw new InvalidOperationException("Numbered shortcut remained active after clearing.");
+            DebugLog.Write("MVP NUMBERED RESTART PASS: slots 1/12, exact modifiers, draft/cancel, map marker, same timer and keypress time.");
+        }
+        finally
+        {
+            main.CloseMvpWizard(); timers.Clear(); foreach (var timer in saved) timers.Add(timer);
+            MvpTimerHotkeys.RefreshNumbers(timers);
+            settings.RestartMvpTimer1Hotkey = key1; settings.RestartMvpTimer12Hotkey = key12;
+        }
+    }
+
     private static async Task VerifyMvpMapHover(OverlayWindow overlay,AppSettings settings,IntPtr game)
     {
         var timer=new MvpTimer {Name="Baphomet",MonsterId=1039,LocationCode="prt_maze03",MarkerX=.5,MarkerY=.5};
@@ -470,11 +590,13 @@ internal static class QuestInputSmoke
             settings.TimersX=30;settings.TimersY=30;settings.TimersOverlayVisible=true;
             timer.Restart();settings.ActiveMvpTimers.Add(timer);
             QuestWindowNative.SetForegroundWindow(game);
-            var panel=(FrameworkElement)overlay.FindName("MvpTimerPanel");
+            var panel=(Border)overlay.FindName("MvpTimerPanel");
             await Until(()=>panel.IsVisible && Descendants<TextBlock>(panel).Any(text=>ReferenceEquals(text.DataContext,timer)),"MVP hover row appears");
             var labels=Descendants<TextBlock>(panel).Where(text=>ReferenceEquals(text.DataContext,timer)).ToArray();
-            var name=labels.Single(text=>text.Text==timer.Name);
+            var name=labels.Single(text=>text.Text==timer.NumberedName);
             var icon=labels.Single(text=>text.Tag as string=="MvpMapHover");
+            if (icon.Text != timer.LocationCode || icon.Parent is not Border { BorderThickness.Left: > 0 })
+                throw new InvalidOperationException("Timer map code is missing its outlined badge.");
             void Hover(FrameworkElement target)
             {
                 var point=target.PointToScreen(new Point(target.ActualWidth/2,target.ActualHeight/2));
@@ -482,18 +604,49 @@ internal static class QuestInputSmoke
             }
             Hover(name);await Until(()=>overlay.IsMvpMapVisible,"MVP name opens the map");
             Hover(icon);await Pause(250);
-            if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP magnifier lost the row hover map.");
+            if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("Timer map badge lost the row hover map.");
             Hover(labels.Single(text=>text!=name && text!=icon));await Pause(250);
             if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP timer text lost the row hover map.");
             if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("MVP map stole game focus.");
-            SaveElement(panel,"mvp-magnifier-row");SaveDesktop(overlay,"mvp-magnifier-hover");
+            SaveElement(panel,"timer-map-badge");SaveDesktop(overlay,"timer-map-hover");
             var gameRect=QuestWindowNative.Bounds(game);SetCursorPos((int)gameRect.Right-5,(int)gameRect.Bottom-5);
             await Until(()=>!overlay.IsMvpMapVisible,"MVP map closes outside the row");
-            DebugLog.Write("MVP ROW HOVER PASS: name, magnifier and time show map; leaving row closes it; focus preserved.");
+            await VerifyTimerPanelStyle(panel, settings);
+            DebugLog.Write("TIMER ROW HOVER PASS: name, map code and time show map; leaving row closes it; focus preserved.");
         }
         finally
         {
             settings.ActiveMvpTimers.Remove(timer);settings.TimersX=x;settings.TimersY=y;settings.TimersOverlayVisible=visible;
+        }
+    }
+
+    private static async Task VerifyTimerPanelStyle(Border panel, AppSettings settings)
+    {
+        var previous = (settings.TimersShowBackground, settings.TimersBackgroundColor,
+            settings.TimersBackgroundOpacityPercent, settings.TimersShowBorder,
+            settings.TimersBorderColor, settings.TimersBorderThickness);
+        try
+        {
+            settings.TimersShowBackground = true;
+            settings.TimersBackgroundColor = "#FF123456";
+            settings.TimersBackgroundOpacityPercent = 35;
+            settings.TimersShowBorder = true;
+            settings.TimersBorderColor = "#FF00AACC";
+            settings.TimersBorderThickness = 3;
+            await Until(() => panel.Background is System.Windows.Media.SolidColorBrush { Opacity: .35 } background &&
+                background.Color.ToString() == "#FF123456" &&
+                panel.BorderBrush is System.Windows.Media.SolidColorBrush border && border.Color.ToString() == "#FF00AACC" &&
+                panel.BorderThickness == new Thickness(3), "timer panel style updates live");
+            SaveElement(panel, "timer-panel-style");
+            settings.TimersShowBackground = false;
+            settings.TimersShowBorder = false;
+            await Until(() => panel.Background is System.Windows.Media.SolidColorBrush { Color.A: 0 } &&
+                panel.BorderThickness == new Thickness(0), "timer panel background and border turn off independently");
+        }
+        finally
+        {
+            (settings.TimersShowBackground, settings.TimersBackgroundColor, settings.TimersBackgroundOpacityPercent,
+                settings.TimersShowBorder, settings.TimersBorderColor, settings.TimersBorderThickness) = previous;
         }
     }
 
@@ -518,6 +671,7 @@ internal static class QuestInputSmoke
                 timer.MarkerX=.5;timer.MarkerY=.5;
                 await Pause();SaveElement(main.MvpLocationPanel,size.Name);
             }
+            await VerifyResizableTimerLocationLayout(main);
         }
         finally
         {
@@ -525,6 +679,47 @@ internal static class QuestInputSmoke
             main.Width=oldWidth;main.Height=oldHeight;main.Left=oldLeft;main.Top=oldTop;settings.ApplicationTheme=oldTheme;main.Hide();
         }
     }
+
+    private static async Task VerifyResizableTimerLocationLayout(MainWindow owner)
+    {
+        var source = MonsterCatalogService.LoadForTimers(GameDatabaseVersion.SpringRo).Single(monster => monster.Id == 1002);
+        var monster = new MonsterEntry
+        {
+            Id = source.Id, Name = source.Name, IsMvp = false, LocalImagePath = source.LocalImagePath,
+            Spawns = source.Spawns.Take(4).ToList()
+        };
+        var wizard = new MvpTimerWizardWindow([monster]) { Owner = owner };
+        try
+        {
+            wizard.Height = wizard.MinHeight;
+            wizard.Show();
+            wizard.TimerKindBox.SelectedIndex = 1;
+            wizard.MonsterBox.SelectedItem = monster;
+            var scroll = wizard.LocationFormScroll;
+            await Until(() => scroll.ScrollableHeight > 0 && wizard.LocationCards.Items.Count == 4,
+                "short timer form scrolls through all locations");
+            scroll.ScrollToBottom();
+            await Until(() => scroll.VerticalOffset >= scroll.ScrollableHeight - 1, "timer form reaches last location");
+            wizard.UpdateLayout();
+            var lastCard = (FrameworkElement)wizard.LocationCards.ItemContainerGenerator.ContainerFromIndex(3);
+            var viewport = (ScrollContentPresenter)scroll.Template.FindName("PART_ScrollContentPresenter", scroll);
+            var card = lastCard.TransformToAncestor(viewport).TransformBounds(new Rect(lastCard.RenderSize));
+            if (card.Top < -1 || card.Bottom > viewport.ActualHeight + 1)
+                throw new InvalidOperationException($"The last location is clipped: {card}; viewport height {viewport.ActualHeight}.");
+            var beforeWheel = scroll.VerticalOffset;
+            lastCard.RaiseEvent(new System.Windows.Input.MouseWheelEventArgs(
+                System.Windows.Input.Mouse.PrimaryDevice, Environment.TickCount, 120)
+                { RoutedEvent = System.Windows.Input.Mouse.MouseWheelEvent });
+            await Until(() => scroll.VerticalOffset < beforeWheel - 1, "wheel over location scrolls the form");
+
+            wizard.Height = 740;
+            await Until(() => scroll.ScrollableHeight <= 1 && scroll.ComputedVerticalScrollBarVisibility == Visibility.Collapsed,
+                "tall timer form shows all locations without a scrollbar");
+            SaveDesktop(wizard, "timer-locations-tall-native");
+        }
+        finally { wizard.Close(); }
+    }
+
     private static void SaveElement(FrameworkElement element,string name)
     {
         var folder=Environment.GetEnvironmentVariable("ROAURA_QUEST_UI_SNAPSHOTS");

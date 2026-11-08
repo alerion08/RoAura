@@ -1,3 +1,43 @@
+# RoAura 3.5.0
+
+## Русский
+
+### Новые возможности
+
+- **Таймеры монстров.** В приложении и в игре можно создать таймер для MVP или обычного монстра. Таймеры показывают код карты и открывают мини-карту с маркером при наведении. Цвет, прозрачность фона и обводку панели можно настроить.
+- **Горячие клавиши таймеров.** Назначьте до 12 сочетаний для перезапуска по номеру. Клавиша открывает заполненную форму, где можно поставить новый маркер и подтвердить перезапуск.
+- **Полосы Base EXP и Job EXP.** Показывают прогресс, опыт в час и время с первого наблюдения текущего уровня. Ширина и высота настраиваются, полосу Job EXP можно скрыть отдельно.
+- **Профиль MuhRO.** Добавлена поддержка пакетных кулдаунов, эффектов, напоминаний, экипировки и статистики. Ручные таймеры и статистика доступны и в общих профилях.
+- **Видеоинструкции.** Пять роликов открываются прямо в RoAura. Три посвящены эффектам и их панелям, ещё два доступны по кнопке «Как это работает?» в «Статистике» и Gold Goblin.
+
+### Исправления
+
+- Улучшено определение персонажа при смене подключения. Добавлена обработка старого формата пакетов опыта и чтение Base/Job Level при входе для поддерживаемых форматов списка персонажей.
+- Исправлена обработка экипировки после переподключения и выбор игрового соединения.
+- В выборе эффекта для панели показывается его название. Кнопка «Добавить» включает эффект и привязывает его к текущей панели.
+- Кнопки управления сессией в «Статистике» сохраняют обычную высоту. Статус захвата на главной показывает короткое сообщение.
+
+Скачайте portable ZIP или Setup для Windows x64. Для пакетных функций нужен Npcap. Релиз использует существующие данные RoAura. Настройки из RoAura-Dev хранятся отдельно.
+
+## English
+
+### New features
+
+- **Monster timers.** Create timers for MVPs and regular monsters in the app or in game. Each timer shows its map code and opens a minimap with the kill marker on hover. The panel background, opacity, and border are configurable.
+- **Timer shortcuts.** Assign up to 12 restart shortcuts by timer number. A shortcut opens a prefilled form where you can place a new marker and confirm the restart.
+- **Base EXP and Job EXP bars.** See progress, EXP per hour, and elapsed time since the current level was first observed. Resize the bars and hide Job EXP separately.
+- **MuhRO profile.** Added packet support for cooldowns, effects, reminders, equipment, and statistics. Manual timers and statistics are also available in generic profiles.
+- **Video guides.** Five guides play inside RoAura. Three cover effects and their panels. The other two are under “How does it work?” in Statistics and Gold Goblin.
+
+### Fixes
+
+- Improved character identification when the connection changes. Added legacy EXP packet support and Base/Job Level detection on login for supported character-list formats.
+- Fixed equipment tracking after reconnecting and improved game connection discovery.
+- The effect picker displays effect names. Add enables the selected effect and assigns it to the current panel.
+- Statistics session buttons retain their normal height. The home screen shows a concise packet capture status.
+
+Download the portable ZIP or Setup for Windows x64. Packet features require Npcap. The release uses your existing RoAura data. RoAura-Dev settings are stored separately.
+
 # RoAura 3.4.0
 
 ## Русский

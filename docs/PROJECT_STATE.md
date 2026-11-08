@@ -1,5 +1,70 @@
 # Project state
 
+## RoAura 3.5.0 release candidate — 2026-11-08
+
+- The owner accepted combined development commit `ddcf2b56` in game and authorized preparation and publication. The release candidate adds the version metadata and user-facing notes, and includes the timer sprites and video guides in Setup. Windows release validation precedes publication.
+
+## Combined development feedback — 2026-11-08
+
+- The Statistics and Gold Goblin tutorial buttons share “How does it work?”. Statistics session actions keep their regular height. Adding an effect by name assigns and enables it on the selected panel.
+- Packet capture shows a concise status; the adapter and filter details remain in the debug log.
+- Base/Job levels can be seeded from a supported character-selection roster on an owned connection, matched by process and CID when the map session starts. Subsequent level updates preserve or reset each observed level clock independently. Re-enter character selection for the initial snapshot. Live server/client coverage remains manual.
+
+## Combined development baseline — 2026-11-08
+
+- Continue combined development from `integration/current-dev`. It combines MuhRO packet support, mixed monster timers and numbered restart shortcuts, all five offline video guides, Base/Job EXP bars, and CID recovery with legacy EXP support. It retains the released quest database snapshots and the separate RoAura-Dev application data directory.
+- Windows development CI exercises the combined source and produces a portable build. Live Ragnarok/Npcap relogs, timer interaction, and EXP display still require manual acceptance.
+
+## Active development — three Effects video guides, 2026-11-05
+
+- On `integration/effects-video-guides`, the Effects workspace bundles the updated add-effect video plus guides for effect settings and active effect panels. The same localized popup plays each offline. Build and installer rules include all three approved, silent MP4s.
+- The Windows startup probe checks the expected video and playback for each help button. Manual Windows review covers layout, keyboard opening/closing, and playback at the user's DPI.
+
+## Active development — effect tracking tutorial, 2026-11-05
+
+- Continues `feature/muhro-packet-support`. The Effects list opens the approved six-step tutorial from a clickable hint. The window plays the bundled 12-second H.264 MP4 on a loop and releases it when closed. The MP4 is included in build, portable and installer payloads.
+- [Windows development run 135, attempt 2](https://github.com/alerion08/RoAura/actions/runs/42042386365/attempts/2) passed 409 tests, startup/input and portable checks on `8dff7037`. The new startup probe verified that the Effects button opens the owned window and the bundled MP4 plays. Attempt 1 passed this probe and hit the previously recorded coordinate-toast expiry timeout in ROQuestie.
+- Portable `RoAura-Dev-3.4.0-8dff7037-portable.zip`, SHA256 `935f744738ab9d2ca47901120e0036f28b5c58b6c242c59f7cd209d69043bc78`. The video inside the ZIP matches the approved clip byte for byte. The installer includes the same published file; the installer was not executed in this portable run.
+
+## Active development — timer form usability and ROQuestie beta badge, 2026-11-05
+
+- Continues `feature/muhro-packet-support`. Shared non-editable dropdowns open from the field body and arrow. The timer form uses one height-aware scrollbar for the form fields and location cards. The Quests navigation entry and ROQuestie settings header show BETA.
+- [Windows development run 134](https://github.com/alerion08/RoAura/actions/runs/42000698787) passed all 409 tests, native startup and portable verification on `6919c1d7`. The probe opens the timer category with real mouse input, verifies the last location fits in the short viewport at the end of scrolling, exercises WPF wheel routing and verifies the scrollbar disappears when the taller window fits all cards. Real-client acceptance remains manual.
+- Portable `RoAura-Dev-3.4.0-6919c1d7-portable.zip`, SHA256 `de6d47fa1d7f0c90ba89211e230e1a0213f29c2b093ac59fe638213f7bad9c40`.
+
+## Active development — shared monster timers and panel appearance, 2026-11-05
+
+- Continues the numbered timer work on `feature/muhro-packet-support`. The app and in-game creation use the same MVP/Monsters category and search. Category, monster ID and chosen location are saved per timer. Both categories share full list numbering and the existing 1–12 shortcuts.
+- Timer entries use the existing SpringRO/ToC database snapshots. For RTM's MVP-only catalog, ordinary entries use SpringRO as a reference; generic profiles also identify reference locations in the form. No MuhRO-specific spawn table is included.
+- The Windows package includes 1,437 local sprites and 352 catalog minimaps. A compact map-code badge replaces the magnifier; the whole row still opens the minimap and marker. The in-game panel and its settings preview share independent background (visibility/color/opacity) and border (visibility/color/thickness) settings.
+- Tested source `694f57c7dd90b8bac759e3daf541787e809c6688`. [Windows development run 131](https://github.com/alerion08/RoAura/actions/runs/41993544078) passed all 409 tests, eight ToC importer checks, native startup/input, bundled art and portable validation. The native probe checks regular monster selection, local Poring art and `pay_fild04`, the saved category/map/number, passive map hover and live panel style. Real-client acceptance remains manual.
+- Portable `RoAura-Dev-3.4.0-694f57c7-portable.zip`, SHA256 `b0b94c477234c4f9d62d7bec6001682d8045fe5e4054db6a6640c9668aad5880`.
+
+
+## Active development — numbered MVP restart shortcuts and generic statistics, 2026-11-05
+
+- Continuing `feature/muhro-packet-support` from `2fad8d2`; the owner confirmed the MuhRO packet candidate works. This accepted branch is retained so the new work includes those fixes. Stable main/version/release remain 3.4.0; no merge/tag/publication is part of this task.
+- The previous Windows development run [124](https://github.com/alerion08/RoAura/actions/runs/41862181503) has now completed successfully, including full Windows tests, native startup/input, resources and isolated portable packaging. The earlier queued record below describes the handoff on November 4.
+- Timers show one-based numbers in both application list and overlay. Numbers use complete current-profile list order, including stopped/disabled timers; completion/visibility never retargets a shortcut. Deleting/reordering rows updates numbers; timer count is not limited to twelve.
+- Settings → Hotkeys → MVP Timers exposes twelve optional restart chords (all None by default). Existing actions keep priority; duplicated indexed chords are inactive and the common conflict warning includes them. Settings/presets retain the bindings without a schema/version bump.
+- A numbered shortcut opens an independent restart draft with the same ID/name/MVP/interval/location/sound settings, a cleared marker and the complete keypress timestamp. Confirmation updates the same timer object; cancel/repeated shortcut does not commit. Midnight and time spent marking cannot shift the original timestamp. Different-slot presses switch drafts; server/client/preset changes close the form, and removed targets cannot be recreated by confirmation.
+- Statistics navigation, reward notifications and rate HUD now depend on packet availability rather than server databases, including MuhRO and Other. Manual MVP timers likewise work without a server catalog gate; database/market availability remains server-specific. Existing selected reference catalogs and timer collections are retained; no MuhRO database or automatic data migration is introduced.
+- Implementation: `c96f7f3`, layout-regression update `3309f16`, deferred selection fix/final tested source `4d15d2b007cf57bccf6efeff9f958933129bb8dc`. WPF's initial selection binding cannot overwrite a populated restart draft. [Windows development run 127](https://github.com/alerion08/RoAura/actions/runs/41964880912) succeeded: all 408 tests, ToC catalog/importer, 53 offline maps, native startup/input (including slots 1/12, modifiers, independent draft/cancel, marker/confirm, unchanged identity and keypress time), RU/EN/resources and isolated portable/package privacy checks. Local cross-compilation and XAML/localization checks also passed.
+- Windows-built artifact: `RoAura-Dev-3.4.0-4d15d2b0-portable.zip`, SHA256 `df5d85b1782474dc634a190d95a1a29412156b3e0c37a6e5563ed2ebe45897db`. Uses existing isolated RoAura-Dev storage identity; stable release unchanged. Real Ragnarok hotkeys, fullscreen/mixed DPI and live MuhRO statistics remain manual acceptance.
+
+## Active development — MuhRO packet support, 2026-11-04
+
+- Branch `feature/muhro-packet-support`, based on current main `64f6b20`. Published 3.4.0, main, version metadata and released assets are unchanged. No merge/tag/release is authorized by this task.
+- Explicit MuhRO server selection uses direct standard status packets; it never creates the SpringRO memory bridge or enables its skill-specific Hiding fallback. Selecting MuhRO appends `Muh` to allowed process names without replacing custom entries. Character keys are separated from SpringRO; historical mislabelled records are not migrated automatically. Server databases/market are not claimed or added in this packet-only iteration.
+- Equipment cache and pending acknowledgements are scoped to one TCP lifetime and cleared on stream reset. UI/learning events retain source and receipt time. Missing Item ID reaches the learning status message without changing equipment; later inventory cannot teach a newly armed window from an older action. Index reuse cannot override a different full fingerprint.
+- Automatic connection discovery excludes HTTP/HTTPS candidates and prefers the selected game-window PID while allowing loopback. Manual address/port settings remain available for routes using these ports. Learning emits at most 64 metadata-only records per 20-second window in both build identities.
+- Evidence: private user log contains 16 consistent own Enchant Poison pairs (Status 6 / Skill 138 / 165000 ms), a 35-entry 68-byte inventory list, then unresolved equip ACKs after restart without a new inventory list. The analyzed Muh.exe has standard dispatch/layouts for the status, skill, cooldown and equipment families. No private log, EXE or actor identifiers are committed.
+- Implementation commit: `9d3965b0380bddec9c6cb5aef594601461974930`. Local cross-compilation of Windows app/test projects passed (0 errors), along with eight Python catalog tests, XAML/XML, YAML and localization checks. Nine core checks executed successfully through a temporary net8 runner against the compiled assemblies (status timeline, skill/post-delay, missing inventory, connection/reset isolation, 35-item fragmentation, opaque attack body, discovery, bounded diagnostics and process aliases). WPF serialization/UI checks were excluded from this Linux runner, not claimed as passed.
+- [Windows development run 124](https://github.com/alerion08/RoAura/actions/runs/41862181503) remains queued for a runner at handoff. Full `dotnet test` and native startup/build-script validation are blocked on that queue; no Windows/gameplay acceptance is claimed.
+- A local isolated candidate was cross-published for win-x64 using the development publish flags. PE64/version 3.4.0.0, RoAura-Dev storage/mutex markers, ZIP integrity, absence of private data, both pinned quest DBs and all 53 maps were verified. Data payload was copied from the verified published 3.4.0 ZIP (SHA256 `5e8aa0bbbffeec1e9545cc6db202a893fd7a12f47bd4d2f4f15def0a66164663`), with no moving research snapshot. This fallback package has not executed Windows native smoke.
+- Local candidate `RoAura-Dev-3.4.0-muhro-9d3965b-portable.zip`: SHA256 `587228ae71a48652e43bfd5ee1c1130570c6e03ecc3df907121e75ba94ca5681`. Separate Dev settings; no automatic stable-data import. See the MuhRO acceptance section in REGRESSION_CHECKLIST.md. Live status start/removal, damaging skills, relog and multiple clients remain manual acceptance.
+
+
 ## Current published baseline — updated 2026-11-04
 
 - Stable release: **RoAura 3.4.0**, [v3.4.0](https://github.com/alerion08/RoAura/releases/tag/v3.4.0), published after the owner's explicit “публикуй” approval. This current summary supersedes the dated development/preparation history below.
@@ -12,6 +77,16 @@
 - The owner accepted development 121 in the tested scenario. Protected/fullscreen variations, physical mixed-monitor DPI changes, live client/character changes while dragging, multiple clients and long sessions remain environment-specific manual coverage; automation does not establish them.
 - Stable release storage remains RoAura; development storage remains separate RoAura-Dev. No automatic development-data import occurs. Existing stable settings/presets/local histories are not included in or replaced by the packages.
 - Next task starts from current main. PR #12 / feature/farming-sessions-mvp-tools is merged; research/quest-database remains independent and its moving head must not silently replace the released snapshots. This publication record is delivered to main through a docs-only PR/merge using [skip ci], without a version bump, new tag or asset replacement.
+
+## Statistics EXP bars — development
+
+- Branch `feature/statistics-exp-bars` adds an opt-in Base EXP overlay with a separate Job EXP switch and shared width, height and game-relative position. Level observations are kept per identified character. Live level updates and placement still require in-game verification.
+
+## Character statistics capture recovery — development
+
+- Branch `fix/character-statistics-capture` starts from stable 3.4.0 source. Automatic discovery can carry a fresh standard map login across an endpoint change when the first outbound TCP payload and current game process ownership agree. Ambiguous or closed flows are excluded. The reward parser also recognizes legacy signed 32-bit EXP packets.
+- Statistics and Gold Goblin now have offline video guides in their section headers. The Gold Goblin guide uses the overview edit. Both videos use the existing WPF tutorial player and are included in portable and installer payloads.
+- Live Windows/Npcap verification remains pending for real relogs with proxy/VPN endpoint changes and multiple clients. Clients with unknown login formats still need a targeted trace.
 
 ## Historical 3.4.0 release preparation — 2026-11-04
 

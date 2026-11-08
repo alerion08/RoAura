@@ -7,6 +7,95 @@ namespace RoAura.Tests;
 public sealed class PacketFramingRegressionTests
 {
     [Theory]
+    [InlineData((ushort)11, 230u)]
+    [InlineData((ushort)55, 45u)]
+    public void Fragmented_level_update_keeps_the_following_experience_packet(ushort parameter, uint level)
+    {
+        var bytes = new byte[20];
+        W16(bytes, 0, 0x00B0); W16(bytes, 2, parameter); W32(bytes, 4, level);
+        W16(bytes, 8, 0x0ACB); W16(bytes, 10, 22); W32(bytes, 12, 1_000_000);
+
+        for (var split = 1; split < 8; split++)
+        {
+            var scanner = new RoPacketStreamScanner();
+            var progress = new List<RoProgressPacket>();
+            scanner.ProgressChanged += progress.Add;
+            scanner.Process(bytes.AsSpan(0, split));
+            Assert.Empty(progress);
+            scanner.Process(bytes.AsSpan(split));
+            Assert.Equal(new RoProgressPacket(parameter, level), progress[0]);
+            Assert.Equal(new RoProgressPacket(22, 1_000_000), progress[1]);
+            Assert.Equal(2, progress.Count);
+        }
+    }
+
+    [Theory]
+    [InlineData(0x0B72, 175, 92, 24, 4)]
+    [InlineData(0x099D, 155, 72, 24, 4)]
+    [InlineData(0x006B, 147, 64, 16, 27)]
+    public void Fragmented_character_roster_reports_levels_by_cid(int opcode, int size,
+        int baseOffset, int jobOffset, int header)
+    {
+        var bytes = new byte[header + 2 * size];
+        W16(bytes, 0, (ushort)opcode);
+        W16(bytes, 2, (ushort)bytes.Length);
+        W32(bytes, header, 120_001);
+        W16(bytes, header + baseOffset, 230);
+        W32(bytes, header + jobOffset, 45);
+        W32(bytes, header + size, 120_002);
+        W16(bytes, header + size + baseOffset, 101);
+        W32(bytes, header + size + jobOffset, 9);
+
+        for (var split = 1; split < bytes.Length; split++)
+        {
+            var scanner = new RoPacketStreamScanner();
+            var rosters = new List<CharacterRosterLevel[]>();
+            scanner.CharacterRosterObserved += rosters.Add;
+            scanner.Process(bytes.AsSpan(0, split));
+            Assert.Empty(rosters);
+            scanner.Process(bytes.AsSpan(split));
+            Assert.Equal(new[] { new CharacterRosterLevel(120_001, 230, 45),
+                new CharacterRosterLevel(120_002, 101, 9) }, Assert.Single(rosters));
+        }
+        var loginReply = new byte[4 + 29 + bytes.Length];
+        W32(loginReply, 0, 42_000);
+        W16(loginReply, 4, 0x082D);
+        W16(loginReply, 6, 29);
+        bytes.CopyTo(loginReply, 33);
+        Assert.Equal(CharacterRosterLevels.Read(bytes), CharacterRosterLevels.ReadPayload(loginReply));
+        var prefixed = new RoPacketStreamScanner();
+        var prefixedRosters = new List<CharacterRosterLevel[]>();
+        prefixed.CharacterRosterObserved += prefixedRosters.Add;
+        prefixed.Process(loginReply);
+        Assert.Equal(CharacterRosterLevels.Read(bytes), Assert.Single(prefixedRosters));
+        W32(bytes, header + size + jobOffset, 0);
+        Assert.Empty(CharacterRosterLevels.Read(bytes));
+    }
+
+    [Fact]
+    public void Level_update_after_unknown_bytes_requires_a_parameter_frame_and_keeps_legacy_progress()
+    {
+        var bytes = new byte[19];
+        bytes.AsSpan(0, 3).Fill(0xEE);
+        W16(bytes, 3, 0x00B0); W16(bytes, 5, 11); W32(bytes, 7, 230);
+        W16(bytes, 11, 0x00B1); W16(bytes, 13, 22); W32(bytes, 15, 1_000_000);
+        for (var split = 1; split < bytes.Length; split++)
+        {
+            var scanner = new RoPacketStreamScanner();
+            var progress = new List<RoProgressPacket>();
+            scanner.ProgressChanged += progress.Add;
+            scanner.Process(bytes.AsSpan(0, split));
+            scanner.Process(bytes.AsSpan(split));
+            Assert.Equal(new[] { new RoProgressPacket(11, 230),
+                new RoProgressPacket(22, 1_000_000) }, progress);
+        }
+        bytes.AsSpan(11).Fill(0xEE);
+        var unframed = new RoPacketStreamScanner();
+        unframed.ProgressChanged += _ => throw new InvalidOperationException("False level frame");
+        unframed.Process(bytes);
+    }
+
+    [Theory]
     [InlineData((ushort)0x011A, 0u)]
     [InlineData((ushort)0x011A, 65535u)] // Hiding sends heal=-1
     [InlineData((ushort)0x09CB, uint.MaxValue)]
@@ -182,6 +271,31 @@ public sealed class PacketFramingRegressionTests
             Assert.Equal(5, Assert.Single(items).Count);
             Assert.Equal(900, Assert.Single(experiences).Amount);
             Assert.Equal(12345, Assert.Single(balances).Total);
+            Assert.Single(statuses);
+        }
+    }
+
+    [Theory]
+    [InlineData((ushort)1, 123456)]
+    [InlineData((ushort)2, -500)]
+    public void Legacy_experience_keeps_signed_amount_and_following_packet_boundary(ushort kind, int amount)
+    {
+        var bytes = new byte[14];
+        W16(bytes, 0, 0x07F6); W32(bytes, 2, 4200);
+        BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(6), amount);
+        W16(bytes, 10, kind);
+        var stream = bytes.Concat(Status()).ToArray();
+        for (var split = 1; split < bytes.Length; split++)
+        {
+            var scanner = new RoPacketStreamScanner();
+            var experience = new List<RoExperiencePacket>();
+            var statuses = new List<RoStatusPacket>();
+            scanner.ExperienceChanged += experience.Add;
+            scanner.StatusChanged += statuses.Add;
+            scanner.Process(stream.AsSpan(0, split));
+            Assert.Empty(experience);
+            scanner.Process(stream.AsSpan(split));
+            Assert.Equal(new RoExperiencePacket(4200, amount, kind, 0), Assert.Single(experience));
             Assert.Single(statuses);
         }
     }

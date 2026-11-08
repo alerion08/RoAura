@@ -449,9 +449,13 @@ public partial class App : Application
             settings.UpdatePacketCaptureState("Packets: startup error — smoke test");
             if (settings.PacketCaptureStateKind != "Error")
                 throw new InvalidOperationException("Packet capture startup errors must use the Error presentation state.");
-            settings.UpdatePacketCaptureState("Packets: listening on 1 adapter");
+            settings.UpdatePacketCaptureState("Packets: listening on 1 adapter, filter test");
+            if (settings.PacketCaptureStateKind != "Ready" ||
+                settings.PacketCaptureStateText.Contains("filter", StringComparison.Ordinal))
+                throw new InvalidOperationException("Active packet capture must show a concise Ready state.");
+            settings.UpdatePacketCaptureState("Packets: capture is active");
             if (settings.PacketCaptureStateKind != "Ready")
-                throw new InvalidOperationException("Active packet capture must use the Ready presentation state.");
+                throw new InvalidOperationException("The concise capture status must use the Ready state.");
             var wizard = new SkillWizardWindow(settings.CooldownGroups, settings.Language == "en");
             if (!wizard.RunAutomaticFlowSmokeTest())
                 throw new InvalidOperationException("Cooldown skill wizard automatic flow smoke test failed.");
@@ -508,6 +512,11 @@ public partial class App : Application
             _inputHook.InterfaceLayoutPressed += () => Dispatcher.BeginInvoke(() => _settingsWindow?.ToggleInterfaceLayout());
             _inputHook.PauseSessionPressed += () => Dispatcher.BeginInvoke(() => ToggleFarmingSessionPause());
             _inputHook.AddMvpTimerPressed += () => Dispatcher.BeginInvoke(() => _settingsWindow?.AddMvpTimerInGame());
+            _inputHook.RestartMvpTimerPressed += number =>
+            {
+                var killedAtUtc = DateTime.UtcNow;
+                Dispatcher.BeginInvoke(() => _settingsWindow?.RestartMvpTimerInGame(number, killedAtUtc));
+            };
             _inputHook.ToggleDatabasePressed += ToggleDatabase;
             _inputHook.ToggleQuestBrowserPressed+=()=>Dispatcher.BeginInvoke(()=>_settingsWindow?.ToggleQuestBrowser());
             _inputHook.ToggleQuestTrackerPressed+=()=>Dispatcher.BeginInvoke(()=>_settingsWindow?.ToggleQuestTracker());
@@ -926,8 +935,12 @@ public partial class App : Application
             HandlePacketSkill(observation.Packet.SkillId, observation.Packet.DelayMs, "0x043D");
         });
 
-    private void OnPacketEquipmentChanged(RoEquipmentPacket packet) =>
-        Dispatcher.BeginInvoke(() => HandlePacketEquipment(packet));
+    private void OnPacketEquipmentChanged(RoPacketObservation<RoEquipmentPacket> observation) =>
+        Dispatcher.BeginInvoke(() =>
+        {
+            if (_packetCapture?.IsCurrentObservation(observation) == true)
+                HandlePacketEquipment(observation.Packet);
+        });
 
     private void OnPacketItemAdded(RoItemAddedPacket packet) =>
         Dispatcher.BeginInvoke(() => HandleItemAdded(packet, null));
@@ -960,6 +973,18 @@ public partial class App : Application
     {
         if (_settingsWindow?.Settings.PacketCaptureEnabled != true) return;
         if (session is { } captured && !TryUseCharacterSession(captured)) return;
+        if (packet.Parameter is 11 or 55)
+        {
+            var isJob = packet.Parameter == 55;
+            var now = DateTime.UtcNow;
+            var level = (ushort)packet.Value;
+            if (session.HasValue)
+                SafeCharacterStatisticsAction(() => _characterLedger?.ObserveExperienceLevel(isJob, level, now));
+            else
+                _overlay?.ObserveExperienceLevel(isJob, level, now);
+            _overlay?.RefreshCharacterStatistics();
+            return;
+        }
         if (packet.Parameter == 22)
         {
             if (_nextBaseExperience > 0 && _nextBaseExperience != packet.Value)
@@ -1170,11 +1195,11 @@ public partial class App : Application
             if (exact.Count > 0) return exact;
         }
 
-        // During the current character session the inventory index uniquely
-        // identifies the concrete item. Use it as a fallback when two packet
-        // layouts encode the same fingerprint differently.
+        // An index can be reused after relog. It must not override a conflicting
+        // complete fingerprint, even when the base Item ID is identical.
         var byIndex = enabled.Where(item =>
             item.InventoryIndex > 0 && item.InventoryIndex == packet.InventoryIndex &&
+            (!packetHasVariant || string.IsNullOrWhiteSpace(item.VariantKey)) &&
             (item.ItemId <= 0 || packet.ItemId <= 0 || item.ItemId == packet.ItemId)).ToList();
         if (byIndex.Count > 0) return byIndex;
 
@@ -1268,7 +1293,7 @@ public partial class App : Application
         {
             if (_settingsWindow is null) return;
             var settings = _settingsWindow.Settings;
-            if (!GameServerProfile.SupportsServerDatabases(settings.ServerProfile)) return;
+            if (!FeatureAvailability.CanUse(settings.ServerProfile, settings.PacketCaptureEnabled, AppFeature.MvpTimers)) return;
             settings.TimersOverlayVisible = !settings.TimersOverlayVisible;
             _settingsStore?.Save(settings);
             _settingsWindow.ReportTimersVisibility(settings.TimersOverlayVisible);

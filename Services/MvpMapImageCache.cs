@@ -22,7 +22,7 @@ public sealed class MvpMapImageCache
     public static string Normalize(string? code)
     {
         var key=code?.Trim().ToLowerInvariant()??"";
-        return key.Length is >0 and <=64 && key.All(ch=>char.IsAsciiLetterOrDigit(ch)||ch=='_') ? key : "";
+        return key.Length is >0 and <=64 && key.All(ch => char.IsAsciiLetterOrDigit(ch) || ch is '_' or '-') ? key : "";
     }
     public async Task<BitmapSource?> GetAsync(string? code)
     {

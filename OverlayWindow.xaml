@@ -6,15 +6,87 @@
         Background="Transparent" Topmost="False" ShowInTaskbar="False"
         ResizeMode="NoResize" ShowActivated="False">
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
-        <converters:ProgressToHeightConverter x:Key="ProgressToHeight" />
-        <converters:ScaleValueConverter x:Key="ScaleValue" />
-        <converters:Base64ToImageSourceConverter x:Key="Base64Image" />
-        <converters:ColorStringToBrushConverter x:Key="ColorBrush" />
-        <converters:CenterCoordinateConverter x:Key="CenterCoordinate" />
-        <converters:EffectPanelOpacityConverter x:Key="PanelOpacity" />
-        <converters:BottomMarginConverter x:Key="BottomMargin" />
-        <converters:DoubleToThicknessConverter x:Key="IconPadding" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/TimerPanel.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+            <converters:ProgressToHeightConverter x:Key="ProgressToHeight" />
+            <converters:ScaleValueConverter x:Key="ScaleValue" />
+            <converters:Base64ToImageSourceConverter x:Key="Base64Image" />
+            <converters:ColorStringToBrushConverter x:Key="ColorBrush" />
+            <converters:CenterCoordinateConverter x:Key="CenterCoordinate" />
+            <converters:EffectPanelOpacityConverter x:Key="PanelOpacity" />
+            <converters:BottomMarginConverter x:Key="BottomMargin" />
+            <converters:DoubleToThicknessConverter x:Key="IconPadding" />
+            <Style x:Key="ExperienceBarLabel" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="Effect">
+                    <Setter.Value><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></Setter.Value>
+                </Setter>
+            </Style>
+            <DataTemplate x:Key="ExperienceBarTemplate">
+                <DockPanel>
+                    <Grid Margin="3,1">
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="DockPanel.Dock" Value="Top"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource AncestorType=ContentControl}}" Value="Job">
+                                        <Setter Property="DockPanel.Dock" Value="Bottom"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
+                        <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Left">
+                            <TextBlock Style="{StaticResource ExperienceBarLabel}" Text="{Binding Time}"/>
+                        </Viewbox>
+                        <Viewbox Grid.Column="1" StretchDirection="DownOnly" HorizontalAlignment="Right">
+                            <TextBlock Style="{StaticResource ExperienceBarLabel}" Text="{Binding Rate}"/>
+                        </Viewbox>
+                    </Grid>
+                    <Grid Height="{Binding DataContext.ExperienceBarHeight, RelativeSource={RelativeSource AncestorType=Window}}">
+                        <ProgressBar Minimum="0" Maximum="1" Value="{Binding Progress, Mode=OneWay}">
+                            <ProgressBar.Style>
+                                <Style TargetType="ProgressBar">
+                                    <Setter Property="Foreground" Value="#FF345DB1"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource AncestorType=ContentControl}}" Value="Job">
+                                            <Setter Property="Foreground" Value="#FF7743A1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ProgressBar.Style>
+                            <ProgressBar.Template>
+                                <ControlTemplate TargetType="ProgressBar">
+                                    <Border Background="#C0161922" BorderBrush="#D09AA5B8" BorderThickness="1" CornerRadius="3" ClipToBounds="True">
+                                        <Grid x:Name="PART_Track">
+                                            <Border x:Name="PART_Indicator" HorizontalAlignment="Left"
+                                                    Background="{TemplateBinding Foreground}" CornerRadius="2"/>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </ProgressBar.Template>
+                        </ProgressBar>
+                        <Grid Margin="6,0">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="3*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                            <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Left">
+                                <TextBlock Style="{StaticResource ExperienceBarLabel}" Text="{Binding Level}"/>
+                            </Viewbox>
+                            <Viewbox Grid.Column="1" Margin="4,0" StretchDirection="DownOnly">
+                                <TextBlock Style="{StaticResource ExperienceBarLabel}" Text="{Binding Experience}"/>
+                            </Viewbox>
+                            <Viewbox Grid.Column="2" StretchDirection="DownOnly" HorizontalAlignment="Right">
+                                <TextBlock Style="{StaticResource ExperienceBarLabel}" Text="{Binding Percent}"/>
+                            </Viewbox>
+                        </Grid>
+                    </Grid>
+                </DockPanel>
+            </DataTemplate>
+        </ResourceDictionary>
     </Window.Resources>
     <Grid x:Name="OverlaySurface" Background="Transparent">
       <Grid x:Name="PacketOverlaySurface" Visibility="{Binding PacketCaptureEnabled, Converter={StaticResource BoolToVisibility}}">
@@ -441,6 +513,17 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
+        <Canvas x:Name="ExperienceBarsPanel" IsHitTestVisible="False">
+            <StackPanel Canvas.Left="{Binding ExperienceBarsX}" Canvas.Top="{Binding ExperienceBarsY}"
+                        Width="{Binding ExperienceBarWidth}"
+                        Visibility="{Binding ShowExperienceBars, Converter={StaticResource BoolToVisibility}}">
+                <ContentControl x:Name="BaseExperienceBar" HorizontalContentAlignment="Stretch" ContentTemplate="{StaticResource ExperienceBarTemplate}"/>
+                <ContentControl x:Name="JobExperienceBar" Tag="Job" Margin="0,2,0,0" HorizontalContentAlignment="Stretch"
+                                ContentTemplate="{StaticResource ExperienceBarTemplate}"
+                                Visibility="{Binding ShowJobExperienceBar, Converter={StaticResource BoolToVisibility}}"/>
+            </StackPanel>
+        </Canvas>
+
         <ItemsControl x:Name="RateIndicatorsPanel" ItemsSource="{Binding RateIndicators}">
             <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
@@ -483,11 +566,11 @@
         </Grid>
         <Canvas IsHitTestVisible="True">
             <Border x:Name="MvpTimerPanel" Canvas.Left="{Binding TimersX}" Canvas.Top="{Binding TimersY}"
-                    Padding="10" CornerRadius="6" Background="#B011141B" BorderBrush="#B8C5CBD4" BorderThickness="1"
+                    Style="{StaticResource TimerPanelFrameStyle}"
                     Cursor="SizeAll" Visibility="Collapsed"
                     MouseLeftButtonDown="MvpTimerPanel_MouseLeftButtonDown" MouseMove="MvpTimerPanel_MouseMove" MouseLeftButtonUp="MvpTimerPanel_MouseLeftButtonUp">
                 <StackPanel>
-                <TextBlock x:Name="TimerPanelPreview" Text="MVP TIMERS" FontWeight="Bold" Foreground="#FFFFD45C" Visibility="Collapsed" Margin="0,0,0,5"/>
+                <TextBlock x:Name="TimerPanelPreview" Text="{DynamicResource MvpTimers}" FontWeight="Bold" Foreground="#FFFFD45C" Visibility="Collapsed" Margin="0,0,0,5"/>
                 <ItemsControl ItemsSource="{Binding ActiveMvpTimers}">
                     <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
@@ -501,8 +584,18 @@
                                     <Setter Property="Foreground" Value="{Binding DataContext.TimersTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}"/>
                                     <Setter Property="Effect"><Setter.Value><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></Setter.Value></Setter>
                                 </Style></StackPanel.Resources>
-                                <TextBlock Text="{Binding Name}"/>
-                                <TextBlock Tag="MvpMapHover" Text="&#xE721;" FontFamily="Segoe MDL2 Assets" FontWeight="Normal" Margin="7,0,0,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding NumberedName}"/>
+                                <Border Margin="6,0,0,0" Padding="3,0" BorderThickness="1" CornerRadius="3" VerticalAlignment="Center"
+                                        BorderBrush="{Binding DataContext.TimersTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding LocationCode}" Value=""><Setter Property="Visibility" Value="Collapsed"/></DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <TextBlock Tag="MvpMapHover" Text="{Binding LocationCode}" FontWeight="Normal"/>
+                                </Border>
                                 <TextBlock><Run Text=" — "/><Run Text="{Binding RemainingText, Mode=OneWay}"/></TextBlock>
                             </StackPanel>
                         </DataTemplate>

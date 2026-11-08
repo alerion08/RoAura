@@ -60,7 +60,10 @@ public sealed class TocIntegrationTests
         Assert.Contains(catalog.Values, item => item.FullName.Contains("[3]"));
         var mvps = MonsterCatalogService.Load(GameDatabaseVersion.Toc);
         Assert.Equal(61, mvps.Count);
-        Assert.All(mvps, m => Assert.StartsWith("https://tidesofcomodo.com/", m.ImagePath));
+        Assert.All(mvps.Where(m => m.ImagePath.Length > 0), m => Assert.True(File.Exists(m.ImagePath)));
+        var regularTimerMonster = MonsterCatalogService.LoadForTimers(GameDatabaseVersion.Toc).Single(m => m.Id == 1002);
+        Assert.False(regularTimerMonster.IsMvp);
+        Assert.Equal(poring.Spawns.Select(spawn => spawn.Code), regularTimerMonster.Spawns.Select(spawn => spawn.Code));
         var timer = new MvpTimer { MonsterId = mvps[0].Id };
         timer.SetMonsterDetails(mvps[0]);
         Assert.Equal(mvps[0].ImagePath, timer.MonsterImagePath);

@@ -8,6 +8,7 @@
                 <ResourceDictionary Source="Resources/Strings.ru.xaml" />
                 <ResourceDictionary Source="Themes/LightPalette.xaml" />
                 <ResourceDictionary Source="Themes/RagnarokTheme.xaml" />
+                <ResourceDictionary Source="Themes/TimerPanel.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

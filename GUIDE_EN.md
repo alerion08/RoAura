@@ -1,4 +1,23 @@
-# RoAura 3.4.0 — user guide
+# RoAura 3.5.0 — user guide
+
+## MVP and regular monster timers
+
+In **Timers**, or in the in-game add form, select **MVP** or **Monsters**, search by name or ID and select a location. The location is saved with the timer. Its code appears in the overlay, and hovering over the row shows the minimap and marker. Both categories share timer numbers and shortcuts. In **In-game panel**, configure the background (toggle, color, opacity) and border (toggle, color, thickness) separately.
+
+
+## Restart timers by number
+
+The application and overlay number timers in full list order. Under **Settings → Hotkeys → Timers → Restart timers 1–12**, assign the desired chords. Each opens a prefilled restart form and records the kill time at keypress. Place a new marker and confirm Restart. Cancel or the repeated chord closes the draft without changes. Completion/hiding does not renumber timers; deleting a row shifts subsequent numbers. Statistics works for every server profile with packet reading enabled; manual MVP timers also work with packets disabled.
+
+## MuhRO
+
+Select **MuhRO** in server settings and enable packet reading. `Muh.exe` is added automatically. The profile supports cooldowns, effects, reminders, equipment, statistics and manual MVP timers; a MuhRO database is not included. To learn equipment, start RoAura before character login, or relog with RoAura running. Wait for the inventory to load, then click Learn and equip the intended item. If inventory identities are unavailable, the application explains the relog/retry requirement.
+
+## EXP bars and video guides
+
+Open the EXP bar settings in Statistics. Enable Base EXP and optionally Job EXP, then configure their dimensions and position. Time on the current level starts when RoAura first observes that level. For initial level detection, start RoAura before selecting a character.
+
+“How does it work?” opens the local videos in Statistics and Gold Goblin. Three other guides are available in Effects.
 
 ## Gold Goblin
 
@@ -121,7 +140,7 @@ RoAura also refreshes the equipment cache when a new item arrives through packet
 1. Choose RTM, SpringRO or ToC and search by MVP name/ID. Supported catalog records include source locations and respawn intervals.
 2. The first available location is selected automatically. Click another location card to switch maps, and click the minimap to mark the kill point.
 3. Restart replaces the old countdown with a full interval from now. Apply time uses a historical kill time separately. Reset stops the timer.
-4. Hover the name, magnifier, time or gaps in the game timer row to show its map/marker; leave the row to close it.
+4. Hover the name, map code, time or gaps in the game timer row to show its map/marker; leave the row to close it.
 5. F4 opens the compact in-game Add timer form by default; repeat closes it. Dragged form placement persists.
 6. Panel X/Y, text size/color, section placement, completion sound and volume remain configurable. F10 toggles visibility without stopping countdowns. With no active timers the panel is hidden except during layout editing.
 
@@ -180,7 +199,7 @@ Install .NET 8 SDK and run:
 powershell -ExecutionPolicy Bypass -File .\build-release.ps1
 ```
 
-Output: `artifacts\RoAura-3.4.0-portable.zip`. Install Inno Setup 6 and run `build-installer.ps1` for Setup.
+Output: `artifacts\RoAura-3.5.0-portable.zip`. Install Inno Setup 6 and run `build-installer.ps1` for Setup.
 
 Links: https://twitch.tv/im_alerion · http://discord.gg/aleriontv · https://www.donationalerts.com/r/im_alerion · https://rtm-refuge.online
 

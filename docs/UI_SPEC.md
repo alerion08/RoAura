@@ -1,5 +1,24 @@
 # RoAura UI specification
 
+## Effects video guides — 2026-11-05
+
+The Effects list offers “Как добавить отслеживание эффекта?” and “Как настроить эффект?” below the search results. The active effect panels tab offers “Как настроить панель активных эффектов?” below the panel list. Each hint opens a centered, resizable window with its own localized title and a matching bundled, silent MP4. Playback starts automatically, loops and stops when the window closes.
+
+## Effect tracking tutorial — 2026-11-05
+
+The hint below the Effects list is a button labeled “Как добавить отслеживание эффекта?” in Russian and “How do I add effect tracking?” in English. It opens a centered, resizable window over RoAura. The local instructional video plays automatically, repeats and stops when the window closes. The search field keeps its own search tooltip.
+
+## Timer form controls and quest status — 2026-11-05
+
+A selector opens from the whole dropdown field. Editable search fields preserve the caret and support typing. The timer add/restart form measures all location cards in the left column and scrolls that column only when its content exceeds the available height. Quests shows a BETA badge in the sidebar and in the ROQuestie section header.
+
+## Timers for MVPs and regular monsters — 2026-11-05
+
+**Timers** is the navigation and page title. Both creation entry points open the same form. Category **MVP** searches only MVPs and **Monsters** searches only regular entries by name/ID. A category change clears the previous selection; the location list and local sprite/map follow the selected monster. The first known map is preselected, and the confirmed map code and marker are saved per timer. Ordinary and MVP timers share the list, numbers and restart shortcuts.
+
+The overlay row shows an outlined map code such as `pay_fild04` when a location is selected. Hover anywhere on the row to see its minimap and marker. The **In-game panel** tab groups position/text, background (enable/color/opacity) and border (enable/color/thickness), with a live preview. RTM and generic profiles use a reference catalog where server-specific ordinary entries are unavailable.
+
+
 Current published version: **3.4.0**, [release](https://github.com/alerion08/RoAura/releases/tag/v3.4.0). Dated earlier validation notes are historical; current publication evidence is at the end and in PROJECT_STATE.md.
 
 ## Release 3.3.0 completion — 2026-11-03 documentation update
@@ -13,6 +32,10 @@ Real SpringRO, mixed-DPI, fullscreen, multi-client and long-session acceptance r
 
 
 This document records current product-level UI behavior. It is intentionally compact; implementation details remain in XAML and code.
+
+## MuhRO packet profile — development branch
+
+MuhRO is selectable in the header/server settings and character manager. It enables cooldowns, effects, reminders and equipment with the Home packet switch. `Muh` is added to the permitted game processes without replacing user entries. Statistics and its reward/rate overlays are available for every server profile when packet reading is on. Manual MVP timers are available independently of packet/server support. MuhRO does not expose another server's database/market as its own. With an empty item cache, equipment learning stops with the existing RU/EN relog-then-retry explanation; login snapshots do not assign a tracker. Other server selections and existing settings remain unchanged.
 
 ## General interface
 
@@ -110,7 +133,9 @@ This document records current product-level UI behavior. It is intentionally com
 ## MVP Timers
 
 - Timers use the searchable catalog for the selected server; ToC uses its compact SQLite snapshot. ToC intervals are not supplied by the source and must be entered manually. ToC timers are saved separately from legacy server timers.
-- Restart/reset behavior, dedicated hotkey and movable list remain available.
+- Restart/reset behavior, dedicated hotkey and movable list remain available. Manual timers and their overlay are available for all profiles, including MuhRO and Other, independent of packet reading.
+- List/overlay numbers follow the full active collection order, including disabled/stopped rows. Numbers do not shift on completion or hiding; deleting/reordering a row changes subsequent list positions. More than twelve timers remain allowed.
+- Settings → Hotkeys → MVP Timers includes an expandable set of twelve optional restart shortcuts (None by default). A numbered shortcut opens the existing form prefilled from that timer, with a new exact keypress kill time and no old marker. Place the new marker and confirm Restart to update the same timer; Cancel/repeated shortcut commits nothing. Unassigned/empty slots do nothing; conflicts preserve older shortcuts and disable duplicate indexed bindings.
 - Custom user names must not be replaced by database names after refresh.
 - Empty or unselected rows must be handled safely.
 
@@ -182,7 +207,7 @@ preference, stops/starts workers, cancels learning and invalidates old flow stat
 It does not delete configured overlays, rules, timers, saved history or positions.
 Cooldowns, Effects/Buff Panel, Reminder, Equipment, Statistics and Gold Goblin
 become unavailable while off. Database and manual MVP timers do not require packet
-reading and remain available where the server supports them. SpringRO HTTP Market
+reading. Manual MVP timers are available in every profile; database availability remains server-specific. SpringRO HTTP Market
 is also independent. Re-enabling restores navigation; verified character statistics
 need a fresh observed login rather than reusing the previous CID.
 
@@ -682,3 +707,7 @@ The owner approved publication after accepting development 121. PR #12 is merged
 [Publication workflow 41827714651](https://github.com/alerion08/RoAura/actions/runs/41827714651) passed 382 tests, eight ToC checks, native input/startup, portable/installer and silent-install/payload checks. Both public packages and SHA256SUMS.txt were verified against public asset digests; primary PE versions and all packaged document headers match 3.4.0 and all 53 maps are present. Current published hashes are in PROJECT_STATE.md. Earlier candidate-run notes are historical evidence, not the published binaries.
 
 Release/development identities remain separate; no automatic RoAura-Dev import occurs. General owner acceptance does not establish physical mixed-DPI, protected/fullscreen, live client switching or long-session coverage. This documentation-only main update does not rebuild or replace the release.
+
+## Statistics EXP bars
+
+Statistics → EXP bars controls the optional Base EXP overlay, the separate Job EXP switch and the shared width, height and X/Y position. Interface layout mode moves both bars as one block. Base EXP appears above Job EXP. Each bar shows level, current and required EXP, remaining EXP in parentheses and completion percentage. The left caption measures elapsed time since RoAura first observed the current level. The right caption uses the existing active-session EXP/hour rate. Captions appear above Base EXP and below Job EXP. When progress or level data is unavailable, the relevant fields show a dash. The bars share the statistics overlay's packet, game-window and occlusion behavior.

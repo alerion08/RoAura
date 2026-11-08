@@ -96,6 +96,50 @@ public sealed class CharacterLoginProbeTests
     }
 
     [Fact]
+    public void Automatic_retarget_recovers_only_a_fresh_owned_login_on_the_selected_endpoint()
+    {
+        var flow = new TcpFlowKey(0xC0000201, 50001, 0xC000020A, 6121);
+        var handoff = new MapLoginHandoff();
+        bool Match(uint ip, ushort port) => ip == flow.DestinationAddress && port == flow.DestinationPort;
+
+        handoff.Observe(flow, 801, 0x18, MapLogin(), _ => true, 100);
+        Assert.Null(handoff.Take(Match, _ => true, 101)); // no SYN evidence
+        handoff.Observe(flow, 800, 0x02, [], _ => true, 102);
+        handoff.Observe(flow, 802, 0x18, MapLogin(), _ => true, 103);
+        handoff.Observe(flow, 801, 0x18, MapLogin(), _ => false, 104);
+        handoff.Observe(flow, 801, 0x18, MapLogin(cid: 31234), _ => true, 105);
+        handoff.Observe(flow, 800, 0x02, [], _ => true, 106); // duplicate adapter
+        Assert.Null(handoff.Take((_, _) => false, _ => true, 107));
+        var retained = handoff.Take(Match, key => key == flow, 108);
+        Assert.NotNull(retained);
+        Assert.Equal(flow, retained.Value.Flow);
+        Assert.Equal(31234u, retained.Value.Login.CharacterId);
+        Assert.Null(handoff.Take(Match, _ => true, 109));
+
+        handoff.Observe(flow, 1000, 0x02, [], _ => true, 110);
+        handoff.Observe(flow, 1001, 0x18, MapLogin(), _ => true, 111);
+        Assert.Null(handoff.Take(Match, _ => false, 112)); // socket has already closed
+        handoff.Observe(flow, 1200, 0x02, [], _ => true, 113);
+        handoff.Observe(flow, 1201, 0x18, MapLogin(), _ => true, 114);
+        Assert.Null(handoff.Take(Match, _ => true, 20_000));
+    }
+
+    [Fact]
+    public void Handoff_does_not_choose_between_two_live_clients_on_the_same_endpoint()
+    {
+        var first = new TcpFlowKey(1, 50001, 2, 6121);
+        var second = first with { SourcePort = 50002 };
+        var handoff = new MapLoginHandoff();
+        foreach (var flow in new[] { first, second })
+        {
+            handoff.Observe(flow, 800, 0x02, [], _ => true, 100);
+            handoff.Observe(flow, 801, 0x18, MapLogin(cid: flow.SourcePort), _ => true, 101);
+        }
+        Assert.Null(handoff.Take((_, _) => true, _ => true, 102));
+        Assert.Null(handoff.Take((_, _) => true, _ => true, 103));
+    }
+
+    [Fact]
     public void Capture_filter_includes_outgoing_map_login_for_character_sessions()
     {
         var method = typeof(NpcapPacketCapture).GetMethod("BuildFilter",
