@@ -1,8 +1,16 @@
 # Project state
 
-## RoAura 3.5.0 release candidate — 2026-11-08
+## Current published baseline — RoAura 3.5.0
 
-- The owner accepted combined development commit `ddcf2b56` in game and authorized preparation and publication. The release candidate adds the version metadata and user-facing notes, and includes the timer sprites and video guides in Setup. Windows release validation precedes publication.
+- [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.
+- Shipped: regular monster and MVP timers, up to 12 restart hotkeys, Base/Job EXP bars, the MuhRO packet profile, five offline video guides, effect-panel selection, concise capture status, CID recovery and legacy EXP support.
+- [Windows publication run 42468295372](https://github.com/alerion08/RoAura/actions/runs/42468295372) passed 420 tests, eight ToC checks, native startup/input, portable and installer builds, silent installation, installed data/guide/sprite hash comparison, and clean package validation.
+- Verified GitHub release asset digests:
+  - [RoAura-3.5.0-portable.zip](https://github.com/alerion08/RoAura/releases/download/v3.5.0/RoAura-3.5.0-portable.zip): `b0f4982ccb9b4636e1805775c89988f35a0b1393f07734f1b49dfd865d77c72d`
+  - [RoAura-3.5.0-Setup.exe](https://github.com/alerion08/RoAura/releases/download/v3.5.0/RoAura-3.5.0-Setup.exe): `388b5eb534fe52050a49113924baebccc5326d954fd1fa89e158f6f4bf717938`
+  - [SHA256SUMS.txt](https://github.com/alerion08/RoAura/releases/download/v3.5.0/SHA256SUMS.txt): `89ecd82775ea9b7ad94c7694e7d633077680aae6510ca3e9be9a6c60379bfa47`
+- Start subsequent development from current `main`. The combined development and release branches are historical sources for PR #17.
+- Live acceptance covers the owner's tested setup. Unverified server/client variants, mixed DPI, fullscreen and multiple simultaneous clients remain manual checks. Release settings use RoAura and development settings use RoAura-Dev.
 
 ## Combined development feedback — 2026-11-08
 
@@ -65,7 +73,7 @@
 - Local candidate `RoAura-Dev-3.4.0-muhro-9d3965b-portable.zip`: SHA256 `587228ae71a48652e43bfd5ee1c1130570c6e03ecc3df907121e75ba94ca5681`. Separate Dev settings; no automatic stable-data import. See the MuhRO acceptance section in REGRESSION_CHECKLIST.md. Live status start/removal, damaging skills, relog and multiple clients remain manual acceptance.
 
 
-## Current published baseline — updated 2026-11-04
+## Historical published baseline — RoAura 3.4.0 (2026-11-04)
 
 - Stable release: **RoAura 3.4.0**, [v3.4.0](https://github.com/alerion08/RoAura/releases/tag/v3.4.0), published after the owner's explicit “публикуй” approval. This current summary supersedes the dated development/preparation history below.
 - Released/tagged application commit: `8bceb8c81c6530af4a634d09d53321b9b4953e22` on main, merged through PR #12. Annotated tag v3.4.0 resolves to that commit. Subsequent documentation-only commits do not change the released binaries.

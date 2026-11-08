@@ -1,5 +1,11 @@
 # RoAura UI specification
 
+Current published version: **3.5.0**, [release](https://github.com/alerion08/RoAura/releases/tag/v3.5.0).
+
+## 3.5.0 interface
+
+Statistics and Gold Goblin use “How does it work?” for their offline videos. Statistics session buttons use normal control height. Effects can be selected by name and added to the selected active panel. The home screen displays a concise capture status. Base and Job EXP bars have independent level clocks, based on the first observation of each current level.
+
 ## Effects video guides — 2026-11-05
 
 The Effects list offers “Как добавить отслеживание эффекта?” and “Как настроить эффект?” below the search results. The active effect panels tab offers “Как настроить панель активных эффектов?” below the panel list. Each hint opens a centered, resizable window with its own localized title and a matching bundled, silent MP4. Playback starts automatically, loops and stops when the window closes.
@@ -19,7 +25,7 @@ A selector opens from the whole dropdown field. Editable search fields preserve 
 The overlay row shows an outlined map code such as `pay_fild04` when a location is selected. Hover anywhere on the row to see its minimap and marker. The **In-game panel** tab groups position/text, background (enable/color/opacity) and border (enable/color/thickness), with a live preview. RTM and generic profiles use a reference catalog where server-specific ordinary entries are unavailable.
 
 
-Current published version: **3.4.0**, [release](https://github.com/alerion08/RoAura/releases/tag/v3.4.0). Dated earlier validation notes are historical; current publication evidence is at the end and in PROJECT_STATE.md.
+The 3.4.0 publication notes below are historical. Current release evidence is in PROJECT_STATE.md.
 
 ## Release 3.3.0 completion — 2026-11-03 documentation update
 
