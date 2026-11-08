@@ -255,9 +255,11 @@ public sealed class NpcapPacketCapture : IDisposable
                 // Other connections contribute only SYN metadata and matching
                 // login or roster headers. Their gameplay bytes stay filtered.
                 const string opcode = "tcp[((tcp[12] & 0xf0) >> 2):2]";
+                const string afterAccountEcho = "tcp[(((tcp[12] & 0xf0) >> 2) + 4):2]";
                 filter = $"({filter}) or (ip and tcp and ((tcp[13] & 0x12) = 0x02 or " +
                          $"{opcode} = 0x7200 or {opcode} = 0x3604 or " +
-                         $"{opcode} = 0x6b00 or {opcode} = 0x9d09 or {opcode} = 0x720b))";
+                         $"{opcode} = 0x6b00 or {opcode} = 0x9d09 or {opcode} = 0x720b or {opcode} = 0x2d08 or " +
+                         $"{afterAccountEcho} = 0x2d08 or {afterAccountEcho} = 0x6b00))";
             }
             var stats = new GenerationStats();
             var workers = devices.Select(device => Task.Run(
@@ -485,7 +487,7 @@ public sealed class NpcapPacketCapture : IDisposable
                     var outgoing = target.Matches(flowKey.DestinationAddress, flowKey.DestinationPort);
                     if (!incoming && !outgoing && target.AutoDiscovery)
                     {
-                        var roster = CharacterRosterLevels.Read(payload);
+                        var roster = CharacterRosterLevels.ReadPayload(payload);
                         if (roster.Length > 0)
                             RememberRosterLevels(generation, target, flowKey, roster);
                         lock (_lifecycleLock)

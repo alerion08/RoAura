@@ -57,6 +57,17 @@ public sealed class PacketFramingRegressionTests
             Assert.Equal(new[] { new CharacterRosterLevel(120_001, 230, 45),
                 new CharacterRosterLevel(120_002, 101, 9) }, Assert.Single(rosters));
         }
+        var loginReply = new byte[4 + 29 + bytes.Length];
+        W32(loginReply, 0, 42_000);
+        W16(loginReply, 4, 0x082D);
+        W16(loginReply, 6, 29);
+        bytes.CopyTo(loginReply, 33);
+        Assert.Equal(CharacterRosterLevels.Read(bytes), CharacterRosterLevels.ReadPayload(loginReply));
+        var prefixed = new RoPacketStreamScanner();
+        var prefixedRosters = new List<CharacterRosterLevel[]>();
+        prefixed.CharacterRosterObserved += prefixedRosters.Add;
+        prefixed.Process(loginReply);
+        Assert.Equal(CharacterRosterLevels.Read(bytes), Assert.Single(prefixedRosters));
         W32(bytes, header + size + jobOffset, 0);
         Assert.Empty(CharacterRosterLevels.Read(bytes));
     }

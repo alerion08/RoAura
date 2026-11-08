@@ -163,6 +163,10 @@ public sealed class RoPacketStreamScanner
                 LayoutProbed.Invoke(probe);
             switch (packetId)
             {
+                case 0x082D when frameLength == 29:
+                    offset += frameLength - 1;
+                    break;
+
                 case 0x006B or 0x099D or 0x0B72 when frameLength > 0 && CharacterRosterObserved is not null:
                     var roster = CharacterRosterLevels.Read(combined.AsSpan(offset, frameLength));
                     if (roster.Length > 0) CharacterRosterObserved.Invoke(roster);
@@ -383,8 +387,13 @@ public sealed class RoPacketStreamScanner
     // claim that SpringRO's complete packet table has been identified.
     private int KnownFrameLength(byte[] data, int offset, ushort opcode)
     {
-        if (_knownBoundary && CharacterRosterObserved is not null && opcode is 0x006B or 0x099D or 0x0B72)
-            return CharacterRosterLevels.FrameLength(data.AsSpan(offset));
+        if (CharacterRosterObserved is not null)
+        {
+            if (opcode == 0x082D)
+                return offset + 4 > data.Length ? -1 : ReadUInt16(data, offset + 2) == 29 ? 29 : 0;
+            if (_knownBoundary && opcode is 0x006B or 0x099D or 0x0B72)
+                return CharacterRosterLevels.FrameLength(data.AsSpan(offset));
+        }
 
         if (opcode == 0x00B0 && !_knownBoundary)
             return FindExperienceLevelBoundary(data, offset);

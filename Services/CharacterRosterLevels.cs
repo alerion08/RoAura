@@ -24,6 +24,18 @@ internal static class CharacterRosterLevels
             bodyLength <= layout.Size * 15 && bodyLength % layout.Size == 0) == 1 ? length : 0;
     }
 
+    public static CharacterRosterLevel[] ReadPayload(ReadOnlySpan<byte> data)
+    {
+        var levels = ReadAfterSlotInfo(data);
+        // The character server can echo a four-byte account ID before the
+        // first framed reply. Never retain the echo or other roster fields.
+        return levels.Length == 0 && data.Length > 4 ? ReadAfterSlotInfo(data[4..]) : levels;
+    }
+
+    private static CharacterRosterLevel[] ReadAfterSlotInfo(ReadOnlySpan<byte> data) =>
+        data.Length >= 29 && BinaryPrimitives.ReadUInt16LittleEndian(data) == 0x082D &&
+        BinaryPrimitives.ReadUInt16LittleEndian(data[2..]) == 29 ? Read(data[29..]) : Read(data);
+
     public static CharacterRosterLevel[] Read(ReadOnlySpan<byte> data)
     {
         var length = FrameLength(data);
