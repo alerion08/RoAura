@@ -1792,8 +1792,9 @@ public partial class MainWindow : Window
         if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group || PanelEffectChoiceBox.SelectedItem is not TrackedEffect effect) return;
         effect.GroupNumber = group.GroupNumber;
         effect.ShowOnBuffPanel = true;
+        effect.Enabled = true;
         Settings.SyncBuffPanelGroups();
-        BuffPanelGroupBox.Items.Refresh();
+        PanelEffectChoiceBox.SelectedItem = null;
         SaveSettings();
     }
 

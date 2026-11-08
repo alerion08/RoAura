@@ -73,9 +73,9 @@ public static class TcpConnectionDetector
             .First();
     }
 
-    internal static bool IsOwnedGameConnection(TcpFlowKey flow, IReadOnlySet<string> allowedProcesses)
+    internal static int? OwnedGameProcess(TcpFlowKey flow, IReadOnlySet<string> allowedProcesses)
     {
-        if (!OperatingSystem.IsWindows() || allowedProcesses.Count == 0) return false;
+        if (!OperatingSystem.IsWindows() || allowedProcesses.Count == 0) return null;
         foreach (var row in ReadEstablishedConnections())
         {
             if (row.LocalAddress != flow.SourceAddress || row.LocalPort != flow.SourcePort ||
@@ -84,14 +84,14 @@ public static class TcpConnectionDetector
             try
             {
                 using var process = Process.GetProcessById(row.ProcessId);
-                return allowedProcesses.Contains(process.ProcessName);
+                return allowedProcesses.Contains(process.ProcessName) ? row.ProcessId : null;
             }
             catch (Exception error) when (error is ArgumentException or InvalidOperationException or System.ComponentModel.Win32Exception)
             {
-                return false;
+                return null;
             }
         }
-        return false;
+        return null;
     }
 
     private static int Score(DetectedTcpConnection connection, string? currentAddress, int currentPort)

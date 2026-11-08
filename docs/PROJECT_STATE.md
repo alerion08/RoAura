@@ -1,5 +1,11 @@
 # Project state
 
+## Combined development feedback — 2026-11-08
+
+- The Statistics and Gold Goblin tutorial buttons share “How does it work?”. Statistics session actions keep their regular height. Adding an effect by name assigns and enables it on the selected panel.
+- Packet capture shows a concise status; the adapter and filter details remain in the debug log.
+- Base/Job levels can be seeded from a supported character-selection roster on an owned connection, matched by process and CID when the map session starts. Subsequent level updates preserve or reset each observed level clock independently. Re-enter character selection for the initial snapshot. Live server/client coverage remains manual.
+
 ## Combined development baseline — 2026-11-08
 
 - Continue combined development from `integration/current-dev`. It combines MuhRO packet support, mixed monster timers and numbered restart shortcuts, all five offline video guides, Base/Job EXP bars, and CID recovery with legacy EXP support. It retains the released quest database snapshots and the separate RoAura-Dev application data directory.

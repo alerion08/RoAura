@@ -238,7 +238,7 @@ public sealed class AppSettings : INotifyPropertyChanged
                     normalized.Contains("только в windows") || normalized.Contains("windows only") || normalized.Contains("only on windows");
         PacketCaptureStateKind = error
             ? "Error"
-            : normalized.Contains("слушаю") || normalized.Contains("listening")
+            : normalized is "пакеты: захват работает" or "packets: capture is active"
             ? "Ready"
             : normalized.Contains("подключ") || normalized.Contains("connecting") || normalized.Contains("запуск") || normalized.Contains("restarting")
                 ? "Searching"

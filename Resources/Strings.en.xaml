@@ -758,7 +758,7 @@
     <sys:String x:Key="ShowJobExperienceBar">Show Job EXP bar</sys:String>
     <sys:String x:Key="ExperienceBarWidth">Bar width</sys:String>
     <sys:String x:Key="ExperienceBarHeight">Bar height</sys:String>
-    <sys:String x:Key="FarmingTutorialButton">Video guide</sys:String>
+    <sys:String x:Key="FarmingTutorialButton">How does it work?</sys:String>
     <sys:String x:Key="StatisticsTutorialTitle">Statistics setup</sys:String>
     <sys:String x:Key="GoldGoblinTutorialTitle">Gold Goblin overview</sys:String>
 </ResourceDictionary>

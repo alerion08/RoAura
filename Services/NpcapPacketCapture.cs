@@ -72,6 +72,8 @@ public sealed class NpcapPacketCapture : IDisposable
             };
     }
     private readonly MapLoginHandoff _mapLoginHandoff = new();
+    private readonly Dictionary<(int ProcessId, uint CharacterId), (CharacterRosterLevel Levels, long SeenAt)> _rosterLevels = new();
+    private const int RosterLevelLifetimeMs = 120_000;
     private string? _discoveryServer;
     private CancellationTokenSource? _cancellation;
     private int _generation;
@@ -164,7 +166,10 @@ public sealed class NpcapPacketCapture : IDisposable
             if (AppEnvironment.CharacterSessionsEnabled) _characterSessions.OnCaptureInterrupted();
             var discoveryServer = target.AutoDiscovery ? settings.ServerProfile : null;
             if (discoveryServer is null || _discoveryServer != discoveryServer)
+            {
                 _mapLoginHandoff.Clear();
+                _rosterLevels.Clear();
+            }
             _discoveryServer = discoveryServer;
             if (discoveryServer is not null &&
                 _mapLoginHandoff.Take(target.Matches, target.IsOwnedGameConnection, Environment.TickCount64) is { } handoff)
@@ -248,10 +253,11 @@ public sealed class NpcapPacketCapture : IDisposable
             if (target.AutoDiscovery)
             {
                 // Other connections contribute only SYN metadata and matching
-                // login headers. Their inbound gameplay bytes stay filtered.
+                // login or roster headers. Their gameplay bytes stay filtered.
                 const string opcode = "tcp[((tcp[12] & 0xf0) >> 2):2]";
                 filter = $"({filter}) or (ip and tcp and ((tcp[13] & 0x12) = 0x02 or " +
-                         $"{opcode} = 0x7200 or {opcode} = 0x3604))";
+                         $"{opcode} = 0x7200 or {opcode} = 0x3604 or " +
+                         $"{opcode} = 0x6b00 or {opcode} = 0x9d09 or {opcode} = 0x720b))";
             }
             var stats = new GenerationStats();
             var workers = devices.Select(device => Task.Run(
@@ -297,7 +303,7 @@ public sealed class NpcapPacketCapture : IDisposable
         }
         catch (Exception ex)
         {
-            SetState(generation, L($"Пакеты: ошибка запуска — {ex.Message}", $"Packets: startup error — {ex.Message}"));
+            SetState(generation, L("Пакеты: не удалось запустить захват", "Packets: could not start capture"));
             DebugLog.Write($"PACKET CAPTURE START ERROR: {ex}");
         }
         finally
@@ -437,10 +443,9 @@ public sealed class NpcapPacketCapture : IDisposable
             if (firstAttempt) Interlocked.Increment(ref stats.Opened);
 
             var linkType = NpcapNative.pcap_datalink(handle);
-            var active = IncrementActive(generation);
+            IncrementActive(generation);
             countedAsActive = true;
-            SetState(generation, L($"Пакеты: слушаю {active} интерфейс(а), фильтр {filter}",
-                $"Packets: listening on {active} adapter(s), filter {filter}"));
+            SetState(generation, L("Пакеты: захват работает", "Packets: capture is active"));
             DebugLog.Write($"PCAP LISTEN {device.Description}: dlt={linkType}; filter={filter}");
 
             breakRegistration = cancellationToken.Register(() =>
@@ -480,6 +485,9 @@ public sealed class NpcapPacketCapture : IDisposable
                     var outgoing = target.Matches(flowKey.DestinationAddress, flowKey.DestinationPort);
                     if (!incoming && !outgoing && target.AutoDiscovery)
                     {
+                        var roster = CharacterRosterLevels.Read(payload);
+                        if (roster.Length > 0)
+                            RememberRosterLevels(generation, target, flowKey, roster);
                         lock (_lifecycleLock)
                         {
                             if (generation == _generation)
@@ -518,14 +526,33 @@ public sealed class NpcapPacketCapture : IDisposable
                             if (!tcpFlows.TryGetValue(flowKey, out flow))
                             {
                                 PruneIdleFlows(tcpFlows, generation);
-                                flow = new TcpFlowState(CreateScanner(generation, CharacterSessionFlow.FromInbound(flowKey)));
+                                var scanner = CreateScanner(generation, CharacterSessionFlow.FromInbound(flowKey));
+                                if (target.AutoDiscovery)
+                                    scanner.CharacterRosterObserved += roster => RememberRosterLevels(generation, target, flowKey, roster);
+                                flow = new TcpFlowState(scanner);
                                 tcpFlows[flowKey] = flow;
                             }
                         }
                     }
                     if (AppEnvironment.CharacterSessionsEnabled && generation == Volatile.Read(ref _generation) &&
                         !payload.IsEmpty)
-                        _characterSessions.OnServerPayload(CharacterSessionFlow.FromInbound(flowKey));
+                    {
+                        var sessionFlow = CharacterSessionFlow.FromInbound(flowKey);
+                        if (_characterSessions.Current.Phase == CharacterSessionPhase.Connecting)
+                        {
+                            lock (_lifecycleLock)
+                            {
+                                if (generation == _generation &&
+                                    _characterSessions.Current.Phase == CharacterSessionPhase.Connecting &&
+                                    _characterSessions.CurrentFlow == sessionFlow)
+                                {
+                                    _characterSessions.OnServerPayload(sessionFlow);
+                                    if (target.AutoDiscovery)
+                                        ApplyRosterLevels(generation, target, flowKey, sessionFlow);
+                                }
+                            }
+                        }
+                    }
                     flow.Process(sequence, payload);
                     if (AppEnvironment.CharacterSessionsEnabled && generation == Volatile.Read(ref _generation) && closing)
                     {
@@ -813,6 +840,43 @@ public sealed class NpcapPacketCapture : IDisposable
         }
     }
 
+    private void RememberRosterLevels(int generation, CaptureTarget target, TcpFlowKey inbound,
+        CharacterRosterLevel[] roster)
+    {
+        if (target.OwnedGameProcess(Reverse(inbound)) is not { } processId) return;
+        lock (_lifecycleLock)
+        {
+            if (generation != _generation) return;
+            var now = Environment.TickCount64;
+            foreach (var (key, entry) in _rosterLevels.ToArray())
+                if (now - entry.SeenAt > RosterLevelLifetimeMs) _rosterLevels.Remove(key);
+            if (_rosterLevels.Count + roster.Length > 128) _rosterLevels.Clear();
+            foreach (var level in roster)
+                _rosterLevels[(processId, level.CharacterId)] = (level, now);
+        }
+    }
+
+    private void ApplyRosterLevels(int generation, CaptureTarget target, TcpFlowKey inbound,
+        CharacterSessionFlow flow)
+    {
+        if (!_characterSessions.TryResolve(flow, out var session) || session.CharacterId is not { } cid ||
+            target.OwnedGameProcess(Reverse(inbound)) is not { } processId)
+            return;
+        lock (_lifecycleLock)
+        {
+            if (generation != _generation || !_characterSessions.IsCurrent(session) ||
+                !_rosterLevels.Remove((processId, cid), out var entry) ||
+                Environment.TickCount64 - entry.SeenAt > RosterLevelLifetimeMs)
+                return;
+
+            ForwardCharacterPacket(flow, new RoProgressPacket(11, entry.Levels.BaseLevel), CharacterProgressChanged);
+            ForwardCharacterPacket(flow, new RoProgressPacket(55, entry.Levels.JobLevel), CharacterProgressChanged);
+        }
+    }
+
+    private static TcpFlowKey Reverse(TcpFlowKey flow) =>
+        new(flow.DestinationAddress, flow.DestinationPort, flow.SourceAddress, flow.SourcePort);
+
     private void ForwardCharacterPacket<T>(CharacterSessionFlow flow, T packet,
         Action<CharacterSessionPacket<T>>? callback)
     {
@@ -892,8 +956,10 @@ public sealed class NpcapPacketCapture : IDisposable
         public bool Matches(uint ip, ushort candidatePort) =>
             port == candidatePort && (!_addressValue.HasValue || _addressValue == ip);
 
-        public bool IsOwnedGameConnection(TcpFlowKey flow) =>
-            allowedProcesses is not null && TcpConnectionDetector.IsOwnedGameConnection(flow, allowedProcesses);
+        public bool IsOwnedGameConnection(TcpFlowKey flow) => OwnedGameProcess(flow).HasValue;
+
+        public int? OwnedGameProcess(TcpFlowKey flow) =>
+            allowedProcesses is null ? null : TcpConnectionDetector.OwnedGameProcess(flow, allowedProcesses);
     }
 
     private static string BuildFilter(string address, int port)

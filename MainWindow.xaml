@@ -908,7 +908,12 @@
                                                         <TextBlock Text="{DynamicResource PanelEffects}" FontWeight="Bold" FontSize="15" Margin="0,10,0,7"/>
                                                         <ItemsControl ItemsSource="{Binding Effects}"><ItemsControl.ItemTemplate><DataTemplate><Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{Binding Name}" FontWeight="SemiBold"/><TextBlock Foreground="{DynamicResource RoMutedBrush}" FontSize="11"><Run Text="Status ID "/><Run Text="{Binding StatusId}"/></TextBlock></StackPanel><Button Grid.Column="1" Content="{DynamicResource Configure}" Tag="{Binding}" Click="ConfigurePanelEffect_Click"/></Grid></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
                                                         <TextBlock Text="{DynamicResource AddExistingEffect}" FontWeight="SemiBold" Margin="0,10,0,5"/>
-                                                        <DockPanel><Button DockPanel.Dock="Right" Content="{DynamicResource Add}" Click="AddEffectToPanel_Click"/><ComboBox x:Name="PanelEffectChoiceBox" ItemsSource="{Binding DataContext.Effects, RelativeSource={RelativeSource AncestorType=Window}}" DisplayMemberPath="Name"/></DockPanel>
+                                                        <DockPanel>
+                                                            <Button DockPanel.Dock="Right" Content="{DynamicResource Add}" Click="AddEffectToPanel_Click"/>
+                                                            <ComboBox x:Name="PanelEffectChoiceBox" ItemsSource="{Binding DataContext.Effects, RelativeSource={RelativeSource AncestorType=Window}}" TextSearch.TextPath="Name">
+                                                                <ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Name}"/></DataTemplate></ComboBox.ItemTemplate>
+                                                            </ComboBox>
+                                                        </DockPanel>
                                                     </StackPanel>
                                                     <StackPanel Grid.Column="2">
                                                         <TextBlock Text="{DynamicResource PanelSettings}" FontWeight="Bold" FontSize="15" Margin="0,0,0,7"/>
@@ -1206,10 +1211,11 @@
                                             Style="{StaticResource FarmingTutorialButtonStyle}"
                                             AutomationProperties.Name="{DynamicResource StatisticsTutorialTitle}"/>
                                 </StackPanel>
-                                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                <Button Content="{DynamicResource StartSession}" Click="StartFarmingSession_Click"/>
-                                <ToggleButton Content="{DynamicResource PauseSession}" IsChecked="{Binding SessionPaused, Mode=OneWay}" Click="PauseSession_Click"/>
-                                <Button Content="{DynamicResource ResetStatisticsSession}" Click="ResetFarmingSession_Click" Style="{StaticResource DangerButtonStyle}"/></StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Button Content="{DynamicResource StartSession}" Click="StartFarmingSession_Click"/>
+                                    <ToggleButton Content="{DynamicResource PauseSession}" IsChecked="{Binding SessionPaused, Mode=OneWay}" Click="PauseSession_Click"/>
+                                    <Button Content="{DynamicResource ResetStatisticsSession}" Click="ResetFarmingSession_Click" Style="{StaticResource DangerButtonStyle}"/>
+                                </StackPanel>
                             </Grid>
                         </Border>
 
