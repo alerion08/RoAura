@@ -38,6 +38,23 @@
                 </Grid></Border>
             </ControlTemplate></Setter.Value></Setter>
         </Style>
+        <Style x:Key="FarmingTutorialButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="0,5,0,0"/>
+            <Setter Property="Padding" Value="8,3"/>
+            <Setter Property="Background" Value="{DynamicResource UiBackground_EAF3FF}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource RoSoftBorderBrush}"/>
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <DockPanel>
+                            <TextBlock Style="{StaticResource InfoHintGlyphStyle}"/>
+                            <TextBlock Text="{Binding}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="12"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <converters:NavigationIconConverter x:Key="NavigationIcon" />
         <converters:Base64ToImageSourceConverter x:Key="Base64Image" />
         <converters:DoubleToThicknessConverter x:Key="PreviewPadding" />
@@ -1081,6 +1098,9 @@
                                 <StackPanel>
                                     <TextBlock Text="{DynamicResource RewardsSettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
                                     <TextBlock Text="{DynamicResource RewardsSettingsHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/>
+                                    <Button Content="{DynamicResource FarmingTutorialButton}" Click="StatisticsTutorial_Click"
+                                            Style="{StaticResource FarmingTutorialButtonStyle}"
+                                            AutomationProperties.Name="{DynamicResource StatisticsTutorialTitle}"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Orientation="Horizontal">
                                 <Button Content="{DynamicResource StartSession}" Click="StartFarmingSession_Click"/>
@@ -1397,6 +1417,9 @@
                         <Border Grid.Row="0" Style="{StaticResource SectionHeaderCardStyle}"><StackPanel>
                             <TextBlock Text="{DynamicResource GoldGoblin}" Style="{StaticResource RoSectionTitleStyle}"/>
                             <TextBlock Text="{DynamicResource GoldGoblinDescription}" Style="{StaticResource RoCaptionTextStyle}" TextWrapping="Wrap" Margin="0,2,0,0"/>
+                            <Button Content="{DynamicResource FarmingTutorialButton}" Click="GoldGoblinTutorial_Click"
+                                    Style="{StaticResource FarmingTutorialButtonStyle}"
+                                    AutomationProperties.Name="{DynamicResource GoldGoblinTutorialTitle}"/>
                         </StackPanel></Border>
                             <UniformGrid Grid.Row="1" Rows="1" Columns="4" Margin="0,0,0,8">
                                 <ToggleButton Content="{DynamicResource PauseSession}" IsChecked="{Binding SessionPaused, Mode=OneWay}" Click="PauseSession_Click"/>

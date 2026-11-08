@@ -16,6 +16,7 @@
 ## Character statistics capture recovery — development
 
 - Branch `fix/character-statistics-capture` starts from stable 3.4.0 source. Automatic discovery can carry a fresh standard map login across an endpoint change when the first outbound TCP payload and current game process ownership agree. Ambiguous or closed flows are excluded. The reward parser also recognizes legacy signed 32-bit EXP packets.
+- Statistics and Gold Goblin now have offline video guides in their section headers. The Gold Goblin guide uses the overview edit. Both videos use the existing WPF tutorial player and are included in portable and installer payloads.
 - Live Windows/Npcap verification remains pending for real relogs with proxy/VPN endpoint changes and multiple clients. Clients with unknown login formats still need a targeted trace.
 
 ## Historical 3.4.0 release preparation — 2026-11-04

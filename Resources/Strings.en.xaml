@@ -734,4 +734,9 @@
     <sys:String x:Key="LayoutStatistics">Statistics / Indicators</sys:String>
     <sys:String x:Key="LayoutRewards">Statistics / Notifications</sys:String>
     <sys:String x:Key="LayoutQuestPreview">Tracked quests will appear here.</sys:String>
+    <sys:String x:Key="FarmingTutorialButton">Video guide</sys:String>
+    <sys:String x:Key="StatisticsTutorialTitle">Statistics setup</sys:String>
+    <sys:String x:Key="GoldGoblinTutorialTitle">Gold Goblin overview</sys:String>
+    <sys:String x:Key="EffectTutorialLoading">Loading video…</sys:String>
+    <sys:String x:Key="EffectTutorialUnavailable">Could not play the video guide.</sys:String>
 </ResourceDictionary>

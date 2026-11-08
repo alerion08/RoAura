@@ -1,0 +1,27 @@
+<Window x:Class="RoAura.EffectTutorialWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="880" Height="640"
+        MinWidth="400" MinHeight="320" WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False" Background="{DynamicResource RoWindowBrush}">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border CornerRadius="7" Background="{DynamicResource RoCardBrush}"
+                BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1" Padding="4">
+            <Grid>
+                <MediaElement x:Name="TutorialVideo" Stretch="Uniform" LoadedBehavior="Manual" UnloadedBehavior="Close"
+                              IsMuted="True" MediaOpened="TutorialVideo_MediaOpened"
+                              MediaEnded="TutorialVideo_MediaEnded" MediaFailed="TutorialVideo_MediaFailed"/>
+                <TextBlock x:Name="PlaybackStatus" Text="{DynamicResource EffectTutorialLoading}"
+                           TextWrapping="Wrap" TextAlignment="Center" Margin="20"
+                           Foreground="{DynamicResource RoTextBrush}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+        <Button Grid.Row="1" Content="{DynamicResource Close}" HorizontalAlignment="Right"
+                Margin="0,10,0,0" MinWidth="90" IsCancel="True"/>
+    </Grid>
+</Window>
