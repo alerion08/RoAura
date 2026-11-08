@@ -449,9 +449,13 @@ public partial class App : Application
             settings.UpdatePacketCaptureState("Packets: startup error — smoke test");
             if (settings.PacketCaptureStateKind != "Error")
                 throw new InvalidOperationException("Packet capture startup errors must use the Error presentation state.");
-            settings.UpdatePacketCaptureState("Packets: listening on 1 adapter");
+            settings.UpdatePacketCaptureState("Packets: listening on 1 adapter, filter test");
+            if (settings.PacketCaptureStateKind != "Ready" ||
+                settings.PacketCaptureStateText.Contains("filter", StringComparison.Ordinal))
+                throw new InvalidOperationException("Active packet capture must show a concise Ready state.");
+            settings.UpdatePacketCaptureState("Packets: capture is active");
             if (settings.PacketCaptureStateKind != "Ready")
-                throw new InvalidOperationException("Active packet capture must use the Ready presentation state.");
+                throw new InvalidOperationException("The concise capture status must use the Ready state.");
             var wizard = new SkillWizardWindow(settings.CooldownGroups, settings.Language == "en");
             if (!wizard.RunAutomaticFlowSmokeTest())
                 throw new InvalidOperationException("Cooldown skill wizard automatic flow smoke test failed.");

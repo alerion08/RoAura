@@ -228,7 +228,6 @@ public sealed class AppSettings : INotifyPropertyChanged
 
     public void UpdatePacketCaptureState(string state)
     {
-        PacketCaptureStateText = state;
         var normalized = state.ToLowerInvariant();
         var error = normalized.Contains("ошибка") || normalized.Contains("error") ||
                     normalized.Contains("не установлен") || normalized.Contains("not installed") ||
@@ -238,13 +237,19 @@ public sealed class AppSettings : INotifyPropertyChanged
                     normalized.Contains("только в windows") || normalized.Contains("windows only") || normalized.Contains("only on windows");
         PacketCaptureStateKind = error
             ? "Error"
-            : normalized is "пакеты: захват работает" or "packets: capture is active"
+            : normalized is "пакеты: захват работает" or "packets: capture is active" ||
+              normalized.StartsWith("пакеты: слушаю", StringComparison.Ordinal) ||
+              normalized.StartsWith("packets: listening", StringComparison.Ordinal)
             ? "Ready"
             : normalized.Contains("подключ") || normalized.Contains("connecting") || normalized.Contains("запуск") || normalized.Contains("restarting")
                 ? "Searching"
                 : normalized.Contains("отключ") || normalized.Contains("disabled")
                     ? "Warning"
                     : "Error";
+        if (PacketCaptureStateKind == "Ready")
+            RefreshPacketCaptureStateLanguage();
+        else
+            PacketCaptureStateText = state;
     }
 
     public void RefreshPacketCaptureStateLanguage()
