@@ -19,6 +19,14 @@
             <converters:EffectPanelOpacityConverter x:Key="PanelOpacity" />
             <converters:BottomMarginConverter x:Key="BottomMargin" />
             <converters:DoubleToThicknessConverter x:Key="IconPadding" />
+            <Style x:Key="ExperienceBarLabel" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="Effect">
+                    <Setter.Value><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></Setter.Value>
+                </Setter>
+            </Style>
             <DataTemplate x:Key="ExperienceBarTemplate">
                 <DockPanel>
                     <Grid Margin="3,1">
