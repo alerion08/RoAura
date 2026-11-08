@@ -14,9 +14,9 @@
       read it from here. The only other copy is app.manifest/assemblyIdentity,
       which MSBuild cannot substitute; keep it in sync manually.
     -->
-    <Version>3.4.0</Version>
-    <AssemblyVersion>3.4.0.0</AssemblyVersion>
-    <FileVersion>3.4.0.0</FileVersion>
+    <Version>3.5.0</Version>
+    <AssemblyVersion>3.5.0.0</AssemblyVersion>
+    <FileVersion>3.5.0.0</FileVersion>
     <InformationalVersion>$(Version)</InformationalVersion>
     <Company>Alerion</Company>
     <Authors>Alerion</Authors>

@@ -61,6 +61,8 @@ Source: "artifacts\publish\Data\*.txt"; DestDir: "{app}\Data"; Flags: ignorevers
 Source: "artifacts\publish\Data\Minimaps\*"; DestDir: "{app}\Data\Minimaps"; Flags: ignoreversion skipifsourcedoesntexist
 Source: "artifacts\publish\Data\MvpImages\*.png"; DestDir: "{app}\Data\MvpImages"; Flags: ignoreversion skipifsourcedoesntexist
 
+Source: "artifacts\publish\Data\TimerMonsters\*"; DestDir: "{app}\Data\TimerMonsters"; Flags: ignoreversion recursesubdirs skipifsourcedoesntexist
+
 [Icons]
 Name: "{autoprograms}\RoAura"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\RoAura"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon

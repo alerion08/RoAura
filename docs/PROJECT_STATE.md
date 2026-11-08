@@ -1,5 +1,9 @@
 # Project state
 
+## RoAura 3.5.0 release candidate — 2026-11-08
+
+- The owner accepted combined development commit `ddcf2b56` in game and authorized preparation and publication. The release candidate adds the version metadata and user-facing notes, and includes the timer sprites and video guides in Setup. Windows release validation precedes publication.
+
 ## Combined development feedback — 2026-11-08
 
 - The Statistics and Gold Goblin tutorial buttons share “How does it work?”. Statistics session actions keep their regular height. Adding an effect by name assigns and enables it on the selected panel.

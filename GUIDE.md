@@ -1,4 +1,4 @@
-# RoAura 3.4.0 — guides
+# RoAura 3.5.0 — guides
 
 - Русская инструкция: `GUIDE_RU.md`
 - English guide: `GUIDE_EN.md`

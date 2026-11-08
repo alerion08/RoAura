@@ -90,7 +90,7 @@ jobs:
         shell: pwsh
         run: .\build-installer.ps1
 
-      - name: Verify installed database payload
+      - name: Verify installed data and guides
         shell: pwsh
         run: |
           [xml]$project = Get-Content -Raw .\RoAura.csproj
@@ -104,6 +104,21 @@ jobs:
             if (-not (Test-Path $installed -PathType Leaf)) { throw "Installer is missing Data/$file" }
             $expected = (Get-FileHash ".\artifacts\publish\Data\$file" -Algorithm SHA256).Hash
             if ((Get-FileHash $installed -Algorithm SHA256).Hash -ne $expected) { throw "Installed file differs: $file" }
+          }
+
+          $publishRoot = (Resolve-Path '.\artifacts\publish').Path
+          $tutorials = @(Get-ChildItem (Join-Path $publishRoot 'Assets/Tutorials') -File -Filter '*.mp4')
+          $sprites = @(Get-ChildItem (Join-Path $publishRoot 'Data/TimerMonsters') -File -Recurse)
+          if ($tutorials.Count -ne 5 -or $sprites.Count -le 2) {
+            throw 'Expected five video guides and the timer sprite bundle in the portable payload.'
+          }
+          foreach ($file in ($tutorials + $sprites)) {
+            $relative = [IO.Path]::GetRelativePath($publishRoot, $file.FullName)
+            $installed = Join-Path $installRoot $relative
+            if (-not (Test-Path $installed -PathType Leaf)) { throw "Installer is missing $relative" }
+            if ((Get-FileHash $installed).Hash -ne (Get-FileHash $file.FullName).Hash) {
+              throw "Installed file differs: $relative"
+            }
           }
 
       - name: Verify clean release contents
