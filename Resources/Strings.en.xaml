@@ -753,4 +753,12 @@
     <sys:String x:Key="TimerBackgroundOpacity">Opacity, %</sys:String>
     <sys:String x:Key="TimerBorder">Border</sys:String>
     <sys:String x:Key="TimerBorderThickness">Thickness, px</sys:String>
+    <sys:String x:Key="ExperienceBars">EXP bars</sys:String>
+    <sys:String x:Key="ShowExperienceBars">Show Base EXP bar</sys:String>
+    <sys:String x:Key="ShowJobExperienceBar">Show Job EXP bar</sys:String>
+    <sys:String x:Key="ExperienceBarWidth">Bar width</sys:String>
+    <sys:String x:Key="ExperienceBarHeight">Bar height</sys:String>
+    <sys:String x:Key="FarmingTutorialButton">Video guide</sys:String>
+    <sys:String x:Key="StatisticsTutorialTitle">Statistics setup</sys:String>
+    <sys:String x:Key="GoldGoblinTutorialTitle">Gold Goblin overview</sys:String>
 </ResourceDictionary>

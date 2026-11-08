@@ -173,7 +173,7 @@ public sealed class RoPacketStreamScanner
                     offset += length - 1;
                     break;
 
-                case 0x0ACC when TryReadExperience(combined, offset, out var length, out var experience):
+                case 0x0ACC or 0x07F6 when TryReadExperience(combined, offset, packetId, out var length, out var experience):
                     ExperienceChanged?.Invoke(experience);
                     offset += length - 1;
                     break;
@@ -181,6 +181,11 @@ public sealed class RoPacketStreamScanner
                 case 0x0ACB when TryReadProgress(combined, offset, out var length, out var progress):
                     ProgressChanged?.Invoke(progress);
                     offset += length - 1;
+                    break;
+
+                case 0x00B0 when _knownBoundary && TryReadExperienceLevel(combined, offset, out var level):
+                    ProgressChanged?.Invoke(level);
+                    offset += frameLength - 1;
                     break;
 
                 case 0x00B1 when TryReadZeny(combined, offset, out var length, out var zeny):
@@ -368,7 +373,7 @@ public sealed class RoPacketStreamScanner
     {
         var fixedLength = opcode switch
         {
-            0x0B41 => 70, 0x0ACC => 18, 0x0ACB => 12, 0x00B1 => 8,
+            0x0B41 => 70, 0x0ACC => 18, 0x07F6 => 14, 0x0ACB => 12, 0x00B1 => 8,
             0x00AA or 0x00AC => offset + 7 <= data.Length && data[offset + 6] > 1 ? 9 : 7,
             0x0999 => 11, 0x099A => 9,
             0x0283 when _knownBoundary => 6,
@@ -653,17 +658,20 @@ public sealed class RoPacketStreamScanner
         return true;
     }
 
-    private static bool TryReadExperience(byte[] data, int offset, out int length,
+    private static bool TryReadExperience(byte[] data, int offset, ushort packetId, out int length,
         out RoExperiencePacket packet)
     {
         packet = default;
-        length = ExperiencePacketSize;
+        var modern = packetId == 0x0ACC;
+        length = modern ? ExperiencePacketSize : 14;
         if (offset + length > data.Length) return false;
 
         var aid = ReadUInt32(data, offset + 2);
-        var amount = BinaryPrimitives.ReadInt64LittleEndian(data.AsSpan(offset + 6, 8));
-        var experienceType = ReadUInt16(data, offset + 14);
-        var sourceType = ReadUInt16(data, offset + 16);
+        var amount = modern
+            ? BinaryPrimitives.ReadInt64LittleEndian(data.AsSpan(offset + 6, 8))
+            : BinaryPrimitives.ReadInt32LittleEndian(data.AsSpan(offset + 6, 4));
+        var experienceType = ReadUInt16(data, offset + length - 4);
+        var sourceType = ReadUInt16(data, offset + length - 2);
         if (aid == 0 || experienceType is not (1 or 2) || sourceType > 1 || amount == 0)
             return false;
 
@@ -681,6 +689,17 @@ public sealed class RoPacketStreamScanner
         var parameter = ReadUInt16(data, offset + 2);
         if (parameter is not (1 or 2 or 22 or 23)) return false;
         var value = BinaryPrimitives.ReadUInt64LittleEndian(data.AsSpan(offset + 4, 8));
+        packet = new RoProgressPacket(parameter, value);
+        return true;
+    }
+
+    private static bool TryReadExperienceLevel(byte[] data, int offset, out RoProgressPacket packet)
+    {
+        packet = default;
+        var parameter = ReadUInt16(data, offset + 2);
+        if (parameter is not (11 or 55)) return false;
+        var value = ReadUInt32(data, offset + 4);
+        if (value is 0 or > ushort.MaxValue) return false;
         packet = new RoProgressPacket(parameter, value);
         return true;
     }

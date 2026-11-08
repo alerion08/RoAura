@@ -8,6 +8,12 @@ namespace RoAura;
 
 public partial class MainWindow
 {
+    private void StatisticsTutorial_Click(object sender, RoutedEventArgs e) =>
+        new EffectTutorialWindow("StatisticsSettings.mp4", "StatisticsTutorialTitle") { Owner = this }.ShowDialog();
+
+    private void GoldGoblinTutorial_Click(object sender, RoutedEventArgs e) =>
+        new EffectTutorialWindow("GoldGoblinOverview.mp4", "GoldGoblinTutorialTitle") { Owner = this }.ShowDialog();
+
     private MvpTimerWizardWindow? _gameMvpWizard;
     internal void CloseMvpWizard() => _gameMvpWizard?.Close();
     internal bool IsMvpWizardOpen => _gameMvpWizard?.IsVisible == true;

@@ -753,4 +753,12 @@
     <sys:String x:Key="TimerBackgroundOpacity">Непрозрачность, %</sys:String>
     <sys:String x:Key="TimerBorder">Обводка</sys:String>
     <sys:String x:Key="TimerBorderThickness">Толщина, пикс.</sys:String>
+    <sys:String x:Key="ExperienceBars">Полосы EXP</sys:String>
+    <sys:String x:Key="ShowExperienceBars">Показывать полосу Base EXP</sys:String>
+    <sys:String x:Key="ShowJobExperienceBar">Показывать полосу Job EXP</sys:String>
+    <sys:String x:Key="ExperienceBarWidth">Ширина полос</sys:String>
+    <sys:String x:Key="ExperienceBarHeight">Высота полос</sys:String>
+    <sys:String x:Key="FarmingTutorialButton">Видеоинструкция</sys:String>
+    <sys:String x:Key="StatisticsTutorialTitle">Настройка статистики</sys:String>
+    <sys:String x:Key="GoldGoblinTutorialTitle">Возможности Gold Goblin</sys:String>
 </ResourceDictionary>

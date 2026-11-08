@@ -141,6 +141,9 @@ public sealed class CharacterLoginObserver
         if (closing)
         {
             _flows.TryRemove(key, out _);
+            lock (_seenLock)
+                _seenThisGeneration.RemoveWhere(item =>
+                    item.ClientPort == key.SourcePort && item.MapPort == key.DestinationPort);
             return;
         }
         if (payload.IsEmpty) return;

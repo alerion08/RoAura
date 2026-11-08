@@ -101,6 +101,11 @@ public static class OverlayLayoutTargets
             Groups(settings.RateIndicators, row => row.GroupNumber, row => row.Enabled,
                 "statistics", "LayoutStatistics", row => Item(() => row.X, () => row.Y,
                     x => row.X = x, y => row.Y = y, () => new(240, row.TextSize * 1.5)));
+            if (settings.ShowExperienceBars)
+                Single("experience-bars", "ExperienceBars", Item(() => settings.ExperienceBarsX, () => settings.ExperienceBarsY,
+                    x => settings.ExperienceBarsX = x, y => settings.ExperienceBarsY = y,
+                    () => new(settings.ExperienceBarWidth, (settings.ExperienceBarHeight + 18) *
+                        (settings.ShowJobExperienceBar ? 2 : 1) + (settings.ShowJobExperienceBar ? 2 : 0))));
             if (settings.RewardsEnabled)
                 foreach (var group in settings.RewardGroups.Where(group => settings.RewardChannels.Any(
                              channel => channel.Enabled && channel.GroupNumber == group.GroupNumber)))

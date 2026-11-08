@@ -42,6 +42,7 @@
     <ApplicationIcon>Assets\roaura.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <InternalsVisibleTo Include="RoAura.Tests" />
     <Compile Remove="RoAura.Tests\**\*.cs" />
     <EmbeddedResource Remove="RoAura.Tests\**\*" />
     <None Remove="RoAura.Tests\**\*" />

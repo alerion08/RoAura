@@ -7,6 +7,29 @@ namespace RoAura.Tests;
 public sealed class PacketFramingRegressionTests
 {
     [Theory]
+    [InlineData((ushort)11, 230u)]
+    [InlineData((ushort)55, 45u)]
+    public void Fragmented_level_update_keeps_the_following_experience_packet(ushort parameter, uint level)
+    {
+        var bytes = new byte[20];
+        W16(bytes, 0, 0x00B0); W16(bytes, 2, parameter); W32(bytes, 4, level);
+        W16(bytes, 8, 0x0ACB); W16(bytes, 10, 22); W32(bytes, 12, 1_000_000);
+
+        for (var split = 1; split < 8; split++)
+        {
+            var scanner = new RoPacketStreamScanner();
+            var progress = new List<RoProgressPacket>();
+            scanner.ProgressChanged += progress.Add;
+            scanner.Process(bytes.AsSpan(0, split));
+            Assert.Empty(progress);
+            scanner.Process(bytes.AsSpan(split));
+            Assert.Equal(new RoProgressPacket(parameter, level), progress[0]);
+            Assert.Equal(new RoProgressPacket(22, 1_000_000), progress[1]);
+            Assert.Equal(2, progress.Count);
+        }
+    }
+
+    [Theory]
     [InlineData((ushort)0x011A, 0u)]
     [InlineData((ushort)0x011A, 65535u)] // Hiding sends heal=-1
     [InlineData((ushort)0x09CB, uint.MaxValue)]
@@ -182,6 +205,31 @@ public sealed class PacketFramingRegressionTests
             Assert.Equal(5, Assert.Single(items).Count);
             Assert.Equal(900, Assert.Single(experiences).Amount);
             Assert.Equal(12345, Assert.Single(balances).Total);
+            Assert.Single(statuses);
+        }
+    }
+
+    [Theory]
+    [InlineData((ushort)1, 123456)]
+    [InlineData((ushort)2, -500)]
+    public void Legacy_experience_keeps_signed_amount_and_following_packet_boundary(ushort kind, int amount)
+    {
+        var bytes = new byte[14];
+        W16(bytes, 0, 0x07F6); W32(bytes, 2, 4200);
+        BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(6), amount);
+        W16(bytes, 10, kind);
+        var stream = bytes.Concat(Status()).ToArray();
+        for (var split = 1; split < bytes.Length; split++)
+        {
+            var scanner = new RoPacketStreamScanner();
+            var experience = new List<RoExperiencePacket>();
+            var statuses = new List<RoStatusPacket>();
+            scanner.ExperienceChanged += experience.Add;
+            scanner.StatusChanged += statuses.Add;
+            scanner.Process(stream.AsSpan(0, split));
+            Assert.Empty(experience);
+            scanner.Process(stream.AsSpan(split));
+            Assert.Equal(new RoExperiencePacket(4200, amount, kind, 0), Assert.Single(experience));
             Assert.Single(statuses);
         }
     }

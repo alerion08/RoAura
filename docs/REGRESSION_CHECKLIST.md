@@ -757,3 +757,15 @@ The generic GUIDE.md index heading was corrected to 3.4.0 before the final candi
 
 
 Published release evidence: [v3.4.0](https://github.com/alerion08/RoAura/releases/tag/v3.4.0), tagged commit `8bceb8c81c6530af4a634d09d53321b9b4953e22`, [successful main workflow 41827714651](https://github.com/alerion08/RoAura/actions/runs/41827714651) attempt 1. All 382 tests and eight ToC checks passed; native input/startup, portable, installer, silent installation and installed payload/clean package checks passed. Downloaded workflow payload/manifest hashes exactly match the three public release asset digests. Primary PE versions and all five Markdown headers are 3.4.0; 53 maps; no personal/runtime data. Published SHA256 values are in PROJECT_STATE.md. Remaining manual environment coverage above is retained, not marked complete by automation.
+
+## Statistics EXP bars
+
+- [ ] Enable the bars in Statistics. Check Base and Job level, EXP totals, remaining EXP and percentages against the client. Check elapsed time on the left and the correct EXP/hour on the right.
+- [ ] Change width, height and X/Y, then disable Job EXP. Verify Base EXP stays in place, settings survive restart and presets retain their own values.
+- [ ] Gain a Base or Job level. Verify only that level's timer restarts. Pause or reset the farming session, relog and switch characters to verify EXP rates and observed levels stay scoped correctly.
+
+## Character statistics capture recovery
+
+- [ ] With auto-detection enabled, enter the character on an endpoint different from the last saved one. Verify the CID and the next Base/Job EXP update after the capture target changes. Repeat via a local game proxy.
+- [ ] Relog from character A to B and back. Check that closed or competing connections do not contribute EXP to the wrong character, including when two clients use the same server endpoint.
+- [ ] Verify positive EXP on legacy and modern clients. EXP loss must not increase the farming total. With auto-detection off, the configured endpoint remains the only capture target.

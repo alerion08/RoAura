@@ -1,5 +1,10 @@
 # Project state
 
+## Combined development baseline — 2026-11-08
+
+- Continue combined development from `integration/current-dev`. It combines MuhRO packet support, mixed monster timers and numbered restart shortcuts, all five offline video guides, Base/Job EXP bars, and CID recovery with legacy EXP support. It retains the released quest database snapshots and the separate RoAura-Dev application data directory.
+- Windows development CI exercises the combined source and produces a portable build. Live Ragnarok/Npcap relogs, timer interaction, and EXP display still require manual acceptance.
+
 ## Active development — three Effects video guides, 2026-11-05
 
 - On `integration/effects-video-guides`, the Effects workspace bundles the updated add-effect video plus guides for effect settings and active effect panels. The same localized popup plays each offline. Build and installer rules include all three approved, silent MP4s.
@@ -62,6 +67,16 @@
 - The owner accepted development 121 in the tested scenario. Protected/fullscreen variations, physical mixed-monitor DPI changes, live client/character changes while dragging, multiple clients and long sessions remain environment-specific manual coverage; automation does not establish them.
 - Stable release storage remains RoAura; development storage remains separate RoAura-Dev. No automatic development-data import occurs. Existing stable settings/presets/local histories are not included in or replaced by the packages.
 - Next task starts from current main. PR #12 / feature/farming-sessions-mvp-tools is merged; research/quest-database remains independent and its moving head must not silently replace the released snapshots. This publication record is delivered to main through a docs-only PR/merge using [skip ci], without a version bump, new tag or asset replacement.
+
+## Statistics EXP bars — development
+
+- Branch `feature/statistics-exp-bars` adds an opt-in Base EXP overlay with a separate Job EXP switch and shared width, height and game-relative position. Level observations are kept per identified character. Live level updates and placement still require in-game verification.
+
+## Character statistics capture recovery — development
+
+- Branch `fix/character-statistics-capture` starts from stable 3.4.0 source. Automatic discovery can carry a fresh standard map login across an endpoint change when the first outbound TCP payload and current game process ownership agree. Ambiguous or closed flows are excluded. The reward parser also recognizes legacy signed 32-bit EXP packets.
+- Statistics and Gold Goblin now have offline video guides in their section headers. The Gold Goblin guide uses the overview edit. Both videos use the existing WPF tutorial player and are included in portable and installer payloads.
+- Live Windows/Npcap verification remains pending for real relogs with proxy/VPN endpoint changes and multiple clients. Clients with unknown login formats still need a targeted trace.
 
 ## Historical 3.4.0 release preparation — 2026-11-04
 

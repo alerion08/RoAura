@@ -969,6 +969,18 @@ public partial class App : Application
     {
         if (_settingsWindow?.Settings.PacketCaptureEnabled != true) return;
         if (session is { } captured && !TryUseCharacterSession(captured)) return;
+        if (packet.Parameter is 11 or 55)
+        {
+            var isJob = packet.Parameter == 55;
+            var now = DateTime.UtcNow;
+            var level = (ushort)packet.Value;
+            if (session.HasValue)
+                SafeCharacterStatisticsAction(() => _characterLedger?.ObserveExperienceLevel(isJob, level, now));
+            else
+                _overlay?.ObserveExperienceLevel(isJob, level, now);
+            _overlay?.RefreshCharacterStatistics();
+            return;
+        }
         if (packet.Parameter == 22)
         {
             if (_nextBaseExperience > 0 && _nextBaseExperience != packet.Value)
