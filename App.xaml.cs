@@ -371,6 +371,12 @@ public partial class App : Application
                 Dispatcher.BeginInvoke(() => HandleItemAdded(evt.Packet, evt.Session));
             _packetCapture.CharacterExperienceChanged += evt =>
                 Dispatcher.BeginInvoke(() => HandleExperienceChanged(evt.Packet, evt.Session));
+            if (AppEnvironment.IsDevelopment)
+                _packetCapture.CharacterMonsterKilled += evt => Dispatcher.BeginInvoke(() =>
+                {
+                    if (_settingsWindow?.Settings.Enabled == true && TryUseCharacterSession(evt.Session))
+                        SafeCharacterStatisticsAction(() => _characterLedger?.AddMonsterKill(evt.Packet, DateTime.UtcNow));
+                });
             _packetCapture.CharacterProgressChanged += evt =>
                 Dispatcher.BeginInvoke(() => HandleProgressChanged(evt.Packet, evt.Session));
             _packetCapture.CharacterZenyChanged += evt =>

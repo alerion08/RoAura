@@ -119,6 +119,22 @@ public sealed class CharacterStatisticsLedger
         }
     }
 
+    public bool AddMonsterKill(ushort monsterId, DateTime nowUtc)
+    {
+        CheckUtc(nowUtc);
+        if (monsterId == 0) return false;
+        lock (_sync)
+        {
+            if (!TryGetActive(out var state) || state.SessionPaused) return false;
+            var lifetime = checked(state.LifetimeMonsterKills.GetValueOrDefault(monsterId) + 1);
+            var session = checked(state.SessionMonsterKills.GetValueOrDefault(monsterId) + 1);
+            state.LifetimeMonsterKills[monsterId] = lifetime;
+            state.SessionMonsterKills[monsterId] = session;
+            state.LastUpdatedUtc = nowUtc;
+            return true;
+        }
+    }
+
     public bool AddLoot(int itemId, string name, long count, DateTime nowUtc)
     {
         CheckUtc(nowUtc);
@@ -234,6 +250,7 @@ public sealed class CharacterStatisticsLedger
             document.SessionZenyGained = 0;
             document.SessionActiveTicks = 0;
             document.SessionLoot.Clear();
+            document.SessionMonsterKills.Clear();
             document.GoldGoblinRows.Clear();
             document.SessionStartedUtc = startClock ? nowUtc : default;
             document.SessionTimerStarted = startClock;

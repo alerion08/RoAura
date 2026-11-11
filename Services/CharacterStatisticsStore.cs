@@ -143,6 +143,11 @@ public sealed class CharacterStatisticsStore
             data.SessionZenyGained > data.LifetimeZenyGained ||
             data.SessionActiveTicks > data.LifetimeActiveTicks)
             throw new InvalidDataException("Negative or contradictory statistics values.");
+        if (data.LifetimeMonsterKills is null || data.SessionMonsterKills is null ||
+            data.LifetimeMonsterKills.Any(entry => entry.Key is < 1 or > ushort.MaxValue || entry.Value <= 0) ||
+            data.SessionMonsterKills.Any(entry => entry.Value <= 0 ||
+                entry.Value > data.LifetimeMonsterKills.GetValueOrDefault(entry.Key)))
+            throw new InvalidDataException("Invalid monster kill counters.");
         if (data.LifetimeLoot is null || data.SessionLoot is null ||
             data.LifetimeLoot.Count > 50000 || data.SessionLoot.Count > 50000 ||
             data.GoldGoblinRows is null || data.GoldGoblinRows.Count > 50000)

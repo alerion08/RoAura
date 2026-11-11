@@ -12,6 +12,13 @@
 - Start subsequent development from current `main`. The combined development and release branches are historical sources for PR #17.
 - Live acceptance covers the owner's tested setup. Unverified server/client variants, mixed DPI, fullscreen and multiple simultaneous clients remain manual checks. Release settings use RoAura and development settings use RoAura-Dev.
 
+## Active development — packet-based monster kill counts
+
+- Branch `feature/monster-kill-tracking` starts from the 3.5.0 documentation head `811ccb7`. The first iteration runs in DEV and uses the existing Npcap stream, verified self AID and active character revision.
+- The tracker links a visible monster's actor ID and class to the most recent positive HP damage and an explicit death notification. It consumes each observed death once and clears tracking on map or connection changes. The latest hit must be from the active player and within three seconds. Death notifications do not identify the killer, so this is inferred attribution. Hidden damage, unsupported frames, party combat and summons can affect coverage and accuracy.
+- Session and lifetime counts by monster ID use the existing local character JSON and flush lifecycle. Pause stops both counters, and session reset clears session counts. No UI has been added in this iteration.
+- The supported wire layouts follow the [rAthena packet definitions](https://github.com/rathena/rathena/blob/master/src/map/packets_struct.hpp) and [combat notifications](https://github.com/rathena/rathena/blob/master/src/map/clif.cpp). Actual server layouts and damage/death ordering still require controlled captures. See the monster kill checks in the regression checklist.
+
 ## Combined development feedback — 2026-11-08
 
 - The Statistics and Gold Goblin tutorial buttons share “How does it work?”. Statistics session actions keep their regular height. Adding an effect by name assigns and enables it on the selected panel.

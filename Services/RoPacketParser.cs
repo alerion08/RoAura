@@ -110,6 +110,7 @@ public sealed class RoPacketStreamScanner
 
     public event Action<RoStatusPacket>? StatusChanged;
     public event Action? StreamReset;
+    internal event Action<MonsterCombatEvent>? MonsterCombatObserved;
     public event Action<RoPacketLayoutProbe>? LayoutProbed;
     public bool CaptureStatusWireBytes { get; set; }
     public event Action<RoSelfAidPacket>? SelfAidObserved;
@@ -161,6 +162,18 @@ public sealed class RoPacketStreamScanner
                 RoPacketLayoutProbe.Create(combined.AsSpan(offset, frameLength),
                     _streamOffset + offset, _knownBoundary, CaptureStatusWireBytes) is { } probe)
                 LayoutProbed.Invoke(probe);
+            if (MonsterCombatObserved is { } observeCombat && frameLength > 0 &&
+                (_knownBoundary || packetId is 0x09FD or 0x09FE or 0x09FF))
+            {
+                if (MonsterCombatEvent.Read(combined.AsSpan(offset, frameLength), packetId) is { } combat)
+                    observeCombat(combat);
+                if (packetId is 0x09FD or 0x09FE or 0x09FF)
+                {
+                    offset += frameLength - 1;
+                    _knownBoundary = true;
+                    continue;
+                }
+            }
             switch (packetId)
             {
                 case 0x082D when frameLength == 29:
@@ -397,6 +410,12 @@ public sealed class RoPacketStreamScanner
 
         if (opcode == 0x00B0 && !_knownBoundary)
             return FindExperienceLevelBoundary(data, offset);
+
+        if (MonsterCombatObserved is not null)
+        {
+            var combatLength = MonsterCombatEvent.FrameLength(data.AsSpan(offset), opcode, _knownBoundary);
+            if (combatLength != 0) return combatLength;
+        }
 
         var fixedLength = opcode switch
         {

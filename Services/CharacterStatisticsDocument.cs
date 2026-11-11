@@ -59,6 +59,8 @@ public sealed class CharacterStatisticsDocument
     public ulong NextBaseExperience { get; set; }
     public ulong CurrentJobExperience { get; set; }
     public ulong NextJobExperience { get; set; }
+    public Dictionary<int, long> LifetimeMonsterKills { get; set; } = [];
+    public Dictionary<int, long> SessionMonsterKills { get; set; } = [];
     public Dictionary<int, CharacterLootCount> LifetimeLoot { get; set; } = [];
     public Dictionary<int, CharacterLootCount> SessionLoot { get; set; } = [];
     public Dictionary<int, CharacterLootCount> GoldGoblinRows { get; set; } = [];
@@ -88,6 +90,8 @@ public sealed class CharacterStatisticsDocument
         NextBaseExperience = NextBaseExperience,
         CurrentJobExperience = CurrentJobExperience,
         NextJobExperience = NextJobExperience,
+        LifetimeMonsterKills = new(LifetimeMonsterKills),
+        SessionMonsterKills = new(SessionMonsterKills),
         LifetimeLoot = LifetimeLoot.ToDictionary(p => p.Key, p => new CharacterLootCount
             { ItemId = p.Value.ItemId, Name = p.Value.Name, Count = p.Value.Count }),
         SessionLoot = SessionLoot.ToDictionary(p => p.Key, p => new CharacterLootCount

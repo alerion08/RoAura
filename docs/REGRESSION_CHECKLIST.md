@@ -776,3 +776,10 @@ Published release evidence: [v3.4.0](https://github.com/alerion08/RoAura/release
 - [ ] With auto-detection enabled, enter the character on an endpoint different from the last saved one. Verify the CID and the next Base/Job EXP update after the capture target changes. Repeat via a local game proxy.
 - [ ] Relog from character A to B and back. Check that closed or competing connections do not contribute EXP to the wrong character, including when two clients use the same server endpoint.
 - [ ] Verify positive EXP on legacy and modern clients. EXP loss must not increase the farming total. With auto-detection off, the configured endpoint remains the only capture target.
+
+## Monster kill counts (DEV)
+
+- [ ] On each supported profile, enter the map with Npcap enabled and kill a known monster alone with a basic attack, a single-target skill and an AoE skill. Compare counts by monster ID in the DEV character statistics JSON against the actual deaths.
+- [ ] Damage a monster and let another player finish it. Repeat with the local player landing the last hit, and with a nearby death that the local player did not damage. Compare expected and inferred attribution.
+- [ ] Walk out of sight of a damaged monster, change maps, reconnect and switch characters. Confirm no kill is added for removal from sight or attributed across these transitions.
+- [ ] Pause, resume and reset the farming session. Confirm both counts stop during pause, session reset preserves lifetime counts and restarting RoAura restores saved counts.

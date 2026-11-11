@@ -117,6 +117,7 @@ public sealed class NpcapPacketCapture : IDisposable
     // DEV-only: immutable source character session accompanies each reward packet.
     public event Action<CharacterSessionPacket<RoItemAddedPacket>>? CharacterItemAdded;
     public event Action<CharacterSessionPacket<RoExperiencePacket>>? CharacterExperienceChanged;
+    internal event Action<CharacterSessionPacket<ushort>>? CharacterMonsterKilled;
     public event Action<CharacterSessionPacket<RoProgressPacket>>? CharacterProgressChanged;
     public event Action<CharacterSessionPacket<RoZenyPacket>>? CharacterZenyChanged;
     public event Action<string>? StateChanged;
@@ -686,6 +687,29 @@ public sealed class NpcapPacketCapture : IDisposable
                     }
                 }
             });
+        var monsterKills = new MonsterKillTracker();
+        long? monsterSessionRevision = null;
+        if (AppEnvironment.IsDevelopment && CharacterMonsterKilled is not null)
+            scanner.MonsterCombatObserved += packet => Forward(generation, () =>
+            {
+                var observation = Observe(packet, source);
+                if (!IsCurrentObservation(observation) ||
+                    !_characterSessions.TryResolve(packetFlow, out var session))
+                {
+                    monsterKills.Reset();
+                    monsterSessionRevision = null;
+                    return;
+                }
+
+                if (monsterSessionRevision != session.Revision)
+                {
+                    monsterKills.Reset();
+                    monsterSessionRevision = session.Revision;
+                }
+
+                if (monsterKills.Observe(packet, observation.SelfAid, observation.ObservedAtUtc) is { } monsterId)
+                    CharacterMonsterKilled?.Invoke(new(session, monsterId));
+            });
         void PublishStatus(RoStatusPacket packet)
         {
             var observation = Observe(packet, source);
@@ -704,6 +728,8 @@ public sealed class NpcapPacketCapture : IDisposable
             if (!source.IsActive || generation != Volatile.Read(ref _generation)) return;
             CloseTrackingSource(packetFlow, source);
             hiding.Reset();
+            monsterKills.Reset();
+            monsterSessionRevision = null;
             statusSkillCorrelation?.Reset();
             correlatedHiding?.Reset();
             decodedHidingBeforeSkill = null;
