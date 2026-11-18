@@ -112,6 +112,7 @@ public sealed class NpcapPacketCapture : IDisposable
     public event Action<RoPacketObservation<RoEquipmentPacket>>? EquipmentIdentityMissing;
     public event Action<RoItemAddedPacket>? ItemAdded;
     public event Action<RoExperiencePacket>? ExperienceChanged;
+    public event Action<RoPacketObservation<RoExperiencePacket>>? UnboundRagnarokPlusExperience;
     public event Action<RoProgressPacket>? ProgressChanged;
     public event Action<RoZenyPacket>? ZenyChanged;
     // DEV-only: immutable source character session accompanies each reward packet.
@@ -755,7 +756,9 @@ public sealed class NpcapPacketCapture : IDisposable
         scanner.ItemAdded += packet => Forward(generation, () =>
         {
             ItemAdded?.Invoke(packet);
-            ForwardCharacterPacket(packetFlow, packet, CharacterItemAdded);
+            var bound = ForwardCharacterPacket(packetFlow, packet, CharacterItemAdded);
+            if (logRagnarokPlusStatistics)
+                DebugLog.Write($"RAGNAROK+ LOOT DECODED item={packet.ItemId}; count={packet.Count}; sessionBound={bound}");
         });
         scanner.ExperienceChanged += packet => Forward(generation, () =>
         {
@@ -767,7 +770,16 @@ public sealed class NpcapPacketCapture : IDisposable
             ExperienceChanged?.Invoke(packet);
             var bound = ForwardCharacterPacket(packetFlow, packet, CharacterExperienceChanged);
             if (logRagnarokPlusStatistics)
+            {
                 DebugLog.Write($"RAGNAROK+ EXP DECODED type={packet.ExperienceType}; amount={packet.Amount}; sessionBound={bound}");
+                if (!bound)
+                {
+                    var observation = Observe(packet, source);
+                    if (observation.IdentitySource == "ZC_AID" && IsCurrentObservation(observation) &&
+                        _playerAidObserver.AidForFlow(packetFlow) == packet.Aid)
+                        UnboundRagnarokPlusExperience?.Invoke(observation);
+                }
+            }
         });
         scanner.ProgressChanged += packet => Forward(generation, () =>
         {

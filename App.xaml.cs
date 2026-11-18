@@ -367,6 +367,7 @@ public partial class App : Application
         if (AppEnvironment.CharacterSessionsEnabled)
         {
             _packetCapture.CharacterSessionChanged += OnCharacterSessionChanged;
+            _packetCapture.UnboundRagnarokPlusExperience += OnUnboundRagnarokPlusExperience;
             _packetCapture.CharacterItemAdded += evt =>
                 Dispatcher.BeginInvoke(() => HandleItemAdded(evt.Packet, evt.Session));
             _packetCapture.CharacterExperienceChanged += evt =>
@@ -1032,6 +1033,21 @@ public partial class App : Application
             });
         }
     }
+
+    private void OnUnboundRagnarokPlusExperience(RoPacketObservation<RoExperiencePacket> observation) =>
+        Dispatcher.BeginInvoke(() =>
+        {
+            if (_settingsWindow?.Settings is not { } settings || !settings.Enabled ||
+                !settings.PacketCaptureEnabled || settings.ServerProfile != GameServerProfile.RagnarokPlus ||
+                _packetCapture?.IsCurrentObservation(observation) != true ||
+                _packetCapture.CharacterSession.Phase == CharacterSessionPhase.ActiveObserved)
+                return;
+
+            var packet = observation.Packet;
+            var isJob = packet.ExperienceType == 2;
+            if (packet.Amount > 0 && (!isJob || settings.ShowJobExperience))
+                _overlay?.ShowExperienceReward(packet.Amount, -1d, isJob);
+        });
 
     private void OnPacketExperienceChanged(RoExperiencePacket packet) =>
         Dispatcher.BeginInvoke(() => HandleExperienceChanged(packet, null));
