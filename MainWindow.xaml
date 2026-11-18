@@ -184,6 +184,7 @@
                             <ComboBoxItem Content="SpringRO" Tag="SpringRO"/>
                             <ComboBoxItem Content="ToC" Tag="ToC"/>
                             <ComboBoxItem Content="MuhRO" Tag="MuhRO"/>
+                            <ComboBoxItem Content="Ragnarok+" Tag="Ragnarok+"/>
                             <ComboBoxItem Content="Другой" Tag="Other"/>
                         </ComboBox>
                         <TextBlock Text="{DynamicResource Language}" VerticalAlignment="Center" Margin="0,0,6,0" />

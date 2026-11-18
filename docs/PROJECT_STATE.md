@@ -12,6 +12,12 @@
 - Start subsequent development from current `main`. The combined development and release branches are historical sources for PR #17.
 - Live acceptance covers the owner's tested setup. Unverified server/client variants, mixed DPI, fullscreen and multiple simultaneous clients remain manual checks. Release settings use RoAura and development settings use RoAura-Dev.
 
+## Ragnarok+ integration development
+
+- Branch: `feature/ragnarok-plus`, based on the 3.5.0 main baseline. The profile uses standard packet tracking and recognizes the `RagnarokPlus` executable.
+- Initial diagnostics log decoded EXP and whether the capture resolved a character session. Validate CID, Base/Job EXP and session isolation with two characters before enabling server-specific decoding changes.
+- Database and market integration require authenticated response samples or a supported data export. Until the map catalog is available, timers use the reference catalog.
+
 ## Combined development feedback — 2026-11-08
 
 - The Statistics and Gold Goblin tutorial buttons share “How does it work?”. Statistics session actions keep their regular height. Adding an effect by name assigns and enables it on the selected panel.

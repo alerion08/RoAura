@@ -11,6 +11,7 @@ on:
       - "feature/roquestie-mvp"
       - "feature/farming-sessions-mvp-tools"
       - "feature/muhro-packet-support"
+      - "feature/ragnarok-plus"
   pull_request:
     branches:
       - "dev/roaura-2-ui"
@@ -88,7 +89,7 @@ jobs:
           ROAURA_QUEST_UI_SNAPSHOTS: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev') && format('{0}/artifacts/roquestie-ui', github.workspace) || '' }}
         shell: pwsh
         run: |
-          if ('${{ github.ref_name }}' -in @('feature/muhro-packet-support', 'integration/effects-video-guides', 'integration/current-dev')) {
+          if ('${{ github.ref_name }}' -in @('feature/ragnarok-plus', 'feature/muhro-packet-support', 'integration/effects-video-guides', 'integration/current-dev')) {
             .\build-development.ps1
           } else {
             .\build-release.ps1
@@ -100,7 +101,7 @@ jobs:
           [xml]$project = Get-Content -Raw .\RoAura.csproj
           $version = [string]$project.Project.PropertyGroup.Version
           $archive = ".\artifacts\RoAura-$version-portable.zip"
-          if ('${{ github.ref_name }}' -in @('feature/muhro-packet-support', 'integration/effects-video-guides', 'integration/current-dev')) {
+          if ('${{ github.ref_name }}' -in @('feature/ragnarok-plus', 'feature/muhro-packet-support', 'integration/effects-video-guides', 'integration/current-dev')) {
             $archives = @(Get-ChildItem .\artifacts\dev\RoAura-Dev-*-portable.zip)
             if ($archives.Count -ne 1) { throw 'Expected one isolated development portable.' }
             $archive = $archives[0].FullName

@@ -19,7 +19,7 @@ public partial class MainWindow
     internal bool IsMvpWizardOpen => _gameMvpWizard?.IsVisible == true;
 
     private bool UsesReferenceTimerCatalog =>
-        Settings.ServerProfile is GameServerProfile.MuhRo or GameServerProfile.Other;
+        Settings.ServerProfile is GameServerProfile.MuhRo or GameServerProfile.RagnarokPlus or GameServerProfile.Other;
 
     internal void AddMvpTimerInGame()
     {

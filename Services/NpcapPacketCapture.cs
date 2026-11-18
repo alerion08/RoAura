@@ -135,7 +135,7 @@ public sealed class NpcapPacketCapture : IDisposable
             AppEnvironment.CharacterSessionsEnabled && settings.AutoDetectConnection && settings.PacketCaptureEnabled
                 ? settings.AllowedProcesses.Select(name => Path.GetFileNameWithoutExtension(name.Trim()))
                     .Where(name => !string.IsNullOrEmpty(name)).ToHashSet(StringComparer.OrdinalIgnoreCase)
-                : null);
+                : null, settings.ServerProfile == GameServerProfile.RagnarokPlus);
         int generation;
         lock (_lifecycleLock)
         {
@@ -528,7 +528,7 @@ public sealed class NpcapPacketCapture : IDisposable
                             if (!tcpFlows.TryGetValue(flowKey, out flow))
                             {
                                 PruneIdleFlows(tcpFlows, generation);
-                                var scanner = CreateScanner(generation, CharacterSessionFlow.FromInbound(flowKey));
+                                var scanner = CreateScanner(generation, CharacterSessionFlow.FromInbound(flowKey), target.LogRagnarokPlusStatistics);
                                 if (target.AutoDiscovery)
                                     scanner.CharacterRosterObserved += roster => RememberRosterLevels(generation, target, flowKey, roster);
                                 flow = new TcpFlowState(scanner);
@@ -629,7 +629,7 @@ public sealed class NpcapPacketCapture : IDisposable
     }
 
     private RoPacketStreamScanner CreateScanner(int generation,
-        CharacterSessionFlow packetFlow)
+        CharacterSessionFlow packetFlow, bool logRagnarokPlusStatistics)
     {
         // All adapters share the retained TcpFlowState/scanner, but different
         // TCP lifetimes must never resolve the same inventory index together.
@@ -765,7 +765,9 @@ public sealed class NpcapPacketCapture : IDisposable
                 ReplayPendingStatuses();
             }
             ExperienceChanged?.Invoke(packet);
-            ForwardCharacterPacket(packetFlow, packet, CharacterExperienceChanged);
+            var bound = ForwardCharacterPacket(packetFlow, packet, CharacterExperienceChanged);
+            if (logRagnarokPlusStatistics)
+                DebugLog.Write($"RAGNAROK+ EXP DECODED type={packet.ExperienceType}; amount={packet.Amount}; sessionBound={bound}");
         });
         scanner.ProgressChanged += packet => Forward(generation, () =>
         {
@@ -879,12 +881,13 @@ public sealed class NpcapPacketCapture : IDisposable
     private static TcpFlowKey Reverse(TcpFlowKey flow) =>
         new(flow.DestinationAddress, flow.DestinationPort, flow.SourceAddress, flow.SourcePort);
 
-    private void ForwardCharacterPacket<T>(CharacterSessionFlow flow, T packet,
+    private bool ForwardCharacterPacket<T>(CharacterSessionFlow flow, T packet,
         Action<CharacterSessionPacket<T>>? callback)
     {
         if (!AppEnvironment.CharacterSessionsEnabled || callback is null ||
-            !_characterSessions.TryResolve(flow, out var session)) return;
+            !_characterSessions.TryResolve(flow, out var session)) return false;
         callback(new CharacterSessionPacket<T>(session, packet));
+        return true;
     }
 
     private void Forward(int generation, Action action)
@@ -946,8 +949,9 @@ public sealed class NpcapPacketCapture : IDisposable
         OptionsSignature = identity.OptionsSignature
     };
 
-    private sealed class CaptureTarget(string address, int port, IReadOnlySet<string>? allowedProcesses)
+    private sealed class CaptureTarget(string address, int port, IReadOnlySet<string>? allowedProcesses, bool logRagnarokPlusStatistics)
     {
+        public bool LogRagnarokPlusStatistics => logRagnarokPlusStatistics;
         private readonly uint? _addressValue = IPAddress.TryParse(address, out var parsed) &&
             parsed.AddressFamily == AddressFamily.InterNetwork
             ? BinaryPrimitives.ReadUInt32BigEndian(parsed.GetAddressBytes()) : null;
