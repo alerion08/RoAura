@@ -7,7 +7,7 @@ public readonly record struct CharacterStatisticsKey(string ServerKey, uint Char
     {
         var normalized = (serverKey ?? "").Trim().ToUpperInvariant();
         if (characterId == 0 || normalized.Length is < 1 or > 48 ||
-            normalized.Any(ch => !char.IsAsciiLetterOrDigit(ch) && ch is not ('-' or '_')))
+            (normalized != "RAGNAROK+" && normalized.Any(ch => !char.IsAsciiLetterOrDigit(ch) && ch is not ('-' or '_'))))
             throw new ArgumentException("A valid server identifier and nonzero Character ID are required.");
         return new CharacterStatisticsKey(normalized, characterId);
     }

@@ -7,6 +7,14 @@ namespace RoAura.Tests;
 public class QuestProgressTests : IDisposable
 {
     private readonly string _root = Path.Combine(Path.GetTempPath(), "RoAura-QuestTest-" + Guid.NewGuid().ToString("N"));
+    [Fact]
+    public void RagnarokPlus_has_valid_persistent_profile_keys()
+    {
+        Assert.Equal("RAGNAROK+", new QuestProfileKey("Ragnarok+", null, Guid.NewGuid()).Server);
+        Assert.Equal("RAGNAROK+", new QuestProfileKey("Ragnarok+", 123, null).Server);
+        Assert.Equal("RAGNAROK+", CharacterStatisticsKey.Create("Ragnarok+", 123).ServerKey);
+    }
+
     private static readonly QuestProfileKey Character = new("SpringRO", 123, null);
     internal static QuestGuide Guide(string key = "lost", string hash = "v1", params string[] instructions) => new(
         key, key, "https://example.test/quest", "walkthrough_parsed", "candidate", null, null, null, null,
