@@ -407,6 +407,10 @@ public partial class DatabaseOverlayWindow : Window
                 var candidates = int.TryParse(query.TrimStart('#'), out var id)
                     ? _database.Items.Where(item => item.Id == id).ToArray()
                     : _database.Items.Where(item => item.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).ToArray();
+                if (candidates.Length == 0 || !candidates.Any(item =>
+                        item.Id == id || item.Name.Equals(query, StringComparison.CurrentCultureIgnoreCase)))
+                    candidates = await (_ragnarokPlusMarket ??= new()).FindItemsAsync(query, cancellation.Token);
+                cancellation.Token.ThrowIfCancellationRequested();
                 var exact = candidates.Where(item => item.Name.Equals(query, StringComparison.CurrentCultureIgnoreCase)).ToArray();
                 if (exact.Length == 1) candidates = exact;
                 if (candidates.Length != 1)
@@ -522,8 +526,56 @@ public partial class DatabaseOverlayWindow : Window
         _searchQueries[_kind] = SearchBox.Text;
         if (_kind != DatabaseSearchKind.Market) RefreshResults();
     }
-    private async void Search_Click(object sender, RoutedEventArgs e) { if (_kind == DatabaseSearchKind.Market) await RefreshMarketResultsAsync(); else RefreshResults(); }
-    private async void Search_KeyDown(object sender, KeyEventArgs e) { if (e.Key != Key.Enter) return; if (_kind == DatabaseSearchKind.Market) await RefreshMarketResultsAsync(); else RefreshResults(); }
+    private async void Search_Click(object sender, RoutedEventArgs e) => await SubmitSearchAsync();
+    private async void Search_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter) await SubmitSearchAsync();
+    }
+
+    private async Task SubmitSearchAsync()
+    {
+        if (_kind == DatabaseSearchKind.Market)
+        {
+            await RefreshMarketResultsAsync();
+            return;
+        }
+        var query = SearchBox.Text.Trim();
+        if (_kind != DatabaseSearchKind.Items || _settings.ServerProfile != GameServerProfile.RagnarokPlus ||
+            query.Length == 0)
+        {
+            RefreshResults();
+            return;
+        }
+        _marketSearchCancellation?.Cancel();
+        using var cancellation = new CancellationTokenSource();
+        _marketSearchCancellation = cancellation;
+        FooterText.Text = T("Поиск в каталоге Ragnarok+…", "Searching the Ragnarok+ catalog…");
+        try
+        {
+            var items = await (_ragnarokPlusMarket ??= new()).FindItemsAsync(query, cancellation.Token);
+            if (cancellation.IsCancellationRequested || _kind != DatabaseSearchKind.Items || SearchBox.Text.Trim() != query)
+                return;
+            ResultsList.ItemsSource = items.Select(item => new DatabaseSearchResult(DatabaseSearchKind.Items,
+                item, item.Name, $"{item.Type} · #{item.Id}")).ToList();
+            FooterText.Text = T($"Найдено: {items.Length}", $"Found: {items.Length}");
+            if (items.Length > 0) ResultsList.SelectedIndex = 0;
+            else _details.Clear();
+        }
+        catch (OperationCanceledException) { }
+        catch (Exception ex)
+        {
+            if (cancellation.IsCancellationRequested || _kind != DatabaseSearchKind.Items || SearchBox.Text.Trim() != query)
+                return;
+            DebugLog.Write($"RAGNAROK+ ITEM SEARCH ERROR: {ex.GetType().Name}");
+            FooterText.Text = ex is RagnarokPlusSignInRequiredException
+                ? T("Войдите в Ragnarok+ в открывшемся окне и повторите поиск.", "Sign in to Ragnarok+ and repeat the search.")
+                : T("Не удалось загрузить каталог Ragnarok+.", "Could not load the Ragnarok+ catalog.");
+        }
+        finally
+        {
+            if (ReferenceEquals(_marketSearchCancellation, cancellation)) _marketSearchCancellation = null;
+        }
+    }
     private async void MarketType_Checked(object sender, RoutedEventArgs e)
     {
         if (IsLoaded && _kind == DatabaseSearchKind.Market && !string.IsNullOrWhiteSpace(SearchBox.Text))

@@ -46,46 +46,96 @@ internal sealed class RagnarokPlusMarketWindow : Window
         finally { _operation.Release(); }
     }
 
+    public async Task<DatabaseItem[]> FindItemsAsync(string query, CancellationToken cancellationToken)
+    {
+        await _operation.WaitAsync(cancellationToken);
+        try
+        {
+            await InitializeForSearchAsync();
+            await NavigateAsync(new Uri(Home, "item-db?q=" + Uri.EscapeDataString(query.TrimStart('#'))),
+                cancellationToken);
+            for (var attempt = 0; attempt < 40; attempt++)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                EnsurePage("/item-db");
+                const string script = """
+                    (() => {
+                        if (location.origin !== 'https://ragnarok.plus' || location.pathname !== '/item-db')
+                            return null;
+                        const links = [...document.querySelectorAll('a[href^="/item-db/"]')]
+                            .filter(node => node.getClientRects().length);
+                        const items = links.flatMap(node => {
+                            const match = /^\/item-db\/(\d+)$/.exec(new URL(node.href).pathname);
+                            const lines = node.innerText.split(/\n/).map(value => value.trim()).filter(Boolean);
+                            return match && lines.length >= 2
+                                ? [{ Id: Number(match[1]), Name: lines[0], Type: lines[1] }]
+                                : [];
+                        });
+                        return items.length ? items : null;
+                    })()
+                    """;
+                var json = await _browser.CoreWebView2.ExecuteScriptAsync(script).WaitAsync(cancellationToken);
+                if (JsonSerializer.Deserialize<DatabaseItem[]>(json) is { Length: > 0 } items)
+                    return items.DistinctBy(item => item.Id).ToArray();
+                await Task.Delay(250, cancellationToken);
+            }
+            return [];
+        }
+        finally { _operation.Release(); }
+    }
+
+    private async Task InitializeForSearchAsync()
+    {
+        if (_initialized || IsVisible)
+        {
+            await InitializeAsync();
+            return;
+        }
+        Show();
+        try { await InitializeAsync(); }
+        finally { Hide(); }
+    }
+
+    private void EnsurePage(string path)
+    {
+        if (Uri.TryCreate(_browser.CoreWebView2.Source, UriKind.Absolute, out var source) && IsRagnarokPlus(source))
+        {
+            if (source.AbsolutePath == path) return;
+            if (source.AbsolutePath == "/login")
+            {
+                Show();
+                Activate();
+                throw new RagnarokPlusSignInRequiredException();
+            }
+        }
+        throw new InvalidDataException("Unexpected Ragnarok+ page.");
+    }
+
     public async Task<IReadOnlyList<MarketListing>> SearchAsync(DatabaseItem item, CancellationToken cancellationToken)
     {
         await _operation.WaitAsync(cancellationToken);
         try
         {
-            if (!_initialized && !IsVisible)
-            {
-                Show();
-                try { await InitializeAsync(); }
-                finally { Hide(); }
-            }
-            else
-                await InitializeAsync();
+            await InitializeForSearchAsync();
             var itemPath = $"/item-db/{item.Id}";
             await NavigateAsync(new Uri(Home, itemPath), cancellationToken);
             using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             deadline.CancelAfter(TimeSpan.FromSeconds(15));
             var token = deadline.Token;
-            var opened = false;
+            var nextOpenAttempt = DateTimeOffset.MinValue;
             try
             {
                 while (true)
                 {
                     token.ThrowIfCancellationRequested();
-                    var source = new Uri(_browser.CoreWebView2.Source);
-                    if (IsRagnarokPlus(source) && source.AbsolutePath == "/login")
-                    {
-                        Show();
-                        Activate();
-                        throw new RagnarokPlusSignInRequiredException();
-                    }
-                    if (!IsRagnarokPlus(source) || source.AbsolutePath != itemPath)
-                        throw new InvalidDataException("Unexpected Ragnarok+ item page.");
+                    EnsurePage(itemPath);
 
-                    var json = await _browser.CoreWebView2.ExecuteScriptAsync(MarketScript(itemPath, opened)).WaitAsync(token);
+                    var json = await _browser.CoreWebView2.ExecuteScriptAsync(MarketScript(itemPath, DateTimeOffset.UtcNow < nextOpenAttempt)).WaitAsync(token);
                     var state = JsonSerializer.Deserialize<MarketPageState>(json);
                     if (state?.Dialog is { Length: > 0 } dialog)
                         return RagnarokPlusData.ParseLiveMarket(dialog, [item]).Snapshot.Listings;
                     if (state?.NoOffers == true) return [];
-                    opened |= state?.Opened == true;
+                    if (state?.Opened == true) nextOpenAttempt = DateTimeOffset.UtcNow.AddSeconds(2);
                     await Task.Delay(250, token);
                 }
             }
@@ -141,7 +191,28 @@ internal sealed class RagnarokPlusMarketWindow : Window
                 return null;
             const dialog = [...document.querySelectorAll('[role="dialog"], dialog')]
                 .find(node => node.getClientRects().length && node.innerText.includes('Live Market'));
-            if (dialog) return { Dialog: dialog.innerText };
+            if (dialog) {
+                const heading = dialog.querySelector('h2,[role="heading"]')?.textContent.trim();
+                const summary = dialog.querySelector('p')?.textContent.trim();
+                const block = [...dialog.querySelectorAll('.stmod__table')]
+                    .find(table => {
+                        const section = table.parentElement;
+                        return [...section.querySelectorAll('*')].some(node =>
+                            node.childElementCount === 0 && /^Selling$/i.test(node.textContent.trim()));
+                    });
+                const rows = [...(block ?? dialog).querySelectorAll('.stmod__row')].map(row =>
+                    ['.stmod__stall-name', '.mode-badge', '.stmod__stall-title',
+                     '.stmod__stall-loc', '.stmod__qty', '.stmod__price']
+                    .map(selector => row.querySelector(selector)?.textContent.trim() ?? ''));
+                const count = /^(\d+) selling/i.exec(summary ?? '')?.[1];
+                if (heading && count !== undefined && rows.length === Number(count) &&
+                    rows.every(row => row.every(Boolean))) {
+                    return { Dialog: [heading, count + ' selling', ...rows.flat()].join('\n') };
+                }
+                if (heading && summary && !rows.length && /^0 selling/i.test(summary))
+                    return { NoOffers: true };
+                return null;
+            }
             if ({{(opened ? "true" : "false")}}) return null;
             const button = [...document.querySelectorAll('button')]
                 .find(node => node.getClientRects().length && /^View\s+[\d,]+\s+shops?$/i.test(node.innerText.trim()));
