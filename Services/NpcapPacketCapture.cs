@@ -112,7 +112,7 @@ public sealed class NpcapPacketCapture : IDisposable
     public event Action<RoPacketObservation<RoEquipmentPacket>>? EquipmentIdentityMissing;
     public event Action<RoItemAddedPacket>? ItemAdded;
     public event Action<RoExperiencePacket>? ExperienceChanged;
-    public event Action<RoPacketObservation<RoExperiencePacket>>? UnboundRagnarokPlusExperience;
+    public event Action<RoPacketObservation<RoExperiencePacket>, ulong>? UnboundRagnarokPlusExperience;
     public event Action<RoPacketObservation<RoItemAddedPacket>>? UnboundRagnarokPlusLoot;
     public event Action<RoProgressPacket>? ProgressChanged;
     public event Action<RoZenyPacket>? ZenyChanged;
@@ -770,6 +770,8 @@ public sealed class NpcapPacketCapture : IDisposable
                 }
             }
         });
+        ulong nextBaseExperience = 0;
+        ulong nextJobExperience = 0;
         scanner.ExperienceChanged += packet => Forward(generation, () =>
         {
             if (AppEnvironment.CharacterSessionsEnabled)
@@ -787,14 +789,26 @@ public sealed class NpcapPacketCapture : IDisposable
                     var observation = Observe(packet, source);
                     if (observation.IdentitySource == "ZC_AID" && IsCurrentObservation(observation) &&
                         _playerAidObserver.AidForFlow(packetFlow) == packet.Aid)
-                        UnboundRagnarokPlusExperience?.Invoke(observation);
+                        UnboundRagnarokPlusExperience?.Invoke(observation,
+                            packet.ExperienceType == 2 ? nextJobExperience : nextBaseExperience);
                 }
             }
         });
         scanner.ProgressChanged += packet => Forward(generation, () =>
         {
             ProgressChanged?.Invoke(packet);
-            ForwardCharacterPacket(packetFlow, packet, CharacterProgressChanged);
+            var bound = ForwardCharacterPacket(packetFlow, packet, CharacterProgressChanged);
+            if (!logRagnarokPlusStatistics) return;
+
+            // Keep thresholds on the scanner for this TCP connection only.
+            if (packet.Parameter is 11 or 55 or 22 or 23)
+            {
+                if (packet.Parameter is 11 or 22)
+                    nextBaseExperience = packet.Parameter == 22 ? packet.Value : 0;
+                else
+                    nextJobExperience = packet.Parameter == 23 ? packet.Value : 0;
+                DebugLog.Write($"RAGNAROK+ PROGRESS DECODED parameter={packet.Parameter}; value={packet.Value}; sessionBound={bound}");
+            }
         });
         scanner.ZenyChanged += packet => Forward(generation, () =>
         {

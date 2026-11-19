@@ -1042,7 +1042,7 @@ public partial class App : Application
         }
     }
 
-    private void OnUnboundRagnarokPlusExperience(RoPacketObservation<RoExperiencePacket> observation) =>
+    private void OnUnboundRagnarokPlusExperience(RoPacketObservation<RoExperiencePacket> observation, ulong required) =>
         Dispatcher.BeginInvoke(() =>
         {
             if (!CanShowUnboundRagnarokPlusReward(observation) || _settingsWindow is null) return;
@@ -1051,7 +1051,10 @@ public partial class App : Application
             var packet = observation.Packet;
             var isJob = packet.ExperienceType == 2;
             if (packet.Amount > 0 && (!isJob || settings.ShowJobExperience))
-                _overlay?.ShowExperienceReward(packet.Amount, -1d, isJob);
+            {
+                var percentage = required > 0 ? packet.Amount / (double)required * 100d : -1d;
+                _overlay?.ShowExperienceReward(packet.Amount, percentage, isJob);
+            }
         });
 
     private bool CanShowUnboundRagnarokPlusReward<T>(RoPacketObservation<T> observation) =>
