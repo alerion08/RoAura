@@ -21,6 +21,8 @@ public sealed class CharacterLoginStreamProbe
     private bool _initialized;
     private bool _finished;
     private bool _identified;
+    private bool _diagnosticReported;
+    private int _firstPayloadLength;
     private ushort? _observedOpcode;
     private uint _nextSequence;
     private long _lastSeen = Environment.TickCount64;
@@ -35,6 +37,20 @@ public sealed class CharacterLoginStreamProbe
     }
     public bool Finished { get { lock (_sync) return _finished; } }
     public bool Identified { get { lock (_sync) return _identified; } }
+
+    internal bool TryTakeUnrecognizedDiagnostic(out ushort opcode, out int firstPayloadLength)
+    {
+        lock (_sync)
+        {
+            opcode = _observedOpcode.GetValueOrDefault();
+            firstPayloadLength = _firstPayloadLength;
+            if (!_finished || _identified || !_observedOpcode.HasValue || _diagnosticReported)
+                return false;
+
+            _diagnosticReported = true;
+            return true;
+        }
+    }
 
     /// <summary>Returns one candidate at most. Duplicates and gaps cannot produce another.</summary>
     public CharacterLoginCandidate? Process(uint sequence, ReadOnlySpan<byte> payload)
@@ -63,6 +79,7 @@ public sealed class CharacterLoginStreamProbe
                     return null;
                 }
             }
+            if (!_initialized) _firstPayloadLength = payload.Length;
             _initialized = true;
             _nextSequence = unchecked(sequence + (uint)payload.Length);
 
@@ -156,9 +173,10 @@ public sealed class CharacterLoginObserver
         {
             // Limited, metadata-only hint that this client's packetver may
             // shuffle map-login IDs, or that capture began mid-connection.
-            if (probe.Finished && !probe.Identified && probe.FirstOpcode is ushort opcode &&
+            if (probe.TryTakeUnrecognizedDiagnostic(out var opcode, out var firstPayloadLength) &&
                 Interlocked.Increment(ref _unrecognizedLogged) <= 10)
                 DebugLog.Write($"CHARACTER MAP LOGIN NOT IDENTIFIED: firstOpcode=0x{opcode:X4}; " +
+                               $"firstPayloadLength={firstPayloadLength}; clientPort={key.SourcePort}; " +
                                $"mapPort={key.DestinationPort}; check packetver / late capture");
             return;
         }

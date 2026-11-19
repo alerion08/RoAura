@@ -15,7 +15,7 @@
 ## Ragnarok+ integration development
 
 - Branch: `feature/ragnarok-plus`, based on the 3.5.0 main baseline. The profile uses standard packet tracking and recognizes the `RagnarokPlus` executable.
-- Initial diagnostics log decoded EXP and whether the capture resolved a character session. Validate CID, Base/Job EXP and session isolation with two characters before enabling server-specific decoding changes.
+- Ragnarok+ can display live rewards after observing the player AID on the map connection. Per-character statistics require a CID from the map login. Unrecognized-login diagnostics record the opcode, first TCP payload length and ports once per flow so they can be compared with the AID observation. Validate CID, Base/Job EXP and session isolation with two characters before accepting a new login layout.
 - Database and market integration require authenticated response samples or a supported data export. Until the map catalog is available, timers use the reference catalog.
 
 ## Combined development feedback — 2026-11-08
