@@ -114,15 +114,20 @@ internal sealed class RagnarokPlusMarketWindow : Window
     public async Task<IReadOnlyList<MarketListing>> SearchAsync(DatabaseItem item, CancellationToken cancellationToken)
     {
         await _operation.WaitAsync(cancellationToken);
+        var wasVisible = IsVisible;
+        var keepOpen = false;
         try
         {
-            await InitializeForSearchAsync();
+            // Keep the browser rendered while the site loads its interactive market dialog.
+            if (!IsVisible) Show();
+            await InitializeAsync();
             var itemPath = $"/item-db/{item.Id}";
             await NavigateAsync(new Uri(Home, itemPath), cancellationToken);
             using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             deadline.CancelAfter(TimeSpan.FromSeconds(15));
             var token = deadline.Token;
             var nextOpenAttempt = DateTimeOffset.MinValue;
+            string? lastStage = null;
             try
             {
                 while (true)
@@ -132,6 +137,11 @@ internal sealed class RagnarokPlusMarketWindow : Window
 
                     var json = await _browser.CoreWebView2.ExecuteScriptAsync(MarketScript(itemPath, DateTimeOffset.UtcNow < nextOpenAttempt)).WaitAsync(token);
                     var state = JsonSerializer.Deserialize<MarketPageState>(json);
+                    if (state?.Stage is { } stage && stage != lastStage)
+                    {
+                        DebugLog.Write($"RAGNAROK+ MARKET item={item.Id}; stage={stage}");
+                        lastStage = stage;
+                    }
                     if (state?.Rows is { } rows)
                         return rows.Select(row => row.ToListing(item)).ToArray();
                     if (state?.NoOffers == true) return [];
@@ -141,10 +151,19 @@ internal sealed class RagnarokPlusMarketWindow : Window
             }
             catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
             {
-                throw new TimeoutException("Ragnarok+ Live Market did not finish loading.");
+                throw new TimeoutException($"Ragnarok+ Live Market timed out at {lastStage ?? "no page state"}.");
             }
         }
-        finally { _operation.Release(); }
+        catch (RagnarokPlusSignInRequiredException)
+        {
+            keepOpen = true;
+            throw;
+        }
+        finally
+        {
+            if (!wasVisible && !keepOpen && IsVisible) Hide();
+            _operation.Release();
+        }
     }
 
     private async Task InitializeAsync()
@@ -192,8 +211,8 @@ internal sealed class RagnarokPlusMarketWindow : Window
             const dialog = [...document.querySelectorAll('[role="dialog"], dialog')]
                 .find(node => node.getClientRects().length && node.innerText.includes('Live Market'));
             if (dialog) {
-                const heading = dialog.querySelector('h2,[role="heading"]')?.textContent.trim();
-                const summary = dialog.querySelector('p')?.textContent.trim();
+                const summary = [...dialog.querySelectorAll('p')].map(node => node.textContent.trim())
+                    .find(text => /\b[\d,]+\s+selling\b/i.test(text));
                 const block = [...dialog.querySelectorAll('.stmod__table')]
                     .find(table => {
                         const section = table.parentElement;
@@ -212,28 +231,29 @@ internal sealed class RagnarokPlusMarketWindow : Window
                     };
                 });
                 const count = /([\d,]+)\s+selling/i.exec(summary ?? '')?.[1];
-                if (heading && count !== undefined && rows.length === Number(count.replaceAll(',', '')) &&
+                if (count !== undefined && rows.length === Number(count.replaceAll(',', '')) &&
                     rows.every(row => row.Price && row.Quantity && row.Owner)) {
-                    return { Rows: rows };
+                    return { Rows: rows, Stage: 'rows-read' };
                 }
-                if (heading && summary && !rows.length && /^0 selling/i.test(summary))
-                    return { NoOffers: true };
-                return null;
+                if (summary && !rows.length && /^0 selling/i.test(summary))
+                    return { NoOffers: true, Stage: 'no-offers' };
+                return { Stage: 'dialog: rows=' + rows.length + '; expected=' + (count ?? '?') +
+                    '; complete=' + rows.filter(row => row.Price && row.Quantity && row.Owner).length };
             }
-            if ({{(opened ? "true" : "false")}}) return null;
+            if ({{(opened ? "true" : "false")}}) return { Stage: 'waiting-for-dialog' };
             const button = [...document.querySelectorAll('button')]
                 .find(node => node.getClientRects().length && /^View\s+[\d,]+\s+shops?$/i.test(node.innerText.trim()));
             if (button) {
                 button.click();
-                return { Opened: true };
+                return { Opened: true, Stage: 'shop-button-clicked' };
             }
             const lines = document.body.innerText.split('\n').map(value => value.trim());
-            return { NoOffers: lines.includes('Market') &&
+            return { Stage: 'waiting-for-shop-button', NoOffers: lines.some(value => /^market$/i.test(value)) &&
                 lines.some(value => /^(No (open shops|active listings|active offers|market data)|0 open shops)\.?$/i.test(value)) };
         })()
         """;
 
-    private sealed record MarketPageState(LiveMarketRow[]? Rows, bool NoOffers, bool Opened);
+    private sealed record MarketPageState(LiveMarketRow[]? Rows, bool NoOffers, bool Opened, string? Stage);
 
     private sealed record LiveMarketRow(string Owner, string Stall, string GameMode,
         string Map, int X, int Y, string Quantity, string Price)
