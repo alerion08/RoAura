@@ -20,7 +20,7 @@ public partial class QuestDetailsControl : UserControl
 
  private readonly QuestSemanticService _reader=new();
  private readonly DispatcherTimer _refresh=new(){Interval=TimeSpan.FromSeconds(2)};
- private readonly DispatcherTimer _toast=new(){Interval=TimeSpan.FromSeconds(3)};
+ private readonly DispatcherTimer _toast=new(DispatcherPriority.Normal){Interval=TimeSpan.FromSeconds(3)};
  private SemanticCatalog? _catalog;private SemanticQuest? _quest;private QuestWorkspace? _workspace;
  private string? _selectedId,_semanticChoice,_workspaceKey;private string _language="ru",_fingerprint="";private bool _loading,_rendering;private Task? _loadTask;private FileSystemWatcher? _watcher;
  private readonly Dictionary<string,Border> _cards=new();
