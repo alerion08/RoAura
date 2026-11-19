@@ -7,7 +7,7 @@ namespace RoAura;
 
 internal sealed partial class RagnarokPlusMarketWindow
 {
-    internal async Task<GameDatabase> ReadCatalogAsync(CancellationToken token)
+    internal async Task<GameDatabase> ReadCatalogAsync(Action<GameDatabase> checkpoint, CancellationToken token)
     {
         await _operation.WaitAsync(token);
         try
@@ -15,18 +15,31 @@ internal sealed partial class RagnarokPlusMarketWindow
             ShowBackground();
             await InitializeAsync();
             var existing = RagnarokPlusData.LoadCatalog();
-            var items = await ReadCatalogSectionAsync("/item-db", "items", token);
-            var monsters = await ReadCatalogSectionAsync("/mob-db", "monsters", token);
-            var existingItems = existing.Items.DistinctBy(item => item.Id).ToDictionary(item => item.Id);
-            var existingMonsters = existing.Monsters.DistinctBy(monster => monster.Id).ToDictionary(monster => monster.Id);
-            return new GameDatabase
+            var itemsById = existing.Items.DistinctBy(item => item.Id).ToDictionary(item => item.Id);
+            var monstersById = existing.Monsters.DistinctBy(monster => monster.Id).ToDictionary(monster => monster.Id);
+            var items = await ReadCatalogSectionAsync("/item-db", "items", (page, rows) =>
             {
-                Source = GameServerProfile.RagnarokPlus,
-                Items = items.Select(row => ReadItem(row, existingItems)).ToList(),
-                Monsters = monsters.Select(row => ReadMonster(row, existingMonsters)).ToList(),
-                Maps = existing.Maps,
-                CatalogSynchronizedUtc = DateTimeOffset.UtcNow
-            };
+                foreach (var row in rows) itemsById[row.Id] = ReadItem(row, itemsById);
+                if (page == 1 || page % 5 == 0)
+                {
+                    existing.Items = itemsById.Values.OrderBy(item => item.Id).ToList();
+                    checkpoint(existing);
+                }
+            }, token);
+            existing.Items = items.Select(row => itemsById[row.Id]).ToList();
+            checkpoint(existing);
+            var monsters = await ReadCatalogSectionAsync("/mob-db", "monsters", (page, rows) =>
+            {
+                foreach (var row in rows) monstersById[row.Id] = ReadMonster(row, monstersById);
+                if (page == 1 || page % 5 == 0)
+                {
+                    existing.Monsters = monstersById.Values.OrderBy(monster => monster.Id).ToList();
+                    checkpoint(existing);
+                }
+            }, token);
+            existing.Monsters = monsters.Select(row => monstersById[row.Id]).ToList();
+            existing.CatalogSynchronizedUtc = DateTimeOffset.UtcNow;
+            return existing;
         }
         finally
         {
@@ -35,7 +48,7 @@ internal sealed partial class RagnarokPlusMarketWindow
         }
     }
 
-    private async Task<List<CatalogRow>> ReadCatalogSectionAsync(string path, string label, CancellationToken token)
+    private async Task<List<CatalogRow>> ReadCatalogSectionAsync(string path, string label, Action<int, CatalogRow[]> onPage, CancellationToken token)
     {
         await NavigateAsync(new Uri(Home, path), token);
         var rows = new List<CatalogRow>();
@@ -73,6 +86,7 @@ internal sealed partial class RagnarokPlusMarketWindow
             if (expectedTotal != page.Total || page.Rows.Any(row => !seen.Add(row.Id)))
                 throw new InvalidDataException($"The Ragnarok+ {label} catalog changed during synchronization.");
             rows.AddRange(page.Rows);
+            onPage(pageNumber, page.Rows);
             if (!page.HasNext && rows.Count == expectedTotal) return rows;
             if (!page.HasNext || rows.Count >= expectedTotal)
                 throw new InvalidDataException($"Ragnarok+ returned {rows.Count} of {expectedTotal} {label}.");
@@ -99,6 +113,7 @@ internal sealed partial class RagnarokPlusMarketWindow
             const count = [...document.querySelectorAll('strong')].find(node =>
                 node.getClientRects().length && node.parentElement.textContent.trim().toLowerCase().replace(/\s+/g, ' ').endsWith(' ' + label));
             const total = Number((count?.textContent ?? '').replace(/[^0-9]/g, ''));
+            const urlPage = Number(new URL(location.href).searchParams.get('page') || 1);
             const selected = document.querySelector('button[data-type="page"][aria-current]');
             const next = document.querySelector('button[aria-label="Next Page"]');
             const rows = [...document.querySelectorAll('a[href^="' + path + '/"]')].flatMap(node => {
@@ -108,7 +123,7 @@ internal sealed partial class RagnarokPlusMarketWindow
                 if (!id || !lines.length || lines.at(-1) !== '#' + id) return [];
                 return [{ Id: id, Lines: lines.slice(0, -1) }];
             });
-            return { Total: total, Page: selected ? Number(selected.value) : (next ? 0 : 1),
+            return { Total: total, Page: Number(selected?.value) || urlPage,
                 HasNext: !!next && !next.disabled, Rows: rows };
         })()
         """;

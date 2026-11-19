@@ -135,11 +135,29 @@ internal static class RagnarokPlusData
 
     private static string CatalogPath => Path.Combine(AppEnvironment.LocalDirectory, "database.ragnarokplus.json.gz");
 
-    public static GameDatabase LoadCatalog() =>
-        Load<GameDatabase>(CatalogPath)
-        ?? Load<GameDatabase>(Path.Combine(AppEnvironment.LocalDirectory, "database.ragnarokplus.json"))
-        ?? Load<GameDatabase>(Path.Combine(AppContext.BaseDirectory, "Data", "database.ragnarokplus.json"))
-        ?? new GameDatabase { Source = GameServerProfile.RagnarokPlus };
+    public static GameDatabase LoadCatalog()
+    {
+        var bundled = Load<GameDatabase>(Path.Combine(AppContext.BaseDirectory, "Data", "database.ragnarokplus.json"));
+        var local = Load<GameDatabase>(CatalogPath)
+            ?? Load<GameDatabase>(Path.Combine(AppEnvironment.LocalDirectory, "database.ragnarokplus.json"));
+        if (local is null) return bundled ?? new GameDatabase { Source = GameServerProfile.RagnarokPlus };
+        if (bundled is null) return local;
+
+        var localItems = local.Items.DistinctBy(item => item.Id).ToDictionary(item => item.Id);
+        foreach (var seed in bundled.Items)
+        {
+            if (!localItems.TryGetValue(seed.Id, out var item))
+            {
+                if (!local.CatalogSynchronizedUtc.HasValue) local.Items.Add(seed);
+                continue;
+            }
+            if (item.RagnarokPlusDetailsCaptured) continue;
+            if (string.IsNullOrWhiteSpace(item.Description)) item.Description = seed.Description;
+            item.LocalImagePng ??= seed.LocalImagePng;
+            if (item.NpcSellPrice == 0) item.NpcSellPrice = seed.NpcSellPrice;
+        }
+        return local;
+    }
 
     internal static void SaveCatalog(GameDatabase catalog)
     {

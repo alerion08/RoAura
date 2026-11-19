@@ -623,7 +623,7 @@ public partial class DatabaseOverlayWindow : Window
             {
                 if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters))
                     FooterText.Text = T("Загружаем каталог Ragnarok+…", "Downloading the Ragnarok+ catalog…");
-                catalog = await (_ragnarokPlusCatalog ??= new()).ReadCatalogAsync(cancellation.Token);
+                catalog = await (_ragnarokPlusCatalog ??= new()).ReadCatalogAsync(PublishCatalog, cancellation.Token);
                 PublishCatalog(catalog);
             }
             _catalogComplete = true;
@@ -645,7 +645,8 @@ public partial class DatabaseOverlayWindow : Window
         {
             DebugLog.Write($"RAGNAROK+ CATALOG ERROR: {ex.Message}");
             if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters))
-                FooterText.Text = T("Каталог не загрузился. RoAura повторит попытку.", "Catalog download failed. RoAura will retry.");
+                FooterText.Text = T($"Загрузка каталога прервалась. Локально: {_database.Items.Count:N0} предм. · {_database.Monsters.Count:N0} монстр.",
+                    $"Catalog download interrupted. Local: {_database.Items.Count:N0} items · {_database.Monsters.Count:N0} monsters.");
         }
         finally { _catalogSync = null; }
     }
