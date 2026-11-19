@@ -58,7 +58,8 @@ public partial class DatabaseDetailWindow : Window
             case DatabaseMonster monster: ShowMonster(monster); break;
             case DatabaseItem item when _database.Version is GameDatabaseVersion.Toc or GameServerProfile.RagnarokPlus:
                 ShowItem(item, new SpringRoItemDetails { ImageUrl = item.ImageUrl, Description = item.Description,
-                    NpcSellValue = item.NpcSellPrice.ToString("N0") }, false);
+                    NpcSellValue = _database.Version == GameServerProfile.RagnarokPlus &&
+                        !item.RagnarokPlusDetailsCaptured && item.NpcSellPrice == 0 ? "" : item.NpcSellPrice.ToString("N0") }, false);
                 break;
             case DatabaseItem item:
                 ShowItem(item, null, true);
@@ -109,8 +110,19 @@ public partial class DatabaseDetailWindow : Window
         if (string.IsNullOrWhiteSpace(imageUrl)) imageUrl = item.ImageUrl;
         if (string.IsNullOrWhiteSpace(imageUrl) && _database.Version != GameServerProfile.RagnarokPlus)
             imageUrl = $"https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/items/{item.Id}.png";
-        if (Uri.TryCreate(imageUrl, UriKind.Absolute, out var imageUri))
-            header.Children.Add(new Image { Source = new BitmapImage(imageUri), Width = 56, Height = 56,
+        BitmapSource? source = null;
+        if (_database.Version == GameServerProfile.RagnarokPlus)
+        {
+            if (item.LocalImagePng is { Length: > 0 } bytes)
+            {
+                using var stream = new MemoryStream(bytes);
+                source = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+            }
+        }
+        else if (Uri.TryCreate(imageUrl, UriKind.Absolute, out var imageUri))
+            source = new BitmapImage(imageUri);
+        if (source is not null)
+            header.Children.Add(new Image { Source = source, Width = 56, Height = 56,
                 Stretch = Stretch.Uniform, Margin = new Thickness(0, 0, 10, 0) });
         var title = new StackPanel();
         var itemHeading = Heading(item.Name, 20); itemHeading.MaxWidth = 180;

@@ -176,6 +176,13 @@ public sealed class GoldGoblinService
         Changed?.Invoke();
     }
 
+    internal void ReloadRagnarokPlusPrices()
+    {
+        if (_priceProfile != GameServerProfile.RagnarokPlus) return;
+        _prices = LoadPrices(_priceProfile);
+        Reprice();
+    }
+
     public void Reprice()
     {
         foreach (var row in Rows) row.Excluded = IsExcluded(row.ItemId, row.Item);
@@ -211,7 +218,7 @@ public sealed class GoldGoblinService
         try
         {
             if (GameServerProfile.Normalize(profile) == GameServerProfile.RagnarokPlus)
-                return RagnarokPlusData.LoadCatalog().Items.Where(item => item.NpcSellPrice > 0).DistinctBy(item => item.Id)
+                return RagnarokPlusData.LoadCatalog().Items.Where(item => item.RagnarokPlusDetailsCaptured || item.NpcSellPrice > 0).DistinctBy(item => item.Id)
                     .ToDictionary(item => item.Id, item => new SpringRoItemPrice { Id = item.Id, NpcSellPrice = item.NpcSellPrice });
             if (GameServerProfile.Normalize(profile) == GameServerProfile.Toc)
                 return TocDatabaseService.Database.Items.ToDictionary(i => i.Id, i => new SpringRoItemPrice { Id = i.Id, NpcSellPrice = i.NpcSellPrice });

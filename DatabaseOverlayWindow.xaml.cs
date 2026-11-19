@@ -22,6 +22,7 @@ public partial class DatabaseOverlayWindow : Window
     private RagnarokPlusMarketWindow? _ragnarokPlusCatalog;
     private CancellationTokenSource? _catalogSync;
     private bool _catalogComplete;
+    private bool _catalogDetailsComplete;
     private DateTimeOffset _nextCatalogAttempt;
     private readonly DispatcherTimer _visibilityTimer;
     private readonly DispatcherTimer _marketRefreshTimer;
@@ -398,9 +399,13 @@ public partial class DatabaseOverlayWindow : Window
                 }
                 else
                 {
-                    candidates = await (_ragnarokPlusMarket ??= new()).FindItemsAsync(query, cancellation.Token);
-                    candidates = candidates.OrderByDescending(item =>
-                        item.Name.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)).ToArray();
+                    candidates = _database.Search(DatabaseSearchKind.Items, query).Select(result => (DatabaseItem)result.Value).ToArray();
+                    if (!_catalogComplete)
+                    {
+                        var liveItems = await (_ragnarokPlusMarket ??= new()).FindItemsAsync(query, cancellation.Token);
+                        candidates = candidates.Concat(liveItems).DistinctBy(item => item.Id)
+                            .OrderByDescending(item => item.Name.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)).ToArray();
+                    }
                 }
                 cancellation.Token.ThrowIfCancellationRequested();
                 var exact = candidates.Where(item => item.Name.Equals(query, StringComparison.CurrentCultureIgnoreCase)).ToArray();
@@ -527,42 +532,7 @@ public partial class DatabaseOverlayWindow : Window
             await RefreshMarketResultsAsync();
             return;
         }
-        var query = SearchBox.Text.Trim();
-        if (_kind != DatabaseSearchKind.Items || _settings.ServerProfile != GameServerProfile.RagnarokPlus ||
-            query.Length == 0)
-        {
-            RefreshResults();
-            return;
-        }
-        _marketSearchCancellation?.Cancel();
-        using var cancellation = new CancellationTokenSource();
-        _marketSearchCancellation = cancellation;
-        FooterText.Text = T("Поиск в каталоге Ragnarok+…", "Searching the Ragnarok+ catalog…");
-        try
-        {
-            var items = await (_ragnarokPlusMarket ??= new()).FindItemsAsync(query, cancellation.Token);
-            if (cancellation.IsCancellationRequested || _kind != DatabaseSearchKind.Items || SearchBox.Text.Trim() != query)
-                return;
-            ResultsList.ItemsSource = items.Select(item => new DatabaseSearchResult(DatabaseSearchKind.Items,
-                item, item.Name, $"{item.Type} · #{item.Id}")).ToList();
-            FooterText.Text = T($"Найдено: {items.Length}", $"Found: {items.Length}");
-            if (items.Length > 0) ResultsList.SelectedIndex = 0;
-            else _details.Clear();
-        }
-        catch (OperationCanceledException) { }
-        catch (Exception ex)
-        {
-            if (cancellation.IsCancellationRequested || _kind != DatabaseSearchKind.Items || SearchBox.Text.Trim() != query)
-                return;
-            DebugLog.Write($"RAGNAROK+ ITEM SEARCH ERROR: {ex.GetType().Name}");
-            FooterText.Text = ex is RagnarokPlusSignInRequiredException
-                ? T("Войдите в Ragnarok+ в открывшемся окне и повторите поиск.", "Sign in to Ragnarok+ and repeat the search.")
-                : T("Не удалось загрузить каталог Ragnarok+.", "Could not load the Ragnarok+ catalog.");
-        }
-        finally
-        {
-            if (ReferenceEquals(_marketSearchCancellation, cancellation)) _marketSearchCancellation = null;
-        }
+        RefreshResults();
     }
     private async void MarketType_Checked(object sender, RoutedEventArgs e)
     {
@@ -641,30 +611,29 @@ public partial class DatabaseOverlayWindow : Window
 
     private async Task SynchronizeRagnarokPlusCatalogAsync()
     {
-        if (_catalogComplete || _catalogSync is not null || _nextCatalogAttempt > DateTimeOffset.UtcNow ||
+        if (_catalogDetailsComplete || _catalogSync is not null || _nextCatalogAttempt > DateTimeOffset.UtcNow ||
             (_ragnarokPlusMarket is { IsVisible: true, ShowInTaskbar: true })) return;
         _nextCatalogAttempt = DateTimeOffset.UtcNow.AddMinutes(10);
         using var cancellation = new CancellationTokenSource();
         _catalogSync = cancellation;
         try
         {
-            if (RagnarokPlusData.HasCompleteCatalog())
+            var catalog = RagnarokPlusData.LoadCatalog();
+            if (!catalog.CatalogSynchronizedUtc.HasValue)
             {
-                _catalogComplete = true;
+                if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters))
+                    FooterText.Text = T("Загружаем каталог Ragnarok+…", "Downloading the Ragnarok+ catalog…");
+                catalog = await (_ragnarokPlusCatalog ??= new()).ReadCatalogAsync(cancellation.Token);
+                PublishCatalog(catalog);
+            }
+            _catalogComplete = true;
+            if (catalog.Items.All(item => item.RagnarokPlusDetailsCaptured))
+            {
+                _catalogDetailsComplete = true;
                 return;
             }
-            if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters))
-                FooterText.Text = T("Загружаем каталог Ragnarok+…", "Downloading the Ragnarok+ catalog…");
-            var catalog = await (_ragnarokPlusCatalog ??= new()).ReadCatalogAsync(cancellation.Token);
-            cancellation.Token.ThrowIfCancellationRequested();
-            RagnarokPlusData.SaveCatalog(catalog);
-            _catalogComplete = true;
-            if (_settings.ServerProfile != GameServerProfile.RagnarokPlus) return;
-            _database.Reload(GameServerProfile.RagnarokPlus);
-            (Application.Current as App)?.RagnarokPlusCatalogUpdated();
-            if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters))
-                RefreshResults();
-            DebugLog.Write($"RAGNAROK+ CATALOG items={catalog.Items.Count}; monsters={catalog.Monsters.Count}");
+            await (_ragnarokPlusCatalog ??= new()).EnrichItemsAsync(catalog, PublishCatalog, cancellation.Token);
+            _catalogDetailsComplete = catalog.Items.All(item => item.RagnarokPlusDetailsCaptured);
         }
         catch (RagnarokPlusSignInRequiredException)
         {
@@ -679,6 +648,28 @@ public partial class DatabaseOverlayWindow : Window
                 FooterText.Text = T("Каталог не загрузился. RoAura повторит попытку.", "Catalog download failed. RoAura will retry.");
         }
         finally { _catalogSync = null; }
+    }
+
+    private void PublishCatalog(GameDatabase catalog)
+    {
+        RagnarokPlusData.SaveCatalog(catalog);
+        if (_settings.ServerProfile != GameServerProfile.RagnarokPlus) return;
+        _database.Reload(GameServerProfile.RagnarokPlus);
+        (Application.Current as App)?.RagnarokPlusCatalogUpdated();
+        if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters))
+        {
+            var previous = (ResultsList.SelectedItem as DatabaseSearchResult)?.Value;
+            RefreshResults();
+            var selected = ResultsList.Items.OfType<DatabaseSearchResult>().FirstOrDefault(result =>
+                (previous, result.Value) switch
+                {
+                    (DatabaseItem before, DatabaseItem after) => before.Id == after.Id,
+                    (DatabaseMonster before, DatabaseMonster after) => before.Id == after.Id,
+                    _ => false
+                });
+            if (selected is not null) ResultsList.SelectedItem = selected;
+        }
+        DebugLog.Write($"RAGNAROK+ CATALOG items={catalog.Items.Count}; details={catalog.Items.Count(item => item.RagnarokPlusDetailsCaptured)}; monsters={catalog.Monsters.Count}");
     }
 
     private async Task RefreshRagnarokPlusOffersAsync()

@@ -64,6 +64,8 @@ public sealed class DatabaseItem
 {
     public string AegisName { get; set; } = "";
     public string Description { get; set; } = "";
+    public bool RagnarokPlusDetailsCaptured { get; set; }
+    public byte[]? LocalImagePng { get; set; }
     public long NpcSellPrice { get; set; }
     public Dictionary<string, string> Stats { get; set; } = [];
     public int Id { get; set; }

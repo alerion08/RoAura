@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using System.Text.Json;
 using RoAura.Models;
 
@@ -132,19 +133,13 @@ internal static class RagnarokPlusData
         public required List<MarketListing> Listings { get; set; }
     }
 
-    private static string CatalogPath => Path.Combine(AppEnvironment.LocalDirectory, "database.ragnarokplus.json");
+    private static string CatalogPath => Path.Combine(AppEnvironment.LocalDirectory, "database.ragnarokplus.json.gz");
 
     public static GameDatabase LoadCatalog() =>
         Load<GameDatabase>(CatalogPath)
+        ?? Load<GameDatabase>(Path.Combine(AppEnvironment.LocalDirectory, "database.ragnarokplus.json"))
         ?? Load<GameDatabase>(Path.Combine(AppContext.BaseDirectory, "Data", "database.ragnarokplus.json"))
         ?? new GameDatabase { Source = GameServerProfile.RagnarokPlus };
-
-    internal static bool HasCompleteCatalog()
-    {
-        var catalog = LoadCatalog();
-        return catalog.CatalogSynchronizedUtc.HasValue &&
-            catalog.Items.Count > 0 && catalog.Monsters.Count > 0;
-    }
 
     internal static void SaveCatalog(GameDatabase catalog)
     {
@@ -152,7 +147,9 @@ internal static class RagnarokPlusData
         var temporary = CatalogPath + "." + Guid.NewGuid().ToString("N") + ".tmp";
         try
         {
-            File.WriteAllText(temporary, JsonSerializer.Serialize(catalog, JsonOptions));
+            using (var file = File.Create(temporary))
+            using (var compressed = new GZipStream(file, CompressionLevel.Fastest))
+                JsonSerializer.Serialize(compressed, catalog, JsonOptions);
             File.Move(temporary, CatalogPath, overwrite: true);
         }
         finally
@@ -204,9 +201,14 @@ internal static class RagnarokPlusData
     {
         try
         {
-            return File.Exists(path) ? JsonSerializer.Deserialize<T>(File.ReadAllText(path), JsonOptions) : null;
+            if (!File.Exists(path)) return null;
+            using var file = File.OpenRead(path);
+            if (!path.EndsWith(".gz", StringComparison.Ordinal))
+                return JsonSerializer.Deserialize<T>(file, JsonOptions);
+            using var compressed = new GZipStream(file, CompressionMode.Decompress);
+            return JsonSerializer.Deserialize<T>(compressed, JsonOptions);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException or InvalidDataException)
         {
             DebugLog.Write($"RAGNAROK+ DATA ERROR: {ex.Message}");
             return null;

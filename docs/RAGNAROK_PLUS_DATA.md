@@ -6,18 +6,18 @@ window to authorize the embedded WebView2 session.
 
 ## Catalog
 
-RoAura starts synchronization in the background after sign-in. It follows the
-official item and monster catalog pagination, verifies unique IDs and the
-reported totals for both lists, then replaces the local catalog atomically.
-The database search, item catalog and watch editor reload without restarting
-RoAura. An interrupted sync keeps the previous catalog.
+RoAura synchronizes the official item and monster indexes in the background
+after sign-in and checks their published totals. It then visits item cards
+sequentially to collect the displayed NPC sell value, description, drop
+sources and a local PNG thumbnail (at most 96 pixels on the longest side).
+It checkpoints progress in a compressed local catalog and resumes from
+uncollected cards on subsequent runs. A displayed zero sell price is kept
+distinct from an item whose price is still unknown.
 
-The portable package includes a starter catalog for offline use before the
-first successful synchronization. The sync collects item IDs, names and types
-and monster IDs, names, levels, race, element, size, Base/Job EXP and MVP flags.
-Previously collected details are preserved. Individual descriptions, drop
-tables, spawn locations and advanced stats still require collection from
-detail pages.
+Search and card rendering in the Items tab read the local catalog. NPC sell
+prices are also available to Gold Goblin as the catalog is updated. The portable
+package contains a starter snapshot. Extended monster detail collection is
+outside the current item-card sync.
 
 ## Market
 

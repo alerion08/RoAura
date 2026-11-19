@@ -24,11 +24,11 @@
                     <RadioButton x:Name="MapsMode" Content="Карты" Tag="Maps" Checked="Mode_Checked" Margin="0,0,13,0"/>
                     <RadioButton x:Name="MarketMode" Content="Маркет" Tag="Market" Checked="Mode_Checked"/>
                 </WrapPanel>
-                <StackPanel x:Name="MarketTypePanel" Orientation="Horizontal" Margin="0,9,0,0" Visibility="Collapsed">
+                <StackPanel x:Name="MarketTypePanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,9,0,0" Visibility="Collapsed">
                     <TextBlock x:Name="MarketTypeLabel" Text="Тип магазина:" VerticalAlignment="Center" Margin="0,0,9,0"/>
-                    <RadioButton x:Name="MarketSellMode" Content="Продажа" IsChecked="True" Checked="MarketType_Checked" Margin="0,0,14,0"/>
-                    <RadioButton x:Name="MarketBuyMode" Content="Покупка" Checked="MarketType_Checked"/>
-                    <Button x:Name="RagnarokPlusSignInButton" Content="Войти" Margin="12,0,0,0"
+                    <RadioButton x:Name="MarketSellMode" VerticalAlignment="Center" Content="Продажа" IsChecked="True" Checked="MarketType_Checked" Margin="0,0,14,0"/>
+                    <RadioButton x:Name="MarketBuyMode" VerticalAlignment="Center" Content="Покупка" Checked="MarketType_Checked"/>
+                    <Button x:Name="RagnarokPlusSignInButton" VerticalAlignment="Center" Content="Войти" Margin="12,0,0,0"
                             Visibility="Collapsed" Click="RagnarokPlusSignIn_Click"/>
                 </StackPanel>
             </StackPanel>

@@ -651,6 +651,7 @@ public partial class App : Application
         if (_marketWatchSettings?.ServerProfile != GameServerProfile.RagnarokPlus) return;
         _watchDatabase?.Reload(GameServerProfile.RagnarokPlus);
         _itemCatalog = ItemCatalogService.Load(GameServerProfile.RagnarokPlus);
+        _goldGoblin?.ReloadRagnarokPlusPrices();
     }
 
     public void ReloadItemCatalog(string gameVersion)
