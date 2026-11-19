@@ -113,6 +113,7 @@ public sealed class NpcapPacketCapture : IDisposable
     public event Action<RoItemAddedPacket>? ItemAdded;
     public event Action<RoExperiencePacket>? ExperienceChanged;
     public event Action<RoPacketObservation<RoExperiencePacket>>? UnboundRagnarokPlusExperience;
+    public event Action<RoPacketObservation<RoItemAddedPacket>>? UnboundRagnarokPlusLoot;
     public event Action<RoProgressPacket>? ProgressChanged;
     public event Action<RoZenyPacket>? ZenyChanged;
     // DEV-only: immutable source character session accompanies each reward packet.
@@ -758,7 +759,16 @@ public sealed class NpcapPacketCapture : IDisposable
             ItemAdded?.Invoke(packet);
             var bound = ForwardCharacterPacket(packetFlow, packet, CharacterItemAdded);
             if (logRagnarokPlusStatistics)
+            {
                 DebugLog.Write($"RAGNAROK+ LOOT DECODED item={packet.ItemId}; count={packet.Count}; sessionBound={bound}");
+                if (!bound)
+                {
+                    var observation = Observe(packet, source);
+                    if (observation.IdentitySource == "ZC_AID" && observation.SelfAid != 0 &&
+                        IsCurrentObservation(observation))
+                        UnboundRagnarokPlusLoot?.Invoke(observation);
+                }
+            }
         });
         scanner.ExperienceChanged += packet => Forward(generation, () =>
         {
