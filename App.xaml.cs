@@ -50,8 +50,11 @@ public partial class App : Application
     private SpringRoMarketService? _marketService;
     private MarketWatchService _marketWatch = new();
     private System.Windows.Threading.DispatcherTimer? _watchHistoryTimer;
-    public IReadOnlyList<MarketWatchHistoryEntry> MarketWatchHistory => _marketWatch.History;
-    public bool MarketWatchHistoryPersistenceFailed => _marketWatch.HistoryPersistenceFailed;
+    private MarketWatchService _ragnarokPlusWatch = new();
+    private MarketWatchService ActiveMarketWatch =>
+        _marketWatchSettings?.ServerProfile == GameServerProfile.RagnarokPlus ? _ragnarokPlusWatch : _marketWatch;
+    public IReadOnlyList<MarketWatchHistoryEntry> MarketWatchHistory => ActiveMarketWatch.History;
+    public bool MarketWatchHistoryPersistenceFailed => ActiveMarketWatch.HistoryPersistenceFailed;
     public event Action? MarketWatchHistoryChanged;
     private readonly HashSet<MarketWatchRule> _observedWatchRules = [];
     private AppSettings? _marketWatchSettings;
@@ -74,11 +77,11 @@ public partial class App : Application
             _ => null
         };
         if (item is null || _marketWatchSettings is null || !GameServerProfile.SupportsMarketWatch(_marketWatchSettings.ServerProfile)) return;
-        var existing = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == item.Id);
+        var existing = _marketWatchSettings.ActiveMarketWatchRules.FirstOrDefault(r => r.ItemId == item.Id);
         if (existing is not null && !existing.Enabled) { existing.Enabled = true; return; }
         if (existing is not null)
         {
-            _marketWatchSettings.MarketWatchRules.Remove(existing);
+            _marketWatchSettings.ActiveMarketWatchRules.Remove(existing);
 
             PersistMarketWatchSettings();
         }
@@ -103,15 +106,15 @@ public partial class App : Application
         if (_marketWatchSettings is null) return;
         if (replacedItemId.HasValue && replacedItemId != added.ItemId)
         {
-            var replaced = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == replacedItemId);
-            if (replaced is not null) _marketWatchSettings.MarketWatchRules.Remove(replaced);
+            var replaced = _marketWatchSettings.ActiveMarketWatchRules.FirstOrDefault(r => r.ItemId == replacedItemId);
+            if (replaced is not null) _marketWatchSettings.ActiveMarketWatchRules.Remove(replaced);
         }
-        var old = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == added.ItemId);
-        if (old is not null) _marketWatchSettings.MarketWatchRules.Remove(old);
-        _marketWatchSettings.MarketWatchRules.Add(added);
+        var old = _marketWatchSettings.ActiveMarketWatchRules.FirstOrDefault(r => r.ItemId == added.ItemId);
+        if (old is not null) _marketWatchSettings.ActiveMarketWatchRules.Remove(old);
+        _marketWatchSettings.ActiveMarketWatchRules.Add(added);
 
         PersistMarketWatchSettings();
-        if (added.SuppressCurrentOffers && !added.InitialOffersCaptured && _marketService is not null)
+        if (_marketWatchSettings.ServerProfile == GameServerProfile.SpringRo && added.SuppressCurrentOffers && !added.InitialOffersCaptured && _marketService is not null)
             _ = _marketService.RefreshSnapshotAsync();
     }
 
@@ -120,7 +123,7 @@ public partial class App : Application
         foreach (var rule in _observedWatchRules) rule.PropertyChanged -= WatchRuleChanged;
         _observedWatchRules.Clear();
         if (_marketWatchSettings is null) return;
-        foreach (var rule in _marketWatchSettings.MarketWatchRules)
+        foreach (var rule in _marketWatchSettings.MarketWatchRules.Concat(_marketWatchSettings.RagnarokPlusMarketWatchRules))
             if (_observedWatchRules.Add(rule)) rule.PropertyChanged += WatchRuleChanged;
     }
     private void WatchRuleChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -128,6 +131,17 @@ public partial class App : Application
         if (sender is not MarketWatchRule || e.PropertyName != nameof(MarketWatchRule.Enabled)) return;
         PersistMarketWatchSettings();
     }
+    internal void EvaluateRagnarokPlusOffers(int itemId, IReadOnlyList<MarketListing> offers)
+    {
+        if (_marketWatchSettings is not { ServerProfile: GameServerProfile.RagnarokPlus } settings) return;
+        var rules = settings.RagnarokPlusMarketWatchRules.Where(rule => rule.Enabled && rule.ItemId == itemId).ToArray();
+        if (rules.Length == 0) return;
+        var captureBaseline = rules.Any(rule => rule.SuppressCurrentOffers && !rule.InitialOffersCaptured);
+        var matches = _ragnarokPlusWatch.Evaluate(rules, offers, settings.MarketWatchHistoryRetentionDays);
+        if (captureBaseline) PersistMarketWatchSettings();
+        foreach (var match in matches) _overlay?.ShowMarketWatchNotification(match);
+    }
+
     public void AuditionMarketWatchSound() => _overlay?.PlayMarketWatchSound();
     public void BeginMarketWatchMove()
     {
@@ -389,21 +403,38 @@ public partial class App : Application
             settings.UpdatePacketCaptureState(state));
 
         _marketWatchSettings = settings;
-        _watchDatabase = new GameDatabaseService();
-        foreach (var rule in settings.MarketWatchRules)
+        _watchDatabase = new GameDatabaseService(settings.ServerProfile);
+        foreach (var rule in settings.ActiveMarketWatchRules)
             if (_watchDatabase.Item(rule.ItemId) is { } knownItem) rule.ItemName = knownItem.Name;
         _marketWatch = new MarketWatchService(new MarketWatchHistoryStore());
         _marketWatch.HistoryChanged += () => MarketWatchHistoryChanged?.Invoke();
+        _ragnarokPlusWatch = new MarketWatchService(new MarketWatchHistoryStore(
+            Path.Combine(AppEnvironment.LocalDirectory, "market-watch-history.ragnarokplus.json")));
+        _ragnarokPlusWatch.HistoryChanged += () => MarketWatchHistoryChanged?.Invoke();
+        _ragnarokPlusWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
         _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
         settings.PropertyChanged += (_, args) =>
         {
             if (args.PropertyName == nameof(AppSettings.MarketWatchHistoryRetentionDays))
+            {
                 _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+                _ragnarokPlusWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+            }
+            if (args.PropertyName == nameof(AppSettings.ServerProfile))
+            {
+                _watchDatabase.Reload(settings.ServerProfile);
+                MarketWatchHistoryChanged?.Invoke();
+            }
         };
         _watchHistoryTimer = new System.Windows.Threading.DispatcherTimer { Interval = TimeSpan.FromHours(1) };
-        _watchHistoryTimer.Tick += (_, _) => _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+        _watchHistoryTimer.Tick += (_, _) =>
+        {
+            _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+            _ragnarokPlusWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+        };
         _watchHistoryTimer.Start();
         settings.MarketWatchRules.CollectionChanged += (_, _) => SyncWatchRuleSubscriptions();
+        settings.RagnarokPlusMarketWatchRules.CollectionChanged += (_, _) => SyncWatchRuleSubscriptions();
         SyncWatchRuleSubscriptions();
         _marketService = new SpringRoMarketService();
         _marketService.SnapshotUpdated += snapshot => Dispatcher.BeginInvoke(() =>
@@ -613,6 +644,13 @@ public partial class App : Application
         if (_settingsWindow is not null)
             _marketWatch.PruneHistory(_settingsWindow.Settings.MarketWatchHistoryRetentionDays);
         SyncWatchRuleSubscriptions();
+    }
+
+    internal void RagnarokPlusCatalogUpdated()
+    {
+        if (_marketWatchSettings?.ServerProfile != GameServerProfile.RagnarokPlus) return;
+        _watchDatabase?.Reload(GameServerProfile.RagnarokPlus);
+        _itemCatalog = ItemCatalogService.Load(GameServerProfile.RagnarokPlus);
     }
 
     public void ReloadItemCatalog(string gameVersion)

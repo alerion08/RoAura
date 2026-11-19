@@ -8,7 +8,7 @@ using RoAura.Services;
 
 namespace RoAura;
 
-internal sealed class RagnarokPlusMarketWindow : Window
+internal sealed partial class RagnarokPlusMarketWindow : Window
 {
     private const string Host = "ragnarok.plus";
     private static readonly Uri Home = new($"https://{Host}/");
@@ -122,21 +122,21 @@ internal sealed class RagnarokPlusMarketWindow : Window
         Activate();
     }
 
-    private void EnsurePage(string path)
+    private void EnsurePage(string path, bool interactive = true)
     {
         if (Uri.TryCreate(_browser.CoreWebView2.Source, UriKind.Absolute, out var source) && IsRagnarokPlus(source))
         {
             if (source.AbsolutePath == path) return;
             if (source.AbsolutePath == "/login")
             {
-                ShowInteractive();
+                if (interactive) ShowInteractive();
                 throw new RagnarokPlusSignInRequiredException();
             }
         }
         throw new InvalidDataException("Unexpected Ragnarok+ page.");
     }
 
-    public async Task<IReadOnlyList<MarketListing>> SearchAsync(DatabaseItem item, string shopType, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<MarketListing>> SearchAsync(DatabaseItem item, string shopType, CancellationToken cancellationToken, bool interactive = true)
     {
         await _operation.WaitAsync(cancellationToken);
         var wasVisible = IsVisible;
@@ -158,7 +158,7 @@ internal sealed class RagnarokPlusMarketWindow : Window
                 while (true)
                 {
                     token.ThrowIfCancellationRequested();
-                    EnsurePage(itemPath);
+                    EnsurePage(itemPath, interactive);
 
                     var json = await _browser.CoreWebView2.ExecuteScriptAsync(MarketScript(itemPath, shopType, DateTimeOffset.UtcNow < nextOpenAttempt)).WaitAsync(token);
                     var state = JsonSerializer.Deserialize<MarketPageState>(json);
@@ -170,7 +170,7 @@ internal sealed class RagnarokPlusMarketWindow : Window
                     if (state?.Rows is { } rows)
                     {
                         var listings = rows.Select(row => row.ToListing(item, shopType)).ToArray();
-                        await LoadMapImagesAsync(itemPath, listings, cancellationToken);
+                        if (interactive) await LoadMapImagesAsync(itemPath, listings, cancellationToken);
                         return listings;
                     }
                     if (state?.NoOffers == true) return [];
@@ -185,7 +185,7 @@ internal sealed class RagnarokPlusMarketWindow : Window
         }
         catch (RagnarokPlusSignInRequiredException)
         {
-            keepOpen = true;
+            keepOpen = interactive;
             throw;
         }
         finally

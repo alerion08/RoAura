@@ -108,6 +108,7 @@ public sealed class AppSettings : INotifyPropertyChanged
                 Set(ref _serverProfile, normalized);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarket)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarketWatch)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveMarketWatchRules)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveMvpTimers)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveGoldGoblinPriceRules)));
             }
@@ -334,6 +335,9 @@ public sealed class AppSettings : INotifyPropertyChanged
         new() { Kind = RateIndicatorKind.TotalJobExperience, Enabled = false, X = 1050, Y = 634, TextColor = "#FFC9A7FF" }
     ];
     public ObservableCollection<MarketWatchRule> MarketWatchRules { get; set; } = [];
+    public ObservableCollection<MarketWatchRule> RagnarokPlusMarketWatchRules { get; set; } = [];
+    [JsonIgnore] public ObservableCollection<MarketWatchRule> ActiveMarketWatchRules =>
+        ServerProfile == GameServerProfile.RagnarokPlus ? RagnarokPlusMarketWatchRules : MarketWatchRules;
     public MarketWatchNotificationSettings MarketWatchNotifications { get; set; } = new();
     [JsonIgnore] public ObservableCollection<MarketWatchNotification> ActiveMarketNotifications { get; } = [];
     public ObservableCollection<GoldGoblinPriceRule> GoldGoblinPriceRules { get; set; } = [];

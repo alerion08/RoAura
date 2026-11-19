@@ -16,7 +16,7 @@
 
 - Branch: `feature/ragnarok-plus`, based on the 3.5.0 main baseline. The profile uses standard packet tracking and recognizes the `RagnarokPlus` executable.
 - Ragnarok+ can display live rewards after observing the player AID on the map connection. Per-character statistics require a CID from the map login. Unrecognized-login diagnostics record the opcode, first TCP payload length and ports once per flow so they can be compared with the AID observation. Validate CID, Base/Job EXP and session isolation with two characters before accepting a new login layout.
-- The Ragnarok+ catalog branch adds local catalog and market snapshot support plus separate Gold Goblin rules. Full catalog collection and live market refresh are pending. See [Ragnarok+ data integration](RAGNAROK_PLUS_DATA.md).
+- The Ragnarok+ development branch adds paginated catalog synchronization after sign-in and targeted market refresh for watch rules and Gold Goblin. The bundled catalog is a starter snapshot. Live Windows acceptance remains pending. See [Ragnarok+ data integration](RAGNAROK_PLUS_DATA.md).
 
 ## Combined development feedback — 2026-11-08
 

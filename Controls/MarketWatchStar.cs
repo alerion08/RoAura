@@ -26,7 +26,12 @@ public sealed class MarketWatchStar : Button
         {
             Detach();
             _settings = (Application.Current as App)?.MarketWatchSettings;
-            if (_settings is not null) _settings.MarketWatchRules.CollectionChanged += RulesChanged;
+            if (_settings is not null)
+            {
+                _settings.MarketWatchRules.CollectionChanged += RulesChanged;
+                _settings.RagnarokPlusMarketWatchRules.CollectionChanged += RulesChanged;
+                _settings.PropertyChanged += RuleChanged;
+            }
             ObserveRules();
             Refresh();
         };
@@ -34,7 +39,12 @@ public sealed class MarketWatchStar : Button
     }
     private void Detach()
     {
-        if (_settings is not null) _settings.MarketWatchRules.CollectionChanged -= RulesChanged;
+        if (_settings is not null)
+        {
+            _settings.MarketWatchRules.CollectionChanged -= RulesChanged;
+            _settings.RagnarokPlusMarketWatchRules.CollectionChanged -= RulesChanged;
+            _settings.PropertyChanged -= RuleChanged;
+        }
         foreach (var rule in _observed) rule.PropertyChanged -= RuleChanged;
         _observed.Clear();
         _settings = null;
@@ -46,13 +56,13 @@ public sealed class MarketWatchStar : Button
         foreach (var rule in _observed) rule.PropertyChanged -= RuleChanged;
         _observed.Clear();
         if (_settings is null) return;
-        foreach (var rule in _settings.MarketWatchRules) { _observed.Add(rule); rule.PropertyChanged += RuleChanged; }
+        foreach (var rule in _settings.MarketWatchRules.Concat(_settings.RagnarokPlusMarketWatchRules)) { _observed.Add(rule); rule.PropertyChanged += RuleChanged; }
     }
     private void Refresh()
     {
         var id = Item switch { DatabaseItem i => i.Id, MarketListing l => l.ItemId, _ => 0 };
         Visibility = id > 0 && (_settings is null || GameServerProfile.SupportsMarketWatch(_settings.ServerProfile)) ? Visibility.Visible : Visibility.Collapsed;
-        var existing = _settings?.MarketWatchRules.FirstOrDefault(r => r.ItemId == id);
+        var existing = _settings?.ActiveMarketWatchRules.FirstOrDefault(r => r.ItemId == id);
         var active = existing?.Enabled == true;
         Opacity = active ? 1 : .4;
         SetResourceReference(ForegroundProperty,"UiForeground_0F3066");

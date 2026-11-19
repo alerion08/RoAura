@@ -1,46 +1,34 @@
 # Ragnarok+ data integration
 
-Ragnarok+ uses its own catalog and Gold Goblin rules. The bundled catalog
-contains a small verified sample for initial validation.
-The official catalogs are at https://ragnarok.plus/item-db,
-https://ragnarok.plus/mob-db and https://ragnarok.plus/map-db.
+RoAura keeps a local Ragnarok+ catalog, market price cache, watch list and
+watch history. Select the Ragnarok+ profile and use **Sign in** in the database
+window to authorize the embedded WebView2 session.
 
-Put a full `database.ragnarokplus.json` in the RoAura local application-data
-directory to override the sample. Use the `GameDatabase` schema in
-`Models/DatabaseModels.cs`. Restart the application to reload the catalog.
+## Catalog
 
-Use `python tools/build_ragnarokplus_database.py rows.json output.json --base Data/database.ragnarokplus.json`
-to merge rendered catalog lists into the local format. The input is a JSON
-object with optional `items`, `monsters` and `maps` arrays. Each entry is
-an array of visible text lines from one catalog card. The importer preserves
-existing detail fields such as NPC sell price and rejects conflicting rows
-for the same ID.
+RoAura starts synchronization in the background after sign-in. It follows the
+official item and monster catalog pagination, verifies unique IDs and the
+reported totals for both lists, then replaces the local catalog atomically.
+The database search, item catalog and watch editor reload without restarting
+RoAura. An interrupted sync keeps the previous catalog.
 
-## Live market
+The portable package includes a starter catalog for offline use before the
+first successful synchronization. The sync collects item IDs, names and types
+and monster IDs, names, levels, race, element, size, Base/Job EXP and MVP flags.
+Previously collected details are preserved. Individual descriptions, drop
+tables, spawn locations and advanced stats still require collection from
+detail pages.
 
-The Ragnarok+ Market tab opens the official sign-in page through WebView2.
-Use **Sign in**, complete the site sign-in, and search for an item from the
-local Ragnarok+ catalog by name or ID. The separate WebView2 profile under
-RoAura's local application-data directory retains the site session. The app
-does not read the login form or export its cookies.
+## Market
 
-Live search opens the item page and reads the selected selling or buying
-rows from **Live Market**. A partial name returns matches to select in the
-overlay. The browser stays in the background during searches and appears
-when the site requires sign-in. Gold Goblin uses the last observed selling
-rows. RoAura displays the Ragnarok+ minimap and its pin when available.
-Live search requires WebView2 Runtime.
+Live search reads selling and buying offers from the official item page.
+Background checks reuse the authorized WebView2 session and use the interval
+configured in Database settings. They visit the union of enabled watch
+items and items with an active Gold Goblin vending price rule. Each price
+refresh uses the lowest observed Softcore selling price for that item.
 
-A full catalog export, background refresh of market offers, and Ragnarok+
-market notifications are pending.
-
-## Catalog and price coverage
-
-The current catalog includes the first item page, the first monster page,
-previously verified MVPs, and reviewed individual entries. Ragnarok+ showed
-6,657 items in the item catalog on 2026-11-19. No consolidated live offer export
-has been verified. Visiting the item pages once per ten minutes would require
-about 11 page navigations per second per client, before loading the dialogs.
-Gold Goblin needs only selling prices for items with a vending price rule.
-A scoped refresh can reuse the live market reader and the existing price
-cache without requiring a complete offer snapshot.
+The watch list checks selling rows, applies the item's configured price limit
+and stores its alert history locally. A successful empty response clears old
+selling rows from the price cache. Failed checks preserve the previous prices
+and leave the initial notification baseline untouched. If the session has
+expired, open **Sign in** to resume the background checks.

@@ -50,7 +50,7 @@
     <Grid.ColumnDefinitions><ColumnDefinition Width="*" MinWidth="330"/><ColumnDefinition Width="14"/><ColumnDefinition Width="0.85*" MinWidth="340"/></Grid.ColumnDefinitions>
     <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
     <Grid Grid.Row="0"><Grid.RowDefinitions><RowDefinition Height="0.85*" MinHeight="125"/><RowDefinition Height="Auto"/><RowDefinition Height="1.15*" MinHeight="130"/></Grid.RowDefinitions>
-     <DataGrid RowStyle="{StaticResource WatchTableRow}" ColumnHeaderStyle="{StaticResource WatchTableHeader}" CellStyle="{StaticResource WatchTableCell}" x:Name="WatchList" Grid.Row="0" ItemsSource="{Binding MarketWatchRules}" SelectionChanged="WatchList_SelectionChanged"
+     <DataGrid RowStyle="{StaticResource WatchTableRow}" ColumnHeaderStyle="{StaticResource WatchTableHeader}" CellStyle="{StaticResource WatchTableCell}" x:Name="WatchList" Grid.Row="0" ItemsSource="{Binding ActiveMarketWatchRules}" SelectionChanged="WatchList_SelectionChanged"
         AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" SelectionMode="Single" HeadersVisibility="Column" RowHeaderWidth="0">
       <DataGrid.Columns>
        <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource Name}" Width="*" MinWidth="100" Binding="{Binding Caption}"/>

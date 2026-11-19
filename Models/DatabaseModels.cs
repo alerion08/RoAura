@@ -3,6 +3,7 @@ namespace RoAura.Models;
 public sealed class GameDatabase
 {
     public string Source { get; set; } = "SpringRO";
+    public DateTimeOffset? CatalogSynchronizedUtc { get; set; }
     public List<DatabaseMonster> Monsters { get; set; } = [];
     public List<DatabaseItem> Items { get; set; } = [];
     public List<DatabaseMap> Maps { get; set; } = [];

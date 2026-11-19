@@ -72,7 +72,7 @@ public partial class DatabaseSettingsControl : UserControl
     private void DeleteWatch_Click(object sender, RoutedEventArgs e)
     {
         if (WatchList.SelectedItem is not MarketWatchRule rule || DataContext is not AppSettings settings) return;
-        settings.MarketWatchRules.Remove(rule);
+        settings.ActiveMarketWatchRules.Remove(rule);
         CurrentApp?.PersistMarketWatchSettings();
     }
     private void ChooseIcon_Click(object sender, RoutedEventArgs e)
@@ -107,8 +107,11 @@ public partial class DatabaseSettingsControl : UserControl
     }
     private void ProfileSettingsChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        if (e.PropertyName is nameof(AppSettings.ServerProfile) or "")
-            if (_profileSettings?.SupportsMarketWatch != true && DatabaseSettingsTabs is not null) DatabaseSettingsTabs.SelectedIndex = 0;
+        if (e.PropertyName is not (nameof(AppSettings.ServerProfile) or "")) return;
+        if (_profileSettings?.SupportsMarketWatch != true && DatabaseSettingsTabs is not null)
+            DatabaseSettingsTabs.SelectedIndex = 0;
+        WatchEditor?.Initialize(_database);
+        RefreshHistory();
     }
     private void AttachPreview()
     {

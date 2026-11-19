@@ -26,7 +26,7 @@ public static class GameServerProfile
         Normalize(value) is SpringRo or Toc or RagnarokPlus;
     public static bool SupportsGoldGoblin(string? value) => Normalize(value) is SpringRo or Toc or RagnarokPlus;
     public static bool SupportsMarket(string? value) => Normalize(value) is SpringRo or RagnarokPlus;
-    public static bool SupportsMarketWatch(string? value) => Normalize(value) == SpringRo;
+    public static bool SupportsMarketWatch(string? value) => Normalize(value) is SpringRo or RagnarokPlus;
 
     // The decoded-memory bridge is specific to the analyzed SpringRO client.
     // MuhRO's observed status packets already contain the standard fields.
