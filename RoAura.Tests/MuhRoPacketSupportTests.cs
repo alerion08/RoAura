@@ -12,7 +12,7 @@ public sealed class MuhRoPacketSupportTests
     private static CharacterSessionFlow Flow(ushort port) => new(1, port, 2, 54729);
     private static RoPacketStreamScanner Scanner(NpcapPacketCapture capture, ushort port = 50001) =>
         (RoPacketStreamScanner)typeof(NpcapPacketCapture).GetMethod("CreateScanner",
-            BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(capture, [0, Flow(port), false])!;
+            BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(capture, [0, Flow(port), false, null])!;
 
     [Theory]
     [InlineData("MuhRO")]
