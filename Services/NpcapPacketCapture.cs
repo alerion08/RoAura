@@ -530,7 +530,11 @@ public sealed class NpcapPacketCapture : IDisposable
                             if (!tcpFlows.TryGetValue(flowKey, out flow))
                             {
                                 PruneIdleFlows(tcpFlows, generation);
-                                var scanner = CreateScanner(generation, CharacterSessionFlow.FromInbound(flowKey), target.LogRagnarokPlusStatistics, loginObserver);
+                                var sessionFlow = CharacterSessionFlow.FromInbound(flowKey);
+                                var scanner = CreateScanner(generation, sessionFlow, target.LogRagnarokPlusStatistics,
+                                    loginObserver, target.AutoDiscovery
+                                        ? () => ApplyRosterLevels(generation, target, flowKey, sessionFlow)
+                                        : null);
                                 if (target.AutoDiscovery)
                                     scanner.CharacterRosterObserved += roster => RememberRosterLevels(generation, target, flowKey, roster);
                                 flow = new TcpFlowState(scanner);
@@ -631,7 +635,8 @@ public sealed class NpcapPacketCapture : IDisposable
     }
 
     private RoPacketStreamScanner CreateScanner(int generation,
-        CharacterSessionFlow packetFlow, bool logRagnarokPlusStatistics, CharacterLoginObserver? loginObserver)
+        CharacterSessionFlow packetFlow, bool logRagnarokPlusStatistics, CharacterLoginObserver? loginObserver,
+        Action? applyRosterLevels)
     {
         // All adapters share the retained TcpFlowState/scanner, but different
         // TCP lifetimes must never resolve the same inventory index together.
@@ -733,8 +738,9 @@ public sealed class NpcapPacketCapture : IDisposable
             {
                 ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID",
                     logRagnarokPlusStatistics ? loginObserver : null);
-                if (logRagnarokPlusStatistics && loginObserver is not null)
-                    BindRagnarokPlusSession(generation, packetFlow, packet.Aid, loginObserver);
+                if (logRagnarokPlusStatistics && loginObserver is not null &&
+                    BindRagnarokPlusSession(generation, packetFlow, packet.Aid, loginObserver))
+                    applyRosterLevels?.Invoke();
                 ReplayPendingStatuses();
             });
         // Actor visibility (not always a skill ack): TF_HIDING is confirmed
@@ -890,21 +896,22 @@ public sealed class NpcapPacketCapture : IDisposable
         }
     }
 
-    private void BindRagnarokPlusSession(int generation, CharacterSessionFlow flow, uint aid,
+    private bool BindRagnarokPlusSession(int generation, CharacterSessionFlow flow, uint aid,
         CharacterLoginObserver loginObserver)
     {
         lock (_lifecycleLock)
         {
             if (generation != _generation || _characterSessions.TryResolve(flow, out _) ||
                 _playerAidObserver.SourceForFlow(flow) != "ZC_AID" ||
-                _playerAidObserver.AidForFlow(flow) != aid) return;
+                _playerAidObserver.AidForFlow(flow) != aid) return false;
 
             var outbound = new TcpFlowKey(flow.ClientAddress, flow.ClientPort, flow.ServerAddress, flow.ServerPort);
-            if (loginObserver.ConfirmRagnarokPlusLogin(outbound, aid) is not { } login) return;
+            if (loginObserver.ConfirmRagnarokPlusLogin(outbound, aid) is not { } login) return false;
 
             _characterSessions.OnCandidate(GameServerProfile.RagnarokPlus, flow, login.CharacterId, aid);
             _characterSessions.OnServerPayload(flow);
             DebugLog.Write($"RAGNAROK+ CHARACTER SESSION: cid={login.CharacterId}; clientPort={flow.ClientPort}");
+            return true;
         }
     }
 

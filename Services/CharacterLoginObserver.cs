@@ -22,7 +22,6 @@ public sealed class CharacterLoginStreamProbe(bool observeRagnarokPlus = false)
     private bool _finished;
     private bool _identified;
     private CharacterLoginCandidate? _ragnarokPlusCandidate;
-    private CharacterLoginCandidate? _ragnarokPlusDiagnostic;
     private bool _diagnosticReported;
     private int _firstPayloadLength;
     private ushort? _observedOpcode;
@@ -53,9 +52,9 @@ public sealed class CharacterLoginStreamProbe(bool observeRagnarokPlus = false)
             var description = _observedOpcode is { } opcode
                 ? $"firstOpcode=0x{opcode:X4}; firstPayloadLength={_firstPayloadLength}"
                 : $"firstPayloadLength={_firstPayloadLength}; firstOpcode=unavailable";
-            if (_ragnarokPlusDiagnostic is not { } candidate || verifiedAid == 0) return description;
+            if (_ragnarokPlusCandidate is not { } candidate || verifiedAid == 0) return description;
             if (candidate.PlayerAid != verifiedAid) return description + "; layoutAidMatches=False";
-            return description + $"; layoutAidMatches=True; diagnosticCid={candidate.CharacterId}";
+            return description + "; layoutAidMatches=True";
         }
     }
 
@@ -114,23 +113,20 @@ public sealed class CharacterLoginStreamProbe(bool observeRagnarokPlus = false)
             if (_prefixLength < 2) return null;
             var opcode = BinaryPrimitives.ReadUInt16LittleEndian(_prefix);
             _observedOpcode = opcode;
-            if (observeRagnarokPlus && opcode is not (0x6B0A or 0x0072 or 0x0436) &&
-                _firstPayloadLength == MaximumPrefixLength && _prefixLength == MaximumPrefixLength)
+            if (observeRagnarokPlus && opcode is not (0x0072 or 0x0436))
             {
-                // Collect only the fields used by the known layout. Unknown opcodes
-                // remain diagnostic and can never bind a character session.
-                var aidField = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(2));
-                var cidField = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(6));
-                _ragnarokPlusDiagnostic = new(opcode, cidField, MaximumPrefixLength, aidField);
-            }
-
-            if (observeRagnarokPlus && opcode == 0x6B0A)
-            {
-                if (_prefixLength < MaximumPrefixLength) return null;
-                var candidateAid = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(2));
-                var candidateCid = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(6));
-                if (candidateAid != 0 && candidateCid != 0 && _prefix[22] <= 1)
-                    _ragnarokPlusCandidate = new(opcode, candidateCid, MaximumPrefixLength, candidateAid);
+                // The original layout can arrive in fragments. For a shuffled
+                // opcode, require a complete 23-byte first TCP payload.
+                if (opcode == 0x6B0A && _prefixLength < MaximumPrefixLength) return null;
+                if (_prefixLength == MaximumPrefixLength &&
+                    (opcode == 0x6B0A || _firstPayloadLength == MaximumPrefixLength))
+                {
+                    var candidateAid = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(2));
+                    var candidateCid = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(6));
+                    if (candidateAid != 0 && candidateCid != 0 && _prefix[22] <= 1)
+                        _ragnarokPlusCandidate = new(opcode, candidateCid, MaximumPrefixLength, candidateAid);
+                }
+                // Session binding requires an independent server AID on this flow.
                 Finish();
                 return null;
             }
