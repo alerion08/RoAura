@@ -73,7 +73,7 @@ public partial class App : Application
             MarketListing l => _watchDatabase?.Item(l.ItemId) ?? new DatabaseItem { Id = l.ItemId, Name = l.ItemName },
             _ => null
         };
-        if (item is null || _marketWatchSettings is null || !GameServerProfile.SupportsMarket(_marketWatchSettings.ServerProfile)) return;
+        if (item is null || _marketWatchSettings is null || !GameServerProfile.SupportsMarketWatch(_marketWatchSettings.ServerProfile)) return;
         var existing = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == item.Id);
         if (existing is not null && !existing.Enabled) { existing.Enabled = true; return; }
         if (existing is not null)
@@ -414,6 +414,10 @@ public partial class App : Application
             foreach (var match in matches) _overlay?.ShowMarketWatchNotification(match);
         });
         _goldGoblin = new GoldGoblinService(settings, _marketService);
+        RagnarokPlusData.MarketImported += () => Dispatcher.BeginInvoke(() =>
+        {
+            if (settings.ServerProfile == GameServerProfile.RagnarokPlus) _goldGoblin?.Reprice();
+        });
         if (AppEnvironment.CharacterSessionsEnabled)
         {
             _characterStore = new CharacterStatisticsStore();
@@ -434,7 +438,7 @@ public partial class App : Application
                 { _characterLedger?.Flush(DateTime.UtcNow); SaveFarmingHistory(); });
             _characterFlushTimer.Start();
         }
-        _activeDatabase = new GameDatabaseService(settings.ServerProfile == GameServerProfile.Toc ? GameDatabaseVersion.Toc : GameDatabaseVersion.SpringRo);
+        _activeDatabase = new GameDatabaseService(GameServerProfile.SupportsDatabaseOverlay(settings.ServerProfile) ? settings.ServerProfile : GameDatabaseVersion.SpringRo);
         _databaseOverlay = new DatabaseOverlayWindow(settings, _activeDatabase, _marketService);
         _databaseOverlay.HideRequested += HideDatabase;
         _settingsWindow = new MainWindow(settings, _settingsStore, _overlay, _packetCapture, _goldGoblin);

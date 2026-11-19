@@ -18,6 +18,7 @@ public partial class DatabaseOverlayWindow : Window
     private readonly GameDatabaseService _database;
     private readonly DatabaseDetailWindow _details;
     private readonly SpringRoMarketService _market;
+    private RagnarokPlusMarketWindow? _ragnarokPlusMarket;
     private readonly DispatcherTimer _visibilityTimer;
     private readonly DispatcherTimer _marketRefreshTimer;
     private DatabaseSearchKind _kind = DatabaseSearchKind.Monsters;
@@ -91,6 +92,14 @@ public partial class DatabaseOverlayWindow : Window
         MarketBuyMode.Content = T("Покупка", "Buying");
         SearchButton.Content = T("Найти", "Search");
         MarketTypeLabel.Text = T("Тип магазина:", "Shop type:");
+        var ragnarokPlus = _settings.ServerProfile == GameServerProfile.RagnarokPlus;
+        RagnarokPlusSignInButton.Content = T("Войти", "Sign in");
+        RagnarokPlusSignInButton.Visibility = ragnarokPlus ? Visibility.Visible : Visibility.Collapsed;
+        MarketBuyMode.Visibility = ragnarokPlus ? Visibility.Collapsed : Visibility.Visible;
+        if (ragnarokPlus) MarketSellMode.IsChecked = true;
+        ImportMarketButton.Content = T("Импорт", "Import");
+        ImportMarketButton.Visibility = _settings.ServerProfile == GameServerProfile.RagnarokPlus
+            ? Visibility.Visible : Visibility.Collapsed;
         AdvancedHeaderText.Text = T("Расширенный поиск", "Advanced search");
         RaceLabel.Text = T("Раса", "Race");
         ElementLabel.Text = T("Элемент", "Element");
@@ -322,6 +331,50 @@ public partial class DatabaseOverlayWindow : Window
         else _details.Clear();
     }
 
+    private async void RagnarokPlusSignIn_Click(object sender, RoutedEventArgs e)
+    {
+        if (_settings.ServerProfile != GameServerProfile.RagnarokPlus) return;
+        try
+        {
+            await (_ragnarokPlusMarket ??= new()).SignInAsync();
+        }
+        catch (Exception ex)
+        {
+            DebugLog.Write($"RAGNAROK+ SIGN-IN WINDOW ERROR: {ex.GetType().Name}");
+            FooterText.Text = T("Не удалось открыть вход Ragnarok+. Проверьте наличие WebView2 Runtime.",
+                "Could not open Ragnarok+ sign-in. Check that WebView2 Runtime is installed.");
+        }
+    }
+
+    private async void ImportMarket_Click(object sender, RoutedEventArgs e)
+    {
+        if (_settings.ServerProfile != GameServerProfile.RagnarokPlus) return;
+        var picker = new Microsoft.Win32.OpenFileDialog
+        {
+            Filter = T("Рынок Ragnarok+ (*.json;*.txt)|*.json;*.txt", "Ragnarok+ market (*.json;*.txt)|*.json;*.txt")
+        };
+        if (picker.ShowDialog(this) != true) return;
+
+        ImportMarketButton.IsEnabled = false;
+        try
+        {
+            var count = await Task.Run(() => RagnarokPlusData.ImportMarket(picker.FileName));
+            if (_settings.ServerProfile != GameServerProfile.RagnarokPlus || _kind != DatabaseSearchKind.Market) return;
+            if (string.IsNullOrWhiteSpace(SearchBox.Text))
+                FooterText.Text = T($"Импортировано предложений: {count}. Введите название или ID.",
+                    $"Imported {count} listings. Enter an item name or ID.");
+            else
+                await RefreshMarketResultsAsync();
+        }
+        catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or System.Text.Json.JsonException)
+        {
+            DebugLog.Write($"RAGNAROK+ MARKET IMPORT ERROR: {ex.Message}");
+            FooterText.Text = T("Не удалось импортировать снимок: проверьте формат, дату и доступ к файлу.",
+                "Could not import snapshot. Check its format, date and file access.");
+        }
+        finally { ImportMarketButton.IsEnabled = true; }
+    }
+
     private async Task RefreshMarketResultsAsync()
     {
         if (!GameServerProfile.SupportsMarket(_settings.ServerProfile)) return;
@@ -343,18 +396,50 @@ public partial class DatabaseOverlayWindow : Window
         var cancellation = new CancellationTokenSource();
         _marketSearchCancellation = cancellation;
         SearchButton.IsEnabled = false;
-        FooterText.Text = T($"Ищем «{query}» в актуальном маркете SpringRO…",
-            $"Searching the live SpringRO market for “{query}”…");
+        var ragnarokPlus = _settings.ServerProfile == GameServerProfile.RagnarokPlus;
+        FooterText.Text = T($"Ищем «{query}» в маркете…", $"Searching the market for “{query}”…");
         try
         {
             var type = MarketBuyMode.IsChecked == true ? "BUY" : "SELL";
-            var listings = await _market.SearchAsync(query, type, cancellation.Token);
+            IReadOnlyList<MarketListing> listings;
+            if (ragnarokPlus)
+            {
+                var candidates = int.TryParse(query.TrimStart('#'), out var id)
+                    ? _database.Items.Where(item => item.Id == id).ToArray()
+                    : _database.Items.Where(item => item.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).ToArray();
+                var exact = candidates.Where(item => item.Name.Equals(query, StringComparison.CurrentCultureIgnoreCase)).ToArray();
+                if (exact.Length == 1) candidates = exact;
+                if (candidates.Length != 1)
+                {
+                    FooterText.Text = candidates.Length == 0
+                        ? T("Предмет не найден в каталоге Ragnarok+.", "Item not found in the Ragnarok+ catalog.")
+                        : T("Уточните название или введите ID предмета.", "Refine the name or enter the item ID.");
+                    ResultsList.ItemsSource = candidates.Take(100).Select(item =>
+                        new DatabaseSearchResult(DatabaseSearchKind.Items, item, item.Name, $"#{item.Id}")).ToList();
+                    return;
+                }
+
+                var item = candidates[0];
+                listings = await (_ragnarokPlusMarket ??= new()).SearchAsync(item, cancellation.Token);
+                cancellation.Token.ThrowIfCancellationRequested();
+                try { RagnarokPlusData.RememberLiveOffers(item.Id, listings); }
+                catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException)
+                {
+                    DebugLog.Write($"RAGNAROK+ PRICE CACHE ERROR: {ex.GetType().Name}");
+                }
+            }
+            else
+                listings = await _market.SearchAsync(query, type, cancellation.Token);
             if (searchVersion != _marketSearchVersion || cancellation.IsCancellationRequested) return;
             ResultsList.ItemsSource = listings.Select(x => new DatabaseSearchResult(DatabaseSearchKind.Market, x,
-                $"{x.ItemName} · {x.Price}",
+                $"{x.ItemName} · {x.Price}" + (ragnarokPlus ? $" · {x.GameMode}" : ""),
                 T($"{x.Quantity} шт. · {x.Owner} · {x.Map} ({x.X},{x.Y})",
                     $"{x.Quantity} pcs · {x.Owner} · {x.Map} ({x.X},{x.Y})"))).ToList();
-            FooterText.Text = listings.Count == 0
+            FooterText.Text = ragnarokPlus
+                ? (listings.Count == 0
+                    ? T("Нет действующих предложений.", "No active listings.")
+                    : T($"{listings.Count} действующих предложений", $"{listings.Count} active listings"))
+                : listings.Count == 0
                 ? (_market.HasSnapshot
                     ? T($"По названию «{query}» предложений не найдено.", $"No listings found for “{query}”.")
                     : T("Маркет обновляется в фоне. Результаты появятся автоматически.",
@@ -365,6 +450,18 @@ public partial class DatabaseOverlayWindow : Window
             else _details.Clear();
         }
         catch (OperationCanceledException) { }
+        catch (RagnarokPlusSignInRequiredException)
+        {
+            if (searchVersion != _marketSearchVersion) return;
+            FooterText.Text = T("Войдите на сайте Ragnarok+ в открывшемся окне и повторите поиск.",
+                "Sign in on Ragnarok+ in the opened window and repeat your search.");
+        }
+        catch (Microsoft.Web.WebView2.Core.WebView2RuntimeNotFoundException)
+        {
+            if (searchVersion != _marketSearchVersion) return;
+            FooterText.Text = T("Для поиска Ragnarok+ требуется WebView2 Runtime.",
+                "Ragnarok+ search requires WebView2 Runtime.");
+        }
         catch (Exception ex)
         {
             if (searchVersion != _marketSearchVersion) return;
@@ -465,7 +562,7 @@ public partial class DatabaseOverlayWindow : Window
 
     private async Task RefreshMarketInBackgroundAsync()
     {
-        if (_marketRefreshRunning || !GameServerProfile.SupportsMarket(_settings.ServerProfile)) return;
+        if (_marketRefreshRunning || !GameServerProfile.SupportsMarketWatch(_settings.ServerProfile)) return;
         _marketRefreshRunning = true;
         try
         {
@@ -477,7 +574,7 @@ public partial class DatabaseOverlayWindow : Window
 
     private void Market_DataUpdated() => Dispatcher.BeginInvoke(async () =>
     {
-        if (GameServerProfile.SupportsMarket(_settings.ServerProfile) && IsDatabaseOpen && _kind == DatabaseSearchKind.Market && !string.IsNullOrWhiteSpace(SearchBox.Text))
+        if (GameServerProfile.SupportsMarketWatch(_settings.ServerProfile) && IsDatabaseOpen && _kind == DatabaseSearchKind.Market && !string.IsNullOrWhiteSpace(SearchBox.Text))
             await RefreshMarketResultsAsync();
     });
     private string T(string ru, string en) => _settings.Language == "en" ? en : ru;

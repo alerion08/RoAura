@@ -115,6 +115,8 @@ public sealed class MarketListing
     public int MapWidth { get; set; }
     public int MapHeight { get; set; }
     public string ShopType { get; set; } = "SELL";
+    public string GameMode { get; set; } = "";
+    public DateTimeOffset? ObservedUtc { get; set; }
     public string NavigationCommand => $"/navi {Map} {X}/{Y}";
 }
 

@@ -20,7 +20,8 @@ public sealed class GameDatabaseService
         var path = Path.Combine(AppContext.BaseDirectory, "Data", "database.springro.json");
         try
         {
-            _database = Version == GameDatabaseVersion.Toc ? TocDatabaseService.Database :
+            _database = Version == GameServerProfile.RagnarokPlus ? RagnarokPlusData.LoadCatalog() :
+                Version == GameDatabaseVersion.Toc ? TocDatabaseService.Database :
                 JsonSerializer.Deserialize<GameDatabase>(File.ReadAllText(path), JsonOptions) ?? new GameDatabase();
         }
         catch (Exception ex)

@@ -18,6 +18,9 @@ public static class ItemCatalogService
     public static IReadOnlyDictionary<int, ItemEntry> Load(string? gameVersion = null)
     {
         var version = GameDatabaseVersion.Normalize(gameVersion);
+        if (version == GameServerProfile.RagnarokPlus)
+            return RagnarokPlusData.LoadCatalog().Items.DistinctBy(item => item.Id).ToDictionary(
+                item => item.Id, item => new ItemEntry { Id = item.Id, Name = item.Name, Type = item.Type });
         if (version == GameDatabaseVersion.Toc)
         {
             try

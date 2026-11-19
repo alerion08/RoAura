@@ -107,6 +107,7 @@ public sealed class AppSettings : INotifyPropertyChanged
             {
                 Set(ref _serverProfile, normalized);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarket)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarketWatch)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveMvpTimers)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveGoldGoblinPriceRules)));
             }
@@ -114,6 +115,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     }
 
     [JsonIgnore] public bool SupportsMarket => GameServerProfile.SupportsMarket(ServerProfile);
+    [JsonIgnore] public bool SupportsMarketWatch => GameServerProfile.SupportsMarketWatch(ServerProfile);
 
     private bool _enabled = true;
     public bool Enabled { get => _enabled; set => Set(ref _enabled, value); }
@@ -301,7 +303,13 @@ public sealed class AppSettings : INotifyPropertyChanged
     public ObservableCollection<MvpTimer> TocMvpTimers { get; set; } = [];
     [JsonIgnore] public ObservableCollection<MvpTimer> ActiveMvpTimers => ServerProfile == GameServerProfile.Toc ? TocMvpTimers : MvpTimers;
     public ObservableCollection<GoldGoblinPriceRule> TocGoldGoblinPriceRules { get; set; } = [];
-    [JsonIgnore] public ObservableCollection<GoldGoblinPriceRule> ActiveGoldGoblinPriceRules => ServerProfile == GameServerProfile.Toc ? TocGoldGoblinPriceRules : GoldGoblinPriceRules;
+    public ObservableCollection<GoldGoblinPriceRule> RagnarokPlusGoldGoblinPriceRules { get; set; } = [];
+    [JsonIgnore] public ObservableCollection<GoldGoblinPriceRule> ActiveGoldGoblinPriceRules => ServerProfile switch
+    {
+        GameServerProfile.Toc => TocGoldGoblinPriceRules,
+        GameServerProfile.RagnarokPlus => RagnarokPlusGoldGoblinPriceRules,
+        _ => GoldGoblinPriceRules
+    };
     public ObservableCollection<MvpTimer> MvpTimers { get; set; } = [];
     public ObservableCollection<BuffPanelGroup> BuffPanelGroups { get; set; } = [];
     public ObservableCollection<RewardChannelSettings> RewardChannels { get; set; } =

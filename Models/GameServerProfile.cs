@@ -20,12 +20,13 @@ public static class GameServerProfile
     };
 
     public static bool SupportsServerDatabases(string? value) =>
-        Normalize(value) is Rtm or SpringRo or Toc;
+        Normalize(value) is Rtm or SpringRo or Toc or RagnarokPlus;
 
     public static bool SupportsDatabaseOverlay(string? value) =>
-        Normalize(value) is SpringRo or Toc;
-    public static bool SupportsGoldGoblin(string? value) => Normalize(value) is SpringRo or Toc;
-    public static bool SupportsMarket(string? value) => Normalize(value) == SpringRo;
+        Normalize(value) is SpringRo or Toc or RagnarokPlus;
+    public static bool SupportsGoldGoblin(string? value) => Normalize(value) is SpringRo or Toc or RagnarokPlus;
+    public static bool SupportsMarket(string? value) => Normalize(value) is SpringRo or RagnarokPlus;
+    public static bool SupportsMarketWatch(string? value) => Normalize(value) == SpringRo;
 
     // The decoded-memory bridge is specific to the analyzed SpringRO client.
     // MuhRO's observed status packets already contain the standard fields.

@@ -45,7 +45,7 @@
                             <TextBlock Margin="0,8,0,0" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Text="{DynamicResource DatabaseSearchLimitHint}"/>
                         </StackPanel>
                     </Grid></TabItem>
-  <TabItem Header="{DynamicResource WatchListTitle}" IsEnabled="{Binding SupportsMarket}">
+  <TabItem Header="{DynamicResource WatchListTitle}" IsEnabled="{Binding SupportsMarketWatch}">
    <Grid Margin="14">
     <Grid.ColumnDefinitions><ColumnDefinition Width="*" MinWidth="330"/><ColumnDefinition Width="14"/><ColumnDefinition Width="0.85*" MinWidth="340"/></Grid.ColumnDefinitions>
     <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
@@ -106,7 +106,7 @@
     <TextBlock Grid.Row="1" Grid.ColumnSpan="3" Text="{DynamicResource WatchListHint}" TextWrapping="Wrap" Margin="0,10,0,0"/>
    </Grid>
   </TabItem>
-  <TabItem Header="{DynamicResource NotificationsTab}" IsEnabled="{Binding SupportsMarket}">
+  <TabItem Header="{DynamicResource NotificationsTab}" IsEnabled="{Binding SupportsMarketWatch}">
    <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="16" DataContext="{Binding MarketWatchNotifications}">
     <Border Background="{DynamicResource UiBackground_F8FBFF}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="7" Padding="12" Margin="0,0,0,10">
      <StackPanel><TextBlock Text="{DynamicResource WatchPreviewTitle}" FontWeight="SemiBold" Foreground="{DynamicResource RoMutedBrush}" Margin="0,0,0,8"/>

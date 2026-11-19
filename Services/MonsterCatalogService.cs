@@ -21,6 +21,9 @@ public static class MonsterCatalogService
     public static IReadOnlyList<MonsterEntry> LoadForTimers(string? gameVersion)
     {
         var version = GameDatabaseVersion.Normalize(gameVersion);
+        if (version == GameServerProfile.RagnarokPlus)
+            return RagnarokPlusData.LoadCatalog().Monsters.Select(monster => FromDatabase(monster, version))
+                .OrderBy(monster => monster.Name).ToArray();
         if (version == GameDatabaseVersion.Toc)
         {
             try { return TocMonsters.Value; }

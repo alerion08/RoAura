@@ -108,7 +108,7 @@ public partial class DatabaseSettingsControl : UserControl
     private void ProfileSettingsChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (e.PropertyName is nameof(AppSettings.ServerProfile) or "")
-            if (_profileSettings?.SupportsMarket != true && DatabaseSettingsTabs is not null) DatabaseSettingsTabs.SelectedIndex = 0;
+            if (_profileSettings?.SupportsMarketWatch != true && DatabaseSettingsTabs is not null) DatabaseSettingsTabs.SelectedIndex = 0;
     }
     private void AttachPreview()
     {

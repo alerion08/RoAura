@@ -56,7 +56,7 @@ public partial class DatabaseDetailWindow : Window
         switch (value)
         {
             case DatabaseMonster monster: ShowMonster(monster); break;
-            case DatabaseItem item when _database.Version == GameDatabaseVersion.Toc:
+            case DatabaseItem item when _database.Version is GameDatabaseVersion.Toc or GameServerProfile.RagnarokPlus:
                 ShowItem(item, new SpringRoItemDetails { ImageUrl = item.ImageUrl, Description = item.Description,
                     NpcSellValue = item.NpcSellPrice.ToString("N0") }, false);
                 break;
@@ -107,7 +107,7 @@ public partial class DatabaseDetailWindow : Window
         var header = new StackPanel { Orientation = Orientation.Horizontal };
         var imageUrl = detail?.ImageUrl;
         if (string.IsNullOrWhiteSpace(imageUrl)) imageUrl = item.ImageUrl;
-        if (string.IsNullOrWhiteSpace(imageUrl))
+        if (string.IsNullOrWhiteSpace(imageUrl) && _database.Version != GameServerProfile.RagnarokPlus)
             imageUrl = $"https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/items/{item.Id}.png";
         if (Uri.TryCreate(imageUrl, UriKind.Absolute, out var imageUri))
             header.Children.Add(new Image { Source = new BitmapImage(imageUri), Width = 56, Height = 56,
@@ -131,7 +131,7 @@ public partial class DatabaseDetailWindow : Window
         else if (detail is not null)
         {
             AddLine(T("Цена продажи NPC", "NPC sell value"), detail.NpcSellValue.Length > 0 ? detail.NpcSellValue : "—");
-            if (_database.Version != GameDatabaseVersion.Toc)
+            if (_database.Version == GameDatabaseVersion.SpringRo)
                 AddLine(T("Количество на сервере", "Copies on server"), detail.ServerCopies.Length > 0 ? detail.ServerCopies : "—");
             if (!string.IsNullOrWhiteSpace(detail.Description))
             {
@@ -141,6 +141,20 @@ public partial class DatabaseDetailWindow : Window
             }
         }
         else DetailsPanel.Children.Add(Meta(T("Актуальные данные временно недоступны.", "Current data is temporarily unavailable.")));
+        if (_database.Version == GameServerProfile.RagnarokPlus)
+            AddLink(T("Открыть карточку и рынок Ragnarok+", "Open Ragnarok+ item and market"), () =>
+            {
+                try
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(
+                        $"https://ragnarok.plus/item-db/{item.Id}") { UseShellExecute = true });
+                }
+                catch (System.ComponentModel.Win32Exception ex)
+                {
+                    DebugLog.Write($"RAGNAROK+ ITEM LINK ERROR: {ex.Message}");
+                }
+            });
+
         AddSection(T($"Источники ({item.DroppedBy.Count})", $"Sources ({item.DroppedBy.Count})"));
         if (item.DroppedBy.Count == 0) DetailsPanel.Children.Add(Meta(T($"Нет в дроп-листах монстров {_database.Version}.", $"Not found in {_database.Version} monster drop lists.")));
         foreach (var source in item.DroppedBy.OrderByDescending(x => ParseRate(x.Rate)))
@@ -176,7 +190,7 @@ public partial class DatabaseDetailWindow : Window
         AddLine(T("Владелец", "Owner"), listing.Owner);
         AddSection(T("Координаты магазина", "Shop location"));
         AddLine(T("Локация", "Location"), $"{listing.Map} ({listing.X},{listing.Y})");
-        AddMarketMap(listing);
+        if (_database.Version != GameServerProfile.RagnarokPlus) AddMarketMap(listing);
         var navi = new Button
         {
             Content = $"Navi · {listing.NavigationCommand}",

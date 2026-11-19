@@ -115,7 +115,7 @@ public static class OverlayLayoutTargets
         if (Can(AppFeature.MvpTimers))
             Single("mvp", "MvpTimers", Item(() => settings.TimersX, () => settings.TimersY,
                 x => settings.TimersX = x, y => settings.TimersY = y, () => new(260, settings.TimersTextSize * 1.5 + 20)));
-        if (GameServerProfile.SupportsMarket(settings.ServerProfile) && settings.MarketWatchNotifications.Enabled)
+        if (GameServerProfile.SupportsMarketWatch(settings.ServerProfile) && settings.MarketWatchNotifications.Enabled)
         {
             var market = settings.MarketWatchNotifications;
             Single("market", "Database", Item(() => market.X, () => market.Y,

@@ -329,6 +329,7 @@ public sealed class SettingsStore
         foreach (var reminder in settings.Reminders) { reminder.CharacterScope ??= new(); reminder.CharacterScope.Characters ??= new(); }
         foreach (var equipment in settings.Equipment) { equipment.CharacterScope ??= new(); equipment.CharacterScope.Characters ??= new(); }
         settings.TocGoldGoblinPriceRules ??= new();
+        settings.RagnarokPlusGoldGoblinPriceRules ??= new();
         settings.BuffPanelGroups ??= new();
         foreach (var group in settings.BuffPanelGroups) { group.CharacterScope ??= new(); group.CharacterScope.Characters ??= new(); }
 
@@ -588,9 +589,12 @@ public sealed class SettingsStore
         settings.ServerProfile = GameServerProfile.Normalize(settings.ServerProfile);
         if (GameServerProfile.SupportsServerDatabases(settings.ServerProfile))
         {
-            var version = settings.ServerProfile == GameServerProfile.SpringRo
-                ? GameDatabaseVersion.SpringRo
-                : GameDatabaseVersion.Rtm;
+            var version = settings.ServerProfile switch
+            {
+                GameServerProfile.SpringRo => GameDatabaseVersion.SpringRo,
+                GameServerProfile.RagnarokPlus => GameServerProfile.RagnarokPlus,
+                _ => GameDatabaseVersion.Rtm
+            };
             settings.LootDatabaseVersion = version;
             settings.MvpDatabaseVersion = version;
         }

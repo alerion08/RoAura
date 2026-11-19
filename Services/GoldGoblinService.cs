@@ -31,7 +31,7 @@ public sealed class GoldGoblinService
         _dispatcher = System.Windows.Application.Current?.Dispatcher ?? Dispatcher.FromThread(Thread.CurrentThread);
         _priceProfile = GameServerProfile.Normalize(settings.ServerProfile);
         _prices = LoadPrices(settings.ServerProfile);
-        foreach (var rules in new[] { settings.GoldGoblinPriceRules, settings.TocGoldGoblinPriceRules })
+        foreach (var rules in new[] { settings.GoldGoblinPriceRules, settings.TocGoldGoblinPriceRules, settings.RagnarokPlusGoldGoblinPriceRules })
         {
             foreach (var rule in rules) Watch(rule);
             rules.CollectionChanged += (_, args) =>
@@ -94,7 +94,7 @@ public sealed class GoldGoblinService
         if (rule?.Exclude == true) return (0, "Excluded", true);
         if (rule is not null)
         {
-            if (GameServerProfile.SupportsMarket(_settings.ServerProfile) && rule.UseVendingPrice && _market.TryGetMinimumSellPrice(itemId, name, out var vending))
+            if (rule.UseVendingPrice && TryGetVendingPrice(itemId, name, out var vending))
                 return (vending, "Vending", true);
             if (rule.ManualPrice > 0) return (rule.ManualPrice, "Manual", true);
         }
@@ -102,6 +102,14 @@ public sealed class GoldGoblinService
         if (_prices.TryGetValue(itemId, out var itemPrice))
             return (ApplyOvercharge(itemPrice.NpcSellPrice, _settings.GoldGoblinOverchargeLevel), "NPC", true);
         return (0, "—", false);
+    }
+
+    private bool TryGetVendingPrice(int itemId, string name, out long price)
+    {
+        if (_priceProfile == GameServerProfile.RagnarokPlus)
+            return RagnarokPlusData.TryGetMinimumSellPrice(itemId, name, out price);
+        price = 0;
+        return GameServerProfile.SupportsMarket(_priceProfile) && _market.TryGetMinimumSellPrice(itemId, name, out price);
     }
 
     public long LootValue(int itemId, string name, long count) =>
@@ -202,6 +210,9 @@ public sealed class GoldGoblinService
     {
         try
         {
+            if (GameServerProfile.Normalize(profile) == GameServerProfile.RagnarokPlus)
+                return RagnarokPlusData.LoadCatalog().Items.Where(item => item.NpcSellPrice > 0).DistinctBy(item => item.Id)
+                    .ToDictionary(item => item.Id, item => new SpringRoItemPrice { Id = item.Id, NpcSellPrice = item.NpcSellPrice });
             if (GameServerProfile.Normalize(profile) == GameServerProfile.Toc)
                 return TocDatabaseService.Database.Items.ToDictionary(i => i.Id, i => new SpringRoItemPrice { Id = i.Id, NpcSellPrice = i.NpcSellPrice });
             var path = Path.Combine(AppContext.BaseDirectory, "Data", "item-prices.springro.json");

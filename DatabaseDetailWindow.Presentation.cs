@@ -47,7 +47,7 @@ public partial class DatabaseDetailWindow
     private void ShowMonsterStatistics(DatabaseMonster m)
     {
         AddSection(T("Характеристики", "Stats"));
-        if (_database.Version != GameDatabaseVersion.Toc)
+        if (_database.Version is not (GameDatabaseVersion.Toc or GameServerProfile.RagnarokPlus))
         {
             DetailsPanel.Children.Add(StatGrid(m.Stats.Select(p => (MonsterField(p.Key), p.Value))));
         }

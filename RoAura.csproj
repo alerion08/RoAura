@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="RoAura.Tests" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3719.77" />
     <Compile Remove="RoAura.Tests\**\*.cs" />
     <EmbeddedResource Remove="RoAura.Tests\**\*" />
     <None Remove="RoAura.Tests\**\*" />
