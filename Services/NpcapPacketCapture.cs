@@ -885,7 +885,7 @@ public sealed class NpcapPacketCapture : IDisposable
             {
                 var outbound = new TcpFlowKey(flow.ClientAddress, flow.ClientPort, flow.ServerAddress, flow.ServerPort);
                 DebugLog.Write($"RAGNAROK+ VERIFIED FLOW LOGIN: clientPort={flow.ClientPort}; " +
-                               $"mapPort={flow.ServerPort}; {loginObserver.DescribeFirstPayload(outbound)}");
+                               $"mapPort={flow.ServerPort}; {loginObserver.DescribeFirstPayload(outbound, aid)}");
             }
         }
     }

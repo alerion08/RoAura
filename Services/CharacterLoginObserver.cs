@@ -22,6 +22,7 @@ public sealed class CharacterLoginStreamProbe(bool observeRagnarokPlus = false)
     private bool _finished;
     private bool _identified;
     private CharacterLoginCandidate? _ragnarokPlusCandidate;
+    private CharacterLoginCandidate? _ragnarokPlusDiagnostic;
     private bool _diagnosticReported;
     private int _firstPayloadLength;
     private ushort? _observedOpcode;
@@ -45,12 +46,17 @@ public sealed class CharacterLoginStreamProbe(bool observeRagnarokPlus = false)
             return aid != 0 && _ragnarokPlusCandidate?.PlayerAid == aid ? _ragnarokPlusCandidate : null;
     }
 
-    internal string DescribeFirstPayload()
+    internal string DescribeFirstPayload(uint verifiedAid = 0)
     {
         lock (_sync)
-            return _observedOpcode is { } opcode
+        {
+            var description = _observedOpcode is { } opcode
                 ? $"firstOpcode=0x{opcode:X4}; firstPayloadLength={_firstPayloadLength}"
                 : $"firstPayloadLength={_firstPayloadLength}; firstOpcode=unavailable";
+            if (_ragnarokPlusDiagnostic is not { } candidate || verifiedAid == 0) return description;
+            if (candidate.PlayerAid != verifiedAid) return description + "; layoutAidMatches=False";
+            return description + $"; layoutAidMatches=True; diagnosticCid={candidate.CharacterId}";
+        }
     }
 
     internal bool TryTakeUnrecognizedDiagnostic(out ushort opcode, out int firstPayloadLength)
@@ -108,6 +114,16 @@ public sealed class CharacterLoginStreamProbe(bool observeRagnarokPlus = false)
             if (_prefixLength < 2) return null;
             var opcode = BinaryPrimitives.ReadUInt16LittleEndian(_prefix);
             _observedOpcode = opcode;
+            if (observeRagnarokPlus && opcode is not (0x6B0A or 0x0072 or 0x0436) &&
+                _firstPayloadLength == MaximumPrefixLength && _prefixLength == MaximumPrefixLength)
+            {
+                // Collect only the fields used by the known layout. Unknown opcodes
+                // remain diagnostic and can never bind a character session.
+                var aidField = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(2));
+                var cidField = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(6));
+                _ragnarokPlusDiagnostic = new(opcode, cidField, MaximumPrefixLength, aidField);
+            }
+
             if (observeRagnarokPlus && opcode == 0x6B0A)
             {
                 if (_prefixLength < MaximumPrefixLength) return null;
@@ -178,8 +194,8 @@ public sealed class CharacterLoginObserver(bool observeRagnarokPlus = false)
     internal CharacterLoginCandidate? ConfirmRagnarokPlusLogin(TcpFlowKey flow, uint aid) =>
         _flows.TryGetValue(flow, out var probe) ? probe.ConfirmRagnarokPlusLogin(aid) : null;
 
-    internal string DescribeFirstPayload(TcpFlowKey flow) =>
-        _flows.TryGetValue(flow, out var probe) ? probe.DescribeFirstPayload() : "firstPayload=not-observed";
+    internal string DescribeFirstPayload(TcpFlowKey flow, uint verifiedAid = 0) =>
+        _flows.TryGetValue(flow, out var probe) ? probe.DescribeFirstPayload(verifiedAid) : "firstPayload=not-observed";
 
     private readonly object _seenLock = new();
     private readonly HashSet<(ushort Opcode, uint Cid, ushort ClientPort, ushort MapPort)>
