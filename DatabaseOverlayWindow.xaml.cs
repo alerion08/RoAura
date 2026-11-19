@@ -621,30 +621,34 @@ public partial class DatabaseOverlayWindow : Window
             var catalog = RagnarokPlusData.LoadCatalog();
             if (!catalog.CatalogSynchronizedUtc.HasValue)
             {
-                if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters))
+                if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters or DatabaseSearchKind.Maps))
                     FooterText.Text = T("Загружаем каталог Ragnarok+…", "Downloading the Ragnarok+ catalog…");
                 catalog = await (_ragnarokPlusCatalog ??= new()).ReadCatalogAsync(PublishCatalog, cancellation.Token);
                 PublishCatalog(catalog);
             }
             _catalogComplete = true;
+            await (_ragnarokPlusCatalog ??= new()).EnrichWorldAsync(catalog, PublishCatalog, cancellation.Token);
             if (catalog.Items.All(item => item.RagnarokPlusDetailsCaptured))
             {
-                _catalogDetailsComplete = true;
+                _catalogDetailsComplete = catalog.Monsters.All(monster => monster.RagnarokPlusDetailsCaptured) &&
+                    catalog.Maps.All(map => map.RagnarokPlusDetailsCaptured);
                 return;
             }
             await (_ragnarokPlusCatalog ??= new()).EnrichItemsAsync(catalog, PublishCatalog, cancellation.Token);
-            _catalogDetailsComplete = catalog.Items.All(item => item.RagnarokPlusDetailsCaptured);
+            _catalogDetailsComplete = catalog.Items.All(item => item.RagnarokPlusDetailsCaptured) &&
+                catalog.Monsters.All(monster => monster.RagnarokPlusDetailsCaptured) &&
+                catalog.Maps.All(map => map.RagnarokPlusDetailsCaptured);
         }
         catch (RagnarokPlusSignInRequiredException)
         {
-            if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters))
+            if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters or DatabaseSearchKind.Maps))
                 FooterText.Text = T("Войдите в Ragnarok+, чтобы загрузить каталог.", "Sign in to Ragnarok+ to download the catalog.");
         }
         catch (OperationCanceledException) when (cancellation.IsCancellationRequested) { }
         catch (Exception ex)
         {
             DebugLog.Write($"RAGNAROK+ CATALOG ERROR: {ex.Message}");
-            if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters))
+            if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters or DatabaseSearchKind.Maps))
                 FooterText.Text = T($"Загрузка каталога прервалась. Локально: {_database.Items.Count:N0} предм. · {_database.Monsters.Count:N0} монстр.",
                     $"Catalog download interrupted. Local: {_database.Items.Count:N0} items · {_database.Monsters.Count:N0} monsters.");
         }
@@ -657,7 +661,7 @@ public partial class DatabaseOverlayWindow : Window
         if (_settings.ServerProfile != GameServerProfile.RagnarokPlus) return;
         _database.Reload(GameServerProfile.RagnarokPlus);
         (Application.Current as App)?.RagnarokPlusCatalogUpdated();
-        if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters))
+        if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters or DatabaseSearchKind.Maps))
         {
             var previous = (ResultsList.SelectedItem as DatabaseSearchResult)?.Value;
             RefreshResults();
@@ -666,6 +670,7 @@ public partial class DatabaseOverlayWindow : Window
                 {
                     (DatabaseItem before, DatabaseItem after) => before.Id == after.Id,
                     (DatabaseMonster before, DatabaseMonster after) => before.Id == after.Id,
+                    (DatabaseMap before, DatabaseMap after) => before.Code == after.Code,
                     _ => false
                 });
             if (selected is not null) ResultsList.SelectedItem = selected;

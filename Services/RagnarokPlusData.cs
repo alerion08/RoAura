@@ -140,9 +140,14 @@ internal static class RagnarokPlusData
         var bundled = Load<GameDatabase>(Path.Combine(AppContext.BaseDirectory, "Data", "database.ragnarokplus.json"));
         var local = Load<GameDatabase>(CatalogPath)
             ?? Load<GameDatabase>(Path.Combine(AppEnvironment.LocalDirectory, "database.ragnarokplus.json"));
-        if (local is null) return bundled ?? new GameDatabase { Source = GameServerProfile.RagnarokPlus };
-        if (bundled is null) return local;
+        var catalog = local ?? bundled ?? new GameDatabase { Source = GameServerProfile.RagnarokPlus };
+        if (local is not null && bundled is not null) MergeBundledCatalog(local, bundled);
+        LinkWorldDetails(catalog);
+        return catalog;
+    }
 
+    private static void MergeBundledCatalog(GameDatabase local, GameDatabase bundled)
+    {
         var localItems = local.Items.DistinctBy(item => item.Id).ToDictionary(item => item.Id);
         foreach (var seed in bundled.Items)
         {
@@ -151,12 +156,68 @@ internal static class RagnarokPlusData
                 if (!local.CatalogSynchronizedUtc.HasValue) local.Items.Add(seed);
                 continue;
             }
+            if (item.DroppedBy.Count == 0) item.DroppedBy = seed.DroppedBy;
             if (item.RagnarokPlusDetailsCaptured) continue;
             if (string.IsNullOrWhiteSpace(item.Description)) item.Description = seed.Description;
             item.LocalImagePng ??= seed.LocalImagePng;
             if (item.NpcSellPrice == 0) item.NpcSellPrice = seed.NpcSellPrice;
         }
-        return local;
+        var localMonsters = local.Monsters.DistinctBy(monster => monster.Id).ToDictionary(monster => monster.Id);
+        foreach (var seed in bundled.Monsters.Where(monster => monster.RagnarokPlusDetailsCaptured))
+        {
+            if (!localMonsters.TryGetValue(seed.Id, out var monster))
+            {
+                local.Monsters.Add(seed);
+                continue;
+            }
+            if (monster.RagnarokPlusDetailsCaptured) continue;
+            monster.Drops = seed.Drops;
+            monster.Spawns = seed.Spawns;
+            monster.RagnarokPlusDetailsCaptured = true;
+        }
+
+        var localMaps = local.Maps.ToDictionary(map => map.Code, StringComparer.OrdinalIgnoreCase);
+        foreach (var seed in bundled.Maps.Where(map => map.RagnarokPlusDetailsCaptured))
+        {
+            if (!localMaps.TryGetValue(seed.Code, out var map))
+                local.Maps.Add(seed);
+            else if (!map.RagnarokPlusDetailsCaptured)
+            {
+                map.Monsters = seed.Monsters;
+                map.RagnarokPlusDetailsCaptured = true;
+            }
+        }
+    }
+
+    private static void LinkWorldDetails(GameDatabase catalog)
+    {
+        var items = catalog.Items.DistinctBy(item => item.Id).ToDictionary(item => item.Id);
+        var monsters = catalog.Monsters.DistinctBy(monster => monster.Id).ToDictionary(monster => monster.Id);
+        foreach (var monster in catalog.Monsters)
+        {
+            foreach (var drop in monster.Drops)
+            {
+                if (!items.TryGetValue(drop.ItemId, out var item) ||
+                    item.DroppedBy.Any(source => source.MonsterId == monster.Id && source.IsMvp == drop.IsMvp)) continue;
+                item.DroppedBy.Add(new DatabaseItemSource { MonsterId = monster.Id, Name = monster.Name,
+                    Rate = drop.Rate, IsMvp = drop.IsMvp });
+            }
+        }
+        foreach (var map in catalog.Maps)
+        {
+            foreach (var entry in map.Monsters)
+            {
+                if (!monsters.TryGetValue(entry.MonsterId, out var monster)) continue;
+                var spawn = monster.Spawns.FirstOrDefault(spawn =>
+                    spawn.Code.Equals(map.Code, StringComparison.OrdinalIgnoreCase));
+                if (spawn is null)
+                {
+                    spawn = new DatabaseSpawn { Code = map.Code, Name = map.Name, Count = entry.Count };
+                    monster.Spawns.Add(spawn);
+                }
+                if (string.IsNullOrWhiteSpace(spawn.Respawn)) spawn.Respawn = entry.Respawn;
+            }
+        }
     }
 
     internal static void SaveCatalog(GameDatabase catalog)

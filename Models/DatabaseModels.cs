@@ -11,6 +11,7 @@ public sealed class GameDatabase
 
 public sealed class DatabaseMonster
 {
+    public bool RagnarokPlusDetailsCaptured { get; set; }
     public int Id { get; set; }
     public string Name { get; set; } = "";
     public bool IsMvp { get; set; }
@@ -86,6 +87,7 @@ public sealed class DatabaseItemSource
 
 public sealed class DatabaseMap
 {
+    public bool RagnarokPlusDetailsCaptured { get; set; }
     public string Code { get; set; } = "";
     public string Name { get; set; } = "";
     public List<DatabaseMapMonster> Monsters { get; set; } = [];

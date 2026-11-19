@@ -69,7 +69,8 @@ internal sealed partial class RagnarokPlusMarketWindow
                 item.Description = detail.Description;
                 item.NpcSellPrice = sell;
                 item.LocalImagePng = image;
-                item.DroppedBy = detail.Drops;
+                item.DroppedBy = detail.Drops.Concat(item.DroppedBy)
+                    .DistinctBy(source => (source.MonsterId, source.IsMvp)).ToList();
                 item.RagnarokPlusDetailsCaptured = true;
                 return;
             }
@@ -124,6 +125,14 @@ internal sealed partial class RagnarokPlusMarketWindow
                 .find(node => node.innerText.trim().toLowerCase() === 'description');
             const description = heading?.nextElementSibling?.innerText.trim() ?? '';
             const images = ['.id__art', '.id__icon'].map(selector => document.querySelector('main ' + selector)?.src).filter(Boolean);
+            const dropHeading = [...document.querySelectorAll('main .db-section__head')]
+                .find(node => /^DROPPED BY MONSTERS\b/i.test(node.innerText.trim()));
+            const showAll = [...(dropHeading?.closest('.db-section')?.querySelectorAll('button') ?? [])]
+                .find(button => /^Show all \d+/i.test(button.innerText.trim()));
+            if (showAll) {
+                showAll.click();
+                return null;
+            }
             const drops = [...document.querySelectorAll('main a.db-rate-list__row[href^="/mob-db/"]')].flatMap(row => {
                 const match = /^\/mob-db\/(\d+)$/.exec(new URL(row.href).pathname);
                 const [name, ...fields] = row.innerText.trim().split('\n').map(field => field.trim());
