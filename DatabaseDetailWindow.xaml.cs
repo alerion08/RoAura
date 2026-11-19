@@ -110,19 +110,19 @@ public partial class DatabaseDetailWindow : Window
         if (string.IsNullOrWhiteSpace(imageUrl)) imageUrl = item.ImageUrl;
         if (string.IsNullOrWhiteSpace(imageUrl) && _database.Version != GameServerProfile.RagnarokPlus)
             imageUrl = $"https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/items/{item.Id}.png";
-        BitmapSource? source = null;
+        BitmapSource? imageSource = null;
         if (_database.Version == GameServerProfile.RagnarokPlus)
         {
             if (item.LocalImagePng is { Length: > 0 } bytes)
             {
                 using var stream = new MemoryStream(bytes);
-                source = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                imageSource = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
             }
         }
         else if (Uri.TryCreate(imageUrl, UriKind.Absolute, out var imageUri))
-            source = new BitmapImage(imageUri);
-        if (source is not null)
-            header.Children.Add(new Image { Source = source, Width = 56, Height = 56,
+            imageSource = new BitmapImage(imageUri);
+        if (imageSource is not null)
+            header.Children.Add(new Image { Source = imageSource, Width = 56, Height = 56,
                 Stretch = Stretch.Uniform, Margin = new Thickness(0, 0, 10, 0) });
         var title = new StackPanel();
         var itemHeading = Heading(item.Name, 20); itemHeading.MaxWidth = 180;
