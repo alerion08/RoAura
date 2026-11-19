@@ -132,8 +132,8 @@ internal sealed class RagnarokPlusMarketWindow : Window
 
                     var json = await _browser.CoreWebView2.ExecuteScriptAsync(MarketScript(itemPath, DateTimeOffset.UtcNow < nextOpenAttempt)).WaitAsync(token);
                     var state = JsonSerializer.Deserialize<MarketPageState>(json);
-                    if (state?.Dialog is { Length: > 0 } dialog)
-                        return RagnarokPlusData.ParseLiveMarket(dialog, [item]).Snapshot.Listings;
+                    if (state?.Rows is { } rows)
+                        return rows.Select(row => row.ToListing(item)).ToArray();
                     if (state?.NoOffers == true) return [];
                     if (state?.Opened == true) nextOpenAttempt = DateTimeOffset.UtcNow.AddSeconds(2);
                     await Task.Delay(250, token);
@@ -200,14 +200,21 @@ internal sealed class RagnarokPlusMarketWindow : Window
                         return [...section.querySelectorAll('*')].some(node =>
                             node.childElementCount === 0 && /^Selling$/i.test(node.textContent.trim()));
                     });
-                const rows = [...(block ?? dialog).querySelectorAll('.stmod__row')].map(row =>
-                    ['.stmod__stall-name', '.mode-badge', '.stmod__stall-title',
-                     '.stmod__stall-loc', '.stmod__qty', '.stmod__price']
-                    .map(selector => row.querySelector(selector)?.textContent.trim() ?? ''));
-                const count = /^(\d+) selling/i.exec(summary ?? '')?.[1];
-                if (heading && count !== undefined && rows.length === Number(count) &&
-                    rows.every(row => row.every(Boolean))) {
-                    return { Dialog: [heading, count + ' selling', ...rows.flat()].join('\n') };
+                const rows = [...(block ?? dialog).querySelectorAll('.stmod__row')].map(row => {
+                    const text = selector => row.querySelector(selector)?.textContent.trim() ?? '';
+                    const location = /([A-Za-z0-9_-]+)\s*\(\s*(\d+)\s*,\s*(\d+)\s*\)/.exec(text('.stmod__stall-loc'));
+                    const digits = selector => text(selector).replace(/[^0-9]/g, '');
+                    return {
+                        Owner: text('.stmod__stall-name'), Stall: text('.stmod__stall-title'),
+                        GameMode: text('.mode-badge').toUpperCase(),
+                        Map: location?.[1] ?? '', X: Number(location?.[2] ?? 0), Y: Number(location?.[3] ?? 0),
+                        Quantity: digits('.stmod__qty'), Price: digits('.stmod__price')
+                    };
+                });
+                const count = /([\d,]+)\s+selling/i.exec(summary ?? '')?.[1];
+                if (heading && count !== undefined && rows.length === Number(count.replaceAll(',', '')) &&
+                    rows.every(row => row.Price && row.Quantity && row.Owner)) {
+                    return { Rows: rows };
                 }
                 if (heading && summary && !rows.length && /^0 selling/i.test(summary))
                     return { NoOffers: true };
@@ -226,7 +233,18 @@ internal sealed class RagnarokPlusMarketWindow : Window
         })()
         """;
 
-    private sealed record MarketPageState(string? Dialog, bool NoOffers, bool Opened);
+    private sealed record MarketPageState(LiveMarketRow[]? Rows, bool NoOffers, bool Opened);
+
+    private sealed record LiveMarketRow(string Owner, string Stall, string GameMode,
+        string Map, int X, int Y, string Quantity, string Price)
+    {
+        public MarketListing ToListing(DatabaseItem item) => new()
+        {
+            ItemId = item.Id, ItemName = item.Name, ShopType = "SELL", Owner = Owner,
+            Stall = Stall, GameMode = GameMode, Map = Map, X = X, Y = Y,
+            Quantity = Quantity, Price = Price
+        };
+    }
 }
 
 internal sealed class RagnarokPlusSignInRequiredException : Exception { }
