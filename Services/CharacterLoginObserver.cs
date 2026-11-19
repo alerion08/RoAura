@@ -38,6 +38,14 @@ public sealed class CharacterLoginStreamProbe
     public bool Finished { get { lock (_sync) return _finished; } }
     public bool Identified { get { lock (_sync) return _identified; } }
 
+    internal string DescribeFirstPayload()
+    {
+        lock (_sync)
+            return _observedOpcode is { } opcode
+                ? $"firstOpcode=0x{opcode:X4}; firstPayloadLength={_firstPayloadLength}"
+                : $"firstPayloadLength={_firstPayloadLength}; firstOpcode=unavailable";
+    }
+
     internal bool TryTakeUnrecognizedDiagnostic(out ushort opcode, out int firstPayloadLength)
     {
         lock (_sync)
@@ -148,6 +156,10 @@ public sealed class CharacterLoginObserver
         RecentDiagnostics = new();
     private readonly ConcurrentDictionary<TcpFlowKey, CharacterLoginStreamProbe> _flows = new();
     internal event Action<TcpFlowKey, CharacterLoginCandidate>? CandidateDetected;
+
+    internal string DescribeFirstPayload(TcpFlowKey flow) =>
+        _flows.TryGetValue(flow, out var probe) ? probe.DescribeFirstPayload() : "firstPayload=not-observed";
+
     private readonly object _seenLock = new();
     private readonly HashSet<(ushort Opcode, uint Cid, ushort ClientPort, ushort MapPort)>
         _seenThisGeneration = [];

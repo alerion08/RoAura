@@ -530,7 +530,7 @@ public sealed class NpcapPacketCapture : IDisposable
                             if (!tcpFlows.TryGetValue(flowKey, out flow))
                             {
                                 PruneIdleFlows(tcpFlows, generation);
-                                var scanner = CreateScanner(generation, CharacterSessionFlow.FromInbound(flowKey), target.LogRagnarokPlusStatistics);
+                                var scanner = CreateScanner(generation, CharacterSessionFlow.FromInbound(flowKey), target.LogRagnarokPlusStatistics, loginObserver);
                                 if (target.AutoDiscovery)
                                     scanner.CharacterRosterObserved += roster => RememberRosterLevels(generation, target, flowKey, roster);
                                 flow = new TcpFlowState(scanner);
@@ -631,7 +631,7 @@ public sealed class NpcapPacketCapture : IDisposable
     }
 
     private RoPacketStreamScanner CreateScanner(int generation,
-        CharacterSessionFlow packetFlow, bool logRagnarokPlusStatistics)
+        CharacterSessionFlow packetFlow, bool logRagnarokPlusStatistics, CharacterLoginObserver? loginObserver)
     {
         // All adapters share the retained TcpFlowState/scanner, but different
         // TCP lifetimes must never resolve the same inventory index together.
@@ -731,7 +731,8 @@ public sealed class NpcapPacketCapture : IDisposable
         if (AppEnvironment.CharacterSessionsEnabled)
             scanner.SelfAidObserved += packet => Forward(generation, () =>
             {
-                ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID");
+                ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID",
+                    logRagnarokPlusStatistics ? loginObserver : null);
                 ReplayPendingStatuses();
             });
         // Actor visibility (not always a skill ack): TF_HIDING is confirmed
@@ -807,8 +808,8 @@ public sealed class NpcapPacketCapture : IDisposable
                     nextBaseExperience = packet.Parameter == 22 ? packet.Value : 0;
                 else
                     nextJobExperience = packet.Parameter == 23 ? packet.Value : 0;
-                DebugLog.Write($"RAGNAROK+ PROGRESS DECODED parameter={packet.Parameter}; value={packet.Value}; sessionBound={bound}");
             }
+            DebugLog.Write($"RAGNAROK+ PROGRESS DECODED parameter={packet.Parameter}; value={packet.Value}; sessionBound={bound}");
         });
         scanner.ZenyChanged += packet => Forward(generation, () =>
         {
@@ -865,7 +866,8 @@ public sealed class NpcapPacketCapture : IDisposable
         }
     }
 
-    private void ObservePlayerAid(CharacterSessionFlow flow, uint aid, string source)
+    private void ObservePlayerAid(CharacterSessionFlow flow, uint aid, string source,
+        CharacterLoginObserver? loginObserver = null)
     {
         if (_playerAidObserver.Observe(flow, aid, source))
         {
@@ -877,6 +879,12 @@ public sealed class NpcapPacketCapture : IDisposable
             DebugLog.Write($"PLAYER SELF AID VERIFIED source={source}; " +
                            $"mapLoginComparison={comparison}; " +
                            $"clientPort={flow.ClientPort}; mapPort={flow.ServerPort}");
+            if (loginObserver is not null)
+            {
+                var outbound = new TcpFlowKey(flow.ClientAddress, flow.ClientPort, flow.ServerAddress, flow.ServerPort);
+                DebugLog.Write($"RAGNAROK+ VERIFIED FLOW LOGIN: clientPort={flow.ClientPort}; " +
+                               $"mapPort={flow.ServerPort}; {loginObserver.DescribeFirstPayload(outbound)}");
+            }
         }
     }
 
