@@ -190,7 +190,8 @@ public partial class DatabaseDetailWindow : Window
         AddLine(T("Владелец", "Owner"), listing.Owner);
         AddSection(T("Координаты магазина", "Shop location"));
         AddLine(T("Локация", "Location"), $"{listing.Map} ({listing.X},{listing.Y})");
-        if (_database.Version != GameServerProfile.RagnarokPlus) AddMarketMap(listing);
+        if (_database.Version != GameServerProfile.RagnarokPlus || listing.MapImagePng is not null)
+            AddMarketMap(listing);
         var navi = new Button
         {
             Content = $"Navi · {listing.NavigationCommand}",
@@ -210,21 +211,38 @@ public partial class DatabaseDetailWindow : Window
     {
         const double size = 238;
         var canvas = new Canvas { Width = size, Height = size, Background = Brushes.Black };
-        var mapUrl = $"https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/minimaps/{listing.Map}.png";
-        if (Uri.TryCreate(mapUrl, UriKind.Absolute, out var uri))
-            canvas.Children.Add(new Image { Source = new BitmapImage(uri), Width = size, Height = size, Stretch = Stretch.Uniform });
-
-        if (listing.MapWidth > 0 && listing.MapHeight > 0)
+        double? left = null;
+        double? top = null;
+        if (listing.MapImagePng is { Length: > 0 } png &&
+            listing.MapPinLeft is >= 0 and <= 1 && listing.MapPinTop is >= 0 and <= 1)
         {
-            var maximum = Math.Max(listing.MapWidth, listing.MapHeight);
-            var left = (listing.X + (maximum - listing.MapWidth) / 2d) / maximum * size;
-            var top = ((maximum - listing.MapHeight) / 2d + listing.MapHeight - listing.Y) / maximum * size;
+            using var stream = new MemoryStream(png);
+            var bitmap = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+            canvas.Children.Add(new Image { Source = bitmap, Width = size, Height = size, Stretch = Stretch.Uniform });
+            left = listing.MapPinLeft.Value * size;
+            top = listing.MapPinTop.Value * size;
+        }
+        else if (_database.Version != GameServerProfile.RagnarokPlus)
+        {
+            var mapUrl = $"https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/minimaps/{listing.Map}.png";
+            if (Uri.TryCreate(mapUrl, UriKind.Absolute, out var uri))
+                canvas.Children.Add(new Image { Source = new BitmapImage(uri), Width = size, Height = size, Stretch = Stretch.Uniform });
+            if (listing.MapWidth > 0 && listing.MapHeight > 0)
+            {
+                var maximum = Math.Max(listing.MapWidth, listing.MapHeight);
+                left = (listing.X + (maximum - listing.MapWidth) / 2d) / maximum * size;
+                top = ((maximum - listing.MapHeight) / 2d + listing.MapHeight - listing.Y) / maximum * size;
+            }
+        }
+
+        if (left.HasValue && top.HasValue)
+        {
             var ring = new System.Windows.Shapes.Ellipse
             {
                 Width = 15, Height = 15, Fill = Brushes.Red, Stroke = Brushes.White, StrokeThickness = 3
             };
-            Canvas.SetLeft(ring, left - ring.Width / 2);
-            Canvas.SetTop(ring, top - ring.Height / 2);
+            Canvas.SetLeft(ring, left.Value - ring.Width / 2);
+            Canvas.SetTop(ring, top.Value - ring.Height / 2);
             Panel.SetZIndex(ring, 2);
             canvas.Children.Add(ring);
         }

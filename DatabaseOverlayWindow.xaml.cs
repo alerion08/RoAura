@@ -95,11 +95,6 @@ public partial class DatabaseOverlayWindow : Window
         var ragnarokPlus = _settings.ServerProfile == GameServerProfile.RagnarokPlus;
         RagnarokPlusSignInButton.Content = T("Войти", "Sign in");
         RagnarokPlusSignInButton.Visibility = ragnarokPlus ? Visibility.Visible : Visibility.Collapsed;
-        MarketBuyMode.Visibility = ragnarokPlus ? Visibility.Collapsed : Visibility.Visible;
-        if (ragnarokPlus) MarketSellMode.IsChecked = true;
-        ImportMarketButton.Content = T("Импорт", "Import");
-        ImportMarketButton.Visibility = _settings.ServerProfile == GameServerProfile.RagnarokPlus
-            ? Visibility.Visible : Visibility.Collapsed;
         AdvancedHeaderText.Text = T("Расширенный поиск", "Advanced search");
         RaceLabel.Text = T("Раса", "Race");
         ElementLabel.Text = T("Элемент", "Element");
@@ -346,36 +341,7 @@ public partial class DatabaseOverlayWindow : Window
         }
     }
 
-    private async void ImportMarket_Click(object sender, RoutedEventArgs e)
-    {
-        if (_settings.ServerProfile != GameServerProfile.RagnarokPlus) return;
-        var picker = new Microsoft.Win32.OpenFileDialog
-        {
-            Filter = T("Рынок Ragnarok+ (*.json;*.txt)|*.json;*.txt", "Ragnarok+ market (*.json;*.txt)|*.json;*.txt")
-        };
-        if (picker.ShowDialog(this) != true) return;
-
-        ImportMarketButton.IsEnabled = false;
-        try
-        {
-            var count = await Task.Run(() => RagnarokPlusData.ImportMarket(picker.FileName));
-            if (_settings.ServerProfile != GameServerProfile.RagnarokPlus || _kind != DatabaseSearchKind.Market) return;
-            if (string.IsNullOrWhiteSpace(SearchBox.Text))
-                FooterText.Text = T($"Импортировано предложений: {count}. Введите название или ID.",
-                    $"Imported {count} listings. Enter an item name or ID.");
-            else
-                await RefreshMarketResultsAsync();
-        }
-        catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or System.Text.Json.JsonException)
-        {
-            DebugLog.Write($"RAGNAROK+ MARKET IMPORT ERROR: {ex.Message}");
-            FooterText.Text = T("Не удалось импортировать снимок: проверьте формат, дату и доступ к файлу.",
-                "Could not import snapshot. Check its format, date and file access.");
-        }
-        finally { ImportMarketButton.IsEnabled = true; }
-    }
-
-    private async Task RefreshMarketResultsAsync()
+    private async Task RefreshMarketResultsAsync(DatabaseItem? selectedItem = null)
     {
         if (!GameServerProfile.SupportsMarket(_settings.ServerProfile)) return;
         var query = SearchBox.Text.Trim();
@@ -404,12 +370,23 @@ public partial class DatabaseOverlayWindow : Window
             IReadOnlyList<MarketListing> listings;
             if (ragnarokPlus)
             {
-                var candidates = int.TryParse(query.TrimStart('#'), out var id)
-                    ? _database.Items.Where(item => item.Id == id).ToArray()
-                    : _database.Items.Where(item => item.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).ToArray();
-                if (candidates.Length == 0 || !candidates.Any(item =>
-                        item.Id == id || item.Name.Equals(query, StringComparison.CurrentCultureIgnoreCase)))
+                DatabaseItem[] candidates;
+                if (selectedItem is not null)
+                    candidates = [selectedItem];
+                else if (int.TryParse(query.TrimStart('#'), out var id) && id > 0)
+                {
+                    var itemById = _database.Item(id);
+                    candidates = itemById is null
+                        ? await (_ragnarokPlusMarket ??= new()).FindItemsAsync(query, cancellation.Token)
+                        : [itemById];
+                    candidates = candidates.Where(item => item.Id == id).ToArray();
+                }
+                else
+                {
                     candidates = await (_ragnarokPlusMarket ??= new()).FindItemsAsync(query, cancellation.Token);
+                    candidates = candidates.OrderByDescending(item =>
+                        item.Name.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)).ToArray();
+                }
                 cancellation.Token.ThrowIfCancellationRequested();
                 var exact = candidates.Where(item => item.Name.Equals(query, StringComparison.CurrentCultureIgnoreCase)).ToArray();
                 if (exact.Length == 1) candidates = exact;
@@ -417,16 +394,16 @@ public partial class DatabaseOverlayWindow : Window
                 {
                     FooterText.Text = candidates.Length == 0
                         ? T("Предмет не найден в каталоге Ragnarok+.", "Item not found in the Ragnarok+ catalog.")
-                        : T("Уточните название или введите ID предмета.", "Refine the name or enter the item ID.");
+                        : T("Выберите предмет из списка.", "Select an item from the list.");
                     ResultsList.ItemsSource = candidates.Take(100).Select(item =>
                         new DatabaseSearchResult(DatabaseSearchKind.Items, item, item.Name, $"#{item.Id}")).ToList();
                     return;
                 }
 
                 var item = candidates[0];
-                listings = await (_ragnarokPlusMarket ??= new()).SearchAsync(item, cancellation.Token);
+                listings = await (_ragnarokPlusMarket ??= new()).SearchAsync(item, type, cancellation.Token);
                 cancellation.Token.ThrowIfCancellationRequested();
-                try { RagnarokPlusData.RememberLiveOffers(item.Id, listings); }
+                try { if (type == "SELL") RagnarokPlusData.RememberLiveOffers(item.Id, listings); }
                 catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException)
                 {
                     DebugLog.Write($"RAGNAROK+ PRICE CACHE ERROR: {ex.GetType().Name}");
@@ -500,7 +477,7 @@ public partial class DatabaseOverlayWindow : Window
             if (MarketTypePanel is not null) MarketTypePanel.Visibility = kind == DatabaseSearchKind.Market ? Visibility.Visible : Visibility.Collapsed;
             if (MonsterAdvancedHost is not null) MonsterAdvancedHost.Visibility = kind == DatabaseSearchKind.Monsters ? Visibility.Visible : Visibility.Collapsed;
             SearchBox.ToolTip = kind == DatabaseSearchKind.Market
-                ? T("Поиск только по названию предмета", "Search by item name only")
+                ? T("Поиск по названию или ID предмета", "Search by item name or ID")
                 : T("Поиск по названию или ID", "Search by name or ID");
             if (kind != DatabaseSearchKind.Market)
             {
@@ -578,11 +555,21 @@ public partial class DatabaseOverlayWindow : Window
     }
     private async void MarketType_Checked(object sender, RoutedEventArgs e)
     {
-        if (IsLoaded && _kind == DatabaseSearchKind.Market && !string.IsNullOrWhiteSpace(SearchBox.Text))
+        if (IsLoaded && MarketSellMode is not null && MarketBuyMode is not null && _kind == DatabaseSearchKind.Market && !string.IsNullOrWhiteSpace(SearchBox.Text))
             await RefreshMarketResultsAsync();
     }
-    private void Results_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    { if (ResultsList.SelectedItem is DatabaseSearchResult result) _details.ShowDetails(result.Value); }
+    private async void Results_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (ResultsList.SelectedItem is not DatabaseSearchResult result) return;
+        if (_kind == DatabaseSearchKind.Market && _settings.ServerProfile == GameServerProfile.RagnarokPlus &&
+            result.Value is DatabaseItem item)
+        {
+            SearchBox.Text = $"#{item.Id}";
+            await RefreshMarketResultsAsync(item);
+            return;
+        }
+        _details.ShowDetails(result.Value);
+    }
     private void AdvancedFilter_Changed(object sender, RoutedEventArgs e)
     { if (IsLoaded && _kind == DatabaseSearchKind.Monsters) RefreshResults(); }
     private void AdvancedFilter_Changed(object sender, TextChangedEventArgs e)

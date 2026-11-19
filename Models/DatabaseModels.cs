@@ -114,6 +114,10 @@ public sealed class MarketListing
     public int Y { get; set; }
     public int MapWidth { get; set; }
     public int MapHeight { get; set; }
+    public double? MapPinLeft { get; set; }
+    public double? MapPinTop { get; set; }
+    [System.Text.Json.Serialization.JsonIgnore]
+    public byte[]? MapImagePng { get; set; }
     public string ShopType { get; set; } = "SELL";
     public string GameMode { get; set; } = "";
     public DateTimeOffset? ObservedUtc { get; set; }

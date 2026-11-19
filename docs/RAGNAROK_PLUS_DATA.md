@@ -24,37 +24,12 @@ local Ragnarok+ catalog by name or ID. The separate WebView2 profile under
 RoAura's local application-data directory retains the site session. The app
 does not read the login form or export its cookies.
 
-Live search opens the item page and reads the selling rows in the site's
-**Live Market** dialog. It does not substitute cached rows when live search
-fails. Gold Goblin uses the last successfully observed selling rows, and
-the snapshot importer can also update that cache. The live market requires
-WebView2 Runtime. Buying offers and Windows end-to-end validation are pending.
+Live search opens the item page and reads the selected selling or buying
+rows from **Live Market**. A partial name returns matches to select in the
+overlay. The browser stays in the background during searches and appears
+when the site requires sign-in. Gold Goblin uses the last observed selling
+rows. RoAura displays the Ragnarok+ minimap and its pin when available.
+Live search requires WebView2 Runtime.
 
-Current offers are available per item, for example at
-https://ragnarok.plus/item-db/999 under **Market → View shops**.
-Import an offline snapshot using **Market → Import** in the Ragnarok+ profile.
-RoAura validates it and updates Gold Goblin valuation after import. Use the following structure. Replace the
-example timestamp with the time the snapshot was actually captured, and
-include only current offers. Each row uses the `MarketListing` schema.
-
-```json
-{
-  "capturedUtc": "2026-11-19T09:00:00Z",
-  "listings": []
-}
-```
-
-Use `SELL` or `BUY` as `shopType`, and `SC` or `HC` as `gameMode`.
-The market displays the snapshot timestamp and supports search by item
-name or ID. The Gold Goblin vending price rule uses the lowest Softcore
-selling offer in the snapshot. When there is no matching offer, the rule
-uses its configured manual price or the catalog's NPC sell price.
-Historical averages are not offers.
-
-The same import button accepts UTF-8 `.txt` files containing the English
-**Live Market** dialog text, including the title, selling count and all
-selling rows. The title must match a unique item name in the loaded catalog.
-A text import replaces offers for that item only. Other items keep their
-previous observation times. JSON import still replaces the full snapshot.
-
-A full catalog export, background refresh of market offers, and Ragnarok+ market notifications are pending.
+A full catalog export, background refresh of market offers, and Ragnarok+
+market notifications are pending.
