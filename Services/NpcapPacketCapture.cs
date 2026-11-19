@@ -180,7 +180,7 @@ public sealed class NpcapPacketCapture : IDisposable
                     handoff.Login.CharacterId, handoff.Login.PlayerAid);
                 DebugLog.Write($"CHARACTER LOGIN RETAINED ACROSS ENDPOINT CHANGE: mapPort={handoff.Flow.DestinationPort}");
             }
-            loginObserver = AppEnvironment.CharacterSessionsEnabled ? new CharacterLoginObserver() : null;
+            loginObserver = AppEnvironment.CharacterSessionsEnabled ? new CharacterLoginObserver(target.LogRagnarokPlusStatistics) : null;
             if (loginObserver is not null)
             {
                 var serverKey = settings.ServerProfile;
@@ -733,6 +733,8 @@ public sealed class NpcapPacketCapture : IDisposable
             {
                 ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID",
                     logRagnarokPlusStatistics ? loginObserver : null);
+                if (logRagnarokPlusStatistics && loginObserver is not null)
+                    BindRagnarokPlusSession(generation, packetFlow, packet.Aid, loginObserver);
                 ReplayPendingStatuses();
             });
         // Actor visibility (not always a skill ack): TF_HIDING is confirmed
@@ -885,6 +887,24 @@ public sealed class NpcapPacketCapture : IDisposable
                 DebugLog.Write($"RAGNAROK+ VERIFIED FLOW LOGIN: clientPort={flow.ClientPort}; " +
                                $"mapPort={flow.ServerPort}; {loginObserver.DescribeFirstPayload(outbound)}");
             }
+        }
+    }
+
+    private void BindRagnarokPlusSession(int generation, CharacterSessionFlow flow, uint aid,
+        CharacterLoginObserver loginObserver)
+    {
+        lock (_lifecycleLock)
+        {
+            if (generation != _generation || _characterSessions.TryResolve(flow, out _) ||
+                _playerAidObserver.SourceForFlow(flow) != "ZC_AID" ||
+                _playerAidObserver.AidForFlow(flow) != aid) return;
+
+            var outbound = new TcpFlowKey(flow.ClientAddress, flow.ClientPort, flow.ServerAddress, flow.ServerPort);
+            if (loginObserver.ConfirmRagnarokPlusLogin(outbound, aid) is not { } login) return;
+
+            _characterSessions.OnCandidate(GameServerProfile.RagnarokPlus, flow, login.CharacterId, aid);
+            _characterSessions.OnServerPayload(flow);
+            DebugLog.Write($"RAGNAROK+ CHARACTER SESSION: cid={login.CharacterId}; clientPort={flow.ClientPort}");
         }
     }
 

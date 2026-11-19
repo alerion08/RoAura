@@ -12,7 +12,7 @@ namespace RoAura.Services;
 public sealed record CharacterLoginCandidate(ushort PacketId, uint CharacterId,
     int PacketLength, uint PlayerAid = 0); // transient in-memory AID, never logged
 
-public sealed class CharacterLoginStreamProbe
+public sealed class CharacterLoginStreamProbe(bool observeRagnarokPlus = false)
 {
     private const int MaximumPrefixLength = 23;
     private readonly object _sync = new();
@@ -21,6 +21,7 @@ public sealed class CharacterLoginStreamProbe
     private bool _initialized;
     private bool _finished;
     private bool _identified;
+    private CharacterLoginCandidate? _ragnarokPlusCandidate;
     private bool _diagnosticReported;
     private int _firstPayloadLength;
     private ushort? _observedOpcode;
@@ -37,6 +38,12 @@ public sealed class CharacterLoginStreamProbe
     }
     public bool Finished { get { lock (_sync) return _finished; } }
     public bool Identified { get { lock (_sync) return _identified; } }
+
+    internal CharacterLoginCandidate? ConfirmRagnarokPlusLogin(uint aid)
+    {
+        lock (_sync)
+            return aid != 0 && _ragnarokPlusCandidate?.PlayerAid == aid ? _ragnarokPlusCandidate : null;
+    }
 
     internal string DescribeFirstPayload()
     {
@@ -101,6 +108,17 @@ public sealed class CharacterLoginStreamProbe
             if (_prefixLength < 2) return null;
             var opcode = BinaryPrimitives.ReadUInt16LittleEndian(_prefix);
             _observedOpcode = opcode;
+            if (observeRagnarokPlus && opcode == 0x6B0A)
+            {
+                if (_prefixLength < MaximumPrefixLength) return null;
+                var candidateAid = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(2));
+                var candidateCid = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(6));
+                if (candidateAid != 0 && candidateCid != 0 && _prefix[22] <= 1)
+                    _ragnarokPlusCandidate = new(opcode, candidateCid, MaximumPrefixLength, candidateAid);
+                Finish();
+                return null;
+            }
+
             if (opcode is not (0x0072 or 0x0436))
             {
                 Finish(); // Mid-stream attachment or unknown shuffled opcode.
@@ -143,7 +161,7 @@ public sealed class CharacterLoginStreamProbe
 /// duplicate Npcap adapters, bounded by flow count and idle expiration.
 /// Never writes raw traffic, account ID, auth codes or client IPs to disk.
 /// </summary>
-public sealed class CharacterLoginObserver
+public sealed class CharacterLoginObserver(bool observeRagnarokPlus = false)
 {
     private const int MaximumFlows = 512;
     private const long IdleMs = 2 * 60 * 1000;
@@ -156,6 +174,9 @@ public sealed class CharacterLoginObserver
         RecentDiagnostics = new();
     private readonly ConcurrentDictionary<TcpFlowKey, CharacterLoginStreamProbe> _flows = new();
     internal event Action<TcpFlowKey, CharacterLoginCandidate>? CandidateDetected;
+
+    internal CharacterLoginCandidate? ConfirmRagnarokPlusLogin(TcpFlowKey flow, uint aid) =>
+        _flows.TryGetValue(flow, out var probe) ? probe.ConfirmRagnarokPlusLogin(aid) : null;
 
     internal string DescribeFirstPayload(TcpFlowKey flow) =>
         _flows.TryGetValue(flow, out var probe) ? probe.DescribeFirstPayload() : "firstPayload=not-observed";
@@ -179,7 +200,7 @@ public sealed class CharacterLoginObserver
         if (_flows.Count >= MaximumFlows)
             Prune();
         if (_flows.Count >= MaximumFlows) return;
-        var probe = _flows.GetOrAdd(key, _ => new CharacterLoginStreamProbe());
+        var probe = _flows.GetOrAdd(key, _ => new CharacterLoginStreamProbe(observeRagnarokPlus));
         var candidate = probe.Process(sequence, payload);
         if (candidate is null)
         {
