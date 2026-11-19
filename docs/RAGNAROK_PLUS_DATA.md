@@ -33,3 +33,14 @@ Live search requires WebView2 Runtime.
 
 A full catalog export, background refresh of market offers, and Ragnarok+
 market notifications are pending.
+
+## Catalog and price coverage
+
+The current catalog includes the first item page, the first monster page,
+previously verified MVPs, and reviewed individual entries. Ragnarok+ showed
+6,657 items in the item catalog on 2026-11-19. No consolidated live offer export
+has been verified. Visiting the item pages once per ten minutes would require
+about 11 page navigations per second per client, before loading the dialogs.
+Gold Goblin needs only selling prices for items with a vending price rule.
+A scoped refresh can reuse the live market reader and the existing price
+cache without requiring a complete offer snapshot.

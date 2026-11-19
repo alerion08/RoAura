@@ -321,7 +321,7 @@ internal sealed class RagnarokPlusMarketWindow : Window
             }
             if ({{(opened ? "true" : "false")}}) return { Stage: 'waiting-for-dialog' };
             const button = [...document.querySelectorAll('button')]
-                .find(node => node.getClientRects().length && /^View\s+[\d,]+\s+shops?$/i.test(node.innerText.trim()));
+                .find(node => node.getClientRects().length && /^View\s+[\d,]+\s+(?:shops?|buy orders?)$/i.test(node.innerText.trim()));
             if (button) {
                 button.click();
                 return { Opened: true, Stage: 'shop-button-clicked' };

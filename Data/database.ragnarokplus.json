@@ -7,6 +7,246 @@
       "type": "Healing"
     },
     {
+      "id": 502,
+      "name": "Orange Potion",
+      "type": "Healing"
+    },
+    {
+      "id": 503,
+      "name": "Yellow Potion",
+      "type": "Healing"
+    },
+    {
+      "id": 504,
+      "name": "White Potion",
+      "type": "Healing"
+    },
+    {
+      "id": 505,
+      "name": "Blue Potion",
+      "type": "Healing"
+    },
+    {
+      "id": 506,
+      "name": "Green Potion",
+      "type": "Healing"
+    },
+    {
+      "id": 507,
+      "name": "Red Herb",
+      "type": "Healing"
+    },
+    {
+      "id": 508,
+      "name": "Yellow Herb",
+      "type": "Healing"
+    },
+    {
+      "id": 509,
+      "name": "White Herb",
+      "type": "Healing"
+    },
+    {
+      "id": 510,
+      "name": "Blue Herb",
+      "type": "Healing"
+    },
+    {
+      "id": 511,
+      "name": "Green Herb",
+      "type": "Healing"
+    },
+    {
+      "id": 512,
+      "name": "Apple",
+      "type": "Healing"
+    },
+    {
+      "id": 513,
+      "name": "Banana",
+      "type": "Healing"
+    },
+    {
+      "id": 514,
+      "name": "Grape",
+      "type": "Healing"
+    },
+    {
+      "id": 515,
+      "name": "Carrot",
+      "type": "Healing"
+    },
+    {
+      "id": 516,
+      "name": "Potato",
+      "type": "Healing"
+    },
+    {
+      "id": 517,
+      "name": "Meat",
+      "type": "Healing"
+    },
+    {
+      "id": 518,
+      "name": "Honey",
+      "type": "Healing"
+    },
+    {
+      "id": 519,
+      "name": "Milk",
+      "type": "Healing"
+    },
+    {
+      "id": 520,
+      "name": "Hinalle Leaflet",
+      "type": "Healing"
+    },
+    {
+      "id": 521,
+      "name": "Aloe Leaflet",
+      "type": "Healing"
+    },
+    {
+      "id": 522,
+      "name": "Mastela Fruit",
+      "type": "Healing"
+    },
+    {
+      "id": 523,
+      "name": "Holy Water",
+      "type": "Healing"
+    },
+    {
+      "id": 525,
+      "name": "Panacea",
+      "type": "Healing"
+    },
+    {
+      "id": 526,
+      "name": "Royal Jelly",
+      "type": "Healing"
+    },
+    {
+      "id": 528,
+      "name": "Monster's Feed",
+      "type": "Healing"
+    },
+    {
+      "id": 529,
+      "name": "Candy",
+      "type": "Healing"
+    },
+    {
+      "id": 530,
+      "name": "Candy Cane",
+      "type": "Healing"
+    },
+    {
+      "id": 531,
+      "name": "Apple Juice",
+      "type": "Healing"
+    },
+    {
+      "id": 532,
+      "name": "Banana Juice",
+      "type": "Healing"
+    },
+    {
+      "id": 533,
+      "name": "Grape Juice",
+      "type": "Healing"
+    },
+    {
+      "id": 534,
+      "name": "Carrot Juice",
+      "type": "Healing"
+    },
+    {
+      "id": 535,
+      "name": "Pumpkin",
+      "type": "Healing"
+    },
+    {
+      "id": 536,
+      "name": "Ice Cream",
+      "type": "Healing"
+    },
+    {
+      "id": 537,
+      "name": "Pet Food",
+      "type": "Healing"
+    },
+    {
+      "id": 538,
+      "name": "Well Baked Cookie",
+      "type": "Healing"
+    },
+    {
+      "id": 539,
+      "name": "Piece of Cake",
+      "type": "Healing"
+    },
+    {
+      "id": 540,
+      "name": "Falcon Food",
+      "type": "Healing"
+    },
+    {
+      "id": 541,
+      "name": "PecoPeco Food",
+      "type": "Healing"
+    },
+    {
+      "id": 544,
+      "name": "Raw Fish",
+      "type": "Healing"
+    },
+    {
+      "id": 545,
+      "name": "Red Slim Potion",
+      "type": "Healing"
+    },
+    {
+      "id": 546,
+      "name": "Yellow Slim Potion",
+      "type": "Healing"
+    },
+    {
+      "id": 547,
+      "name": "White Slim Potion",
+      "type": "Healing"
+    },
+    {
+      "id": 548,
+      "name": "Cheese",
+      "type": "Healing"
+    },
+    {
+      "id": 549,
+      "name": "Yam",
+      "type": "Healing"
+    },
+    {
+      "id": 550,
+      "name": "Rice Cake",
+      "type": "Healing"
+    },
+    {
+      "id": 551,
+      "name": "Sushi",
+      "type": "Healing"
+    },
+    {
+      "id": 553,
+      "name": "Bao",
+      "type": "Healing"
+    },
+    {
+      "id": 998,
+      "name": "Iron",
+      "type": "Etc"
+    },
+    {
       "id": 999,
       "name": "Steel",
       "type": "Etc",
@@ -34,7 +274,357 @@
       "element": "Water",
       "size": "Medium",
       "baseExp": "3",
-      "jobExp": "2"
+      "jobExp": "2",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1004,
+      "name": "Hornet",
+      "level": "8",
+      "race": "Insect",
+      "element": "Wind",
+      "size": "Small",
+      "baseExp": "33",
+      "jobExp": "27",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1005,
+      "name": "Familiar",
+      "level": "8",
+      "race": "Brute",
+      "element": "Dark",
+      "size": "Small",
+      "baseExp": "42",
+      "jobExp": "32",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1007,
+      "name": "Fabre",
+      "level": "2",
+      "race": "Insect",
+      "element": "Earth",
+      "size": "Small",
+      "baseExp": "5",
+      "jobExp": "3",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1008,
+      "name": "Pupa",
+      "level": "2",
+      "race": "Insect",
+      "element": "Earth",
+      "size": "Small",
+      "baseExp": "2",
+      "jobExp": "4",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1009,
+      "name": "Condor",
+      "level": "5",
+      "race": "Brute",
+      "element": "Wind",
+      "size": "Medium",
+      "baseExp": "14",
+      "jobExp": "9",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1010,
+      "name": "Willow",
+      "level": "4",
+      "race": "Plant",
+      "element": "Earth",
+      "size": "Medium",
+      "baseExp": "12",
+      "jobExp": "8",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1011,
+      "name": "Chonchon",
+      "level": "4",
+      "race": "Insect",
+      "element": "Wind",
+      "size": "Small",
+      "baseExp": "8",
+      "jobExp": "6",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1012,
+      "name": "Roda Frog",
+      "level": "5",
+      "race": "Fish",
+      "element": "Water",
+      "size": "Medium",
+      "baseExp": "17",
+      "jobExp": "14",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1013,
+      "name": "Wolf",
+      "level": "25",
+      "race": "Brute",
+      "element": "Earth",
+      "size": "Medium",
+      "baseExp": "449",
+      "jobExp": "363",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1014,
+      "name": "Spore",
+      "level": "16",
+      "race": "Plant",
+      "element": "Water",
+      "size": "Medium",
+      "baseExp": "141",
+      "jobExp": "108",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1015,
+      "name": "Zombie",
+      "level": "15",
+      "race": "Undead",
+      "element": "Undead",
+      "size": "Medium",
+      "baseExp": "137",
+      "jobExp": "95",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1016,
+      "name": "Archer Skeleton",
+      "level": "31",
+      "race": "Undead",
+      "element": "Undead",
+      "size": "Medium",
+      "baseExp": "1173",
+      "jobExp": "974",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1018,
+      "name": "Creamy",
+      "level": "16",
+      "race": "Insect",
+      "element": "Wind",
+      "size": "Small",
+      "baseExp": "183",
+      "jobExp": "164",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1019,
+      "name": "Peco Peco",
+      "level": "19",
+      "race": "Brute",
+      "element": "Fire",
+      "size": "Large",
+      "baseExp": "237",
+      "jobExp": "164",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1020,
+      "name": "Mandragora",
+      "level": "12",
+      "race": "Plant",
+      "element": "Earth",
+      "size": "Medium",
+      "baseExp": "68",
+      "jobExp": "48",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1023,
+      "name": "Orc Warrior",
+      "level": "24",
+      "race": "Demihuman",
+      "element": "Earth",
+      "size": "Medium",
+      "baseExp": "612",
+      "jobExp": "435",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1024,
+      "name": "Wormtail",
+      "level": "14",
+      "race": "Plant",
+      "element": "Earth",
+      "size": "Medium",
+      "baseExp": "93",
+      "jobExp": "68",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1025,
+      "name": "Boa",
+      "level": "15",
+      "race": "Brute",
+      "element": "Earth",
+      "size": "Medium",
+      "baseExp": "135",
+      "jobExp": "117",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1026,
+      "name": "Munak",
+      "level": "30",
+      "race": "Undead",
+      "element": "Undead",
+      "size": "Medium",
+      "baseExp": "852",
+      "jobExp": "740",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1028,
+      "name": "Soldier Skeleton",
+      "level": "29",
+      "race": "Undead",
+      "element": "Undead",
+      "size": "Medium",
+      "baseExp": "884",
+      "jobExp": "513",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1029,
+      "name": "Isis",
+      "level": "47",
+      "race": "Demon",
+      "element": "Dark",
+      "size": "Large",
+      "baseExp": "5223",
+      "jobExp": "4388",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1030,
+      "name": "Anacondaq",
+      "level": "23",
+      "race": "Brute",
+      "element": "Poison",
+      "size": "Medium",
+      "baseExp": "450",
+      "jobExp": "383",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1031,
+      "name": "Poporing",
+      "level": "14",
+      "race": "Plant",
+      "element": "Poison",
+      "size": "Medium",
+      "baseExp": "108",
+      "jobExp": "87",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1032,
+      "name": "Verit",
+      "level": "38",
+      "race": "Undead",
+      "element": "Undead",
+      "size": "Medium",
+      "baseExp": "1521",
+      "jobExp": "1353",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1033,
+      "name": "Elder Willow",
+      "level": "22",
+      "race": "Plant",
+      "element": "Fire",
+      "size": "Medium",
+      "baseExp": "302",
+      "jobExp": "240",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1034,
+      "name": "Thara Frog",
+      "level": "22",
+      "race": "Fish",
+      "element": "Water",
+      "size": "Medium",
+      "baseExp": "366",
+      "jobExp": "315",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1035,
+      "name": "Hunter Fly",
+      "level": "42",
+      "race": "Insect",
+      "element": "Wind",
+      "size": "Small",
+      "baseExp": "2276",
+      "jobExp": "1833",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1036,
+      "name": "Ghoul",
+      "level": "40",
+      "race": "Undead",
+      "element": "Undead",
+      "size": "Medium",
+      "baseExp": "2268",
+      "jobExp": "1688",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1037,
+      "name": "Side Winder",
+      "level": "43",
+      "race": "Brute",
+      "element": "Poison",
+      "size": "Medium",
+      "baseExp": "2994",
+      "jobExp": "2306",
+      "isMvp": false,
+      "isBoss": false
     },
     {
       "id": 1038,
@@ -61,6 +651,66 @@
       "isBoss": true
     },
     {
+      "id": 1040,
+      "name": "Golem",
+      "level": "25",
+      "race": "Formless",
+      "element": "Neutral",
+      "size": "Large",
+      "baseExp": "698",
+      "jobExp": "551",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1041,
+      "name": "Mummy",
+      "level": "37",
+      "race": "Undead",
+      "element": "Undead",
+      "size": "Medium",
+      "baseExp": "2325",
+      "jobExp": "2046",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1042,
+      "name": "Steel Chonchon",
+      "level": "17",
+      "race": "Insect",
+      "element": "Wind",
+      "size": "Small",
+      "baseExp": "239",
+      "jobExp": "152",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1044,
+      "name": "Obeaune",
+      "level": "31",
+      "race": "Fish",
+      "element": "Water",
+      "size": "Medium",
+      "baseExp": "1379",
+      "jobExp": "1020",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1045,
+      "name": "Marc",
+      "level": "36",
+      "race": "Fish",
+      "element": "Water",
+      "size": "Medium",
+      "baseExp": "1888",
+      "jobExp": "1038",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
       "id": 1046,
       "name": "Doppelganger",
       "level": "72",
@@ -71,6 +721,114 @@
       "jobExp": "187650",
       "isMvp": true,
       "isBoss": true
+    },
+    {
+      "id": 1047,
+      "name": "Peco Peco Egg",
+      "level": "3",
+      "race": "Formless",
+      "element": "Neutral",
+      "size": "Small",
+      "baseExp": "8",
+      "jobExp": "6",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1048,
+      "name": "Thief Bug Egg",
+      "level": "4",
+      "race": "Undead",
+      "element": "Dark",
+      "size": "Small",
+      "baseExp": "9",
+      "jobExp": "6",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1049,
+      "name": "Picky",
+      "level": "3",
+      "race": "Brute",
+      "element": "Fire",
+      "size": "Small",
+      "baseExp": "8",
+      "jobExp": "6",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1050,
+      "name": "Super Picky",
+      "level": "3",
+      "race": "Brute",
+      "element": "Fire",
+      "size": "Small",
+      "baseExp": "8",
+      "jobExp": "6",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1051,
+      "name": "Thief Bug",
+      "level": "6",
+      "race": "Insect",
+      "element": "Neutral",
+      "size": "Small",
+      "baseExp": "26",
+      "jobExp": "21",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1052,
+      "name": "Rocker",
+      "level": "9",
+      "race": "Insect",
+      "element": "Earth",
+      "size": "Medium",
+      "baseExp": "42",
+      "jobExp": "35",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1053,
+      "name": "Thief Bug Female",
+      "level": "10",
+      "race": "Insect",
+      "element": "Dark",
+      "size": "Medium",
+      "baseExp": "53",
+      "jobExp": "27",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1054,
+      "name": "Thief Bug Male",
+      "level": "19",
+      "race": "Insect",
+      "element": "Dark",
+      "size": "Medium",
+      "baseExp": "335",
+      "jobExp": "210",
+      "isMvp": false,
+      "isBoss": false
+    },
+    {
+      "id": 1055,
+      "name": "Muka",
+      "level": "17",
+      "race": "Plant",
+      "element": "Earth",
+      "size": "Large",
+      "baseExp": "318",
+      "jobExp": "210",
+      "isMvp": false,
+      "isBoss": false
     },
     {
       "id": 1059,
