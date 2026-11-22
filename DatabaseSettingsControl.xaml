@@ -2,8 +2,8 @@
  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
  xmlns:controls="clr-namespace:RoAura.Controls" xmlns:local="clr-namespace:RoAura" xmlns:converters="clr-namespace:RoAura.Converters" LostKeyboardFocus="Settings_LostFocus">
  <UserControl.Resources>
-  <Style x:Key="WatchTableRow" TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}"><Setter Property="MinHeight" Value="26"/><Setter Property="Height" Value="26"/></Style>
-  <Style x:Key="WatchTableHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"><Setter Property="Height" Value="28"/><Setter Property="Padding" Value="6,2"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style>
+  <Style x:Key="WatchTableRow" TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}"><Setter Property="MinHeight" Value="{DynamicResource WatchTableRowMinHeight}"/></Style>
+  <Style x:Key="WatchTableHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"><Setter Property="Height" Value="{DynamicResource WatchTableHeaderHeight}"/><Setter Property="Padding" Value="6,2"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style>
   <Style x:Key="WatchTableCell" TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}"><Setter Property="Padding" Value="5,2"/></Style>
 
   <Style x:Key="WatchTableText" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
@@ -45,16 +45,17 @@
                             <TextBlock Margin="0,8,0,0" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Text="{DynamicResource DatabaseSearchLimitHint}"/>
                         </StackPanel>
                     </Grid></TabItem>
-  <TabItem Header="{DynamicResource WatchListTitle}" IsEnabled="{Binding SupportsMarket}">
+  <TabItem Header="{DynamicResource WatchListTitle}" IsEnabled="{Binding SupportsMarketWatch}">
    <Grid Margin="14">
     <Grid.ColumnDefinitions><ColumnDefinition Width="*" MinWidth="330"/><ColumnDefinition Width="14"/><ColumnDefinition Width="0.85*" MinWidth="340"/></Grid.ColumnDefinitions>
     <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
     <Grid Grid.Row="0"><Grid.RowDefinitions><RowDefinition Height="0.85*" MinHeight="125"/><RowDefinition Height="Auto"/><RowDefinition Height="1.15*" MinHeight="130"/></Grid.RowDefinitions>
-     <DataGrid RowStyle="{StaticResource WatchTableRow}" ColumnHeaderStyle="{StaticResource WatchTableHeader}" CellStyle="{StaticResource WatchTableCell}" x:Name="WatchList" Grid.Row="0" ItemsSource="{Binding MarketWatchRules}" SelectionChanged="WatchList_SelectionChanged"
+     <DataGrid RowStyle="{StaticResource WatchTableRow}" ColumnHeaderStyle="{StaticResource WatchTableHeader}" CellStyle="{StaticResource WatchTableCell}" x:Name="WatchList" Grid.Row="0" ItemsSource="{Binding ActiveMarketWatchRules}" SelectionChanged="WatchList_SelectionChanged"
         AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" SelectionMode="Single" HeadersVisibility="Column" RowHeaderWidth="0">
       <DataGrid.Columns>
        <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource Name}" Width="*" MinWidth="100" Binding="{Binding Caption}"/>
-       <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchPriceRule}" Width="155" Binding="{Binding PriceCaption}"/>
+       <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchSide}" Width="85" Binding="{Binding SideCaption}"/>
+        <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchPriceRule}" Width="155" Binding="{Binding PriceCaption}"/>
        <DataGridTemplateColumn Header="{DynamicResource Enabled}" Width="90">
         <DataGridTemplateColumn.HeaderStyle><Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource WatchTableHeader}"><Setter Property="HorizontalContentAlignment" Value="Center"/></Style></DataGridTemplateColumn.HeaderStyle>
         <DataGridTemplateColumn.CellStyle><Style TargetType="DataGridCell" BasedOn="{StaticResource WatchTableCell}"><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style></DataGridTemplateColumn.CellStyle>
@@ -77,6 +78,7 @@
        <ToggleButton x:Name="AllWatchHistoryButton" DockPanel.Dock="Right" Content="{DynamicResource AllWatchHistory}" Click="AllWatchHistory_Click" Margin="8,0,0,0"/>
        <TextBlock Text="{DynamicResource WatchHistoryTitle}" FontWeight="SemiBold" VerticalAlignment="Center"/>
       </DockPanel>
+      <Button Content="{DynamicResource MarketWeeklyPrices}" Click="MarketWeeklyPrices_Click" HorizontalAlignment="Left" Margin="0,4,0,4"/>
       <TextBlock x:Name="HistoryItemText" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}"/>
       <TextBlock x:Name="HistoryPersistenceWarning" Text="{DynamicResource WatchHistorySaveWarning}" TextWrapping="Wrap" Foreground="{DynamicResource UiForeground_B42318}" Visibility="Collapsed"/>
      </StackPanel>
@@ -87,6 +89,7 @@
         <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchHistoryTime}" Width="125" Binding="{Binding TimeCaption}"/>
         <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchHistoryShop}" Width="*" MinWidth="80" Binding="{Binding ShopCaption}"/>
         <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchHistoryCoordinates}" Width="130" Binding="{Binding Coordinates}"/>
+        <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchSide}" Width="85" Binding="{Binding SideCaption}"/>
         <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchHistoryPrice}" Width="105" Binding="{Binding PriceCaption}"/>
        </DataGrid.Columns>
       </DataGrid>
@@ -106,7 +109,7 @@
     <TextBlock Grid.Row="1" Grid.ColumnSpan="3" Text="{DynamicResource WatchListHint}" TextWrapping="Wrap" Margin="0,10,0,0"/>
    </Grid>
   </TabItem>
-  <TabItem Header="{DynamicResource NotificationsTab}" IsEnabled="{Binding SupportsMarket}">
+  <TabItem Header="{DynamicResource NotificationsTab}" IsEnabled="{Binding SupportsMarketWatch}">
    <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="16" DataContext="{Binding MarketWatchNotifications}">
     <Border Background="{DynamicResource UiBackground_F8FBFF}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="7" Padding="12" Margin="0,0,0,10">
      <StackPanel><TextBlock Text="{DynamicResource WatchPreviewTitle}" FontWeight="SemiBold" Foreground="{DynamicResource RoMutedBrush}" Margin="0,0,0,8"/>

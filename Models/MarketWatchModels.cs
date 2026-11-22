@@ -20,8 +20,12 @@ public sealed class MarketWatchRule : INotifyPropertyChanged
     public HashSet<string> InitialOfferKeys { get; set; } = [];
     public bool WithoutPrice { get; set; }
     public long MaximumPrice { get; set; }
+    public bool Buying { get; set; }
+    [JsonIgnore] public string SideCaption => RoAura.Services.LocalizationService.Get(Buying ? "WatchBuying" : "WatchSelling");
+    public long MinimumPrice { get; set; }
+    [JsonIgnore] public long PriceThreshold => Buying ? MinimumPrice : MaximumPrice;
     [JsonIgnore] public string Caption => $"{ItemName} · #{ItemId}";
-    [JsonIgnore] public string PriceCaption => WithoutPrice ? "—" : $"≤ {MaximumPrice:N0} Zeny";
+    [JsonIgnore] public string PriceCaption => WithoutPrice ? "—" : $"{(Buying ? "≥" : "≤")} {PriceThreshold:N0} Zeny";
 }
 
 public sealed class MarketWatchNotificationSettings : INotifyPropertyChanged
@@ -56,5 +60,5 @@ public sealed class MarketWatchNotificationSettings : INotifyPropertyChanged
     }
 }
 
-public sealed record MarketWatchMatch(int ItemId, string ItemName, long Price);
+public sealed record MarketWatchMatch(int ItemId, string ItemName, long Price, bool Buying = false);
 public sealed record MarketWatchNotification(string Text, System.Windows.Media.ImageSource? Icon, DateTime ExpiresAtUtc, bool IsPlacementPreview = false);

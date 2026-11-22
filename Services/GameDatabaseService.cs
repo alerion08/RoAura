@@ -8,6 +8,8 @@ public sealed class GameDatabaseService
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
     private GameDatabase _database = new();
     private IReadOnlyDictionary<int, DatabaseMonster> _monstersById = new Dictionary<int, DatabaseMonster>();
+    private IReadOnlyDictionary<int, DatabaseItem> _itemsById = new Dictionary<int, DatabaseItem>();
+    private IReadOnlyDictionary<int, SpringRoItemPrice> _npcPrices = new Dictionary<int, SpringRoItemPrice>();
     public IReadOnlyList<DatabaseMonster> Monsters => _database.Monsters;
     public IReadOnlyList<DatabaseItem> Items => _database.Items;
     public IReadOnlyList<DatabaseMap> Maps => _database.Maps;
@@ -18,9 +20,12 @@ public sealed class GameDatabaseService
     {
         Version = GameDatabaseVersion.Normalize(version);
         var path = Path.Combine(AppContext.BaseDirectory, "Data", "database.springro.json");
+        if (Version == GameDatabaseVersion.SpringRo && ServerCatalogDownload.IsInstalled(Version))
+            path = ServerCatalogDownload.InstalledPath("springro");
         try
         {
-            _database = Version == GameDatabaseVersion.Toc ? TocDatabaseService.Database :
+            _database = Version == GameServerProfile.RagnarokPlus ? RagnarokPlusData.LoadCatalog() :
+                Version == GameDatabaseVersion.Toc ? TocDatabaseService.Database :
                 JsonSerializer.Deserialize<GameDatabase>(File.ReadAllText(path), JsonOptions) ?? new GameDatabase();
         }
         catch (Exception ex)
@@ -34,6 +39,10 @@ public sealed class GameDatabaseService
             if (catalog.TryGetValue(item.Id, out var entry) && !string.IsNullOrWhiteSpace(entry.FullName))
                 item.Name = entry.FullName;
 
+        _itemsById = _database.Items.GroupBy(item => item.Id).ToDictionary(group => group.Key, group => group.First());
+        _npcPrices = Version == GameDatabaseVersion.SpringRo ? GoldGoblinService.LoadPrices(Version) :
+            new Dictionary<int, SpringRoItemPrice>();
+
         // Generated JSON may repeat an ID; a plain ToDictionary would throw here and
         // take the whole application down at startup. First occurrence wins.
         var groups = _database.Monsters.GroupBy(x => x.Id).ToList();
@@ -43,7 +52,8 @@ public sealed class GameDatabaseService
         _monstersById = groups.ToDictionary(group => group.Key, group => group.First());
     }
 
-    public IEnumerable<DatabaseSearchResult> Search(DatabaseSearchKind kind, string query, int limit = 100)
+    public IEnumerable<DatabaseSearchResult> Search(DatabaseSearchKind kind, string query, int limit = 100, bool includeItemEffects = false,
+        int mapMonsterLevelMin = 0, int mapMonsterLevelMax = 0, int itemSlotsMin = 0, bool sortItemsByNpcPrice = false)
     {
         query = query.Trim();
         bool Matches(string name, string id) => query.Length == 0 ||
@@ -55,10 +65,12 @@ public sealed class GameDatabaseService
             DatabaseSearchKind.Monsters => _database.Monsters.Where(x => Matches(x.Name, x.Id.ToString()))
                 .OrderByDescending(x => x.Name.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)).ThenBy(x => x.Name)
                 .Take(limit).Select(x => new DatabaseSearchResult(kind, x, x.Name, $"Lv {x.Level} · {x.Element} · #{x.Id}")),
-            DatabaseSearchKind.Items => _database.Items.Where(x => Matches(x.Name, x.Id.ToString()))
-                .OrderByDescending(x => x.Name.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)).ThenBy(x => x.Name)
-                .Take(limit).Select(x => new DatabaseSearchResult(kind, x, x.Name, $"{x.Type} · #{x.Id}")),
+            DatabaseSearchKind.Items => SearchItems(query, limit, includeItemEffects, itemSlotsMin, sortItemsByNpcPrice),
             _ => _database.Maps.Where(x => Matches(x.Name, x.Code))
+                .Where(x => (mapMonsterLevelMin <= 0 && mapMonsterLevelMax <= 0) ||
+                    x.Monsters.Any(spawn => _monstersById.TryGetValue(spawn.MonsterId, out var monster) &&
+                        int.TryParse(monster.Level, out var level) && level > 0 &&
+                        level >= mapMonsterLevelMin && (mapMonsterLevelMax <= 0 || level <= mapMonsterLevelMax)))
                 .OrderByDescending(x => x.Name.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)).ThenBy(x => x.Name)
                 .Take(limit).Select(x =>
                 {
@@ -70,6 +82,64 @@ public sealed class GameDatabaseService
         };
     }
 
+    public long NpcSellPrice(DatabaseItem item) => _npcPrices.GetValueOrDefault(item.Id)?.NpcSellPrice ?? item.NpcSellPrice;
+
+    private IEnumerable<DatabaseSearchResult> SearchItems(string query, int limit, bool includeEffects, int minSlots, bool byPrice)
+    {
+        var filter = new ItemDatabaseQuery(query);
+        var items = _database.Items.Where(item => filter.Matches(item, includeEffects) &&
+            (minSlots <= 0 || ItemDatabaseQuery.Slots(item) >= minSlots));
+        var sorted = byPrice ? items.OrderByDescending(NpcSellPrice) :
+            items.OrderByDescending(item => item.Name.StartsWith(query, StringComparison.CurrentCultureIgnoreCase));
+        return sorted.ThenBy(item => item.Name).Take(limit).Select(item =>
+            new DatabaseSearchResult(DatabaseSearchKind.Items, item, item.Name, $"{item.Type} · #{item.Id}" +
+                (byPrice ? $" · NPC {NpcSellPrice(item):N0} z" : "")));
+    }
+
+    public decimal TypicalNpcDropValue(DatabaseMonster monster)
+    {
+        return monster.Drops.Where(drop => !drop.IsMvp).Sum(drop =>
+            _itemsById.TryGetValue(drop.ItemId, out var item) &&
+            decimal.TryParse(drop.Rate.Trim().TrimEnd('%').Replace(',', '.'), System.Globalization.NumberStyles.AllowDecimalPoint,
+                System.Globalization.CultureInfo.InvariantCulture, out var chance)
+                ? NpcSellPrice(item) * chance / 100m : 0m);
+    }
+
+    public string? SuggestName(DatabaseSearchKind kind, string query)
+    {
+        query = query.Trim().ToUpperInvariant();
+        if (query.Length is < 4 or > 80 || query.All(char.IsDigit)) return null;
+        IEnumerable<string> names = kind switch
+        {
+            DatabaseSearchKind.Items => _database.Items.Select(item => item.Name),
+            DatabaseSearchKind.Monsters => _database.Monsters.Select(monster => monster.Name),
+            DatabaseSearchKind.Maps => _database.Maps.Select(map => map.Name),
+            _ => []
+        };
+        var cutoff = query.Length < 7 ? 1 : 2;
+        var row = new int[query.Length + 1];
+        var previous = new int[row.Length];
+        string? best = null;
+        foreach (var name in names)
+        {
+            if (Math.Abs(name.Length - query.Length) > cutoff) continue;
+            for (var col = 0; col < row.Length; col++) previous[col] = col;
+            for (var index = 0; index < name.Length; index++)
+            {
+                row[0] = index + 1;
+                var letter = char.ToUpperInvariant(name[index]);
+                for (var col = 1; col < row.Length; col++)
+                    row[col] = Math.Min(Math.Min(row[col - 1] + 1, previous[col] + 1),
+                        previous[col - 1] + (query[col - 1] == letter ? 0 : 1));
+                (row, previous) = (previous, row);
+            }
+            if (previous[^1] > cutoff) continue;
+            cutoff = previous[^1] - 1;
+            best = name;
+        }
+        return best;
+    }
+
     public IEnumerable<DatabaseSearchResult> SearchMonsters(string query, MonsterSearchFilter filter, int limit = 100)
     {
         query = query.Trim();
@@ -79,8 +149,15 @@ public sealed class GameDatabaseService
         bool TextMatches(string actual, string wanted) => string.IsNullOrWhiteSpace(wanted) ||
             actual.StartsWith(wanted, StringComparison.OrdinalIgnoreCase);
 
+        var dropQuery = filter.DropItem.Trim();
+        var dropIds = dropQuery.Length == 0 ? null : int.TryParse(dropQuery.TrimStart('#'), out var id)
+            ? new HashSet<int> { id }
+            : _database.Items.Where(item => item.Name.Contains(dropQuery, StringComparison.CurrentCultureIgnoreCase))
+                .Select(item => item.Id).ToHashSet();
+
         return _database.Monsters
             .Where(x => Matches(x.Name, x.Id.ToString()))
+            .Where(x => dropIds is null || x.Drops.Any(drop => dropIds.Contains(drop.ItemId)))
             .Where(x => TextMatches(x.Race, filter.Race))
             .Where(x => TextMatches(x.Element, filter.Element))
             .Where(x => TextMatches(x.Size, filter.Size))
@@ -141,6 +218,6 @@ public sealed class GameDatabaseService
     }
 
     public DatabaseMonster? Monster(int id) => _monstersById.GetValueOrDefault(id);
-    public DatabaseItem? Item(int id) => _database.Items.FirstOrDefault(x => x.Id == id);
+    public DatabaseItem? Item(int id) => _itemsById.GetValueOrDefault(id);
     public DatabaseMap? Map(string code) => _database.Maps.FirstOrDefault(x => x.Code.Equals(code, StringComparison.OrdinalIgnoreCase));
 }

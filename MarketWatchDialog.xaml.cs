@@ -8,10 +8,10 @@ public partial class MarketWatchDialog : Window
 {
     private Rect? _centerArea;
     public MarketWatchRule? Rule { get; private set; }
-    public MarketWatchDialog(GameDatabaseService database, DatabaseItem? item = null, MarketWatchRule? rule = null)
+    public MarketWatchDialog(GameDatabaseService database, DatabaseItem? item = null, MarketWatchRule? rule = null, bool buying = false)
     {
         InitializeComponent();
-        Editor.Initialize(database, item, rule);
+        Editor.Initialize(database, item, rule, buying: buying);
         Loaded += (_, _) => { Recenter(); Editor.FocusEditor(); };
         SizeChanged += (_, _) => Recenter();
     }

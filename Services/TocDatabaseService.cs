@@ -37,7 +37,8 @@ public static class TocDatabaseService
                 foreach (var p in raw.EnumerateObject().Where(p => p.Name is not ("desc" or "display_desc")))
                     item.Stats[p.Name] = p.Value.ToString();
                 item.Stats.Remove("weight");
-                item.Stats["Weight"] = (Int(raw, "weight") / 10m).ToString("0.####", CultureInfo.InvariantCulture);
+                if (int.TryParse(Text(raw, "weight"), NumberStyles.Integer, CultureInfo.InvariantCulture, out var weight) && weight >= 0)
+                    item.Stats["Weight"] = (weight / 10m).ToString("0.####", CultureInfo.InvariantCulture);
                 result.Items.Add(item);
             }
         }

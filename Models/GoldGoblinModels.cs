@@ -3,6 +3,8 @@ using System.Runtime.CompilerServices;
 
 namespace RoAura.Models;
 
+public sealed record ManualPriceChange(DateTime ChangedUtc, long PreviousPrice, long NewPrice);
+
 public sealed class GoldGoblinPriceRule : INotifyPropertyChanged
 {
     private string _name = "";
@@ -16,6 +18,16 @@ public sealed class GoldGoblinPriceRule : INotifyPropertyChanged
     public string Name { get => _name; set => Set(ref _name, value?.Trim() ?? ""); }
     public bool UseVendingPrice { get => _useVendingPrice; set => Set(ref _useVendingPrice, value); }
     public long ManualPrice { get => _manualPrice; set => Set(ref _manualPrice, Math.Max(0, value)); }
+
+    public List<ManualPriceChange> ManualPriceHistory { get; set; } = [];
+
+    public void ChangeManualPrice(long price)
+    {
+        if (price < 0 || price == ManualPrice) return;
+        ManualPriceHistory ??= [];
+        ManualPriceHistory.Add(new(DateTime.UtcNow, ManualPrice, price));
+        ManualPrice = price;
+    }
 
     public event PropertyChangedEventHandler? PropertyChanged;
     private void Set<T>(ref T field, T value, [CallerMemberName] string? name = null)

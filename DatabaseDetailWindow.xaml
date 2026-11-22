@@ -4,18 +4,42 @@
         WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="False"
         AllowsTransparency="True" Background="Transparent" Foreground="{DynamicResource UiForeground_17365F}" FontFamily="Trebuchet MS"
         Width="390" MinWidth="340" MinHeight="460">
+    <Window.Resources>
+        <Style x:Key="FarmResultButtonStyle" TargetType="Button" BasedOn="{StaticResource RoButtonBaseStyle}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Card" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Card" Property="Background" Value="{DynamicResource RoSelectionBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Card" Property="Opacity" Value="0.65"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Border BorderBrush="{DynamicResource UiBorder_5E86BD}" BorderThickness="2" CornerRadius="9" Background="{DynamicResource UiBackground_F6F9FE}">
         <Grid>
             <Grid.RowDefinitions><RowDefinition Height="42"/><RowDefinition Height="*"/><RowDefinition Height="30"/></Grid.RowDefinitions>
             <Border Background="{DynamicResource UiBackground_DCEBFA}" BorderBrush="{DynamicResource UiBorder_7DA2D1}" BorderThickness="0,0,0,2" CornerRadius="7,7,0,0">
                 <Grid Margin="12,5"><TextBlock x:Name="PanelTitle" Text="Результат" FontFamily="Georgia" FontWeight="Bold" FontSize="17" Foreground="{DynamicResource UiForeground_174D92}" VerticalAlignment="Center"/>
+                    <Button x:Name="BackButton" HorizontalAlignment="Right" Margin="0,0,42,0"
+                            MinHeight="0" Height="30" Padding="9,0" Visibility="Collapsed" Click="Back_Click"/>
                     <Button x:Name="CloseButton" HorizontalAlignment="Right" Content="&#x2715;" Width="34" Height="30" MinHeight="0"
                             Margin="0" Padding="0" FontSize="15" Click="Close_Click"
                             ToolTip="Закрыть базу данных"/>
                 </Grid>
             </Border>
             <Border Grid.Row="1" Margin="9,8" BorderBrush="{DynamicResource UiBorder_A9C0DD}" BorderThickness="1" Background="{DynamicResource UiBackground_F8FBFF}" CornerRadius="5">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer x:Name="DetailsScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel x:Name="DetailsPanel" Margin="13"/>
                 </ScrollViewer>
             </Border>

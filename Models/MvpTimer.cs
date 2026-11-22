@@ -31,6 +31,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
             var next = value?.Trim() ?? "";
             if (!Set(ref _locationCode, next)) return;
             ClearMarker();
+            OnPropertyChanged(nameof(LocationLabel));
         }
     }
     public double? MarkerX { get => _markerX; set => Set(ref _markerX, NormalizeMarker(value)); }
@@ -56,9 +57,65 @@ public sealed class MvpTimer : INotifyPropertyChanged
             if (!Set(ref _monsterId, Math.Max(0, value))) return;
             _monsterImagePath = "";
             OnPropertyChanged(nameof(MonsterImagePath));
+            OnPropertyChanged(nameof(TimerImage));
         }
     }
     public double DurationMinutes { get => _durationMinutes; set => Set(ref _durationMinutes, Math.Clamp(value, 0.1, 10080)); }
+    private double _respawnWindowStartMinutes;
+    public double RespawnWindowStartMinutes
+    {
+        get => _respawnWindowStartMinutes;
+        set => Set(ref _respawnWindowStartMinutes, double.IsFinite(value) ? Math.Clamp(value, 0, 10080) : 0);
+    }
+
+    private DateTime? _respawnWindowOpensAtUtc;
+    public DateTime? RespawnWindowOpensAtUtc
+    {
+        get => _respawnWindowOpensAtUtc;
+        set
+        {
+            if (!Set(ref _respawnWindowOpensAtUtc, value)) return;
+            RefreshRespawnWindow();
+            OnPropertyChanged(nameof(StateText));
+        }
+    }
+
+    private bool _hasOverlappingRespawn;
+    [JsonIgnore]
+    public bool HasOverlappingRespawn
+    {
+        get => _hasOverlappingRespawn;
+        internal set => Set(ref _hasOverlappingRespawn, value);
+    }
+
+    private double _secondsDisplayThresholdMinutes;
+    [JsonIgnore]
+    public double SecondsDisplayThresholdMinutes
+    {
+        get => _secondsDisplayThresholdMinutes;
+        internal set
+        {
+            if (!Set(ref _secondsDisplayThresholdMinutes, value)) return;
+            OnPropertyChanged(nameof(RemainingText));
+            OnPropertyChanged(nameof(OverlayCountdown));
+            OnPropertyChanged(nameof(DisplayText));
+        }
+    }
+
+    [JsonIgnore] public bool HasRespawnWindow => RespawnWindowOpensAtUtc is { } opening &&
+        EndsAtUtc is { } closing && opening < closing;
+    [JsonIgnore] public bool IsRespawnWindowOpen => IsRunning && HasRespawnWindow &&
+        RemainingSeconds <= (EndsAtUtc!.Value - RespawnWindowOpensAtUtc!.Value).TotalSeconds;
+    [JsonIgnore] public bool IsCompleted => EndsAtUtc.HasValue && !IsRunning;
+    [JsonIgnore] public string OverlayCountdown => RemainingText;
+
+    private void RefreshRespawnWindow()
+    {
+        OnPropertyChanged(nameof(IsRespawnWindowOpen));
+        OnPropertyChanged(nameof(IsCompleted));
+        OnPropertyChanged(nameof(OverlayCountdown));
+    }
+
     public DateTime? KilledAtUtc
     {
         get => _killedAtUtc;
@@ -84,7 +141,9 @@ public sealed class MvpTimer : INotifyPropertyChanged
         {
             if (!Set(ref _endsAtUtc, value)) return;
             OnPropertyChanged(nameof(IsRunning));
+            OnPropertyChanged(nameof(IsVisible));
             OnPropertyChanged(nameof(StateText));
+            RefreshRespawnWindow();
         }
     }
     public bool Enabled { get => _enabled; set { if (Set(ref _enabled, value)) OnPropertyChanged(nameof(IsVisible)); } }
@@ -104,14 +163,27 @@ public sealed class MvpTimer : INotifyPropertyChanged
             OnPropertyChanged(nameof(IsRunning));
             OnPropertyChanged(nameof(IsVisible));
             OnPropertyChanged(nameof(StateText));
+            RefreshRespawnWindow();
         }
     }
 
     [JsonIgnore] public bool IsRunning => EndsAtUtc.HasValue && RemainingSeconds > 0;
-    [JsonIgnore] public bool IsVisible => Enabled && IsRunning;
+    private bool _showAfterCompletion;
+    public bool ShowAfterCompletion
+    {
+        get => _showAfterCompletion;
+        set { if (Set(ref _showAfterCompletion, value)) OnPropertyChanged(nameof(IsVisible)); }
+    }
+
+    [JsonIgnore] public bool IsVisible => Enabled && EndsAtUtc.HasValue && (IsRunning || ShowAfterCompletion);
     [JsonIgnore] public bool HasKillTime => KilledAtUtc.HasValue;
     [JsonIgnore] public string KilledAtText => KilledAtUtc?.ToLocalTime().ToString("HH:mm:ss") ?? "";
     [JsonIgnore] public IReadOnlyList<MonsterSpawnEntry> RespawnHints { get; private set; } = [];
+    [JsonIgnore] public byte[]? MonsterImagePng { get; private set; }
+    [JsonIgnore] public object TimerImage => (object?)MonsterImagePng ?? MonsterImagePath;
+    [JsonIgnore] public MonsterSpawnEntry? SelectedSpawn => RespawnHints.FirstOrDefault(spawn =>
+        string.Equals(spawn.Code, LocationCode, StringComparison.OrdinalIgnoreCase));
+    [JsonIgnore] public string LocationLabel => SelectedSpawn is { Name.Length: > 0 } spawn ? spawn.Name : LocationCode;
     [JsonIgnore]
     public string MonsterImagePath
     {
@@ -123,13 +195,18 @@ public sealed class MvpTimer : INotifyPropertyChanged
         }
     }
     [JsonIgnore] public string StateText => Services.LocalizationService.Get(
-        IsRunning ? "TimerRunning" : EndsAtUtc.HasValue ? "TimerCompleted" : "TimerNotStarted");
+        IsRespawnWindowOpen ? "RespawnWindowOpen" : IsRunning ? "TimerRunning" : EndsAtUtc.HasValue ? "TimerCompleted" : "TimerNotStarted");
     [JsonIgnore] public bool CompletionSoundPlayed { get; set; }
     [JsonIgnore]
     public string RemainingText
     {
         get
         {
+            if (SecondsDisplayThresholdMinutes > 0 && RemainingSeconds > SecondsDisplayThresholdMinutes * 60)
+            {
+                var minutes = (long)Math.Ceiling(RemainingSeconds / 60);
+                return $"{minutes / 60:00}:{minutes % 60:00}";
+            }
             var time = TimeSpan.FromSeconds(Math.Ceiling(RemainingSeconds));
             return time.TotalHours >= 1
                 ? $"{(int)time.TotalHours:00}:{time.Minutes:00}:{time.Seconds:00}"
@@ -148,10 +225,13 @@ public sealed class MvpTimer : INotifyPropertyChanged
     {
         if (monster is not null) IsMvp = monster.IsMvp;
         _monsterImagePath = monster?.LocalImagePath ?? "";
+        MonsterImagePng = monster?.LocalImagePng;
         RespawnHints = monster is null ? Array.Empty<MonsterSpawnEntry>() : monster.Spawns;
         SelectFirstLocationIfMissing();
         OnPropertyChanged(nameof(RespawnHints));
         OnPropertyChanged(nameof(MonsterImagePath));
+        OnPropertyChanged(nameof(TimerImage));
+        OnPropertyChanged(nameof(LocationLabel));
     }
 
     public void Restart()
@@ -164,10 +244,11 @@ public sealed class MvpTimer : INotifyPropertyChanged
         var draft = new MvpTimer
         {
             Id = Id, Name = Name, MonsterId = MonsterId, IsMvp = IsMvp, DurationMinutes = DurationMinutes,
-            Enabled = Enabled, LocationCode = LocationCode, DisplayNumber = DisplayNumber,
+            RespawnWindowStartMinutes = RespawnWindowStartMinutes,
+            Enabled = Enabled, ShowAfterCompletion = ShowAfterCompletion, LocationCode = LocationCode, DisplayNumber = DisplayNumber,
             CompletionSoundEnabled = CompletionSoundEnabled, CompletionSoundPath = CompletionSoundPath,
             CompletionSoundVolumePercent = CompletionSoundVolumePercent,
-            _monsterImagePath = _monsterImagePath, RespawnHints = RespawnHints
+            _monsterImagePath = _monsterImagePath, MonsterImagePng = MonsterImagePng, RespawnHints = RespawnHints
         };
         draft.SelectFirstLocationIfMissing();
         draft.StartFromKillTime(killedAtUtc);
@@ -180,11 +261,15 @@ public sealed class MvpTimer : INotifyPropertyChanged
         if (draft.Id != Id || draft.KilledAtUtc is null)
             throw new ArgumentException("Restart draft must belong to this timer and contain a kill time.", nameof(draft));
         Name = draft.Name; MonsterId = draft.MonsterId; IsMvp = draft.IsMvp; DurationMinutes = draft.DurationMinutes;
-        Enabled = draft.Enabled; LocationCode = draft.LocationCode; MarkerX = draft.MarkerX; MarkerY = draft.MarkerY;
+        RespawnWindowStartMinutes = draft.RespawnWindowStartMinutes;
+        Enabled = draft.Enabled; ShowAfterCompletion = draft.ShowAfterCompletion; LocationCode = draft.LocationCode; MarkerX = draft.MarkerX; MarkerY = draft.MarkerY;
         CompletionSoundEnabled = draft.CompletionSoundEnabled; CompletionSoundPath = draft.CompletionSoundPath;
         CompletionSoundVolumePercent = draft.CompletionSoundVolumePercent;
-        _monsterImagePath = draft._monsterImagePath; RespawnHints = draft.RespawnHints;
-        OnPropertyChanged(nameof(MonsterImagePath)); OnPropertyChanged(nameof(RespawnHints));
+        _monsterImagePath = draft._monsterImagePath; MonsterImagePng = draft.MonsterImagePng; RespawnHints = draft.RespawnHints;
+        OnPropertyChanged(nameof(MonsterImagePath));
+        OnPropertyChanged(nameof(TimerImage));
+        OnPropertyChanged(nameof(LocationLabel));
+        OnPropertyChanged(nameof(RespawnHints));
         StartFromKillTime(draft.KilledAtUtc.Value);
     }
 
@@ -195,8 +280,9 @@ public sealed class MvpTimer : INotifyPropertyChanged
             ? DateTime.SpecifyKind(killedAtLocal, DateTimeKind.Local)
             : killedAtLocal.ToLocalTime();
         KilledAtUtc = local.ToUniversalTime();
-        EndsAtUtc = KilledAtUtc.Value.AddMinutes(DurationMinutes);
-        RemainingSeconds = DurationMinutes * 60;
+        RespawnWindowOpensAtUtc = RespawnWindowStartMinutes > 0
+            ? KilledAtUtc.Value.AddMinutes(DurationMinutes) : null;
+        EndsAtUtc = KilledAtUtc.Value.AddMinutes(DurationMinutes + RespawnWindowStartMinutes);
         if (EndsAtUtc <= DateTime.UtcNow)
             RemainingSeconds = 0;
         else
@@ -213,10 +299,22 @@ public sealed class MvpTimer : INotifyPropertyChanged
         StartFromKillTime(killedAt);
     }
 
+    public static string FormatServerUtcOffset(int minutes) =>
+        $"UTC{(minutes < 0 ? "−" : "+")}{Math.Abs(minutes) / 60:00}:{Math.Abs(minutes) % 60:00}";
+
+    public void StartFromServerKillClock(TimeSpan killTime, TimeSpan offset, DateTimeOffset? now = null)
+    {
+        var serverNow = (now ?? DateTimeOffset.UtcNow).ToOffset(offset);
+        var killedAt = new DateTimeOffset(serverNow.Date.Add(killTime), offset);
+        if (killedAt > serverNow) killedAt = killedAt.AddDays(-1);
+        StartFromKillTime(killedAt.UtcDateTime);
+    }
+
     public void Reset()
     {
         CompletionSoundPlayed = true;
         KilledAtUtc = null;
+        RespawnWindowOpensAtUtc = null;
         EndsAtUtc = null;
         RemainingSeconds = 0;
         OnPropertyChanged(nameof(IsRunning));

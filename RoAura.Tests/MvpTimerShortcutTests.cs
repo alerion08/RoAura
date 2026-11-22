@@ -8,6 +8,36 @@ namespace RoAura.Tests;
 public sealed class MvpTimerShortcutTests
 {
     [Fact]
+    public void Server_clock_uses_server_date_and_rolls_back_at_midnight()
+    {
+        var now = new DateTimeOffset(2026, 11, 22, 18, 45, 0, TimeSpan.Zero);
+        var timer = new MvpTimer();
+        timer.StartFromServerKillClock(new TimeSpan(23, 55, 0), TimeSpan.FromMinutes(330), now);
+        Assert.Equal(new DateTime(2026, 11, 22, 18, 25, 0, DateTimeKind.Utc), timer.KilledAtUtc);
+        timer.StartFromServerKillClock(new TimeSpan(0, 10, 0), TimeSpan.FromMinutes(330), now);
+        Assert.Equal(new DateTime(2026, 11, 22, 18, 40, 0, DateTimeKind.Utc), timer.KilledAtUtc);
+    }
+
+    [Fact]
+    public void Respawn_window_extends_timer_and_colours_only_the_tail()
+    {
+        var kill = DateTime.UtcNow;
+        var timer = new MvpTimer { DurationMinutes = 60, RespawnWindowStartMinutes = 10 };
+        timer.StartFromKillTime(kill);
+
+        Assert.Equal(kill.AddMinutes(60), timer.RespawnWindowOpensAtUtc);
+        Assert.Equal(kill.AddMinutes(70), timer.EndsAtUtc);
+        timer.RemainingSeconds = 601;
+        Assert.False(timer.IsRespawnWindowOpen);
+        timer.RemainingSeconds = 600;
+        Assert.True(timer.IsRespawnWindowOpen);
+        Assert.Equal(timer.RemainingText, timer.OverlayCountdown);
+        timer.RemainingSeconds = 0;
+        Assert.False(timer.IsRespawnWindowOpen);
+        Assert.True(timer.IsCompleted);
+    }
+
+    [Fact]
     public void Twelve_optional_shortcuts_default_to_none_and_report_changes()
     {
         var settings = new AppSettings();

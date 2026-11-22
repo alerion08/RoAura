@@ -46,7 +46,8 @@ public sealed class MvpMapEditor : UserControl
         _loadedMap="#reload";Refresh();
     }
     private void Changed(object? sender,PropertyChangedEventArgs e)
-    {if(e.PropertyName is nameof(MvpTimer.LocationCode) or nameof(MvpTimer.MarkerX) or nameof(MvpTimer.MarkerY))Refresh();}
+    {if(e.PropertyName == nameof(MvpTimer.RespawnHints))_loadedMap="#reload";
+        if(e.PropertyName is nameof(MvpTimer.LocationCode) or nameof(MvpTimer.MarkerX) or nameof(MvpTimer.MarkerY) or nameof(MvpTimer.RespawnHints))Refresh();}
     private void Refresh()
     {
         var code=MvpMapImageCache.Normalize(_timer?.LocationCode);
@@ -62,7 +63,14 @@ public sealed class MvpMapEditor : UserControl
     }
     private async void LoadMap(string code,int version)
     {
-        var image=await _cache.GetAsync(code);
+        BitmapSource? image = null;
+        if (_timer?.SelectedSpawn?.LocalMapPng is { Length: > 0 } bytes)
+        {
+            try { image = MvpMapImageCache.Decode(bytes); }
+            catch (Exception ex) when (ex is IOException or NotSupportedException or FormatException)
+            { DebugLog.Write($"MVP CATALOG MAP READ {code}: {ex.Message}"); }
+        }
+        image ??= await _cache.GetAsync(code);
         // A previous map completing later must never overwrite a newer choice or an unloaded control.
         if(version!=_loadVersion || code!=_loadedMap)return;
         _loading=false;_imageFailed=image is null;_image.Source=image;

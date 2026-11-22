@@ -17,6 +17,17 @@ public sealed class FarmingLootEntry
     [JsonIgnore] public string TimeText => ReceivedUtc.ToLocalTime().ToString("G") +
         (LastReceivedUtc > ReceivedUtc ? " — " + LastReceivedUtc.ToLocalTime().ToString("T") : "");
 }
+public readonly record struct FarmingInterval(long BaseExperience, long JobExperience, long Zeny)
+{
+    public const long Ticks = 5 * TimeSpan.TicksPerMinute;
+    public bool IsValid => BaseExperience >= 0 && JobExperience >= 0 && Zeny >= 0;
+}
+
+public sealed record FarmingPlanTarget(int MonsterId, string Name, int Kills);
+public sealed record FarmingPlanDrop(int ItemId, string Name, long Quantity, long UnitPrice);
+public sealed record FarmingPlan(string MapCode, string MapName, string PriceSource,
+    FarmingPlanTarget[] Targets, FarmingPlanDrop[] Drops);
+
 public sealed class FarmingSession
 {
     public int SchemaVersion { get; set; } = 1;
@@ -29,6 +40,11 @@ public sealed class FarmingSession
     public DateTime? EndedUtc { get; set; }
     public long ActiveTicks { get; set; }
     public long ZenyGained { get; set; }
+    public Dictionary<long, FarmingInterval> Intervals { get; set; } = [];
+    public string Note { get; set; } = "";
+    public string Tags { get; set; } = "";
+    public FarmingPlan? Plan { get; set; }
+    public long ExpensesZeny { get; set; }
     public List<FarmingLootEntry> Loot { get; set; } = [];
     public void RecordLoot(DateTime receivedUtc, int id, string name, long count, long price, string source, bool known, bool excluded)
     {
@@ -42,7 +58,9 @@ public sealed class FarmingSession
     }
     [JsonIgnore] public long ItemCount => Loot.Where(row => !row.Excluded).Sum(row => row.Count);
     [JsonIgnore] public long LootValue => Loot.Sum(row => row.Total);
-    [JsonIgnore] public string DateText => StartedUtc.ToLocalTime().ToString("G");
+    [JsonIgnore] public decimal NetValue => (decimal)ZenyGained + LootValue - ExpensesZeny;
+    [JsonIgnore] public decimal? NetPerHour => ActiveTicks > 0 ? NetValue / ((decimal)ActiveTicks / TimeSpan.TicksPerHour) : null;
+    [JsonIgnore] public string DateText => StartedUtc.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
     [JsonIgnore] public string DurationText => TimeSpan.FromTicks(ActiveTicks).ToString(@"dd\.hh\:mm\:ss");
     [JsonIgnore] public string CharacterCaption => $"{CharacterName} · {Server} · CID {CharacterId}";
 }

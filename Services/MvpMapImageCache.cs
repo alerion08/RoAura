@@ -85,7 +85,7 @@ public sealed class MvpMapImageCache
         }
         return null;
     }
-    private static BitmapSource Decode(byte[] bytes)
+    internal static BitmapSource Decode(byte[] bytes)
     {
         if(bytes.Length==0||bytes.Length>2*1024*1024)throw new InvalidDataException("Invalid map image size.");
         using var stream=new MemoryStream(bytes,false);

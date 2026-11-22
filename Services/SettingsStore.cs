@@ -329,6 +329,7 @@ public sealed class SettingsStore
         foreach (var reminder in settings.Reminders) { reminder.CharacterScope ??= new(); reminder.CharacterScope.Characters ??= new(); }
         foreach (var equipment in settings.Equipment) { equipment.CharacterScope ??= new(); equipment.CharacterScope.Characters ??= new(); }
         settings.TocGoldGoblinPriceRules ??= new();
+        settings.RagnarokPlusGoldGoblinPriceRules ??= new();
         settings.BuffPanelGroups ??= new();
         foreach (var group in settings.BuffPanelGroups) { group.CharacterScope ??= new(); group.CharacterScope.Characters ??= new(); }
 
@@ -338,8 +339,11 @@ public sealed class SettingsStore
         settings.GoldGoblinPriceRules ??= new();
         settings.MarketWatchRules ??= new();
         settings.MarketWatchNotifications ??= new();
+        settings.RagnarokPlusMarketWatchRules = new((settings.RagnarokPlusMarketWatchRules ?? [])
+            .Where(r => r is not null && r.ItemId > 0 && (r.WithoutPrice || r.PriceThreshold >= 0))
+            .GroupBy(r => (r.ItemId, r.Buying)).Select(g => g.Last()));
         // Keep one rule per SpringRO item and discard malformed IDs without touching other settings.
-        settings.MarketWatchRules = new(settings.MarketWatchRules.Where(r => r is not null && r.ItemId > 0 &&
+        settings.MarketWatchRules = new(settings.MarketWatchRules.Where(r => r is not null && !r.Buying && r.ItemId > 0 &&
             (r.WithoutPrice || r.MaximumPrice >= 0)).GroupBy(r => r.ItemId).Select(g => g.Last()));
     }
 
@@ -573,7 +577,11 @@ public sealed class SettingsStore
             timer.RemainingSeconds = timer.EndsAtUtc.HasValue
                 ? Math.Max(0, (timer.EndsAtUtc.Value - DateTime.UtcNow).TotalSeconds)
                 : 0;
-            if (timer.RemainingSeconds <= 0) timer.EndsAtUtc = null;
+            if (timer.RemainingSeconds <= 0)
+            {
+                if (!timer.ShowAfterCompletion) timer.EndsAtUtc = null;
+                else timer.CompletionSoundPlayed = true;
+            }
         }
 
         if (settings.SettingsVersion < 11 &&
@@ -588,9 +596,12 @@ public sealed class SettingsStore
         settings.ServerProfile = GameServerProfile.Normalize(settings.ServerProfile);
         if (GameServerProfile.SupportsServerDatabases(settings.ServerProfile))
         {
-            var version = settings.ServerProfile == GameServerProfile.SpringRo
-                ? GameDatabaseVersion.SpringRo
-                : GameDatabaseVersion.Rtm;
+            var version = settings.ServerProfile switch
+            {
+                GameServerProfile.SpringRo => GameDatabaseVersion.SpringRo,
+                GameServerProfile.RagnarokPlus => GameServerProfile.RagnarokPlus,
+                _ => GameDatabaseVersion.Rtm
+            };
             settings.LootDatabaseVersion = version;
             settings.MvpDatabaseVersion = version;
         }

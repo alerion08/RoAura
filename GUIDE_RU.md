@@ -1,4 +1,4 @@
-# RoAura 3.5.0 — инструкция
+# RoAura 3.6.0 — инструкция
 
 ## Таймеры MVP и обычных монстров
 
@@ -200,7 +200,7 @@ RoAura также обновляет кэш экипировки при полу
 powershell -ExecutionPolicy Bypass -File .\build-release.ps1
 ```
 
-Результат: `artifacts\RoAura-3.5.0-portable.zip`. Для Setup установите Inno Setup 6 и запустите `build-installer.ps1`.
+Результат: `artifacts\RoAura-3.6.0-portable.zip`. Для Setup установите Inno Setup 6 и запустите `build-installer.ps1`.
 
 Ссылки: https://twitch.tv/im_alerion · http://discord.gg/aleriontv · https://www.donationalerts.com/r/im_alerion · https://rtm-refuge.online
 

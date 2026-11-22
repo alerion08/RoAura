@@ -18,6 +18,7 @@ public partial class DatabaseOverlayWindow : Window
     private readonly GameDatabaseService _database;
     private readonly DatabaseDetailWindow _details;
     private readonly SpringRoMarketService _market;
+    private RagnarokPlusMarketWindow? _ragnarokPlusMarket;
     private readonly DispatcherTimer _visibilityTimer;
     private readonly DispatcherTimer _marketRefreshTimer;
     private DatabaseSearchKind _kind = DatabaseSearchKind.Monsters;
@@ -45,6 +46,20 @@ public partial class DatabaseOverlayWindow : Window
         _market = market ?? throw new ArgumentNullException(nameof(market));
         InitializeComponent();
         _details = new DatabaseDetailWindow(settings, database);
+        _details.GetSpringFarmOffers = _market.ReadCachedOffers;
+        _details.LookupMarketSide = async (item, side, cancellation) =>
+        {
+            if (_settings.ServerProfile == GameServerProfile.RagnarokPlus)
+            {
+                var offers = await (_ragnarokPlusMarket ??= new()).SearchAsync(item, side, cancellation);
+                cancellation.ThrowIfCancellationRequested();
+                RecordRagnarokPlusOffers(item.Id, offers, side == "BUY");
+                return offers;
+            }
+
+            var results = await _market.SearchAsync(item.Name, side, cancellation);
+            return results.Where(offer => offer.ItemId == item.Id).ToArray();
+        };
         _details.HideRequested += () => HideRequested?.Invoke();
         _market.DataUpdated += Market_DataUpdated;
         RefreshLanguage();
@@ -87,10 +102,20 @@ public partial class DatabaseOverlayWindow : Window
         ItemsMode.Content = T("Предметы", "Items");
         MapsMode.Content = T("Карты", "Maps");
         MarketMode.Content = T("Маркет", "Market");
+        RecentCardsButton.Content = T("Недавние карточки", "Recent cards");
+        ItemSlotsLabel.Text = T("Слотов от", "Min. slots");
+        DropItemLabel.Text = T("Предмет дропа: название или ID", "Drop item name or ID");
+        NpcPriceSort.Content = T("Сначала дорогие у NPC", "Highest NPC sell price first");
+        FavoriteListsButton.Content = T("Избранное", "Favorites");
         MarketSellMode.Content = T("Продажа", "Selling");
         MarketBuyMode.Content = T("Покупка", "Buying");
         SearchButton.Content = T("Найти", "Search");
+        RefreshCatalogDownloadButton();
+        CompactMarketPrices.Content = T("Цены в млн", "Prices in millions");
         MarketTypeLabel.Text = T("Тип магазина:", "Shop type:");
+        var ragnarokPlus = _settings.ServerProfile == GameServerProfile.RagnarokPlus;
+        RagnarokPlusSignInButton.Content = T("Войти", "Sign in");
+        RagnarokPlusSignInButton.Visibility = ragnarokPlus ? Visibility.Visible : Visibility.Collapsed;
         AdvancedHeaderText.Text = T("Расширенный поиск", "Advanced search");
         RaceLabel.Text = T("Раса", "Race");
         ElementLabel.Text = T("Элемент", "Element");
@@ -98,6 +123,8 @@ public partial class DatabaseOverlayWindow : Window
         ElementLevelLabel.Text = T("Уровень элемента, от", "Element level, min");
         LevelMinLabel.Text = T("Уровень, от", "Level, min");
         LevelMaxLabel.Text = T("Уровень, до", "Level, max");
+        MapLevelMinLabel.Text = T("Уровень монстра, от", "Monster level, min");
+        MapLevelMaxLabel.Text = T("Уровень монстра, до", "Monster level, max");
         BaseExpMinLabel.Text = T("Base EXP, от", "Base EXP, min");
         JobExpMinLabel.Text = T("Job EXP, от", "Job EXP, min");
         HpMinLabel.Text = T("HP, от", "HP, min");
@@ -312,17 +339,105 @@ public partial class DatabaseOverlayWindow : Window
         return new ForegroundProcess.WindowBounds(0, 0, (int)Math.Round(corner.X), (int)Math.Round(corner.Y));
     }
 
+    private void OpenFavoriteLists_Click(object sender, RoutedEventArgs e) { _details.ResetDetails(); _details.ShowFavoriteLists(); }
+
     private void RefreshResults()
     {
+        RefreshCatalogDownloadButton();
+        if (CatalogRequired && _kind != DatabaseSearchKind.Market)
+        {
+            ResultsList.ItemsSource = null;
+            FooterText.Text = "";
+            _details.ResetDetails();
+            return;
+        }
+        var mapLevelMin = 0;
+        var mapLevelMax = 0;
+        if (_kind == DatabaseSearchKind.Maps &&
+            (!TryReadLevelBound(MapLevelMinFilter.Text, out mapLevelMin) ||
+             !TryReadLevelBound(MapLevelMaxFilter.Text, out mapLevelMax) ||
+             (mapLevelMax > 0 && mapLevelMin > mapLevelMax)))
+        {
+            ResultsList.ItemsSource = null;
+            _details.ResetDetails();
+            FooterText.Text = T("Укажите корректный диапазон уровней.", "Enter a valid level range.");
+            return;
+        }
+
         ResultsList.ItemsSource = (_kind == DatabaseSearchKind.Monsters
             ? _database.SearchMonsters(SearchBox.Text, ReadMonsterFilter())
-            : _database.Search(_kind, SearchBox.Text)).ToList();
+            : _database.Search(_kind, SearchBox.Text, includeItemEffects: true,
+                mapMonsterLevelMin: mapLevelMin, mapMonsterLevelMax: mapLevelMax,
+                itemSlotsMin: _kind == DatabaseSearchKind.Items ? Number(ItemSlotsFilter.Text) : 0,
+                sortItemsByNpcPrice: _kind == DatabaseSearchKind.Items && NpcPriceSort.IsChecked == true)).ToList();
         FooterText.Text = T($"{ResultsList.Items.Count} результатов · максимум 100", $"{ResultsList.Items.Count} results · maximum 100");
         if (ResultsList.Items.Count > 0) ResultsList.SelectedIndex = 0;
-        else _details.Clear();
+        else
+        {
+            _details.ResetDetails();
+            var suggestion = mapLevelMin == 0 && mapLevelMax == 0 ? _database.SuggestName(_kind, SearchBox.Text) : null;
+            if (suggestion is not null)
+                FooterText.Text = T($"Нет результатов. Возможно: {suggestion}", $"No results. Did you mean {suggestion}?");
+        }
     }
 
-    private async Task RefreshMarketResultsAsync()
+    private async void RagnarokPlusSignIn_Click(object sender, RoutedEventArgs e)
+    {
+        if (_settings.ServerProfile != GameServerProfile.RagnarokPlus) return;
+        try
+        {
+            var browser = _ragnarokPlusMarket ??= new();
+            await browser.SignInAsync();
+            browser.IsVisibleChanged -= SignInVisibilityChanged;
+            browser.IsVisibleChanged += SignInVisibilityChanged;
+        }
+        catch (Exception ex)
+        {
+            DebugLog.Write($"RAGNAROK+ SIGN-IN WINDOW ERROR: {ex.GetType().Name}");
+            FooterText.Text = T("Не удалось открыть вход Ragnarok+. Проверьте наличие WebView2 Runtime.",
+                "Could not open Ragnarok+ sign-in. Check that WebView2 Runtime is installed.");
+        }
+    }
+
+    private async void SignInVisibilityChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if ((bool)e.NewValue) return;
+        ((RagnarokPlusMarketWindow)sender).IsVisibleChanged -= SignInVisibilityChanged;
+        await RefreshMarketInBackgroundAsync();
+    }
+
+    private string MarketPriceCaption(string text)
+    {
+        var price = SpringRoMarketService.ParsePrice(text);
+        return CompactMarketPrices.IsChecked == true && price is >= 1_000_000 and < long.MaxValue
+            ? T($"{price / 1_000_000m:0.######} млн z", $"{price / 1_000_000m:0.######}M z") : text;
+    }
+
+    private string MarketLotTotal(MarketListing listing)
+    {
+        var price = SpringRoMarketService.ParsePrice(listing.Price);
+        var quantity = SpringRoMarketService.ParsePrice(listing.Quantity);
+        return price is > 0 and < long.MaxValue && quantity is > 0 and < long.MaxValue
+            ? T($" · Всего {(System.Numerics.BigInteger)price * quantity:N0} z", $" · Total {(System.Numerics.BigInteger)price * quantity:N0} z") : "";
+    }
+
+    private void CompactMarketPrices_Changed(object sender, RoutedEventArgs e)
+    {
+        if (!IsLoaded || _kind != DatabaseSearchKind.Market) return;
+        var current = ResultsList.Items.OfType<DatabaseSearchResult>().ToArray();
+        if (current.Length == 0 || current.Any(row => row.Value is not MarketListing)) return;
+        var selected = ResultsList.SelectedIndex;
+        ResultsList.ItemsSource = current.Select(row => MarketResult((MarketListing)row.Value)).ToList();
+        ResultsList.SelectedIndex = selected;
+    }
+
+    private DatabaseSearchResult MarketResult(MarketListing listing) =>
+        new(DatabaseSearchKind.Market, listing, $"{listing.ItemName} · {MarketPriceCaption(listing.Price)}" +
+            (string.IsNullOrWhiteSpace(listing.GameMode) ? "" : $" · {listing.GameMode}"),
+            T($"{listing.Quantity} шт.", $"{listing.Quantity} pcs") + MarketLotTotal(listing) +
+            $" · {listing.Owner} · {listing.Map} ({listing.X},{listing.Y})");
+
+    private async Task RefreshMarketResultsAsync(DatabaseItem? selectedItem = null)
     {
         if (!GameServerProfile.SupportsMarket(_settings.ServerProfile)) return;
         var query = SearchBox.Text.Trim();
@@ -330,8 +445,9 @@ public partial class DatabaseOverlayWindow : Window
         _marketSearchCancellation = null;
         var searchVersion = ++_marketSearchVersion;
 
+        ClearMarketPriceDepth();
         ResultsList.ItemsSource = null;
-        _details.Clear();
+        _details.ResetDetails();
         if (query.Length == 0)
         {
             FooterText.Text = T("Введите название предмета и нажмите «Найти».",
@@ -343,18 +459,63 @@ public partial class DatabaseOverlayWindow : Window
         var cancellation = new CancellationTokenSource();
         _marketSearchCancellation = cancellation;
         SearchButton.IsEnabled = false;
-        FooterText.Text = T($"Ищем «{query}» в актуальном маркете SpringRO…",
-            $"Searching the live SpringRO market for “{query}”…");
+        var ragnarokPlus = _settings.ServerProfile == GameServerProfile.RagnarokPlus;
+        FooterText.Text = T($"Ищем «{query}» в маркете…", $"Searching the market for “{query}”…");
         try
         {
             var type = MarketBuyMode.IsChecked == true ? "BUY" : "SELL";
-            var listings = await _market.SearchAsync(query, type, cancellation.Token);
+            IReadOnlyList<MarketListing> listings;
+            if (ragnarokPlus)
+            {
+                DatabaseItem[] candidates;
+                if (selectedItem is not null)
+                    candidates = [selectedItem];
+                else if (int.TryParse(query.TrimStart('#'), out var id) && id > 0)
+                {
+                    var itemById = _database.Item(id);
+                    candidates = itemById is null
+                        ? await (_ragnarokPlusMarket ??= new()).FindItemsAsync(query, cancellation.Token)
+                        : [itemById];
+                    candidates = candidates.Where(item => item.Id == id).ToArray();
+                }
+                else
+                {
+                    candidates = _database.Search(DatabaseSearchKind.Items, query).Select(result => (DatabaseItem)result.Value).ToArray();
+                    if (!File.Exists(ServerCatalogDownload.InstalledPath("ragnarokplus")))
+                    {
+                        var liveItems = await (_ragnarokPlusMarket ??= new()).FindItemsAsync(query, cancellation.Token);
+                        candidates = candidates.Concat(liveItems).DistinctBy(item => item.Id)
+                            .OrderByDescending(item => item.Name.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)).ToArray();
+                    }
+                }
+                cancellation.Token.ThrowIfCancellationRequested();
+                var exact = candidates.Where(item => item.Name.Equals(query, StringComparison.CurrentCultureIgnoreCase)).ToArray();
+                if (exact.Length == 1) candidates = exact;
+                if (candidates.Length != 1)
+                {
+                    FooterText.Text = candidates.Length == 0
+                        ? T("Предмет не найден в каталоге Ragnarok+.", "Item not found in the Ragnarok+ catalog.")
+                        : T("Выберите предмет из списка.", "Select an item from the list.");
+                    ResultsList.ItemsSource = candidates.Take(100).Select(item =>
+                        new DatabaseSearchResult(DatabaseSearchKind.Items, item, item.Name, $"#{item.Id}")).ToList();
+                    return;
+                }
+
+                var item = candidates[0];
+                listings = await (_ragnarokPlusMarket ??= new()).SearchAsync(item, type, cancellation.Token);
+                cancellation.Token.ThrowIfCancellationRequested();
+                RecordRagnarokPlusOffers(item.Id, listings, type == "BUY");
+            }
+            else
+                listings = await _market.SearchAsync(query, type, cancellation.Token);
             if (searchVersion != _marketSearchVersion || cancellation.IsCancellationRequested) return;
-            ResultsList.ItemsSource = listings.Select(x => new DatabaseSearchResult(DatabaseSearchKind.Market, x,
-                $"{x.ItemName} · {x.Price}",
-                T($"{x.Quantity} шт. · {x.Owner} · {x.Map} ({x.X},{x.Y})",
-                    $"{x.Quantity} pcs · {x.Owner} · {x.Map} ({x.X},{x.Y})"))).ToList();
-            FooterText.Text = listings.Count == 0
+            ResultsList.ItemsSource = listings.Select(MarketResult).ToList();
+            if (SearchBox.Text.Trim() == query) ShowMarketPriceDepth(listings, buying: type == "BUY");
+            FooterText.Text = ragnarokPlus
+                ? (listings.Count == 0
+                    ? T("Нет действующих предложений.", "No active listings.")
+                    : T($"{listings.Count} действующих предложений", $"{listings.Count} active listings"))
+                : listings.Count == 0
                 ? (_market.HasSnapshot
                     ? T($"По названию «{query}» предложений не найдено.", $"No listings found for “{query}”.")
                     : T("Маркет обновляется в фоне. Результаты появятся автоматически.",
@@ -362,15 +523,27 @@ public partial class DatabaseOverlayWindow : Window
                 : T($"{listings.Count} предложений · результат из локальной базы",
                     $"{listings.Count} listings · result from the local database");
             if (ResultsList.Items.Count > 0) ResultsList.SelectedIndex = 0;
-            else _details.Clear();
+            else _details.ResetDetails();
         }
         catch (OperationCanceledException) { }
+        catch (RagnarokPlusSignInRequiredException)
+        {
+            if (searchVersion != _marketSearchVersion) return;
+            FooterText.Text = T("Войдите на сайте Ragnarok+ в открывшемся окне и повторите поиск.",
+                "Sign in on Ragnarok+ in the opened window and repeat your search.");
+        }
+        catch (Microsoft.Web.WebView2.Core.WebView2RuntimeNotFoundException)
+        {
+            if (searchVersion != _marketSearchVersion) return;
+            FooterText.Text = T("Для поиска Ragnarok+ требуется WebView2 Runtime.",
+                "Ragnarok+ search requires WebView2 Runtime.");
+        }
         catch (Exception ex)
         {
             if (searchVersion != _marketSearchVersion) return;
             DebugLog.Write($"MARKET LOAD ERROR: {ex}");
             ResultsList.ItemsSource = null;
-            _details.Clear();
+            _details.ResetDetails();
             FooterText.Text = T("Не удалось загрузить маркет. Проверьте интернет-соединение.",
                 "Could not load the market. Check your internet connection.");
         }
@@ -398,8 +571,11 @@ public partial class DatabaseOverlayWindow : Window
             _restoringSearchQuery = false;
             if (MarketTypePanel is not null) MarketTypePanel.Visibility = kind == DatabaseSearchKind.Market ? Visibility.Visible : Visibility.Collapsed;
             if (MonsterAdvancedHost is not null) MonsterAdvancedHost.Visibility = kind == DatabaseSearchKind.Monsters ? Visibility.Visible : Visibility.Collapsed;
+            ClearMarketPriceDepth();
+            ItemFilters.Visibility = kind == DatabaseSearchKind.Items ? Visibility.Visible : Visibility.Collapsed;
+            MapLevelFilters.Visibility = kind == DatabaseSearchKind.Maps ? Visibility.Visible : Visibility.Collapsed;
             SearchBox.ToolTip = kind == DatabaseSearchKind.Market
-                ? T("Поиск только по названию предмета", "Search by item name only")
+                ? T("Поиск по названию или ID предмета", "Search by item name or ID")
                 : T("Поиск по названию или ID", "Search by name or ID");
             if (kind != DatabaseSearchKind.Market)
             {
@@ -411,7 +587,7 @@ public partial class DatabaseOverlayWindow : Window
             if (kind == DatabaseSearchKind.Market)
             {
                 ResultsList.ItemsSource = null;
-                _details.Clear();
+                _details.ResetDetails();
                 FooterText.Text = T("Введите название предмета и нажмите «Найти».",
                     "Enter an item name and press Search.");
             }
@@ -423,24 +599,73 @@ public partial class DatabaseOverlayWindow : Window
     {
         if (!IsLoaded || _restoringSearchQuery) return;
         _searchQueries[_kind] = SearchBox.Text;
-        if (_kind != DatabaseSearchKind.Market) RefreshResults();
+        if (_kind == DatabaseSearchKind.Market) ClearMarketPriceDepth();
+        else RefreshResults();
     }
-    private async void Search_Click(object sender, RoutedEventArgs e) { if (_kind == DatabaseSearchKind.Market) await RefreshMarketResultsAsync(); else RefreshResults(); }
-    private async void Search_KeyDown(object sender, KeyEventArgs e) { if (e.Key != Key.Enter) return; if (_kind == DatabaseSearchKind.Market) await RefreshMarketResultsAsync(); else RefreshResults(); }
+    private async void Search_Click(object sender, RoutedEventArgs e) => await SubmitSearchAsync();
+    private async void Search_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter) await SubmitSearchAsync();
+    }
+
+    private async Task SubmitSearchAsync()
+    {
+        if (_kind == DatabaseSearchKind.Market)
+        {
+            await RefreshMarketResultsAsync();
+            return;
+        }
+        RefreshResults();
+    }
     private async void MarketType_Checked(object sender, RoutedEventArgs e)
     {
-        if (IsLoaded && _kind == DatabaseSearchKind.Market && !string.IsNullOrWhiteSpace(SearchBox.Text))
+        if (IsLoaded && MarketSellMode is not null && MarketBuyMode is not null && _kind == DatabaseSearchKind.Market && !string.IsNullOrWhiteSpace(SearchBox.Text))
+        {
+            ResultsList.ItemsSource = null;
+            _details.ResetDetails();
             await RefreshMarketResultsAsync();
+        }
     }
-    private void Results_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    { if (ResultsList.SelectedItem is DatabaseSearchResult result) _details.ShowDetails(result.Value); }
+    private async void Results_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (ResultsList.SelectedItem is not DatabaseSearchResult result) return;
+        if (_kind == DatabaseSearchKind.Market && _settings.ServerProfile == GameServerProfile.RagnarokPlus &&
+            result.Value is DatabaseItem item)
+        {
+            SearchBox.Text = $"#{item.Id}";
+            await RefreshMarketResultsAsync(item);
+            return;
+        }
+        _details.ItemSearchText = _kind == DatabaseSearchKind.Items ? SearchBox.Text : "";
+        _details.ResetDetails();
+        _details.ShowDetails(result.Value);
+    }
     private void AdvancedFilter_Changed(object sender, RoutedEventArgs e)
     { if (IsLoaded && _kind == DatabaseSearchKind.Monsters) RefreshResults(); }
     private void AdvancedFilter_Changed(object sender, TextChangedEventArgs e)
     { if (IsLoaded && _kind == DatabaseSearchKind.Monsters) RefreshResults(); }
 
+    private void ItemFilters_Changed(object sender, RoutedEventArgs e)
+    {
+        if (IsLoaded && _kind == DatabaseSearchKind.Items) RefreshResults();
+    }
+
+    private void RecentCards_Click(object sender, RoutedEventArgs e) => _details.ShowRecentCards();
+
+    private void MapLevelFilter_Changed(object sender, TextChangedEventArgs e)
+    {
+        if (IsLoaded && _kind == DatabaseSearchKind.Maps) RefreshResults();
+    }
+
+    private static bool TryReadLevelBound(string text, out int level)
+    {
+        level = 0;
+        return string.IsNullOrWhiteSpace(text) || (int.TryParse(text, out level) && level > 0);
+    }
+
     private MonsterSearchFilter ReadMonsterFilter() => new()
     {
+        DropItem = DropItemFilter.Text,
         Race = RaceFilter.SelectedIndex > 0 ? RaceFilter.SelectedItem?.ToString() ?? "" : "",
         Element = ElementFilter.SelectedIndex > 0 ? ElementFilter.SelectedItem?.ToString() ?? "" : "",
         Size = SizeFilter.SelectedIndex > 0 ? SizeFilter.SelectedItem?.ToString() ?? "" : "",
@@ -461,23 +686,111 @@ public partial class DatabaseOverlayWindow : Window
     {
         if (e.PropertyName == nameof(AppSettings.MarketBackgroundRefreshMinutes))
             _marketRefreshTimer.Interval = MarketRefreshInterval();
+        if (e.PropertyName == nameof(AppSettings.ServerProfile))
+        {
+            Dispatcher.BeginInvoke(async () => await RefreshMarketInBackgroundAsync(), DispatcherPriority.Background);
+        }
     }
 
     private async Task RefreshMarketInBackgroundAsync()
     {
-        if (_marketRefreshRunning || !GameServerProfile.SupportsMarket(_settings.ServerProfile)) return;
+        if (_marketRefreshRunning || !GameServerProfile.SupportsMarketWatch(_settings.ServerProfile)) return;
         _marketRefreshRunning = true;
         try
         {
-            await _market.RefreshSnapshotAsync();
-            await _market.RefreshKnownQueriesAsync();
+            if (_settings.ServerProfile == GameServerProfile.RagnarokPlus)
+            {
+                await RefreshRagnarokPlusOffersAsync();
+            }
+            else
+            {
+                await _market.RefreshSnapshotAsync();
+                await _market.RefreshKnownQueriesAsync();
+            }
         }
         finally { _marketRefreshRunning = false; }
     }
 
+    private bool CatalogRequired => ServerCatalogDownload.ServerKey(_settings.ServerProfile) is not null &&
+        !ServerCatalogDownload.IsInstalled(_settings.ServerProfile);
+
+    private void RefreshCatalogDownloadButton()
+    {
+        CatalogDownloadPanel.Visibility = CatalogRequired ? Visibility.Visible : Visibility.Collapsed;
+        CatalogDownloadButton.Content = T("Открыть настройки", "Open settings");
+        CatalogDownloadStatus.Text = T("Загрузите базу для этого сервера.", "Download the database for this server.");
+    }
+
+    private void OpenCatalogSettings_Click(object sender, RoutedEventArgs e) =>
+        (Application.Current as App)?.OpenCatalogSettings();
+
+    internal void ReloadInstalledCatalog(string profile)
+    {
+        if (_database.Version != profile) return;
+        _database.Reload(profile);
+        _details.ResetServer();
+        RefreshLanguage();
+        if (IsDatabaseOpen && (_kind is DatabaseSearchKind.Items or DatabaseSearchKind.Monsters or DatabaseSearchKind.Maps))
+        {
+            var previous = (ResultsList.SelectedItem as DatabaseSearchResult)?.Value;
+            RefreshResults();
+            var selected = ResultsList.Items.OfType<DatabaseSearchResult>().FirstOrDefault(result =>
+                (previous, result.Value) switch
+                {
+                    (DatabaseItem before, DatabaseItem after) => before.Id == after.Id,
+                    (DatabaseMonster before, DatabaseMonster after) => before.Id == after.Id,
+                    (DatabaseMap before, DatabaseMap after) => before.Code == after.Code,
+                    _ => false
+                });
+            if (selected is not null) ResultsList.SelectedItem = selected;
+        }
+    }
+
+    private async Task RefreshRagnarokPlusOffersAsync()
+    {
+        var searches = _settings.RagnarokPlusMarketWatchRules.Where(rule => rule.Enabled)
+            .Select(rule => (Item: new DatabaseItem { Id = rule.ItemId, Name = rule.ItemName }, rule.Buying))
+            .Concat(_settings.RagnarokPlusGoldGoblinPriceRules.Where(rule => rule.UseVendingPrice && !rule.Exclude)
+                .Select(rule => rule.ItemId > 0
+                    ? _database.Item(rule.ItemId) ?? new DatabaseItem { Id = rule.ItemId, Name = rule.Name }
+                    : _database.Items.FirstOrDefault(item => item.Name.Equals(rule.Name, StringComparison.CurrentCultureIgnoreCase)))
+                .OfType<DatabaseItem>().Select(item => (Item: item, Buying: false)))
+            .Where(search => search.Item.Id > 0 && !string.IsNullOrWhiteSpace(search.Item.Name))
+            .DistinctBy(search => (search.Item.Id, search.Buying)).ToArray();
+
+        foreach (var (item, buying) in searches)
+        {
+            if (_settings.ServerProfile != GameServerProfile.RagnarokPlus || Dispatcher.HasShutdownStarted) break;
+            try
+            {
+                var browser = _ragnarokPlusMarket ??= new();
+                if (browser.IsVisible && browser.ShowInTaskbar) break;
+                var offers = await browser.SearchAsync(item, buying ? "BUY" : "SELL", CancellationToken.None, interactive: false);
+                if (_settings.ServerProfile != GameServerProfile.RagnarokPlus) break;
+                RecordRagnarokPlusOffers(item.Id, offers, buying);
+            }
+            catch (RagnarokPlusSignInRequiredException) { break; }
+            catch (Exception ex)
+            {
+                DebugLog.Write($"RAGNAROK+ WATCH item={item.Id}: {ex.GetType().Name}");
+            }
+            await Task.Delay(1000);
+        }
+    }
+
+    private static void RecordRagnarokPlusOffers(int itemId, IReadOnlyList<MarketListing> offers, bool buying)
+    {
+        try { RagnarokPlusData.RememberLiveOffers(itemId, offers, buying); }
+        catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException)
+        {
+            DebugLog.Write($"RAGNAROK+ PRICE CACHE ERROR: {ex.GetType().Name}");
+        }
+        (Application.Current as App)?.EvaluateRagnarokPlusOffers(itemId, offers, buying);
+    }
+
     private void Market_DataUpdated() => Dispatcher.BeginInvoke(async () =>
     {
-        if (GameServerProfile.SupportsMarket(_settings.ServerProfile) && IsDatabaseOpen && _kind == DatabaseSearchKind.Market && !string.IsNullOrWhiteSpace(SearchBox.Text))
+        if (_settings.ServerProfile == GameServerProfile.SpringRo && IsDatabaseOpen && _kind == DatabaseSearchKind.Market && !string.IsNullOrWhiteSpace(SearchBox.Text))
             await RefreshMarketResultsAsync();
     });
     private string T(string ru, string en) => _settings.Language == "en" ? en : ru;

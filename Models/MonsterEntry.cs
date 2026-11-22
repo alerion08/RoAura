@@ -8,6 +8,8 @@ public sealed class MonsterEntry
     public string Name { get; set; } = "";
     public string NameRu { get; set; } = "";
     [JsonIgnore] public string LocalImagePath { get; set; } = "";
+    [JsonIgnore] public byte[]? LocalImagePng { get; set; }
+    [JsonIgnore] public object TimerImage => (object?)LocalImagePng ?? ImagePath;
     [JsonIgnore] public bool IsReference { get; set; }
     public bool IsMvp { get; set; } = true;
     public List<MonsterSpawnEntry> Spawns { get; set; } = [];
@@ -33,6 +35,7 @@ public sealed class MonsterEntry
 
 public sealed class MonsterSpawnEntry
 {
+    [JsonIgnore] public byte[]? LocalMapPng { get; set; }
     public string Code { get; set; } = "";
     public string Name { get; set; } = "";
     public string Count { get; set; } = "";

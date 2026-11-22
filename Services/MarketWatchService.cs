@@ -35,19 +35,20 @@ public sealed class MarketWatchService
         return removed;
     }
 
-    public IReadOnlyList<MarketWatchMatch> Evaluate(IEnumerable<MarketWatchRule> rules, IReadOnlyList<MarketListing> snapshot, int retentionDays = 30)
+    public IReadOnlyList<MarketWatchMatch> Evaluate(IEnumerable<MarketWatchRule> rules, IReadOnlyList<MarketListing> snapshot, int retentionDays = 30, bool buying = false)
     {
         var changed = Prune(retentionDays);
-        var currentRules = rules.Where(r => r.Enabled && r.ItemId > 0 && (r.WithoutPrice || r.MaximumPrice >= 0))
+        var currentRules = rules.Where(r => r.Enabled && r.Buying == buying && r.ItemId > 0 && (r.WithoutPrice || r.PriceThreshold >= 0))
             .GroupBy(r => r.ItemId).Select(g => g.Last()).ToList();
-        var sellById = snapshot.Where(l => l.ShopType.Equals("SELL", StringComparison.OrdinalIgnoreCase)).ToLookup(l => l.ItemId);
+        var side = buying ? "BUY" : "SELL";
+        var offersById = snapshot.Where(l => string.Equals(l.ShopType, side, StringComparison.OrdinalIgnoreCase)).ToLookup(l => l.ItemId);
         var matches = new List<MarketWatchMatch>();
         foreach (var rule in currentRules)
         {
             var initialize = rule.SuppressCurrentOffers && !rule.InitialOffersCaptured;
             rule.InitialOfferKeys ??= [];
-            long? cheapestNewPrice = null;
-            foreach (var listing in sellById[rule.ItemId])
+            long? bestNewPrice = null;
+            foreach (var listing in offersById[rule.ItemId])
             {
                 var price = SpringRoMarketService.ParsePrice(listing.Price);
                 if (price == long.MaxValue) continue;
@@ -55,18 +56,18 @@ public sealed class MarketWatchService
                 {
                     DetectedAtUtc = _utcNow(), ItemId = rule.ItemId, ItemName = rule.ItemName,
                     Stall = listing.Stall, Owner = listing.Owner, Map = listing.Map, X = listing.X, Y = listing.Y,
-                    Price = price, Refine = listing.Refine, Cards = listing.Cards
+                    Price = price, Buying = buying, Refine = listing.Refine, Cards = listing.Cards
                 };
                 if (initialize) { rule.InitialOfferKeys.Add(entry.Key); continue; }
                 if (rule.SuppressCurrentOffers && rule.InitialOfferKeys.Contains(entry.Key)) continue;
-                if (!rule.WithoutPrice && price > rule.MaximumPrice) continue;
+                if (!rule.WithoutPrice && (buying ? price < rule.MinimumPrice : price > rule.MaximumPrice)) continue;
                 if (!_seen.Add(entry.Key)) continue;
                 _history.Add(entry);
                 changed = true;
-                cheapestNewPrice = cheapestNewPrice is null ? price : Math.Min(cheapestNewPrice.Value, price);
+                bestNewPrice = bestNewPrice is null ? price : (buying ? Math.Max(bestNewPrice.Value, price) : Math.Min(bestNewPrice.Value, price));
             }
             if (initialize) rule.InitialOffersCaptured = true;
-            if (cheapestNewPrice.HasValue) matches.Add(new(rule.ItemId, rule.ItemName, cheapestNewPrice.Value));
+            if (bestNewPrice.HasValue) matches.Add(new(rule.ItemId, rule.ItemName, bestNewPrice.Value, buying));
         }
         // Write before presenting alerts, so a normal restart cannot rediscover the same offers.
         if (changed || HistoryPersistenceFailed) PersistAndNotify();

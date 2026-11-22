@@ -43,6 +43,11 @@ public sealed partial class SpringRoMarketService
     public bool HasSnapshot { get { lock (_cacheSync) return _hasSnapshot; } }
     public bool IsRefreshingSnapshot => _snapshotRefreshLock.CurrentCount == 0;
 
+    internal IReadOnlyList<MarketListing> ReadCachedOffers()
+    {
+        lock (_cacheSync) return _snapshot.AsReadOnly();
+    }
+
     public bool TryGetMinimumSellPrice(int itemId, string itemName, out long price)
     {
         lock (_cacheSync)

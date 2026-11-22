@@ -50,12 +50,50 @@ public partial class DatabaseSettingsControl : UserControl
         HistoryItemColumn.Visibility = selected is null ? Visibility.Visible : Visibility.Collapsed;
         HistoryItemText.Text = selected?.ItemName ?? LocalizationService.Get("AllWatchHistory");
         var rows = (CurrentApp?.MarketWatchHistory ?? Array.Empty<MarketWatchHistoryEntry>())
-            .Where(entry => selected is null || entry.ItemId == selected.ItemId)
+            .Where(entry => selected is null || (entry.ItemId == selected.ItemId && entry.Buying == selected.Buying))
             .OrderByDescending(entry => entry.DetectedAtUtc).ToList();
         HistoryGrid.ItemsSource = rows;
         HistoryEmptyText.Visibility = rows.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
         HistoryPersistenceWarning.Visibility = CurrentApp?.MarketWatchHistoryPersistenceFailed == true ? Visibility.Visible : Visibility.Collapsed;
     }
+    private void MarketWeeklyPrices_Click(object sender, RoutedEventArgs e)
+    {
+        if (HistoryGrid.ItemsSource is not IEnumerable<MarketWatchHistoryEntry> history) return;
+
+        static DateTime WeekStart(DateTime stamp)
+        {
+            var day = stamp.ToLocalTime().Date;
+            return day.AddDays(-((int)day.DayOfWeek + 6) % 7);
+        }
+
+        var groups = history.Where(row => row.Price > 0).GroupBy(row =>
+            (row.ItemId, row.ItemName, row.Buying, row.Refine, row.Cards, Week: WeekStart(row.DetectedAtUtc)));
+        var summary = groups.Select(group => (group.Key, Prices: group.Select(row => row.Price).Order().ToArray()))
+            .Where(row => row.Prices.Length >= 3).OrderByDescending(row => row.Key.Week).ThenBy(row => row.Key.ItemName)
+            .Select(row => new
+            {
+                Name = string.Join(" · ", new[] { row.Key.ItemName, LocalizationService.Get(row.Key.Buying ? "WatchBuying" : "WatchSelling"),
+                    row.Key.Refine, row.Key.Cards }.Where(part => !string.IsNullOrWhiteSpace(part))),
+                Week = row.Key.Week.ToString("d"),
+                Median = ((decimal)row.Prices[(row.Prices.Length - 1) / 2] + row.Prices[row.Prices.Length / 2]) / 2,
+                Samples = row.Prices.Length
+            }).ToArray();
+        var grid = new DataGrid { AutoGenerateColumns = false, IsReadOnly = true, CanUserAddRows = false, ItemsSource = summary };
+        FarmingSessionHistoryControl.AddColumn(grid, "Item", "Name");
+        FarmingSessionHistoryControl.AddColumn(grid, "MarketWeeklyStart", "Week");
+        FarmingSessionHistoryControl.AddColumn(grid, "MarketWeeklyMedian", "Median");
+        FarmingSessionHistoryControl.AddColumn(grid, "MarketWeeklySamples", "Samples");
+        ((System.Windows.Data.Binding)((DataGridTextColumn)grid.Columns[2]).Binding).StringFormat = "N0";
+        var layout = new DockPanel { Margin = new Thickness(12) };
+        var caption = new TextBlock { Text = LocalizationService.Get("MarketWeeklyCoverage"), TextWrapping = TextWrapping.Wrap,
+            Margin = new Thickness(0, 0, 0, 8) };
+        DockPanel.SetDock(caption, Dock.Top);
+        layout.Children.Add(caption);
+        layout.Children.Add(grid);
+        new Window { Owner = Window.GetWindow(this), WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            Title = LocalizationService.Get("MarketWeeklyPrices"), Width = 780, Height = 450, Content = layout }.ShowDialog();
+    }
+
     private void AddWatch_Click(object sender, RoutedEventArgs e)
     {
         if (WatchEditor.CreateRule() is not { } added) return;
@@ -66,13 +104,13 @@ public partial class DatabaseSettingsControl : UserControl
     {
         if (WatchList.SelectedItem is not MarketWatchRule existing || WatchEditor.CreateRule() is not { } updated) return;
         updated.Enabled = existing.Enabled;
-        CurrentApp?.SaveMarketWatchRule(updated, existing.ItemId);
+        CurrentApp?.SaveMarketWatchRule(updated, existing);
         WatchList.SelectedItem = updated;
     }
     private void DeleteWatch_Click(object sender, RoutedEventArgs e)
     {
         if (WatchList.SelectedItem is not MarketWatchRule rule || DataContext is not AppSettings settings) return;
-        settings.MarketWatchRules.Remove(rule);
+        settings.ActiveMarketWatchRules.Remove(rule);
         CurrentApp?.PersistMarketWatchSettings();
     }
     private void ChooseIcon_Click(object sender, RoutedEventArgs e)
@@ -107,8 +145,11 @@ public partial class DatabaseSettingsControl : UserControl
     }
     private void ProfileSettingsChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        if (e.PropertyName is nameof(AppSettings.ServerProfile) or "")
-            if (_profileSettings?.SupportsMarket != true && DatabaseSettingsTabs is not null) DatabaseSettingsTabs.SelectedIndex = 0;
+        if (e.PropertyName is not (nameof(AppSettings.ServerProfile) or "")) return;
+        if (_profileSettings?.SupportsMarketWatch != true && DatabaseSettingsTabs is not null)
+            DatabaseSettingsTabs.SelectedIndex = 0;
+        WatchEditor?.Initialize(_database);
+        RefreshHistory();
     }
     private void AttachPreview()
     {

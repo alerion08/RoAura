@@ -14,7 +14,7 @@ public sealed record QuestProfileKey
     public QuestProfileKey(string server, uint? characterId, Guid? localProfileId)
     {
         Server = (server ?? "").Trim().ToUpperInvariant();
-        if (Server.Length is < 1 or > 48 || Server.Any(c => !char.IsAsciiLetterOrDigit(c) && c is not ('_' or '-')) ||
+        if (Server.Length is < 1 or > 48 || (Server != "RAGNAROK+" && Server.Any(c => !char.IsAsciiLetterOrDigit(c) && c is not ('_' or '-'))) ||
             (characterId.HasValue == localProfileId.HasValue) || characterId == 0 || localProfileId == Guid.Empty)
             throw new ArgumentException("Specify a server and exactly one nonzero CID or explicit local profile.");
         CharacterId = characterId;

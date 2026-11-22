@@ -3,6 +3,7 @@ namespace RoAura.Models;
 public sealed class GameDatabase
 {
     public string Source { get; set; } = "SpringRO";
+    public DateTimeOffset? CatalogSynchronizedUtc { get; set; }
     public List<DatabaseMonster> Monsters { get; set; } = [];
     public List<DatabaseItem> Items { get; set; } = [];
     public List<DatabaseMap> Maps { get; set; } = [];
@@ -10,6 +11,8 @@ public sealed class GameDatabase
 
 public sealed class DatabaseMonster
 {
+    public byte[]? LocalImagePng { get; set; }
+    public bool RagnarokPlusDetailsCaptured { get; set; }
     public int Id { get; set; }
     public string Name { get; set; } = "";
     public bool IsMvp { get; set; }
@@ -63,6 +66,8 @@ public sealed class DatabaseItem
 {
     public string AegisName { get; set; } = "";
     public string Description { get; set; } = "";
+    public bool RagnarokPlusDetailsCaptured { get; set; }
+    public byte[]? LocalImagePng { get; set; }
     public long NpcSellPrice { get; set; }
     public Dictionary<string, string> Stats { get; set; } = [];
     public int Id { get; set; }
@@ -83,6 +88,8 @@ public sealed class DatabaseItemSource
 
 public sealed class DatabaseMap
 {
+    public byte[]? LocalImagePng { get; set; }
+    public bool RagnarokPlusDetailsCaptured { get; set; }
     public string Code { get; set; } = "";
     public string Name { get; set; } = "";
     public List<DatabaseMapMonster> Monsters { get; set; } = [];
@@ -114,7 +121,13 @@ public sealed class MarketListing
     public int Y { get; set; }
     public int MapWidth { get; set; }
     public int MapHeight { get; set; }
+    public double? MapPinLeft { get; set; }
+    public double? MapPinTop { get; set; }
+    [System.Text.Json.Serialization.JsonIgnore]
+    public byte[]? MapImagePng { get; set; }
     public string ShopType { get; set; } = "SELL";
+    public string GameMode { get; set; } = "";
+    public DateTimeOffset? ObservedUtc { get; set; }
     public string NavigationCommand => $"/navi {Map} {X}/{Y}";
 }
 
@@ -122,6 +135,7 @@ public sealed record DatabaseSearchResult(DatabaseSearchKind Kind, object Value,
 
 public sealed class MonsterSearchFilter
 {
+    public string DropItem { get; set; } = "";
     public string Race { get; set; } = "";
     public string Element { get; set; } = "";
     public string Size { get; set; } = "";

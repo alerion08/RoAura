@@ -84,6 +84,31 @@ public sealed class FarmingSessionHistoryStore
             finally { _writing = false; }
         }
     }
+    public void SetExpenses(Guid id, long expenses)
+    {
+        lock (_gate)
+        {
+            var session = Read(id) ?? throw new InvalidOperationException("Session no longer exists.");
+            session.ExpensesZeny = expenses;
+            Validate(session);
+            WriteAtomic(FilePath(id), session);
+            _pending.Remove(id);
+        }
+    }
+
+    public void SetNote(Guid id, string note, string? tags = null)
+    {
+        lock (_gate)
+        {
+            var session = Read(id) ?? throw new InvalidOperationException("Session no longer exists.");
+            session.Note = note;
+            if (tags is not null) session.Tags = tags;
+            Validate(session);
+            WriteAtomic(FilePath(id), session);
+            _pending.Remove(id);
+        }
+    }
+
     public void Delete(Guid id)
     {
         lock (_gate)
@@ -101,11 +126,21 @@ public sealed class FarmingSessionHistoryStore
     private static void Validate(FarmingSession value)
     {
         if (value.SchemaVersion != 1 || value.Id == Guid.Empty || value.CharacterId == 0 ||
-            value.StartedUtc.Kind != DateTimeKind.Utc || value.ActiveTicks < 0 || value.ZenyGained < 0 ||
-            value.CharacterName.Length > 500 || value.Loot is null || value.Loot.Count > 100000 ||
+            value.StartedUtc.Kind != DateTimeKind.Utc || value.ActiveTicks < 0 || value.ZenyGained < 0 || value.ExpensesZeny < 0 ||
+            value.Note is null || value.Note.Length > 500 || value.Tags is null || value.Tags.Length > 200 || value.CharacterName.Length > 500 || value.Loot is null || value.Loot.Count > 100000 ||
             value.Loot.Any(row => row.ItemId <= 0 || row.Count <= 0 || row.UnitPrice < 0 ||
                 row.Name.Length > 500 || row.ReceivedUtc.Kind != DateTimeKind.Utc))
             throw new InvalidDataException("Invalid or unsupported session history.");
+        if (value.Intervals is null || value.Intervals.Any(pair => pair.Key is < 0 or > long.MaxValue / FarmingInterval.Ticks || !pair.Value.IsValid))
+            throw new InvalidDataException("Invalid farming intervals.");
+        if (value.Plan is { } plan &&
+            (plan.PriceSource is not ("NPC" or "BUY" or "SELL" or "AUTO") ||
+             plan.Targets is null || plan.Targets.Length == 0 ||
+             plan.Targets.Any(row => row is null || row.MonsterId <= 0 || row.Kills <= 0) ||
+             plan.Drops is null ||
+             plan.Drops.Any(row => row is null || row.ItemId <= 0 || row.Quantity < 0 || row.UnitPrice < 0) ||
+             plan.Drops.Select(row => row.ItemId).Distinct().Count() != plan.Drops.Length))
+            throw new InvalidDataException("Invalid farming plan.");
         CharacterStatisticsKey.Create(value.Server, value.CharacterId);
         _ = value.LootValue; _ = value.ItemCount;
     }

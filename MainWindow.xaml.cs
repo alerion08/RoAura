@@ -73,6 +73,11 @@ public partial class MainWindow : Window
         MvpMonsterView = CollectionViewSource.GetDefaultView(_monsters);
         _goldGoblinRowsView = CollectionViewSource.GetDefaultView(_goldGoblin.Rows);
         _goldGoblinRowsView.Filter = FilterGoldGoblinRow;
+        if (_goldGoblinRowsView is ICollectionViewLiveShaping { CanChangeLiveFiltering: true } liveFiltering)
+        {
+            liveFiltering.LiveFilteringProperties.Add(nameof(GoldGoblinLootRow.Total));
+            liveFiltering.IsLiveFiltering = true;
+        }
         InitializeComponent();
         SourceInitialized += MainWindow_SourceInitialized;
         Settings = settings;
@@ -148,6 +153,12 @@ public partial class MainWindow : Window
         _saveDebounceTimer.Tick += (_, _) => FlushPendingSave();
         Settings.PropertyChanged += Settings_RuntimeChanged;
         Closed += (_, _) => Settings.PropertyChanged -= Settings_RuntimeChanged;
+    }
+
+    internal void OpenCatalogSettingsPage()
+    {
+        OpenSettings_Click(OpenSettingsButton, new RoutedEventArgs());
+        SettingsContent.ShowCatalogSettings();
     }
 
     private void OpenSettings_Click(object sender, RoutedEventArgs e)
@@ -320,6 +331,10 @@ public partial class MainWindow : Window
                 GoldGoblinItemCountText.Text = GoldGoblinRows.Where(row => !row.Excluded).Sum(row => row.Count).ToString("N0");
             if (GoldGoblinUnpricedCountText is not null)
                 GoldGoblinUnpricedCountText.Text = GoldGoblinRows.Count(row => !row.PriceKnown).ToString("N0");
+            if (GoldGoblinPriceBreakdownText is not null)
+                GoldGoblinPriceBreakdownText.Text = string.Join(" · ", GoldGoblinRows
+                    .GroupBy(row => row.Excluded ? "Excluded" : row.PriceSource)
+                    .Select(group => $"{group.Key}: {group.Sum(row => (decimal)row.Total):N0} z"));
             UpdateGoldGoblinSessionTime();
         });
     }
@@ -410,6 +425,7 @@ public partial class MainWindow : Window
     private bool FilterGoldGoblinRow(object value)
     {
         if (value is not GoldGoblinLootRow row) return false;
+        if (GoldGoblinHideZero?.IsChecked == true && row.Total == 0) return false;
         var query = GoldGoblinSearchBox?.Text.Trim() ?? "";
         if (query.Length > 0 &&
             !row.Item.Contains(query, StringComparison.CurrentCultureIgnoreCase) &&
@@ -495,9 +511,41 @@ public partial class MainWindow : Window
             return;
         }
         var rule = GetOrCreateGoldGoblinRule(row);
-        rule.ManualPrice = price;
+        rule.ChangeManualPrice(price);
         if (GoldGoblinPriceSourceBox.SelectedValue?.ToString() == "manual") rule.UseVendingPrice = false;
         _goldGoblin.Reprice();
+    }
+
+    private void GoldGoblinRule_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+    {
+        if (e.EditAction != DataGridEditAction.Commit || e.Column != GoldGoblinManualPriceColumn ||
+            e.Row.Item is not GoldGoblinPriceRule rule || e.EditingElement is not TextBox editor) return;
+        if (!long.TryParse(editor.Text, out var price) || price < 0)
+        {
+            e.Cancel = true;
+            SetStatus(T("Цена должна быть целым неотрицательным числом.", "Price must be a non-negative whole number."));
+            return;
+        }
+        rule.ChangeManualPrice(price);
+    }
+
+    private void ShowGoldGoblinPriceHistory_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not FrameworkElement { DataContext: GoldGoblinPriceRule rule }) return;
+        var rows = rule.ManualPriceHistory ?? [];
+        var grid = new DataGrid
+        {
+            AutoGenerateColumns = false, IsReadOnly = true, CanUserAddRows = false,
+            ItemsSource = rows.OrderByDescending(row => row.ChangedUtc)
+                .Select(row => new { At = row.ChangedUtc.ToLocalTime().ToString("G"), row.PreviousPrice, row.NewPrice }).ToArray()
+        };
+        FarmingSessionHistoryControl.AddColumn(grid, "HistoryDate", "At");
+        FarmingSessionHistoryControl.AddColumn(grid, "ManualPricePrevious", "PreviousPrice");
+        FarmingSessionHistoryControl.AddColumn(grid, "ManualPriceNew", "NewPrice");
+        var title = LocalizationService.Get("ManualPriceHistory") + " · " + rule.Name;
+        var window = new Window { Owner = this, Title = title, Width = 510, Height = 320,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner, Content = grid };
+        window.ShowDialog();
     }
 
     private void ExportGoldGoblinCsv_Click(object sender, RoutedEventArgs e)
@@ -1136,6 +1184,9 @@ public partial class MainWindow : Window
             ShowShortName = source.ShowShortName,
             ShowReady = source.ShowReady,
             ShowCountdown = source.ShowCountdown,
+            ShowCooldownTenths = source.ShowCooldownTenths,
+            CooldownWarningSeconds = source.CooldownWarningSeconds,
+            CooldownWarningColor = source.CooldownWarningColor,
             IconImageBase64 = source.IconImageBase64,
             IconFileName = source.IconFileName
         };
@@ -1297,6 +1348,20 @@ public partial class MainWindow : Window
         _effectsView.Refresh();
     }
 
+    private (ObservableCollection<TrackedEffect> Owner, TrackedEffect Effect, int Index)? _deletedEffect;
+
+    private void UndoDeletedEffect_Click(object sender, RoutedEventArgs e)
+    {
+        if (_deletedEffect is not { } deleted || !ReferenceEquals(deleted.Owner, Settings.Effects)) return;
+        deleted.Owner.Insert(Math.Min(deleted.Index, deleted.Owner.Count), deleted.Effect);
+        _deletedEffect = null;
+        UndoDeletedEffectButton.IsEnabled = false;
+        Settings.SyncBuffPanelGroups();
+        EffectsGrid.SelectedItem = deleted.Effect;
+        EffectsGrid.ScrollIntoView(deleted.Effect);
+        SaveSettings();
+    }
+
     private void DeleteEffect_Click(object sender, RoutedEventArgs e)
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
@@ -1305,6 +1370,8 @@ public partial class MainWindow : Window
                 $"Delete effect “{effect.Name}”? Its settings and notifications will be removed."),
             T("Удаление эффекта", "Delete effect"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
         if (answer != MessageBoxResult.Yes) return;
+        _deletedEffect = (Settings.Effects, CloneEffect(effect, appendCopySuffix: false), Settings.Effects.IndexOf(effect));
+        UndoDeletedEffectButton.IsEnabled = true;
         Settings.Effects.Remove(effect);
         Settings.SyncBuffPanelGroups();
         SaveSettings();
@@ -1322,9 +1389,15 @@ public partial class MainWindow : Window
         SetStatus(T($"Создана копия эффекта «{source.Name}».", $"A copy of “{source.Name}” was created."));
     }
 
-    private static TrackedEffect CloneEffect(TrackedEffect source) => new()
+    private static TrackedEffect CloneEffect(TrackedEffect source, bool appendCopySuffix = true) => new()
     {
-        Name = $"{source.Name} ({LocalizationService.Get("Copy")})",
+        Id = appendCopySuffix ? Guid.NewGuid() : source.Id,
+        CharacterScope = new CharacterScope
+        {
+            Characters = new(source.CharacterScope.Characters),
+            IsAllowed = source.CharacterScope.IsAllowed
+        },
+        Name = appendCopySuffix ? $"{source.Name} ({LocalizationService.Get("Copy")})" : source.Name,
         Enabled = source.Enabled,
         StatusId = source.StatusId,
         TemplateImageBase64 = source.TemplateImageBase64,
@@ -1358,6 +1431,15 @@ public partial class MainWindow : Window
         ShowOnBuffPanel = source.ShowOnBuffPanel,
         RepeatProtectionSeconds = source.RepeatProtectionSeconds,
         ShowDurationText = source.ShowDurationText,
+        HighlightExpiration = source.HighlightExpiration,
+        ExpirationSeconds = source.ExpirationSeconds,
+        ExpirationColor = source.ExpirationColor,
+        ExpirationIntensity = source.ExpirationIntensity,
+        ExpirationBorderWidth = source.ExpirationBorderWidth,
+        ExpirationGlowMode = source.ExpirationGlowMode,
+        UrgentExpirationSeconds = source.UrgentExpirationSeconds,
+        CountdownWarningSeconds = source.CountdownWarningSeconds,
+        CountdownWarningColor = source.CountdownWarningColor,
         ShowDurationFill = source.ShowDurationFill
     };
 
@@ -1917,7 +1999,8 @@ public partial class MainWindow : Window
 
     private void AddMvpTimer_Click(object sender, RoutedEventArgs e)
     {
-        var wizard = new MvpTimerWizardWindow(_monsters, usesReferenceCatalog: UsesReferenceTimerCatalog) { Owner = this };
+        var wizard = new MvpTimerWizardWindow(_monsters, usesReferenceCatalog: UsesReferenceTimerCatalog,
+            serverUtcOffsetMinutes: Settings.ServerUtcOffsetMinutes) { Owner = this };
         if (wizard.ShowDialog() != true || wizard.CreatedTimer is not { } timer) return;
         Settings.ActiveMvpTimers.Add(timer);
         MvpTimerHotkeys.RefreshNumbers(Settings.ActiveMvpTimers);
@@ -1994,6 +2077,15 @@ public partial class MainWindow : Window
         if (box.IsDropDownOpen || nameIsCatalogName) timer.Name = monster.Name;
         timer.SetMonsterDetails(monster);
         timer.SelectFirstLocationIfMissing();
+    }
+
+    internal void RefreshTimerCatalog()
+    {
+        _monsters.Clear();
+        foreach (var monster in MonsterCatalogService.LoadForTimers(Settings.MvpDatabaseVersion))
+            _monsters.Add(monster);
+        MvpMonsterView.Refresh();
+        RefreshMvpTimerDetails();
     }
 
     private void RefreshMvpTimerDetails()
@@ -2109,6 +2201,25 @@ public partial class MainWindow : Window
         if (Application.Current is App app) app.SetEscapeHotkeyEnabled(true);
         SaveSettings();
         Hide();
+    }
+
+    private void ReplayGlowPreview(object sender, MouseButtonEventArgs e)
+    {
+        if (sender is Grid { Children: [Controls.ExpirationGlow glow] }) glow.RefreshAnimation();
+    }
+
+    private void TestOverlayDisplay_Click(object sender, RoutedEventArgs e)
+    {
+        foreach (var group in Settings.RewardGroups.ToArray())
+            _overlay.ShowRewardPreview(group);
+        _overlay.ShowEffectNotification(new TrackedEffect
+        {
+            Name = T("Тестовый эффект", "Test effect"),
+            AppearedText = T("Тестовый эффект", "Test effect"),
+            NotificationX = 200,
+            NotificationY = 200,
+            NotificationDurationSeconds = 3
+        }, appeared: true, followStatus: false);
     }
 
     private void TestRewards_Click(object sender, RoutedEventArgs e)

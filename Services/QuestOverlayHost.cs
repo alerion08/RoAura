@@ -160,7 +160,9 @@ public sealed class QuestOverlayHost : IDisposable
         var excluded=(controlsActive?controls.Where(w=>w is not QuestBrowserWindow).Select(w=>QuestWindowNative.Bounds(new WindowInteropHelper(w).Handle)):Enumerable.Empty<Rect>())
             .Concat(controls.Where(w=>w.Tag as string == "RoAura.GameInterface" || w is DatabaseOverlayWindow or DatabaseDetailWindow).Select(w=>QuestWindowNative.Bounds(new WindowInteropHelper(w).Handle)))
             .Where(r=>!r.IsEmpty).ToArray();
-        if(!_text.IsVisible)_text.Show();QuestWindowNative.Place(_text,_gamePixels,promote);
+        var trackerVisible = _text.IsVisible;
+        if (!trackerVisible) _text.Show();
+        QuestWindowNative.Place(_text, _gamePixels, promote, preserveZOrder: _layoutEditing && trackerVisible);
         _canvas.UpdateLayout();_canvas.Clip=QuestWindowNative.ExclusionClip(_canvas,new Size(_canvas.Width,_canvas.Height),excluded);
         var scale=Options.Scale*_dpi;
         foreach(var (window,y) in _actions)

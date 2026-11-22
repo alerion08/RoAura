@@ -63,7 +63,7 @@ public sealed class ReminderItem : INotifyPropertyChanged
         set
         {
             if (!Set(ref _isStatusPresent, value)) return;
-            OnPropertyChanged(nameof(IsVisible));
+            RefreshWarning();
             OnPropertyChanged(nameof(CurrentStateText));
         }
     }
@@ -79,8 +79,109 @@ public sealed class ReminderItem : INotifyPropertyChanged
         }
     }
 
-    [JsonIgnore]
-    public bool IsVisible => Enabled && (!IsStatusPresent || IsPlacementPreview);
+    private bool _warnBeforeExpiration;
+    private bool _highlightExpiration = true;
+    private double _expirationSeconds = 5;
+    private double _expirationIntensity = 100;
+    private double _remainingStatusSeconds;
+    private string _expirationColor = "#FFFFB040";
+    private string _expirationText = "";
+    public bool WarnBeforeExpiration
+    {
+        get => _warnBeforeExpiration;
+        set { if (Set(ref _warnBeforeExpiration, value)) RefreshWarning(); }
+    }
+    public bool HighlightExpiration { get => _highlightExpiration; set => Set(ref _highlightExpiration, value); }
+    public double ExpirationSeconds
+    {
+        get => _expirationSeconds;
+        set { if (Set(ref _expirationSeconds, Math.Clamp(value, 1, 3600))) RefreshWarning(); }
+    }
+    public string ExpirationColor { get => _expirationColor; set => Set(ref _expirationColor, value); }
+    public string ExpirationText { get => _expirationText; set => Set(ref _expirationText, value); }
+    public double ExpirationIntensity
+    {
+        get => _expirationIntensity;
+        set { if (Set(ref _expirationIntensity, Math.Clamp(value, 0, 100))) { OnPropertyChanged(nameof(ExpirationOpacity)); OnPropertyChanged(nameof(ExpirationGlowOpacity)); } }
+    }
+    private double _expirationBorderWidth = 3;
+    public double ExpirationBorderWidth
+    {
+        get => _expirationBorderWidth;
+        set => Set(ref _expirationBorderWidth, Math.Clamp(value, 1, 12));
+    }
+    private int _expirationGlowMode;
+    private double _urgentExpirationSeconds;
+    public int ExpirationGlowMode { get => _expirationGlowMode; set => Set(ref _expirationGlowMode, Math.Clamp(value, 0, 2)); }
+    public double UrgentExpirationSeconds
+    {
+        get => _urgentExpirationSeconds;
+        set
+        {
+            if (Set(ref _urgentExpirationSeconds, double.IsFinite(value) ? Math.Clamp(value, 0, 3600) : 0))
+            { OnPropertyChanged(nameof(ExpirationGlowOpacity)); OnPropertyChanged(nameof(IsUrgentExpiration)); }
+        }
+    }
+    [JsonIgnore] public double ExpirationOpacity => ExpirationIntensity / 100d;
+    private bool HasUrgentExpiration => UrgentExpirationSeconds > 0 &&
+        UrgentExpirationSeconds < ExpirationSeconds;
+    [JsonIgnore] public bool IsUrgentExpiration => HasUrgentExpiration &&
+        RemainingStatusSeconds > 0 && RemainingStatusSeconds <= UrgentExpirationSeconds;
+    [JsonIgnore] public double ExpirationGlowOpacity =>
+        HasUrgentExpiration && !IsUrgentExpiration ? ExpirationOpacity * .45 : ExpirationOpacity;
+    [JsonIgnore] public double RemainingStatusSeconds
+    {
+        get => _remainingStatusSeconds;
+        set { if (Set(ref _remainingStatusSeconds, value)) RefreshWarning(); }
+    }
+    [JsonIgnore] public bool IsExpirationWarning => WarnBeforeExpiration && IsStatusPresent &&
+        RemainingStatusSeconds > 0 && RemainingStatusSeconds <= ExpirationSeconds;
+    private bool _showCountdownTenths = true;
+    private double _countdownWarningSeconds;
+    private string _countdownWarningColor = "#FFFFDF54";
+
+    public bool ShowCountdownTenths
+    {
+        get => _showCountdownTenths;
+        set { if (Set(ref _showCountdownTenths, value)) OnPropertyChanged(nameof(ExpirationCountdown)); }
+    }
+
+    public double CountdownWarningSeconds
+    {
+        get => _countdownWarningSeconds;
+        set
+        {
+            if (Set(ref _countdownWarningSeconds, double.IsFinite(value) ? Math.Clamp(value, 0, 3600) : 0))
+                OnPropertyChanged(nameof(IsCountdownWarning));
+        }
+    }
+
+    public string CountdownWarningColor { get => _countdownWarningColor; set => Set(ref _countdownWarningColor, value); }
+
+    [JsonIgnore] public bool IsCountdownWarning => IsExpirationWarning && RemainingStatusSeconds <= CountdownWarningSeconds;
+
+    [JsonIgnore] public string ExpirationCountdown
+    {
+        get
+        {
+            if (ShowCountdownTenths && RemainingStatusSeconds is > 0 and < 10)
+                return (Math.Ceiling(RemainingStatusSeconds * 10) / 10).ToString("0.0");
+            var rounded = TimeSpan.FromSeconds(Math.Ceiling(RemainingStatusSeconds));
+            return rounded.ToString(rounded.TotalHours >= 1 ? @"h\:mm\:ss" : @"mm\:ss");
+        }
+    }
+
+    [JsonIgnore] public bool IsVisible => Enabled && (!IsStatusPresent || IsPlacementPreview || IsExpirationWarning);
+
+    private void RefreshWarning()
+    {
+        OnPropertyChanged(nameof(IsExpirationWarning));
+        OnPropertyChanged(nameof(IsCountdownWarning));
+        OnPropertyChanged(nameof(ExpirationGlowOpacity));
+        OnPropertyChanged(nameof(IsUrgentExpiration));
+        OnPropertyChanged(nameof(ExpirationCountdown));
+        OnPropertyChanged(nameof(IsVisible));
+    }
 
     [JsonIgnore]
     public double Opacity => OpacityPercent / 100d;

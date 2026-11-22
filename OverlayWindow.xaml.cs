@@ -530,6 +530,16 @@ public partial class OverlayWindow : Window
         var group = _settings.RewardGroups.FirstOrDefault(item => item.GroupNumber == channel.GroupNumber);
         if (group is null) return;
 
+        var color = channel.TextColor;
+        if (kind == RewardKind.Loot)
+        {
+            var server = _settings.ServerProfile;
+            color = itemId > 0 && _settings.WantedLootByServer.TryGetValue(server, out var wanted) && wanted.Contains(itemId)
+                ? channel.WantedLootColor
+                : channel.ColorForItemType(itemType, server == GameServerProfile.RagnarokPlus &&
+                    channel.HighlightCraftMaterials && RagnarokPlusCraftMaterials.Contains(itemId));
+        }
+
         var now = DateTime.UtcNow;
         var window = TimeSpan.FromMilliseconds(group.AggregationWindowMs);
         RewardAggregation.Refresh(group, now);
@@ -544,7 +554,7 @@ public partial class OverlayWindow : Window
                 AggregationKey = aggregationKey,
                 ItemName = label,
                 ItemId = itemId,
-                Color = kind == RewardKind.Loot ? channel.ColorForItemType(itemType) : channel.TextColor,
+                Color = color,
                 Amount = amount,
                 Percentage = Math.Max(0, percentage),
                 HasPercentage = percentage >= 0,
@@ -561,7 +571,7 @@ public partial class OverlayWindow : Window
                 notification.Percentage += percentage;
                 notification.HasPercentage = true;
             }
-            notification.Color = kind == RewardKind.Loot ? channel.ColorForItemType(itemType) : channel.TextColor;
+            notification.Color = color;
             notification.LastUpdatedUtc = now;
             notification.ExpiresAtUtc = now.AddSeconds(Math.Max(group.DurationSeconds, window.TotalSeconds));
         }
@@ -985,6 +995,7 @@ public partial class OverlayWindow : Window
         }
         catch (Exception ex) { DebugLog.Write($"MARKET WATCH ICON ERROR: {ex.Message}"); }
         _settings.ActiveMarketNotifications.Add(new MarketWatchNotification(
+            (match.Buying ? LocalizationService.Get("WatchBuying") + " · " : "") +
             MarketWatchService.FormatText(config.TextTemplate, match), icon,
             placement ? DateTime.MaxValue : DateTime.UtcNow.AddSeconds(config.DurationSeconds), placement));
         while (_settings.ActiveMarketNotifications.Count > 100) _settings.ActiveMarketNotifications.RemoveAt(0);
@@ -1065,13 +1076,15 @@ public partial class OverlayWindow : Window
             timer.RemainingSeconds = Math.Max(0, remaining);
             if (remaining > 0) continue;
 
-            timer.EndsAtUtc = null;
+            if (!timer.ShowAfterCompletion) timer.EndsAtUtc = null;
             if (!timer.CompletionSoundPlayed)
             {
                 timer.CompletionSoundPlayed = true;
                 PlayMvpTimerSound(timer);
             }
         }
+
+        MvpTimerRoute.Refresh(_settings.ActiveMvpTimers, now, _settings);
 
         foreach (var group in _settings.RewardGroups)
         {
@@ -1455,6 +1468,7 @@ public partial class OverlayWindow : Window
         if (!IsVisible && _gameWindowFound) Show();
         var hwnd = new WindowInteropHelper(this).Handle;
         if (hwnd == IntPtr.Zero || _gameWindowHandle == IntPtr.Zero) return;
+        if (IsLayoutEditing && _isTopmost) return;
         // Do not trust the cached topmost state here. Protected/fullscreen RO
         // clients can silently move their own HWND ahead of us in the topmost
         // band without changing our WS_EX_TOPMOST flag. Reissuing this

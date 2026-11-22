@@ -1,3 +1,5 @@
+using RoAura.Models;
+
 namespace RoAura.Services;
 
 /// <summary>
@@ -114,9 +116,20 @@ public sealed class CharacterStatisticsLedger
                 state.SessionBaseExperience = checked(state.SessionBaseExperience + amount);
                 state.LifetimeBaseExperience = checked(state.LifetimeBaseExperience + amount);
             }
+            var index = GetIntervalIndex(state, nowUtc);
+            var interval = state.SessionIntervals.GetValueOrDefault(index);
+            state.SessionIntervals[index] = isJob
+                ? interval with { JobExperience = checked(interval.JobExperience + amount) }
+                : interval with { BaseExperience = checked(interval.BaseExperience + amount) };
             state.LastUpdatedUtc = nowUtc;
             return true;
         }
+    }
+
+    private long GetIntervalIndex(CharacterStatisticsDocument state, DateTime nowUtc)
+    {
+        var elapsed = state.SessionTimerStarted ? ElapsedTicks(_sinceUtc!.Value, nowUtc) : 0;
+        return checked(state.SessionActiveTicks + elapsed) / FarmingInterval.Ticks;
     }
 
     public bool AddLoot(int itemId, string name, long count, DateTime nowUtc)
@@ -144,6 +157,9 @@ public sealed class CharacterStatisticsLedger
             if (state.SessionPaused || !sample.Accepted || sample.Gained <= 0) return 0;
             state.SessionZenyGained = checked(state.SessionZenyGained + sample.Gained);
             state.LifetimeZenyGained = checked(state.LifetimeZenyGained + sample.Gained);
+            var index = GetIntervalIndex(state, nowUtc);
+            var interval = state.SessionIntervals.GetValueOrDefault(index);
+            state.SessionIntervals[index] = interval with { Zeny = checked(interval.Zeny + sample.Gained) };
             state.LastUpdatedUtc = nowUtc;
             return sample.Gained;
         }
@@ -233,6 +249,7 @@ public sealed class CharacterStatisticsLedger
             document.SessionJobExperience = 0;
             document.SessionZenyGained = 0;
             document.SessionActiveTicks = 0;
+            document.SessionIntervals.Clear();
             document.SessionLoot.Clear();
             document.GoldGoblinRows.Clear();
             document.SessionStartedUtc = startClock ? nowUtc : default;

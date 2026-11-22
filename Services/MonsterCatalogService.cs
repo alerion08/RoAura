@@ -21,6 +21,19 @@ public static class MonsterCatalogService
     public static IReadOnlyList<MonsterEntry> LoadForTimers(string? gameVersion)
     {
         var version = GameDatabaseVersion.Normalize(gameVersion);
+        if (version == GameServerProfile.RagnarokPlus)
+        {
+            var catalog = RagnarokPlusData.LoadCatalog();
+            var maps = catalog.Maps.ToDictionary(map => map.Code, StringComparer.OrdinalIgnoreCase);
+            return catalog.Monsters.Select(monster =>
+            {
+                var entry = FromDatabase(monster, version);
+                entry.LocalImagePng = monster.LocalImagePng;
+                foreach (var spawn in entry.Spawns)
+                    if (maps.TryGetValue(spawn.Code, out var map)) spawn.LocalMapPng = map.LocalImagePng;
+                return entry;
+            }).OrderBy(monster => monster.Name).ToArray();
+        }
         if (version == GameDatabaseVersion.Toc)
         {
             try { return TocMonsters.Value; }

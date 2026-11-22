@@ -1,5 +1,10 @@
 # Project state
 
+## RoAura 3.6.0 release candidate
+
+- The release candidate includes Ragnarok+, separate catalog downloads, market and farming tools, and countdown and overlay layout improvements.
+- The owner confirmed the Ragnarok+ catalog download in the Windows test build. Windows release checks run through the publication workflow.
+
 ## Current published baseline — RoAura 3.5.0
 
 - [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.
@@ -11,6 +16,34 @@
   - [SHA256SUMS.txt](https://github.com/alerion08/RoAura/releases/download/v3.5.0/SHA256SUMS.txt): `89ecd82775ea9b7ad94c7694e7d633077680aae6510ca3e9be9a6c60379bfa47`
 - Start subsequent development from current `main`. The combined development and release branches are historical sources for PR #17.
 - Live acceptance covers the owner's tested setup. Unverified server/client variants, mixed DPI, fullscreen and multiple simultaneous clients remain manual checks. Release settings use RoAura and development settings use RoAura-Dev.
+
+## Ragnarok+ integration development
+
+- Roadmap 201 adds an item-card quantity field and total weight for items with catalogued unit weight. The calculation uses the selected server’s item data. Windows interaction checks remain pending.
+- Roadmap 211 adds optional, inclusive monster-level bounds to map search. A map matches when at least one catalogued spawn is in range. Windows interaction checks remain pending.
+- Roadmap 221–222 adds market quantity by price and best-price quantity for sale and buy orders. Offers for different item variants and game modes are shown separately. Windows interaction checks remain pending.
+- Roadmap 251, 252, 259 and 260 add Gold Goblin history filters by local start date and loot, visible-session totals and a best session by net income or Base/Job EXP per active hour. Windows interaction checks remain pending.
+- Roadmap 255 and 257 add a zero-value filter to current and saved loot, and a read-only comparison of saved and current pricing sources and manual prices.
+- Roadmap 263 adds an optional effect countdown color and threshold independent of the expiration glow.
+- Roadmap 303–306, 308, 311 and 314 expand database queries, recent cards and estimated drop value. Roadmap 331, 335 and 348 add market lot totals, optional compact prices and weekly observation medians. Roadmap 381, 393, 395–398 and 400 expand session valuation, comparison, tags and filters. Roadmap 427, 428, 430 and 481 add cooldown display controls, effect recovery and wanted loot from active quests.
+
+- Branch: `feature/ragnarok-plus`, based on the 3.5.0 main baseline. The profile uses standard packet tracking and recognizes the `RagnarokPlus` executable.
+- Ragnarok+ can display live rewards after observing the player AID on the map connection. Per-character statistics require a CID from the map login. Unrecognized-login diagnostics record the opcode, first TCP payload length and ports once per flow so they can be compared with the AID observation. Validate CID, Base/Job EXP and session isolation with two characters before accepting a new login layout.
+- The `feature/catalog-download` branch adds on-demand Ragnarok+ catalog installation from a GitHub manifest and release asset. The bundled catalog is a starter snapshot. Targeted market refresh for watch rules and Gold Goblin uses its existing login flow. The catalog asset and manifest are published. The owner confirmed download in RoAura on Windows. See [Ragnarok+ data integration](RAGNAROK_PLUS_DATA.md).
+
+- The catalog development workspace also includes manual consumable expenses and comparison of two Gold Goblin sessions, and five-minute EXP/Zeny charts (roadmap 76, 78 and 80). Windows interaction checks are pending.
+
+- Ragnarok+ development adds independent buy and sell watches with separate thresholds, deduplication and history labels (roadmap 44). Live signed-in checks are pending.
+
+- Appearance settings include live table density with Compact, Standard and Spacious options (roadmap 90). Windows layout checks are pending.
+
+- Interface layout development adds undo for overlay moves and quest panel scale changes (roadmap 89). In-game toolbar interaction remains a Windows check.
+
+- The layout editor adds an optional 20-DIP grid, snapping and client-edge/center alignment (roadmap 84). Windows interaction checks are pending.
+
+- Layout mode adds quick sizing for the selected overlay with live preview and undo (roadmap 88). In-game validation is pending.
+
+- Map details include farm planning with expected drops and cached market/NPC valuation (roadmap 97). Windows interface validation is pending.
 
 ## Combined development feedback — 2026-11-08
 

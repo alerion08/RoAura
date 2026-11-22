@@ -156,6 +156,16 @@ On 2026-10-27 the user confirmed that tested build `28fa0d5` works well and acce
 
 ## Database and Market
 
+- [ ] Item weight: on Ragnarok+, open Steel (10 weight), enter 200 and verify 2,000 total. Check a fractional unit weight on ToC, blank and invalid quantities, a card with no known weight, and Back navigation retaining the entered quantity.
+- [ ] Maps: enter monster levels 70–90 and verify each result has at least one qualifying spawn. Check an exact level, a single bound, a reversed range, a map-code query and clearing both fields.
+- [ ] Market depth: verify two sell listings at the same lowest price are summed and a higher price appears separately. Check the highest buy price and its requested quantity, variant and mode separation, and empty results after changing the query.
+- [ ] Gold Goblin history: filter sessions by inclusive local start dates and loot name or ID. Check matching loot quantity, revenue, expenses and net income, the best session for each metric, and selection after refresh.
+- [ ] Gold Goblin loot: toggle the zero-value filter on current and saved loot, change the price of a live row, and revalue a session after changing its price source or a manual price. Verify market-only price movement does not flag a rule change and saved valuations stay intact.
+- [ ] Effect countdown: set a custom color and a five-second threshold, keep the expiration glow disabled, and verify the text changes at five seconds and resets after refresh. Check zero disables the color change and duplication retains both settings.
+- [ ] Roadmap 301–500 selection: verify quoted/excluded terms, NPC sorting and slots, recent cards, monster drop search and NPC estimate. In Market verify lot totals, compact prices and weekly medians. In Gold Goblin verify price-source breakdown, median, duration/map/tag filters and per-item differences/shares. Verify cooldown display, undo effect deletion, and wanted loot from uncompleted active quest steps.
+
+- [ ] Ragnarok+: download the published catalog, search items, monsters and maps offline, check NPC sell prices and previews, repeat the download with the same version, and interrupt an update while an older catalog is installed. Switch server mid-download and verify the active database and market still match the selected profile.
+
 - [ ] RTM item and monster searches work.
 - [ ] SpringRO item and monster searches work.
 - [ ] Empty search and no-result state do not crash.
@@ -164,6 +174,9 @@ On 2026-10-27 the user confirmed that tested build `28fa0d5` works well and acce
 - [ ] Background Market refresh updates results without freezing the UI.
 - [ ] Network timeout/error keeps previous usable cache.
 - [ ] Duplicate IDs do not break catalog loading.
+- [ ] For Ragnarok+ add both watch sides for one item. Verify that buying uses a minimum and selling a maximum, histories identify the sides, restart does not repeat known offers, and buying prices do not change Gold Goblin Vending Price.
+- [ ] Switch all three table densities and verify header and row spacing in Gold Goblin, the watchlist, and character settings. Check editing an inline field in Compact mode and verify the setting survives restart.
+- [ ] Open a map farm plan and switch monsters. Verify 100 kills at 10% gives 10 expected drops, MVP rewards are excluded, and cached market prices, NPC prices and missing prices are clearly identified.
 - [ ] Gold Goblin NPC, Overcharge 0–10, Vending and manual rules calculate correctly.
 - [ ] Custom MVP names are not replaced by catalog names.
 - [ ] Clipboard actions work or report a nonfatal error.
@@ -679,6 +692,8 @@ Native screenshot/input receipt verifies the hook's forwarding in an isolated pr
 - [ ] Map hover avoids the entire timer panel at client edges, negative coordinates and mixed DPI; no timer pixels are clipped.
 - [ ] All history switch shows every watch item without losing editor selection or rules.
 - [ ] Session list Open/double-click shows a separate loot table without receipt times; Character heading and theme are correct.
+- [ ] Verify chart buckets across minute five, pause/resume, a relog and restart. Chart data persists and a new session starts with an empty chart. Old sessions without intervals show an empty state.
+- [ ] In Gold Goblin history, save expenses for the active and a completed session. Confirm they persist after new loot and restart, and verify a negative net result and a dash for zero active time. Ctrl-select two sessions and compare figures. Open and Delete require one selected session.
 - [ ] Gold Goblin four-button row fits minimum RU/EN layout above dashboard cards; CSV action is absent.
 - [ ] Capture arbitrary keyboard keys/chords, release and activate. No immediate invocation, repeat, missing modifiers, duplicate toggle or screenshot/modifier blocking. Existing hotkey strings and presets still work.
 - [ ] Remove a character and reopen the manager/restart/apply a preset: it stays removed, history remains, and a single-character scope never becomes all.
@@ -744,6 +759,9 @@ Automated evidence for `f680a488b7a6e6b9b7051c6cd6faf01937fc1c90`: [development 
 - [ ] Labels/world text are click-through. Grip dragging and finishing do not steal game focus or block modifiers/Print Screen; ordinary overlay remains passive.
 - [ ] Alt-Tab/minimize, client/character/server/preset changes, stopping mid-drag and shutdown release capture and remove temporary windows/previews; visibility preferences and cooldown/status/session data remain intact.
 - [ ] All grouped positions survive restart and presets; test real Ragnarok, protected/fullscreen rendering and mixed DPI.
+- [ ] Toggle layout grid and drag a group at 100% and 150% DPI. Confirm snapping follows game-client coordinates. Select a grip, align to each edge and the center, and undo. Click through the grid outside the grips and toolbar.
+- [ ] Select cooldowns, effect previews, EXP bars and quests in turn. Adjust size, verify only the selected overlay changes, undo, and check that the settings survive reopening the application.
+- [ ] Move two groups, change quest scale, and undo each operation. Check that coordinates and scale restore in reverse order, game focus stays active, and reopening the editor clears undo history.
 - [ ] MVP row text/icon/gaps show the same map/marker, leaving the row closes it, and hovering is suspended during layout mode.
 
 Verified on `ba6b96986eb4a2ab3d11ff36c2cd84dbcce3dba1`: [development 121](https://github.com/alerion08/RoAura/actions/runs/41809493268) passed 382 tests, eight ToC checks, native input/startup and clean portable verification. Native probes exercise full-row MVP hover/close/focus, exact layout chord, passive label clicks, whole-group movement with disabled members, unrelated group preservation, repeated-key/Finish exit and cleanup. Geometry tests cover 100/125/150% scaling; actual layout/map rasters inspected. [Installer validation](https://github.com/alerion08/RoAura/actions/runs/41809501092) passed packaging, silent installation and payload checks. Actual Ragnarok/fullscreen, OS mixed-DPI transitions and live client/character changes remain manual acceptance.

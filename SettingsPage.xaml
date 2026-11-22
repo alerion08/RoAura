@@ -25,9 +25,19 @@
   <TabControl x:Name="SettingsTabs" Grid.Row="1" Style="{StaticResource SectionTabControlStyle}">
    <TabItem Header="{DynamicResource BasicTab}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="18" MaxWidth="880" HorizontalAlignment="Left">
     <UniformGrid Columns="2" Margin="0,0,0,14">
-     <StackPanel Margin="0,0,20,0"><TextBlock Text="{DynamicResource Server}"/><ComboBox x:Name="ServerChoice" SelectedValuePath="Tag" SelectedValue="{Binding ServerProfile, Mode=OneWay}" SelectionChanged="Server_Changed"><ComboBoxItem Content="RTM" Tag="RTM"/><ComboBoxItem Content="SpringRO" Tag="SpringRO"/><ComboBoxItem Content="ToC" Tag="ToC"/><ComboBoxItem Content="MuhRO" Tag="MuhRO"/><ComboBoxItem Content="{DynamicResource OtherServer}" Tag="Other"/></ComboBox></StackPanel>
+     <StackPanel Margin="0,0,20,0"><TextBlock Text="{DynamicResource Server}"/><ComboBox x:Name="ServerChoice" SelectedValuePath="Tag" SelectedValue="{Binding ServerProfile, Mode=OneWay}" SelectionChanged="Server_Changed"><ComboBoxItem Content="RTM" Tag="RTM"/><ComboBoxItem Content="SpringRO" Tag="SpringRO"/><ComboBoxItem Content="ToC" Tag="ToC"/><ComboBoxItem Content="MuhRO" Tag="MuhRO"/>
+                            <ComboBoxItem Content="Ragnarok+" Tag="Ragnarok+"/><ComboBoxItem Content="{DynamicResource OtherServer}" Tag="Other"/></ComboBox></StackPanel>
      <StackPanel><TextBlock Text="{DynamicResource Language}"/><ComboBox x:Name="LanguageChoice" SelectedValuePath="Tag" SelectedValue="{Binding Language, Mode=OneWay}" SelectionChanged="Language_Changed"><ComboBoxItem Content="Русский" Tag="ru"/><ComboBoxItem Content="English" Tag="en"/></ComboBox></StackPanel>
     </UniformGrid>
+    <StackPanel Margin="0,0,0,14" HorizontalAlignment="Left" MinWidth="180">
+     <TextBlock Text="{DynamicResource ServerClockZone}"/>
+     <ComboBox x:Name="ServerClockChoice" SelectedValuePath="Tag" SelectedValue="{Binding ServerUtcOffsetMinutes, Mode=TwoWay}" SelectionChanged="ServerClock_Changed"/>
+    </StackPanel>
+    <StackPanel x:Name="CatalogSettings" Margin="0,0,0,14">
+     <TextBlock x:Name="CatalogHeading" Style="{StaticResource FieldLabelStyle}"/>
+     <StackPanel x:Name="CatalogRows"/>
+     <TextBlock x:Name="CatalogStatus" TextWrapping="Wrap"/>
+    </StackPanel>
     <CheckBox Content="{DynamicResource TrackingEnabled}" IsChecked="{Binding Enabled, Mode=TwoWay}" Margin="0,4"/>
     <CheckBox Content="{DynamicResource ReadPackets}" IsChecked="{Binding PacketCaptureEnabled, Mode=TwoWay}" Margin="0,4"/>
     <Grid Margin="0,12,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="180"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
@@ -42,11 +52,17 @@
    <TabItem x:Name="AppearanceSettingsTab" Header="{DynamicResource AppearanceTab}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="18" MaxWidth="920" HorizontalAlignment="Left">
     <TextBlock Text="{DynamicResource AppearanceTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
     <TextBlock Text="{DynamicResource AppearanceDescription}" TextWrapping="Wrap" Margin="0,6,0,18"/>
-    <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="200"/><ColumnDefinition Width="260"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="200"/><ColumnDefinition Width="260"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <TextBlock Text="{DynamicResource ApplicationThemeLabel}" VerticalAlignment="Center"/>
      <ComboBox Grid.Column="1" SelectedValuePath="Tag" SelectedValue="{Binding ApplicationTheme,Mode=TwoWay}" SelectionChanged="Appearance_Changed" Margin="0,4"><ComboBoxItem Tag="Light" Content="{DynamicResource LightTheme}"/><ComboBoxItem Tag="Dark" Content="{DynamicResource DarkTheme}"/></ComboBox>
      <TextBlock Grid.Row="1" Text="{DynamicResource GameOverlayThemeLabel}" VerticalAlignment="Center"/>
      <ComboBox Grid.Row="1" Grid.Column="1" SelectedValuePath="Tag" SelectedValue="{Binding GameOverlayTheme,Mode=TwoWay}" SelectionChanged="Appearance_Changed" Margin="0,4"><ComboBoxItem Tag="Application" Content="{DynamicResource FollowApplicationTheme}"/><ComboBoxItem Tag="Light" Content="{DynamicResource LightTheme}"/><ComboBoxItem Tag="Dark" Content="{DynamicResource DarkTheme}"/></ComboBox>
+     <TextBlock Grid.Row="2" Text="{DynamicResource TableDensityLabel}" VerticalAlignment="Center"/>
+     <ComboBox Grid.Row="2" Grid.Column="1" SelectedValuePath="Tag" SelectedValue="{Binding TableDensity,Mode=TwoWay}" SelectionChanged="Appearance_Changed" Margin="0,4">
+      <ComboBoxItem Tag="Compact" Content="{DynamicResource TableDensityCompact}"/>
+      <ComboBoxItem Tag="Standard" Content="{DynamicResource TableDensityStandard}"/>
+      <ComboBoxItem Tag="Spacious" Content="{DynamicResource TableDensitySpacious}"/>
+     </ComboBox>
     </Grid>
     <TextBlock Text="{DynamicResource AppearancePreserveCustom}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,14,0,18"/>
     <UniformGrid Columns="2">
@@ -100,7 +116,8 @@
     <TextBlock Text="{DynamicResource CharacterManagerHint}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,0,0,12"/>
     <DataGrid x:Name="CharacterManagerGrid" Grid.Row="1" ItemsSource="{Binding Characters}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CellEditEnding="Character_EditEnding">
      <DataGrid.Columns><DataGridTextColumn Header="CID" Binding="{Binding CharacterId}" IsReadOnly="True" Width="140"/><DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-      <DataGridTemplateColumn Header="{DynamicResource Server}" Width="180"><DataGridTemplateColumn.CellTemplate><DataTemplate><ComboBox SelectedValuePath="Tag" SelectedValue="{Binding ServerProfile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"><ComboBoxItem Content="RTM" Tag="RTM"/><ComboBoxItem Content="SpringRO" Tag="SpringRO"/><ComboBoxItem Content="ToC" Tag="ToC"/><ComboBoxItem Content="MuhRO" Tag="MuhRO"/><ComboBoxItem Content="{DynamicResource OtherServer}" Tag="Other"/></ComboBox></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
+      <DataGridTemplateColumn Header="{DynamicResource Server}" Width="180"><DataGridTemplateColumn.CellTemplate><DataTemplate><ComboBox SelectedValuePath="Tag" SelectedValue="{Binding ServerProfile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"><ComboBoxItem Content="RTM" Tag="RTM"/><ComboBoxItem Content="SpringRO" Tag="SpringRO"/><ComboBoxItem Content="ToC" Tag="ToC"/><ComboBoxItem Content="MuhRO" Tag="MuhRO"/>
+                            <ComboBoxItem Content="Ragnarok+" Tag="Ragnarok+"/><ComboBoxItem Content="{DynamicResource OtherServer}" Tag="Other"/></ComboBox></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
      <DataGridTemplateColumn Width="100"><DataGridTemplateColumn.CellTemplate><DataTemplate>
        <Button Content="{DynamicResource Delete}" Click="DeleteCharacter_Click" Margin="2" Padding="8,2"/>
       </DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn></DataGrid.Columns>

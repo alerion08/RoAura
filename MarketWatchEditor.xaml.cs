@@ -23,10 +23,12 @@ public partial class MarketWatchEditor : UserControl
         IsVisibleChanged += (_, _) => { if (!IsVisible) SuggestionsPopup.IsOpen = false; };
     }
 
-    public void Initialize(GameDatabaseService database, DatabaseItem? item = null, MarketWatchRule? rule = null, bool allowItemChange = false)
+    public void Initialize(GameDatabaseService database, DatabaseItem? item = null, MarketWatchRule? rule = null, bool allowItemChange = false, bool buying = false)
     {
         _database = database;
         _editedRule = rule;
+        BuyingMode.Visibility = database.Version == GameServerProfile.RagnarokPlus ? Visibility.Visible : Visibility.Collapsed;
+        BuyingMode.IsChecked = BuyingMode.Visibility == Visibility.Visible && (rule?.Buying ?? buying);
         SuppressCurrentOffers.IsChecked = rule?.SuppressCurrentOffers == true;
         EditorTitle.SetResourceReference(TextBlock.TextProperty, rule is null ? "WatchAddTitle" : "EditItem");
         _updatingSearch = true;
@@ -37,7 +39,7 @@ public partial class MarketWatchEditor : UserControl
         ItemSearch.CaretIndex = ItemSearch.Text.Length;
         SelectedItemName.Text = item?.Name ?? "—";
         SelectedItemLabel.Text = item is null ? "" : $"Item ID: {item.Id}";
-        PriceBox.Text = rule is null || rule.WithoutPrice ? "" : rule.MaximumPrice.ToString(CultureInfo.InvariantCulture);
+        PriceBox.Text = rule is null || rule.WithoutPrice ? "" : rule.PriceThreshold.ToString(CultureInfo.InvariantCulture);
         WithoutPrice.IsChecked = rule?.WithoutPrice == true;
         ErrorText.Text = "";
         Suggestions.ItemsSource = null;
@@ -119,6 +121,10 @@ public partial class MarketWatchEditor : UserControl
     private void PriceMode_Changed(object sender, RoutedEventArgs e)
     { if (PriceBox is not null) PriceBox.IsEnabled = WithoutPrice.IsChecked != true; }
 
+    private void BuyingMode_Changed(object sender, RoutedEventArgs e) =>
+        PriceLabel?.SetResourceReference(TextBlock.TextProperty,
+            BuyingMode.IsChecked == true ? "WatchMinimumPrice" : "WatchMaximumPrice");
+
     public MarketWatchRule? CreateRule()
     {
         if (_database is null) return null;
@@ -139,10 +145,11 @@ public partial class MarketWatchEditor : UserControl
             (!long.TryParse(PriceBox.Text.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out price) || price < 0))
         { ErrorText.Text = LocalizationService.Get("WatchInvalidPrice"); return null; }
         ErrorText.Text = "";
-        var keepBaseline = _editedRule?.ItemId == item.Id &&
+        var buying = BuyingMode.IsChecked == true;
+        var keepBaseline = _editedRule?.ItemId == item.Id && _editedRule.Buying == buying &&
             _editedRule.SuppressCurrentOffers && SuppressCurrentOffers.IsChecked == true;
         return new MarketWatchRule { ItemId = item.Id, ItemName = item.Name,
-            WithoutPrice = WithoutPrice.IsChecked == true, MaximumPrice = price,
+            WithoutPrice = WithoutPrice.IsChecked == true, Buying = buying, MinimumPrice = buying ? price : 0, MaximumPrice = buying ? 0 : price,
             SuppressCurrentOffers = SuppressCurrentOffers.IsChecked == true,
             InitialOffersCaptured = keepBaseline && _editedRule!.InitialOffersCaptured,
             InitialOfferKeys = keepBaseline ? new(_editedRule!.InitialOfferKeys ?? []) : [] };
