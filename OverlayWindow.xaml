@@ -675,7 +675,7 @@
                                     </Border.Style>
                                     <TextBlock Tag="MvpMapHover" Text="{Binding LocationLabel}" FontWeight="Normal"/>
                                 </Border>
-                                <TextBlock><Run Text=" — "/><Run Text="{Binding OverlayCountdown, Mode=OneWay}"/></TextBlock>
+                                <TextBlock Tag="MvpCountdown"><Run Text=" — "/><Run Text="{Binding OverlayCountdown, Mode=OneWay}"/></TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

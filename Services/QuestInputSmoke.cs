@@ -605,7 +605,7 @@ internal static class QuestInputSmoke
             Hover(name);await Until(()=>overlay.IsMvpMapVisible,"MVP name opens the map");
             Hover(icon);await Pause(250);
             if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("Timer map badge lost the row hover map.");
-            Hover(labels.Single(text=>text!=name && text!=icon));await Pause(250);
+            Hover(labels.Single(text=>text.Tag as string=="MvpCountdown"));await Pause(250);
             if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP timer text lost the row hover map.");
             if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("MVP map stole game focus.");
             SaveElement(panel,"timer-map-badge");SaveDesktop(overlay,"timer-map-hover");
