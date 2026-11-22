@@ -1,6 +1,10 @@
 # RoAura UI specification
 
-Current published version: **3.5.0**, [release](https://github.com/alerion08/RoAura/releases/tag/v3.5.0).
+Current published version: **3.6.0**, [release](https://github.com/alerion08/RoAura/releases/tag/v3.6.0).
+
+## 3.6.0 interface
+
+Settings → General → Local databases installs and manages server catalogs. Ragnarok+ item cards offer buy and sell watches, favorites, and price lookup. Gold Goblin history keeps date and loot filters and shows a summary with the best session by revenue. Timers, effects and reminders gain countdown and expiry controls. Overlay layout mode supports snapping, alignment, quick resizing and undo.
 
 ## 3.5.0 interface
 

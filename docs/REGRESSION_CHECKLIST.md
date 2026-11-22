@@ -1,5 +1,12 @@
 # Regression checklist
 
+## RoAura 3.6.0 publication
+
+- [x] [Windows publication run](https://github.com/alerion08/RoAura/actions/runs/45060245412) on `8849c4e2ca9be45c332ee327131e6b2c88f00075` passed 433 tests, eight ToC checks, native startup and input checks, both package builds, installation verification and clean package validation.
+- [x] [Public release](https://github.com/alerion08/RoAura/releases/tag/v3.6.0) has a portable ZIP, Setup EXE and checksum manifest.
+- [x] Owner confirmed downloading the Ragnarok+ catalog from the Windows test build.
+- [ ] On the published build, verify live buy/sell searches, watches, character switching and Base/Job EXP. Verify overlay positioning and reminder countdowns during gameplay.
+
 ## RoAura 3.5.0 publication — 2026-11-08
 
 - [x] [Windows publication run 42468295372](https://github.com/alerion08/RoAura/actions/runs/42468295372) on `32af7d606459039ad105bbbd5bcb5c6bd518cf36`: 420 tests, native startup/input, portable and installer, silent install, bundled guides and timer sprites, and clean payload.

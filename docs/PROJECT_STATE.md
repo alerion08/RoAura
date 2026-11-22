@@ -1,11 +1,13 @@
 # Project state
 
-## RoAura 3.6.0 release candidate
+## Current published baseline — RoAura 3.6.0
 
-- The release candidate includes Ragnarok+, separate catalog downloads, market and farming tools, and countdown and overlay layout improvements.
-- The owner confirmed the Ragnarok+ catalog download in the Windows test build. Windows release checks run through the publication workflow.
+- [v3.6.0](https://github.com/alerion08/RoAura/releases/tag/v3.6.0) was published from main commit `8849c4e2ca9be45c332ee327131e6b2c88f00075` after PRs #20–#23. Start subsequent work from current `main`.
+- Shipped Ragnarok+ catalog downloads, market search and watches, farming tools, Gold Goblin history improvements, and countdown and overlay controls.
+- [Windows publication run](https://github.com/alerion08/RoAura/actions/runs/45060245412) passed 433 tests, eight ToC checks, native startup and input checks, portable and installer builds, installation verification and package validation. The public release has the portable ZIP, Setup EXE and checksum manifest.
+- The owner confirmed Ragnarok+ catalog download in the Windows test build. Live market authentication, character and EXP tracking, and in-game overlay behavior remain manual regression checks on the released package.
 
-## Current published baseline — RoAura 3.5.0
+## Previous published baseline — RoAura 3.5.0
 
 - [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.
 - Shipped: regular monster and MVP timers, up to 12 restart hotkeys, Base/Job EXP bars, the MuhRO packet profile, five offline video guides, effect-panel selection, concise capture status, CID recovery and legacy EXP support.
