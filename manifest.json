@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "servers": {
+    "ragnarokplus": {
+      "version": "2026-11-22",
+      "url": "https://github.com/alerion08/RoAura/releases/download/catalog-ragnarokplus-2026-11-22/ragnarokplus-offline.zip",
+      "sizeBytes": 105718697,
+      "sha256": "f07599ea1a7fd8d66edd899e881efe45eea2a938f5f7c6eae9075793b2b7ec99"
+    }
+  }
+}
