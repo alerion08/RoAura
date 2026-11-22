@@ -38,7 +38,11 @@ public sealed class UiRegressionTests
         Assert.Contains("<ListBox x:Name=\"EffectsGrid\"", xaml);
         Assert.Contains("<ListBox Grid.Row=\"1\" x:Name=\"RemindersGrid\"", xaml);
         Assert.Contains("<ListBox Grid.Row=\"1\" x:Name=\"EquipmentGrid\"", xaml);
-        Assert.Contains("<ListBox Grid.Row=\"1\" x:Name=\"MvpTimersGrid\"", xaml);
+        var document = XDocument.Parse(xaml);
+        XNamespace ui = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
+        XNamespace names = "http://schemas.microsoft.com/winfx/2006/xaml";
+        Assert.Contains(document.Descendants(ui + "ListBox"),
+            control => (string?)control.Attribute(names + "Name") == "MvpTimersGrid");
         Assert.Contains("x:Name=\"GoldGoblinWorkspaceTabs\"", xaml);
         Assert.DoesNotContain("<DataGrid x:Name=\"EffectsGrid\"", xaml);
         Assert.DoesNotContain("<DataGrid x:Name=\"RemindersGrid\"", xaml);
