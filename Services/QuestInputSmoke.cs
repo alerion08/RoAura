@@ -712,7 +712,7 @@ internal static class QuestInputSmoke
                 { RoutedEvent = System.Windows.Input.Mouse.MouseWheelEvent });
             await Until(() => scroll.VerticalOffset < beforeWheel - 1, "wheel over location scrolls the form");
 
-            wizard.Height = 740;
+            wizard.Height = wizard.ActualHeight + scroll.ScrollableHeight + 24;
             await Until(() => scroll.ScrollableHeight <= 1 && scroll.ComputedVerticalScrollBarVisibility == Visibility.Collapsed,
                 "tall timer form shows all locations without a scrollbar");
             SaveDesktop(wizard, "timer-locations-tall-native");
