@@ -16,6 +16,33 @@ public sealed class MarketWatchHistoryTests : IDisposable
     };
 
     [Fact]
+    public void BuyWatchUsesMinimumPriceAndKeepsSeparateHistoryAcrossRestart()
+    {
+        var buyRule = new MarketWatchRule { ItemId = 1251, ItemName = "Jur", Buying = true, MinimumPrice = 150_000,
+            SuppressCurrentOffers = true };
+        var rules = new[] { Rule, buyRule };
+        var sale = Offer();
+        var buy = Offer(); buy.ShopType = "BUY";
+        var higher = Offer("Bob", "180000"); higher.ShopType = "BUY";
+        var lower = Offer("Claire", "140000"); lower.ShopType = "BUY";
+        var service = new MarketWatchService(new MarketWatchHistoryStore(HistoryPath));
+
+        Assert.False(Assert.Single(service.Evaluate(rules, [sale, buy])).Buying);
+        Assert.False(buyRule.InitialOffersCaptured);
+        Assert.Empty(service.Evaluate(rules, [], buying: true));
+        Assert.True(buyRule.InitialOffersCaptured);
+        var match = Assert.Single(service.Evaluate(rules, [sale, buy, higher, lower], buying: true));
+        Assert.True(match.Buying);
+        Assert.Equal(180_000, match.Price);
+        Assert.Equal(3, service.History.Count);
+        Assert.Equal(2, service.History.Count(entry => entry.Buying));
+
+        var restarted = new MarketWatchService(new MarketWatchHistoryStore(HistoryPath));
+        Assert.Empty(restarted.Evaluate(rules, [buy, higher, lower], buying: true));
+        Assert.Empty(restarted.Evaluate(rules, [sale]));
+    }
+
+    [Fact]
     public void RestartSuppressesAllKnownShopsButFindsNewSellerOrPrice()
     {
         var first = new MarketWatchService(new MarketWatchHistoryStore(HistoryPath));

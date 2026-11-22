@@ -112,6 +112,8 @@ public sealed class NpcapPacketCapture : IDisposable
     public event Action<RoPacketObservation<RoEquipmentPacket>>? EquipmentIdentityMissing;
     public event Action<RoItemAddedPacket>? ItemAdded;
     public event Action<RoExperiencePacket>? ExperienceChanged;
+    public event Action<RoPacketObservation<RoExperiencePacket>, ulong>? UnboundRagnarokPlusExperience;
+    public event Action<RoPacketObservation<RoItemAddedPacket>>? UnboundRagnarokPlusLoot;
     public event Action<RoProgressPacket>? ProgressChanged;
     public event Action<RoZenyPacket>? ZenyChanged;
     // DEV-only: immutable source character session accompanies each reward packet.
@@ -135,7 +137,7 @@ public sealed class NpcapPacketCapture : IDisposable
             AppEnvironment.CharacterSessionsEnabled && settings.AutoDetectConnection && settings.PacketCaptureEnabled
                 ? settings.AllowedProcesses.Select(name => Path.GetFileNameWithoutExtension(name.Trim()))
                     .Where(name => !string.IsNullOrEmpty(name)).ToHashSet(StringComparer.OrdinalIgnoreCase)
-                : null);
+                : null, settings.ServerProfile == GameServerProfile.RagnarokPlus);
         int generation;
         lock (_lifecycleLock)
         {
@@ -178,7 +180,7 @@ public sealed class NpcapPacketCapture : IDisposable
                     handoff.Login.CharacterId, handoff.Login.PlayerAid);
                 DebugLog.Write($"CHARACTER LOGIN RETAINED ACROSS ENDPOINT CHANGE: mapPort={handoff.Flow.DestinationPort}");
             }
-            loginObserver = AppEnvironment.CharacterSessionsEnabled ? new CharacterLoginObserver() : null;
+            loginObserver = AppEnvironment.CharacterSessionsEnabled ? new CharacterLoginObserver(target.LogRagnarokPlusStatistics) : null;
             if (loginObserver is not null)
             {
                 var serverKey = settings.ServerProfile;
@@ -528,7 +530,11 @@ public sealed class NpcapPacketCapture : IDisposable
                             if (!tcpFlows.TryGetValue(flowKey, out flow))
                             {
                                 PruneIdleFlows(tcpFlows, generation);
-                                var scanner = CreateScanner(generation, CharacterSessionFlow.FromInbound(flowKey));
+                                var sessionFlow = CharacterSessionFlow.FromInbound(flowKey);
+                                var scanner = CreateScanner(generation, sessionFlow, target.LogRagnarokPlusStatistics,
+                                    loginObserver, target.AutoDiscovery
+                                        ? () => ApplyRosterLevels(generation, target, flowKey, sessionFlow)
+                                        : null);
                                 if (target.AutoDiscovery)
                                     scanner.CharacterRosterObserved += roster => RememberRosterLevels(generation, target, flowKey, roster);
                                 flow = new TcpFlowState(scanner);
@@ -629,7 +635,8 @@ public sealed class NpcapPacketCapture : IDisposable
     }
 
     private RoPacketStreamScanner CreateScanner(int generation,
-        CharacterSessionFlow packetFlow)
+        CharacterSessionFlow packetFlow, bool logRagnarokPlusStatistics, CharacterLoginObserver? loginObserver,
+        Action? applyRosterLevels)
     {
         // All adapters share the retained TcpFlowState/scanner, but different
         // TCP lifetimes must never resolve the same inventory index together.
@@ -729,7 +736,11 @@ public sealed class NpcapPacketCapture : IDisposable
         if (AppEnvironment.CharacterSessionsEnabled)
             scanner.SelfAidObserved += packet => Forward(generation, () =>
             {
-                ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID");
+                ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID",
+                    logRagnarokPlusStatistics ? loginObserver : null);
+                if (logRagnarokPlusStatistics && loginObserver is not null &&
+                    BindRagnarokPlusSession(generation, packetFlow, packet.Aid, loginObserver))
+                    applyRosterLevels?.Invoke();
                 ReplayPendingStatuses();
             });
         // Actor visibility (not always a skill ack): TF_HIDING is confirmed
@@ -755,8 +766,21 @@ public sealed class NpcapPacketCapture : IDisposable
         scanner.ItemAdded += packet => Forward(generation, () =>
         {
             ItemAdded?.Invoke(packet);
-            ForwardCharacterPacket(packetFlow, packet, CharacterItemAdded);
+            var bound = ForwardCharacterPacket(packetFlow, packet, CharacterItemAdded);
+            if (logRagnarokPlusStatistics)
+            {
+                DebugLog.Write($"RAGNAROK+ LOOT DECODED item={packet.ItemId}; count={packet.Count}; sessionBound={bound}");
+                if (!bound)
+                {
+                    var observation = Observe(packet, source);
+                    if (observation.IdentitySource == "ZC_AID" && observation.SelfAid != 0 &&
+                        IsCurrentObservation(observation))
+                        UnboundRagnarokPlusLoot?.Invoke(observation);
+                }
+            }
         });
+        ulong nextBaseExperience = 0;
+        ulong nextJobExperience = 0;
         scanner.ExperienceChanged += packet => Forward(generation, () =>
         {
             if (AppEnvironment.CharacterSessionsEnabled)
@@ -765,12 +789,35 @@ public sealed class NpcapPacketCapture : IDisposable
                 ReplayPendingStatuses();
             }
             ExperienceChanged?.Invoke(packet);
-            ForwardCharacterPacket(packetFlow, packet, CharacterExperienceChanged);
+            var bound = ForwardCharacterPacket(packetFlow, packet, CharacterExperienceChanged);
+            if (logRagnarokPlusStatistics)
+            {
+                DebugLog.Write($"RAGNAROK+ EXP DECODED type={packet.ExperienceType}; amount={packet.Amount}; sessionBound={bound}");
+                if (!bound)
+                {
+                    var observation = Observe(packet, source);
+                    if (observation.IdentitySource == "ZC_AID" && IsCurrentObservation(observation) &&
+                        _playerAidObserver.AidForFlow(packetFlow) == packet.Aid)
+                        UnboundRagnarokPlusExperience?.Invoke(observation,
+                            packet.ExperienceType == 2 ? nextJobExperience : nextBaseExperience);
+                }
+            }
         });
         scanner.ProgressChanged += packet => Forward(generation, () =>
         {
             ProgressChanged?.Invoke(packet);
-            ForwardCharacterPacket(packetFlow, packet, CharacterProgressChanged);
+            var bound = ForwardCharacterPacket(packetFlow, packet, CharacterProgressChanged);
+            if (!logRagnarokPlusStatistics) return;
+
+            // Keep thresholds on the scanner for this TCP connection only.
+            if (packet.Parameter is 11 or 55 or 22 or 23)
+            {
+                if (packet.Parameter is 11 or 22)
+                    nextBaseExperience = packet.Parameter == 22 ? packet.Value : 0;
+                else
+                    nextJobExperience = packet.Parameter == 23 ? packet.Value : 0;
+            }
+            DebugLog.Write($"RAGNAROK+ PROGRESS DECODED parameter={packet.Parameter}; value={packet.Value}; sessionBound={bound}");
         });
         scanner.ZenyChanged += packet => Forward(generation, () =>
         {
@@ -827,7 +874,8 @@ public sealed class NpcapPacketCapture : IDisposable
         }
     }
 
-    private void ObservePlayerAid(CharacterSessionFlow flow, uint aid, string source)
+    private void ObservePlayerAid(CharacterSessionFlow flow, uint aid, string source,
+        CharacterLoginObserver? loginObserver = null)
     {
         if (_playerAidObserver.Observe(flow, aid, source))
         {
@@ -839,6 +887,31 @@ public sealed class NpcapPacketCapture : IDisposable
             DebugLog.Write($"PLAYER SELF AID VERIFIED source={source}; " +
                            $"mapLoginComparison={comparison}; " +
                            $"clientPort={flow.ClientPort}; mapPort={flow.ServerPort}");
+            if (loginObserver is not null)
+            {
+                var outbound = new TcpFlowKey(flow.ClientAddress, flow.ClientPort, flow.ServerAddress, flow.ServerPort);
+                DebugLog.Write($"RAGNAROK+ VERIFIED FLOW LOGIN: clientPort={flow.ClientPort}; " +
+                               $"mapPort={flow.ServerPort}; {loginObserver.DescribeFirstPayload(outbound, aid)}");
+            }
+        }
+    }
+
+    private bool BindRagnarokPlusSession(int generation, CharacterSessionFlow flow, uint aid,
+        CharacterLoginObserver loginObserver)
+    {
+        lock (_lifecycleLock)
+        {
+            if (generation != _generation || _characterSessions.TryResolve(flow, out _) ||
+                _playerAidObserver.SourceForFlow(flow) != "ZC_AID" ||
+                _playerAidObserver.AidForFlow(flow) != aid) return false;
+
+            var outbound = new TcpFlowKey(flow.ClientAddress, flow.ClientPort, flow.ServerAddress, flow.ServerPort);
+            if (loginObserver.ConfirmRagnarokPlusLogin(outbound, aid) is not { } login) return false;
+
+            _characterSessions.OnCandidate(GameServerProfile.RagnarokPlus, flow, login.CharacterId, aid);
+            _characterSessions.OnServerPayload(flow);
+            DebugLog.Write($"RAGNAROK+ CHARACTER SESSION: cid={login.CharacterId}; clientPort={flow.ClientPort}");
+            return true;
         }
     }
 
@@ -879,12 +952,13 @@ public sealed class NpcapPacketCapture : IDisposable
     private static TcpFlowKey Reverse(TcpFlowKey flow) =>
         new(flow.DestinationAddress, flow.DestinationPort, flow.SourceAddress, flow.SourcePort);
 
-    private void ForwardCharacterPacket<T>(CharacterSessionFlow flow, T packet,
+    private bool ForwardCharacterPacket<T>(CharacterSessionFlow flow, T packet,
         Action<CharacterSessionPacket<T>>? callback)
     {
         if (!AppEnvironment.CharacterSessionsEnabled || callback is null ||
-            !_characterSessions.TryResolve(flow, out var session)) return;
+            !_characterSessions.TryResolve(flow, out var session)) return false;
         callback(new CharacterSessionPacket<T>(session, packet));
+        return true;
     }
 
     private void Forward(int generation, Action action)
@@ -946,8 +1020,9 @@ public sealed class NpcapPacketCapture : IDisposable
         OptionsSignature = identity.OptionsSignature
     };
 
-    private sealed class CaptureTarget(string address, int port, IReadOnlySet<string>? allowedProcesses)
+    private sealed class CaptureTarget(string address, int port, IReadOnlySet<string>? allowedProcesses, bool logRagnarokPlusStatistics)
     {
+        public bool LogRagnarokPlusStatistics => logRagnarokPlusStatistics;
         private readonly uint? _addressValue = IPAddress.TryParse(address, out var parsed) &&
             parsed.AddressFamily == AddressFamily.InterNetwork
             ? BinaryPrimitives.ReadUInt32BigEndian(parsed.GetAddressBytes()) : null;

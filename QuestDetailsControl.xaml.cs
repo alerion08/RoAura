@@ -20,7 +20,7 @@ public partial class QuestDetailsControl : UserControl
 
  private readonly QuestSemanticService _reader=new();
  private readonly DispatcherTimer _refresh=new(){Interval=TimeSpan.FromSeconds(2)};
- private readonly DispatcherTimer _toast=new(){Interval=TimeSpan.FromSeconds(3)};
+ private readonly DispatcherTimer _toast=new(DispatcherPriority.Normal){Interval=TimeSpan.FromSeconds(3)};
  private SemanticCatalog? _catalog;private SemanticQuest? _quest;private QuestWorkspace? _workspace;
  private string? _selectedId,_semanticChoice,_workspaceKey;private string _language="ru",_fingerprint="";private bool _loading,_rendering;private Task? _loadTask;private FileSystemWatcher? _watcher;
  private readonly Dictionary<string,Border> _cards=new();
@@ -95,12 +95,47 @@ public partial class QuestDetailsControl : UserControl
   var active=_quest is not null && _workspace?.SelectedGuide?.Key==_quest.Id && _workspace.IsActive(_workspace.SelectedGuide);
   AddButton.Content=active?L("✓ Активен","✓ Active"):L("+ Добавить в активные","+ Add to active");AddButton.IsEnabled=Editable;
   if(active)QuestCopyFeedback.ColorState(AddButton,BB("#298E38"));else{AddButton.ClearValue(Button.TemplateProperty);AddButton.ClearValue(Button.ForegroundProperty);}
+  WantedQuestLootButton.Content = L("Материалы в желаемый лут", "Add materials to wanted loot");
+  WantedQuestLootButton.Visibility = active && Editable ? Visibility.Visible : Visibility.Collapsed;
   GoCurrentButton.Content=L("К текущему этапу","Go to current step");GoCurrentButton.IsEnabled=Current() is not null;
   WalkTab.Header=L("Прохождение","Walkthrough");FactsTab.Header=L("Требования и награды","Requirements and rewards");SourcesTab.Header=L("Источники","Sources");
   var done=_quest?.Steps.Count(Done)??0;var count=_quest?.Steps.Count??0;
   ProgressText.Text=L("Выполнено: ","Completed: ")+$"{done}/{count}";ProgressBar.Value=count==0?0:(double)done/count;
   foreach(var (button,language) in new[]{(RuButton,"ru"),(EnButton,"en")})
   {button.Background=BB(language==_language?"#1F67C2":"#F3F7FD");button.Foreground=language==_language?Brushes.White:B("#1C4782");}
+ }
+ private void WantedQuestLoot_Click(object sender, RoutedEventArgs e)
+ {
+  if (!Editable || _workspace?.SelectedGuide is not { } guide || !_workspace.IsActive(guide) ||
+      _quest is not { } quest || Application.Current is not App app || app.MarketWatchDatabase is not { } database)
+   return;
+
+  var settings = _workspace.Settings;
+  var server = settings.ServerProfile;
+  if (!string.Equals(server, database.Version, StringComparison.OrdinalIgnoreCase)) return;
+  var materials = quest.Steps.Where(step => !Done(step)).SelectMany(step => step.Items)
+   .Where(item => item.Required != false && item.Operation is ("collect" or "bring" or "deliver" or "buy" or "use" or "consume"))
+   .Select(item => item.Name.Trim()).Where(name => name.Length > 0).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+  if (materials.Length == 0)
+  {
+   Notify(L("В оставшихся этапах нет материалов.", "No materials for the remaining steps."));
+   return;
+  }
+
+  var names = database.Items.GroupBy(item => item.Name.Trim(), StringComparer.OrdinalIgnoreCase)
+   .ToDictionary(group => group.Key, group => group.Select(item => item.Id).Distinct().ToArray(), StringComparer.OrdinalIgnoreCase);
+  if (!settings.WantedLootByServer.TryGetValue(server, out var wanted))
+   settings.WantedLootByServer[server] = wanted = [];
+  var added = 0;
+  var unresolved = 0;
+  foreach (var name in materials)
+  {
+   if (!names.TryGetValue(name, out var ids) || ids.Length != 1) { unresolved++; continue; }
+   if (wanted.Add(ids[0])) added++;
+  }
+  if (added > 0) app.SaveDatabasePreferences();
+  Notify(L($"Добавлено: {added}. Без точного совпадения в базе: {unresolved}.",
+           $"Added: {added}. No exact catalog match: {unresolved}."));
  }
  private void RenderSteps()
  {

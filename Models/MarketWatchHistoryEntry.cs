@@ -13,6 +13,8 @@ public sealed class MarketWatchHistoryEntry
     public int X { get; set; }
     public int Y { get; set; }
     public long Price { get; set; }
+    public bool Buying { get; set; }
+    [JsonIgnore] public string SideCaption => RoAura.Services.LocalizationService.Get(Buying ? "WatchBuying" : "WatchSelling");
     public string Refine { get; set; } = "";
     public string Cards { get; set; } = "";
     [JsonIgnore] public string TimeCaption => DetectedAtUtc.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss");
@@ -21,6 +23,6 @@ public sealed class MarketWatchHistoryEntry
     [JsonIgnore] public string PriceCaption => $"{Price:N0} Zeny";
     // Numeric price, rather than the site's formatted string, is part of the identity.
     // Quantity is deliberately excluded: selling some of an existing stack is not a new offer.
-    [JsonIgnore] public string Key => System.Text.Json.JsonSerializer.Serialize(new object[]
+    [JsonIgnore] public string Key => (Buying ? "BUY:" : "") + System.Text.Json.JsonSerializer.Serialize(new object[]
         { ItemId, Owner, Stall, Map, X, Y, Refine, Cards, Price });
 }

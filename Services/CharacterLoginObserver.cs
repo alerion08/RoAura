@@ -12,7 +12,7 @@ namespace RoAura.Services;
 public sealed record CharacterLoginCandidate(ushort PacketId, uint CharacterId,
     int PacketLength, uint PlayerAid = 0); // transient in-memory AID, never logged
 
-public sealed class CharacterLoginStreamProbe
+public sealed class CharacterLoginStreamProbe(bool observeRagnarokPlus = false)
 {
     private const int MaximumPrefixLength = 23;
     private readonly object _sync = new();
@@ -21,6 +21,9 @@ public sealed class CharacterLoginStreamProbe
     private bool _initialized;
     private bool _finished;
     private bool _identified;
+    private CharacterLoginCandidate? _ragnarokPlusCandidate;
+    private bool _diagnosticReported;
+    private int _firstPayloadLength;
     private ushort? _observedOpcode;
     private uint _nextSequence;
     private long _lastSeen = Environment.TickCount64;
@@ -35,6 +38,39 @@ public sealed class CharacterLoginStreamProbe
     }
     public bool Finished { get { lock (_sync) return _finished; } }
     public bool Identified { get { lock (_sync) return _identified; } }
+
+    internal CharacterLoginCandidate? ConfirmRagnarokPlusLogin(uint aid)
+    {
+        lock (_sync)
+            return aid != 0 && _ragnarokPlusCandidate?.PlayerAid == aid ? _ragnarokPlusCandidate : null;
+    }
+
+    internal string DescribeFirstPayload(uint verifiedAid = 0)
+    {
+        lock (_sync)
+        {
+            var description = _observedOpcode is { } opcode
+                ? $"firstOpcode=0x{opcode:X4}; firstPayloadLength={_firstPayloadLength}"
+                : $"firstPayloadLength={_firstPayloadLength}; firstOpcode=unavailable";
+            if (_ragnarokPlusCandidate is not { } candidate || verifiedAid == 0) return description;
+            if (candidate.PlayerAid != verifiedAid) return description + "; layoutAidMatches=False";
+            return description + "; layoutAidMatches=True";
+        }
+    }
+
+    internal bool TryTakeUnrecognizedDiagnostic(out ushort opcode, out int firstPayloadLength)
+    {
+        lock (_sync)
+        {
+            opcode = _observedOpcode.GetValueOrDefault();
+            firstPayloadLength = _firstPayloadLength;
+            if (!_finished || _identified || !_observedOpcode.HasValue || _diagnosticReported)
+                return false;
+
+            _diagnosticReported = true;
+            return true;
+        }
+    }
 
     /// <summary>Returns one candidate at most. Duplicates and gaps cannot produce another.</summary>
     public CharacterLoginCandidate? Process(uint sequence, ReadOnlySpan<byte> payload)
@@ -63,6 +99,7 @@ public sealed class CharacterLoginStreamProbe
                     return null;
                 }
             }
+            if (!_initialized) _firstPayloadLength = payload.Length;
             _initialized = true;
             _nextSequence = unchecked(sequence + (uint)payload.Length);
 
@@ -76,6 +113,24 @@ public sealed class CharacterLoginStreamProbe
             if (_prefixLength < 2) return null;
             var opcode = BinaryPrimitives.ReadUInt16LittleEndian(_prefix);
             _observedOpcode = opcode;
+            if (observeRagnarokPlus && opcode is not (0x0072 or 0x0436))
+            {
+                // The original layout can arrive in fragments. For a shuffled
+                // opcode, require a complete 23-byte first TCP payload.
+                if (opcode == 0x6B0A && _prefixLength < MaximumPrefixLength) return null;
+                if (_prefixLength == MaximumPrefixLength &&
+                    (opcode == 0x6B0A || _firstPayloadLength == MaximumPrefixLength))
+                {
+                    var candidateAid = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(2));
+                    var candidateCid = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(6));
+                    if (candidateAid != 0 && candidateCid != 0 && _prefix[22] <= 1)
+                        _ragnarokPlusCandidate = new(opcode, candidateCid, MaximumPrefixLength, candidateAid);
+                }
+                // Session binding requires an independent server AID on this flow.
+                Finish();
+                return null;
+            }
+
             if (opcode is not (0x0072 or 0x0436))
             {
                 Finish(); // Mid-stream attachment or unknown shuffled opcode.
@@ -118,7 +173,7 @@ public sealed class CharacterLoginStreamProbe
 /// duplicate Npcap adapters, bounded by flow count and idle expiration.
 /// Never writes raw traffic, account ID, auth codes or client IPs to disk.
 /// </summary>
-public sealed class CharacterLoginObserver
+public sealed class CharacterLoginObserver(bool observeRagnarokPlus = false)
 {
     private const int MaximumFlows = 512;
     private const long IdleMs = 2 * 60 * 1000;
@@ -131,6 +186,13 @@ public sealed class CharacterLoginObserver
         RecentDiagnostics = new();
     private readonly ConcurrentDictionary<TcpFlowKey, CharacterLoginStreamProbe> _flows = new();
     internal event Action<TcpFlowKey, CharacterLoginCandidate>? CandidateDetected;
+
+    internal CharacterLoginCandidate? ConfirmRagnarokPlusLogin(TcpFlowKey flow, uint aid) =>
+        _flows.TryGetValue(flow, out var probe) ? probe.ConfirmRagnarokPlusLogin(aid) : null;
+
+    internal string DescribeFirstPayload(TcpFlowKey flow, uint verifiedAid = 0) =>
+        _flows.TryGetValue(flow, out var probe) ? probe.DescribeFirstPayload(verifiedAid) : "firstPayload=not-observed";
+
     private readonly object _seenLock = new();
     private readonly HashSet<(ushort Opcode, uint Cid, ushort ClientPort, ushort MapPort)>
         _seenThisGeneration = [];
@@ -150,15 +212,16 @@ public sealed class CharacterLoginObserver
         if (_flows.Count >= MaximumFlows)
             Prune();
         if (_flows.Count >= MaximumFlows) return;
-        var probe = _flows.GetOrAdd(key, _ => new CharacterLoginStreamProbe());
+        var probe = _flows.GetOrAdd(key, _ => new CharacterLoginStreamProbe(observeRagnarokPlus));
         var candidate = probe.Process(sequence, payload);
         if (candidate is null)
         {
             // Limited, metadata-only hint that this client's packetver may
             // shuffle map-login IDs, or that capture began mid-connection.
-            if (probe.Finished && !probe.Identified && probe.FirstOpcode is ushort opcode &&
+            if (probe.TryTakeUnrecognizedDiagnostic(out var opcode, out var firstPayloadLength) &&
                 Interlocked.Increment(ref _unrecognizedLogged) <= 10)
                 DebugLog.Write($"CHARACTER MAP LOGIN NOT IDENTIFIED: firstOpcode=0x{opcode:X4}; " +
+                               $"firstPayloadLength={firstPayloadLength}; clientPort={key.SourcePort}; " +
                                $"mapPort={key.DestinationPort}; check packetver / late capture");
             return;
         }

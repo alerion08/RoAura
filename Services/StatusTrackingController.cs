@@ -46,7 +46,12 @@ public sealed class StatusTrackingController
         var ids = rows.Select(e => e.Id).ToHashSet();
         foreach (var deleted in _effects.Keys.Where(id => !ids.Contains(id)).ToList()) _effects.Remove(deleted);
         foreach (var reminder in reminders)
-            reminder.IsStatusPresent = IsPresent(reminder.StatusId, now);
+        {
+            var present = IsPresent(reminder.StatusId, now);
+            reminder.RemainingStatusSeconds = present && GetStatus(reminder.StatusId)?.EndsAt is { } end
+                ? (end - now).TotalSeconds : 0;
+            reminder.IsStatusPresent = present;
+        }
         foreach (var effect in rows)
         {
             var present = IsPresent(effect.StatusId, now);

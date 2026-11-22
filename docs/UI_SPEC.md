@@ -184,8 +184,17 @@ MuhRO is selectable in the header/server settings and character manager. It enab
 
 - Market notification settings keep preview, enable/icon actions and template above the informational help card; Appearance and Sound tabs follow that card. Equipment learning help uses the same information-card styling as Effects.
 
+Settings → Appearance controls table density across RoAura. Compact, Standard and Spacious change table header height and row minimums. Rows can grow to accommodate their contents.
+
+Map details offer a farm plan using a selected resident monster and a planned kill count. Expected quantities use normal drop rates. Valuation uses cached selling prices (Ragnarok+ Softcore) with NPC fallback and flags missing prices. Ragnarok+ recipe ingredients are identified in the drop list.
+
+Database cards keep a Back action across linked cards and Favorites. Ragnarok+ item cards group the Sell, Buy and Favorite actions in one row, with crafting tags in the item header. Favorite list names can be edited and lists can be deleted after confirmation. Farm plan results use uniform rows. Reminder expiration countdowns are drawn over the icon. The optional respawn window extends the timer after the main duration and uses the window colour for that final segment.
+
+Settings → General stores a server UTC offset. The timer wizard can interpret an entered kill clock using that offset and the most recent matching server date.
+
 ## Gold Goblin and Market
 
+- Ragnarok+ supports independent watch rules for the same item on both shop sides. Buying rules use a minimum price. The item card has a separate buying watch action, and watch history identifies the shop side. Gold Goblin uses selling offers for Vending Price.
 - Gold Goblin shows session quantity, unit price and total value.
 - NPC price, Overcharge, Vending price and manual rule behavior remain distinct.
 - Overcharge levels are 0–10.
@@ -648,6 +657,10 @@ Real Ragnarok/mixed-monitor/long-session acceptance remains manual.
 
 Respawn locations are clickable cards containing the original name/code/interval, selected with theme colors. In the compact creation wizard they sit below Start immediately, and the right card shows the map. Repeated Add MVP hotkey closes the form. Map previews occupy a disjoint rectangle beside the complete timer panel.
 
+The history details chart shows Base EXP, Job EXP and direct Zeny in five-minute buckets of active session time. Hover over a bucket for its total. Interval collection begins when this version is used.
+
+Gold Goblin session details accept a manual consumable expense total in Zeny. Ctrl-select two history rows to compare active time, direct Zeny, valued loot, expenses, net value and net value per active hour. Net value subtracts expenses from direct Zeny plus valued loot.
+
 Market history can show all items while preserving the selected watch editor. Session history uses one list with Open/double-click details in another window; details omit receipt dates/times. Gold Goblin has four actions and no CSV button.
 
 Hotkey fields record a key or chord on keyboard press, expose Clear through their context menu, and report duplicate assignments. Modifier combinations use exact matching and one action per physical press. Recorded input does not invoke a newly assigned action before release. Character removal preserves local histories and cannot silently broaden character-scoped overlays. Reminder mode cards use live palette brushes.
@@ -700,6 +713,10 @@ Settings → Hotkeys → General records Interface layout mode (None by default)
 Every available group receives a passive section/group label and a small ⋮⋮ grip like the quest tracker. Cooldowns, effect notifications, buff panels, reminders, equipment, rate indicators and reward notifications have separate group targets. Market notifications, MVP timers and ROQuestie move by section. Group 0 is a single ungrouped section bucket; this mode has no individual-item movement. All allowed members of a group, including disabled members, receive the same delta; character-scoped objects from other characters remain untouched. Cooldown group labels retain custom names.
 
 Only the grip is interactive; labels and ordinary overlay HWNDs remain mouse-transparent/nonactivating. Temporary notification/MVP/empty-quest previews make quiet panels placeable without simulating packet events, sounds, cooldowns or session gains. Existing requested visibility and serialized appearance/enable preferences survive exit. Merely entering the editor or clamping an off-screen grip does not rewrite model coordinates; the first deliberate drag brings the group into bounds while preserving spacing. Movement converts physical mouse deltas using the selected game client's DPI. Alt-Tab/minimize hides grips and releases mouse capture; changing client, character identity, server, packet gate, preset or closing the application finishes the mode and cleans previews. Settings opened from the app end the mode.
+
+The layout toolbar toggles a click-through 20-DIP grid and snaps dragged groups to it. Select a grip, then align the whole group to a client edge or center while preserving member spacing.
+
+Select a grip and use −/+ to adjust the selected overlay’s icon size, text size, EXP bar height, or quest scale. Values update live and use the existing settings limits. Undo restores moves and size changes in reverse order during the current edit session.
 
 The MVP minimap uses the whole timer row as its hover target again, including its retained magnifier. Map placement beside the complete panel and passive focus behavior remain unchanged; minimap hover is suspended while layout mode is active.
 

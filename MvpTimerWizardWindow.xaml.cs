@@ -22,7 +22,7 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
     private TextBox? _monsterEditor;
     private bool _suppressMonsterTextChanged;
     private readonly DateTime? _restartAtUtc;
-    private readonly string? _initialKillClock;
+    private string? _initialKillClock;
     private readonly bool _usesReferenceCatalog;
     private bool ShowingMvp => TimerKindBox.SelectedIndex != 1;
     public bool IsRestart => _restartAtUtc.HasValue;
@@ -53,6 +53,28 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedMonster)));
         }
     }
+    private bool _useServerKillTime;
+    private readonly int _serverUtcOffsetMinutes;
+
+    public bool UseServerKillTime
+    {
+        get => _useServerKillTime;
+        set
+        {
+            if (_useServerKillTime == value) return;
+            _useServerKillTime = value;
+            if (value) UseExactKillTime = true;
+            if (IsRestart && KillTimeText == _initialKillClock)
+            {
+                var offset = value ? TimeSpan.FromMinutes(_serverUtcOffsetMinutes) : TimeZoneInfo.Local.GetUtcOffset(_restartAtUtc!.Value);
+                KillTimeText = _initialKillClock = new DateTimeOffset(_restartAtUtc!.Value).ToOffset(offset).ToString("HH:mm:ss");
+            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UseServerKillTime)));
+        }
+    }
+
+    public string ServerClockZone => MvpTimer.FormatServerUtcOffset(_serverUtcOffsetMinutes);
+
     public bool UseExactKillTime
     {
         get => _useExactKillTime;
@@ -61,6 +83,7 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
             if (_useExactKillTime == value) return;
             _useExactKillTime = value;
             if (value) StartAfterCreate = false;
+            else UseServerKillTime = false;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UseExactKillTime)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CanStartAfterCreate)));
         }
@@ -88,9 +111,10 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
     }
 
     public MvpTimerWizardWindow(IEnumerable<MonsterEntry> monsters, MvpTimer? restartSource = null,
-        DateTime? killedAtUtc = null, bool usesReferenceCatalog = false)
+        DateTime? killedAtUtc = null, bool usesReferenceCatalog = false, int serverUtcOffsetMinutes = 0)
     {
         _usesReferenceCatalog = usesReferenceCatalog;
+        _serverUtcOffsetMinutes = serverUtcOffsetMinutes;
         _restartAtUtc = restartSource is null ? null : killedAtUtc ?? DateTime.UtcNow;
         Draft = restartSource?.CreateRestartDraft(_restartAtUtc!.Value) ?? new MvpTimer();
         InitializeComponent();
@@ -99,7 +123,7 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
         if (restartSource is not null &&
             !_monsters.Any(monster => monster.Id == restartSource.MonsterId && monster.IsMvp == restartSource.IsMvp))
             _monsters.Add(new MonsterEntry { Id = restartSource.MonsterId, Name = restartSource.Name,
-                IsMvp = restartSource.IsMvp, LocalImagePath = restartSource.MonsterImagePath,
+                IsMvp = restartSource.IsMvp, LocalImagePath = restartSource.MonsterImagePath, LocalImagePng = restartSource.MonsterImagePng,
                 Spawns = restartSource.RespawnHints.ToList() });
         MonsterView = CollectionViewSource.GetDefaultView(_monsters);
         TimerKindBox.SelectedIndex = Draft.IsMvp ? 0 : 1;
@@ -267,7 +291,8 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
                 ValidationText.Text = LocalizationService.Get("InvalidKillTime");
                 return;
             }
-            Draft.StartFromKillClock(time);
+            if (UseServerKillTime) Draft.StartFromServerKillClock(time, TimeSpan.FromMinutes(_serverUtcOffsetMinutes));
+            else Draft.StartFromKillClock(time);
         }
         else if (StartAfterCreate)
         {

@@ -13,6 +13,8 @@ public partial class SettingsPage : UserControl
     public SettingsPage()
     {
         InitializeComponent();
+        for (var offset = -720; offset <= 840; offset += 15)
+            ServerClockChoice.Items.Add(new ComboBoxItem { Tag = offset, Content = MvpTimer.FormatServerUtcOffset(offset) });
         Loaded += (_, _) => { Attach(); Host?.RefreshCharacterManager(); RefreshNavigation(); };
         DataContextChanged += (_, _) => { if (IsLoaded) Attach(); };
         Unloaded += (_, _) => { if (_observed is not null) _observed.PropertyChanged -= SettingsChanged; _observed = null; };
@@ -24,6 +26,7 @@ public partial class SettingsPage : UserControl
         _observed = DataContext as AppSettings;
         if (_observed is not null) _observed.PropertyChanged += SettingsChanged;
         RefreshAppearance();
+        RefreshCatalogRows();
     }
     internal void ShowAppearancePreview(){SettingsTabs.SelectedItem=AppearanceSettingsTab;RefreshAppearance();}
     private void RefreshAppearance()
@@ -39,11 +42,16 @@ public partial class SettingsPage : UserControl
     }
     private void SettingsChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
+        if (e.PropertyName is nameof(AppSettings.Language) or "") RefreshCatalogRows();
         if(e.PropertyName is nameof(AppSettings.ApplicationTheme) or nameof(AppSettings.GameOverlayTheme) or "")RefreshAppearance();
         if (e.PropertyName is nameof(AppSettings.ServerProfile) or nameof(AppSettings.PacketCaptureEnabled) or "") RefreshNavigation();
     }
     private void Server_Changed(object sender, SelectionChangedEventArgs e) { if (IsLoaded && ServerChoice.SelectedValue is string value) Host?.SelectSettingsServer(value); }
     private void Language_Changed(object sender, SelectionChangedEventArgs e) { if (IsLoaded && LanguageChoice.SelectedValue is string value) Host?.SelectSettingsLanguage(value); }
+    private void ServerClock_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        if (IsLoaded) Dispatcher.BeginInvoke(() => Host?.SaveSharedSettings());
+    }
     private void Connection_Click(object sender, RoutedEventArgs e) { if (sender is Button { Tag: string action }) Host?.SettingsConnectionAction(action); }
     private void Save_Changed(object sender, RoutedEventArgs e) => Dispatcher.BeginInvoke(() => Host?.SaveSharedSettings());
     private void Character_EditEnding(object sender, DataGridCellEditEndingEventArgs e) => Dispatcher.BeginInvoke(() => Host?.SaveSharedSettings());

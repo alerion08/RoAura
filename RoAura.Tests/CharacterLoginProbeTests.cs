@@ -42,6 +42,27 @@ public sealed class CharacterLoginProbeTests
         Assert.Null(probe.Process(819, packet));
     }
 
+    [Theory]
+    [InlineData((ushort)0x2844)]
+    [InlineData((ushort)0x7702)]
+    [InlineData((ushort)0x1234)]
+    public void RagnarokPlus_accepts_changed_opcode_only_with_matching_server_aid(ushort opcode)
+    {
+        var probe = new CharacterLoginStreamProbe(observeRagnarokPlus: true);
+        var packet = MapLogin(opcode, extended: true);
+        Assert.Null(probe.Process(100, packet));
+        Assert.Null(probe.ConfirmRagnarokPlusLogin(0));
+        Assert.Null(probe.ConfirmRagnarokPlusLogin(5003));
+        Assert.Equal((uint)12002, probe.ConfirmRagnarokPlusLogin(5002)?.CharacterId);
+
+        foreach (var invalid in new[] { packet[..22], MapLogin(opcode, 0, true), MapLogin(opcode, extended: true, sex: 4) })
+        {
+            var rejected = new CharacterLoginStreamProbe(observeRagnarokPlus: true);
+            Assert.Null(rejected.Process(100, invalid));
+            Assert.Null(rejected.ConfirmRagnarokPlusLogin(5002));
+        }
+    }
+
     [Fact]
     public void Reassembles_fragmented_extended_map_login()
     {

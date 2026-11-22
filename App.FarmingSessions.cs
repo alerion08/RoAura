@@ -12,6 +12,45 @@ public partial class App
     public bool FlushFarmingHistory() => SaveFarmingHistory(flush: true);
     public FarmingSessionHistoryStore FarmingHistory => _farmingHistory ??= new();
 
+    internal void SetFarmingSessionExpenses(Guid id, long expenses)
+    {
+        FarmingHistory.SetExpenses(id, expenses);
+        if (_farmingSessions.TryGetValue(id, out var session)) session.ExpensesZeny = expenses;
+    }
+
+    internal void SetFarmingSessionNote(Guid id, string note, string tags)
+    {
+        FarmingHistory.SetNote(id, note, tags);
+        if (_farmingSessions.TryGetValue(id, out var session))
+        {
+            session.Note = note;
+            session.Tags = tags;
+        }
+    }
+
+    internal FarmingSessionRevaluation? RevalueFarmingSession(FarmingSession session)
+    {
+        if (_goldGoblin is null || _settingsWindow is null ||
+            !string.Equals(_settingsWindow.Settings.ServerProfile, session.Server, StringComparison.OrdinalIgnoreCase))
+            return null;
+
+        return FarmingSessionRevaluation.Calculate(session.Loot, _goldGoblin.ResolvePriceInfo);
+    }
+
+    internal bool AttachFarmingPlan(string server, FarmingPlan plan)
+    {
+        try
+        {
+            var session = GetFarmingSession();
+            if (session is null || session.EndedUtc.HasValue ||
+                !string.Equals(server, session.Server, StringComparison.OrdinalIgnoreCase)) return false;
+            session.Plan = plan;
+            FarmingHistory.Queue(session);
+            return true;
+        }
+        catch (Exception ex) { ReportHistoryError(ex); return false; }
+    }
+
     public bool ToggleFarmingSessionPause()
     {
         var record = CurrentCharacterStatistics();
@@ -46,6 +85,7 @@ public partial class App
         if (!string.IsNullOrWhiteSpace(name)) history.CharacterName = name;
         else if (string.IsNullOrWhiteSpace(history.CharacterName)) history.CharacterName = $"CID {record.CharacterId}";
         history.ActiveTicks = record.SessionActiveTicks;
+        history.Intervals = record.SessionIntervals;
         history.ZenyGained = record.SessionZenyGained;
         history.UpdatedUtc = DateTime.UtcNow;
         return history;

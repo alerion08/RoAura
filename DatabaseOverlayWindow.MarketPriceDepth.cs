@@ -1,0 +1,53 @@
+using System.Windows;
+using System.Windows.Controls;
+using RoAura.Models;
+using RoAura.Services;
+
+namespace RoAura;
+
+public partial class DatabaseOverlayWindow
+{
+    private void ClearMarketPriceDepth()
+    {
+        MarketPriceDepthPanel.Visibility = Visibility.Collapsed;
+        MarketPriceDepthRows.Children.Clear();
+    }
+
+    private void ShowMarketPriceDepth(IReadOnlyList<MarketListing> listings, bool buying)
+    {
+        var variants = MarketPriceDepth.Build(listings, buying);
+        if (variants.Length == 0) return;
+
+        string BestPrice(MarketPriceDepth.PriceLevel level) => buying
+            ? T($"Лучшая скупка: {level.Price:N0} z · требуется {level.Quantity:N0} шт.",
+                $"Best buy offer: {level.Price:N0} z · {level.Quantity:N0} wanted")
+            : T($"Лучшая продажа: {level.Price:N0} z · в наличии {level.Quantity:N0} шт.",
+                $"Best sell offer: {level.Price:N0} z · {level.Quantity:N0} available");
+
+        MarketPriceDepthHeader.Text = variants.Length == 1
+            ? BestPrice(variants[0].Levels[0])
+            : T("Остатки по ценам", "Quantity by price");
+        foreach (var variant in variants)
+        {
+            var label = string.Join(" · ", new[] { variant.ItemName, variant.GameMode, variant.Refine, variant.Cards }
+                .Where(part => !string.IsNullOrWhiteSpace(part)));
+            MarketPriceDepthRows.Children.Add(new TextBlock
+            {
+                Text = label,
+                FontWeight = FontWeights.SemiBold,
+                TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(0, 4, 0, 2)
+            });
+            foreach (var level in variant.Levels)
+            {
+                MarketPriceDepthRows.Children.Add(new TextBlock
+                {
+                    Text = variants.Length > 1 && level == variant.Levels[0] ? BestPrice(level) :
+                        T($"{level.Price:N0} z · {level.Quantity:N0} шт.", $"{level.Price:N0} z · {level.Quantity:N0} pcs"),
+                    TextWrapping = TextWrapping.Wrap
+                });
+            }
+        }
+        MarketPriceDepthPanel.Visibility = Visibility.Visible;
+    }
+}

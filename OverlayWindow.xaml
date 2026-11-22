@@ -1,7 +1,7 @@
 <Window x:Class="RoAura.OverlayWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:converters="clr-namespace:RoAura.Converters" xmlns:local="clr-namespace:RoAura"
+        xmlns:converters="clr-namespace:RoAura.Converters" xmlns:local="clr-namespace:RoAura" xmlns:controls="clr-namespace:RoAura.Controls"
         Title="RoAura Overlay" WindowStyle="None" AllowsTransparency="True"
         Background="Transparent" Topmost="False" ShowInTaskbar="False"
         ResizeMode="NoResize" ShowActivated="False">
@@ -153,11 +153,15 @@
                             </TextBlock>
                             <TextBlock Text="{Binding CooldownNumberText}" FontWeight="Black"
                                        FontSize="{Binding IndividualIconSize, Converter={StaticResource ScaleValue}, ConverterParameter=0.40}"
-                                       Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"
                                        IsHitTestVisible="False">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="White"/>
                                         <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsCooldownWarning}" Value="True">
+                                                <Setter Property="Foreground" Value="{Binding CooldownWarningColor, Converter={StaticResource ColorBrush}}"/>
+                                            </DataTrigger>
                                             <DataTrigger Binding="{Binding ShowCountdown}" Value="False">
                                                 <Setter Property="Visibility" Value="Collapsed" />
                                             </DataTrigger>
@@ -236,62 +240,72 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Width="{Binding Tag.IconSize, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                            Height="{Binding Tag.IconSize, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                            Margin="0,0,4,0" Padding="{Binding Tag.IconPadding, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource IconPadding}}"
-                                            BorderThickness="1" BorderBrush="#B8C5CBD4"
-                                            CornerRadius="3" ClipToBounds="True">
-                                        <Border.Opacity>
-                                            <MultiBinding Converter="{StaticResource PanelOpacity}">
-                                                <Binding Path="IsActive" />
-                                                <Binding Path="Tag.ActiveOpacityPercent" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                                <Binding Path="Tag.InactiveOpacityPercent" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                            </MultiBinding>
-                                        </Border.Opacity>
-                                        <Grid>
-                                            <Image Source="{Binding TemplateImageBase64, Converter={StaticResource Base64Image}}" Stretch="UniformToFill" />
-                                            <Rectangle VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Fill="#805EEAD4"
-                                                       Visibility="{Binding ShowDurationFill, Converter={StaticResource BoolToVisibility}}">
-                                                <Rectangle.Height>
-                                                    <MultiBinding Converter="{StaticResource ProgressToHeight}">
-                                                        <Binding Path="DurationProgress" />
-                                                        <Binding Path="Tag.IconSize" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                                    </MultiBinding>
-                                                </Rectangle.Height>
-                                            </Rectangle>
-                                            <Rectangle Fill="#A0707070">
-                                                <Rectangle.Style>
-                                                    <Style TargetType="Rectangle">
-                                                        <Setter Property="Visibility" Value="Collapsed" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding IsActive}" Value="False">
-                                                                <Setter Property="Visibility" Value="Visible" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Rectangle.Style>
-                                            </Rectangle>
-                                            <TextBlock Text="{Binding RemainingText}" FontWeight="Black" Foreground="White"
-                                                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                       FontSize="{Binding Tag.IconSize, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource ScaleValue}, ConverterParameter=0.34}">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
-                                                        <Setter Property="Visibility" Value="Collapsed" />
-                                                        <Style.Triggers>
-                                                            <MultiDataTrigger>
-                                                                <MultiDataTrigger.Conditions>
-                                                                    <Condition Binding="{Binding IsActive}" Value="True" />
-                                                                    <Condition Binding="{Binding ShowDurationText}" Value="True" />
-                                                                </MultiDataTrigger.Conditions>
-                                                                <Setter Property="Visibility" Value="Visible" />
-                                                            </MultiDataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                                <TextBlock.Effect><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1" /></TextBlock.Effect>
-                                            </TextBlock>
+                                    <Grid Width="{Binding Tag.IconSize, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                          Height="{Binding Tag.IconSize, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                          Margin="0,0,4,0">
+                                        <Border Padding="{Binding Tag.IconPadding, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource IconPadding}}"
+                                                BorderThickness="1" BorderBrush="#B8C5CBD4" CornerRadius="3" ClipToBounds="True">
+                                            <Border.Opacity>
+                                                <MultiBinding Converter="{StaticResource PanelOpacity}">
+                                                    <Binding Path="IsActive" />
+                                                    <Binding Path="Tag.ActiveOpacityPercent" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                    <Binding Path="Tag.InactiveOpacityPercent" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                </MultiBinding>
+                                            </Border.Opacity>
+                                            <Grid>
+                                                <Image Source="{Binding TemplateImageBase64, Converter={StaticResource Base64Image}}" Stretch="UniformToFill" />
+                                                <Rectangle VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Fill="#805EEAD4"
+                                                           Visibility="{Binding ShowDurationFill, Converter={StaticResource BoolToVisibility}}">
+                                                    <Rectangle.Height>
+                                                        <MultiBinding Converter="{StaticResource ProgressToHeight}">
+                                                            <Binding Path="DurationProgress" />
+                                                            <Binding Path="Tag.IconSize" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                        </MultiBinding>
+                                                    </Rectangle.Height>
+                                                </Rectangle>
+                                                <Rectangle Fill="#A0707070">
+                                                    <Rectangle.Style>
+                                                        <Style TargetType="Rectangle">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsActive}" Value="False">
+                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Rectangle.Style>
+                                                </Rectangle>
+                                                <TextBlock Text="{Binding RemainingText}" FontWeight="Black"
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                           FontSize="{Binding Tag.IconSize, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource ScaleValue}, ConverterParameter=0.34}">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                            <Setter Property="Foreground" Value="White" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsCountdownWarning}" Value="True">
+                                                                    <Setter Property="Foreground" Value="{Binding CountdownWarningColor, Converter={StaticResource ColorBrush}}" />
+                                                                </DataTrigger>
+                                                                <MultiDataTrigger>
+                                                                    <MultiDataTrigger.Conditions>
+                                                                        <Condition Binding="{Binding IsActive}" Value="True" />
+                                                                        <Condition Binding="{Binding ShowDurationText}" Value="True" />
+                                                                    </MultiDataTrigger.Conditions>
+                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                </MultiDataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                    <TextBlock.Effect><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1" /></TextBlock.Effect>
+                                                </TextBlock>
+                                            </Grid>
+                                        </Border>
+                                        <Grid Opacity="{Binding ExpirationGlowOpacity}" IsHitTestVisible="False"
+                                              Visibility="{Binding IsExpirationHighlighted, Converter={StaticResource BoolToVisibility}}">
+                                            <controls:ExpirationGlow GlowBrush="{Binding ExpirationColor, Converter={StaticResource ColorBrush}}"
+                                                                     Mode="{Binding ExpirationGlowMode}" IsUrgent="{Binding IsUrgentExpiration}" GlowWidth="{Binding ExpirationBorderWidth}"/>
                                         </Grid>
-                                    </Border>
+                                    </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -343,14 +357,63 @@
                             </Style>
                         </Border.Style>
                         <StackPanel HorizontalAlignment="Center">
-                            <Image Source="{Binding IconImageBase64, Converter={StaticResource Base64Image}}"
-                                   Width="{Binding IconSize}" Height="{Binding IconSize}" Stretch="UniformToFill"
-                                   HorizontalAlignment="Center"
-                                   Visibility="{Binding ShowIcon, Converter={StaticResource BoolToVisibility}}" />
+                            <Grid Width="{Binding IconSize}" Height="{Binding IconSize}" HorizontalAlignment="Center">
+                                <Grid.Style><Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ShowIcon}" Value="True"><Setter Property="Visibility" Value="Visible"/></DataTrigger>
+                                        <DataTrigger Binding="{Binding IsExpirationWarning}" Value="True"><Setter Property="Visibility" Value="Visible"/></DataTrigger>
+                                    </Style.Triggers>
+                                </Style></Grid.Style>
+                                <Image Source="{Binding IconImageBase64, Converter={StaticResource Base64Image}}" Stretch="UniformToFill"
+                                       Visibility="{Binding ShowIcon, Converter={StaticResource BoolToVisibility}}"/>
+                                <Grid Opacity="{Binding ExpirationGlowOpacity}" IsHitTestVisible="False">
+                                    <Grid.Style><Style TargetType="Grid">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers><MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsExpirationWarning}" Value="True"/>
+                                                <Condition Binding="{Binding HighlightExpiration}" Value="True"/>
+                                                <Condition Binding="{Binding ShowIcon}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </MultiDataTrigger></Style.Triggers>
+                                    </Style></Grid.Style>
+                                    <controls:ExpirationGlow GlowBrush="{Binding ExpirationColor, Converter={StaticResource ColorBrush}}"
+                                                             Mode="{Binding ExpirationGlowMode}" IsUrgent="{Binding IsUrgentExpiration}" GlowWidth="{Binding ExpirationBorderWidth}"/>
+                                </Grid>
+                                <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="2"
+                                         HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"
+                                         Visibility="{Binding IsExpirationWarning, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock Text="{Binding ExpirationCountdown}" FontSize="{Binding TextSize}" FontWeight="Bold">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="{Binding TextColor, Converter={StaticResource ColorBrush}}"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCountdownWarning}" Value="True">
+                                                        <Setter Property="Foreground" Value="{Binding CountdownWarningColor, Converter={StaticResource ColorBrush}}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                        <TextBlock.Effect><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></TextBlock.Effect>
+                                    </TextBlock>
+                                </Viewbox>
+                            </Grid>
+                            <TextBlock Text="{Binding ExpirationText}" FontSize="{Binding TextSize}" FontWeight="Bold"
+                                       TextWrapping="Wrap" TextAlignment="Center" MaxWidth="320"
+                                       Foreground="{Binding TextColor, Converter={StaticResource ColorBrush}}"
+                                       HorizontalAlignment="Center"
+                                       Visibility="{Binding IsExpirationWarning, Converter={StaticResource BoolToVisibility}}"/>
                             <TextBlock Text="{Binding Text}" FontSize="{Binding TextSize}" FontWeight="Bold"
                                        Foreground="{Binding TextColor, Converter={StaticResource ColorBrush}}"
                                        HorizontalAlignment="Center" TextAlignment="Center"
                                        Margin="0,4,0,0">
+                                <TextBlock.Style><Style TargetType="TextBlock">
+                                    <Style.Triggers><DataTrigger Binding="{Binding IsExpirationWarning}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger></Style.Triggers>
+                                </Style></TextBlock.Style>
                                 <TextBlock.Effect>
                                     <DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1" />
                                 </TextBlock.Effect>
@@ -583,8 +646,24 @@
                                     <Setter Property="FontSize" Value="{Binding DataContext.TimersTextSize, RelativeSource={RelativeSource AncestorType=Window}}"/>
                                     <Setter Property="Foreground" Value="{Binding DataContext.TimersTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}"/>
                                     <Setter Property="Effect"><Setter.Value><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></Setter.Value></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsRespawnWindowOpen}" Value="True">
+                                            <Setter Property="Foreground" Value="{Binding DataContext.TimersWindowColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsCompleted}" Value="True">
+                                            <Setter Property="Foreground" Value="{Binding DataContext.TimersCompletedColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
                                 </Style></StackPanel.Resources>
+                                <Image Width="20" Height="20" Margin="0,0,5,0" Stretch="Uniform">
+                                    <Image.Source><Binding Path="TimerImage"><Binding.Converter><converters:TimerImageConverter/></Binding.Converter></Binding></Image.Source>
+                                    <Image.Style><Style TargetType="Image">
+                                        <Style.Triggers><Trigger Property="Source" Value="{x:Null}"><Setter Property="Visibility" Value="Collapsed"/></Trigger></Style.Triggers>
+                                    </Style></Image.Style>
+                                </Image>
                                 <TextBlock Text="{Binding NumberedName}"/>
+                                <TextBlock Text="  ⚠" Visibility="{Binding HasOverlappingRespawn, Converter={StaticResource BoolToVisibility}}"
+                                           ToolTip="{DynamicResource TimerRouteOverlap}" Foreground="#FFFFB454"/>
                                 <Border Margin="6,0,0,0" Padding="3,0" BorderThickness="1" CornerRadius="3" VerticalAlignment="Center"
                                         BorderBrush="{Binding DataContext.TimersTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}">
                                     <Border.Style>
@@ -594,9 +673,9 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Border.Style>
-                                    <TextBlock Tag="MvpMapHover" Text="{Binding LocationCode}" FontWeight="Normal"/>
+                                    <TextBlock Tag="MvpMapHover" Text="{Binding LocationLabel}" FontWeight="Normal"/>
                                 </Border>
-                                <TextBlock><Run Text=" — "/><Run Text="{Binding RemainingText, Mode=OneWay}"/></TextBlock>
+                                <TextBlock><Run Text=" — "/><Run Text="{Binding OverlayCountdown, Mode=OneWay}"/></TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

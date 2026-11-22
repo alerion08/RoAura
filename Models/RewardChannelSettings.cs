@@ -32,11 +32,20 @@ public sealed class RewardChannelSettings : INotifyPropertyChanged
     public string LootColor { get => _lootColor; set => Set(ref _lootColor, value ?? "#FFFFD45C"); }
     public string ConsumableColor { get => _consumableColor; set => Set(ref _consumableColor, value ?? "#FF7FE39A"); }
 
-    public string ColorForItemType(string? type) => type switch
+    private bool _highlightCraftMaterials;
+    private string _craftMaterialColor = "#FFFFA46B";
+    public bool HighlightCraftMaterials { get => _highlightCraftMaterials; set => Set(ref _highlightCraftMaterials, value); }
+    public string CraftMaterialColor { get => _craftMaterialColor; set => Set(ref _craftMaterialColor, value ?? "#FFFFA46B"); }
+
+    private string _wantedLootColor = "#FF65E7FF";
+    public string WantedLootColor { get => _wantedLootColor; set => Set(ref _wantedLootColor, value ?? "#FF65E7FF"); }
+
+    public string ColorForItemType(string? type, bool usedInCraft = false) => type switch
     {
         "Equip" => EquipColor,
         "Card" => CardColor,
         "Consumable" => ConsumableColor,
+        _ when usedInCraft && HighlightCraftMaterials => CraftMaterialColor,
         _ => LootColor
     };
     public string DisplayName => Kind switch

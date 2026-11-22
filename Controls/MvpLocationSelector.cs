@@ -69,7 +69,7 @@ public sealed class MvpLocationSelector : ListBox
         try
         {
             ItemsSource = _timer?.RespawnHints;
-            SelectedItem = _timer?.RespawnHints.FirstOrDefault(spawn => spawn.Code == _timer.LocationCode);
+            SelectedItem = _timer?.RespawnHints.FirstOrDefault(spawn => string.Equals(spawn.Code, _timer.LocationCode, StringComparison.OrdinalIgnoreCase));
         }
         finally { _refreshing = false; }
     }

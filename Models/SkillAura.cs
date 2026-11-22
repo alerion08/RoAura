@@ -50,6 +50,30 @@ public sealed class SkillAura : INotifyPropertyChanged
     public bool ShowShortName { get => _showShortName; set => Set(ref _showShortName, value); }
     public bool ShowReady { get => _showReady; set => Set(ref _showReady, value); }
     public bool ShowCountdown { get => _showCountdown; set => Set(ref _showCountdown, value); }
+    private bool _showCooldownTenths = true;
+    private string _cooldownWarningColor = "#FFFFDF54";
+    private double _cooldownWarningSeconds;
+
+    public bool ShowCooldownTenths
+    {
+        get => _showCooldownTenths;
+        set { if (Set(ref _showCooldownTenths, value)) OnPropertyChanged(nameof(CooldownNumberText)); }
+    }
+
+    public string CooldownWarningColor { get => _cooldownWarningColor; set => Set(ref _cooldownWarningColor, value); }
+
+    public double CooldownWarningSeconds
+    {
+        get => _cooldownWarningSeconds;
+        set
+        {
+            if (Set(ref _cooldownWarningSeconds, double.IsFinite(value) ? Math.Clamp(value, 0, 3600) : 0))
+                OnPropertyChanged(nameof(IsCooldownWarning));
+        }
+    }
+
+    [JsonIgnore] public bool IsCooldownWarning => RemainingSeconds > 0 && RemainingSeconds <= CooldownWarningSeconds;
+
     public string IconImageBase64 { get => _iconImageBase64; set { if (Set(ref _iconImageBase64, value)) OnPropertyChanged(nameof(IconStatusText)); } }
     public string IconFileName { get => _iconFileName; set { if (Set(ref _iconFileName, value)) OnPropertyChanged(nameof(IconStatusText)); } }
 
@@ -67,8 +91,10 @@ public sealed class SkillAura : INotifyPropertyChanged
         get => _remainingSeconds;
         set
         {
+            var wasWarning = IsCooldownWarning;
             if (Set(ref _remainingSeconds, Math.Max(0, value)))
             {
+                if (wasWarning != IsCooldownWarning) OnPropertyChanged(nameof(IsCooldownWarning));
                 OnPropertyChanged(nameof(CooldownNumberText));
                 OnPropertyChanged(nameof(Progress));
                 OnPropertyChanged(nameof(ElapsedProgress));
@@ -91,9 +117,9 @@ public sealed class SkillAura : INotifyPropertyChanged
     }
 
     [JsonIgnore]
-    public string CooldownNumberText => RemainingSeconds >= 10
-        ? Math.Ceiling(RemainingSeconds).ToString("0")
-        : RemainingSeconds.ToString("0.0");
+    public string CooldownNumberText => ShowCooldownTenths && RemainingSeconds is > 0 and < 1
+        ? (Math.Ceiling(RemainingSeconds * 10) / 10).ToString("0.0")
+        : Math.Ceiling(RemainingSeconds).ToString("0");
 
     [JsonIgnore]
     public double Progress => CooldownSeconds <= 0 ? 0 : RemainingSeconds / CooldownSeconds * 100;

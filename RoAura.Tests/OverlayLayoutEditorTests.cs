@@ -37,6 +37,53 @@ public sealed class OverlayLayoutEditorTests
         drag.Move(new Vector(-5000, -5000));
         Assert.Equal(0, first.X, 5); Assert.Equal(0, first.Y, 5);
         Assert.Equal(80, second.X - first.X, 5);
+        Assert.True(drag.HasChanged);
+        drag.Restore();
+        Assert.False(drag.HasChanged);
+        Assert.Equal(60, first.X); Assert.Equal(100, first.Y);
+        Assert.Equal(140, second.X); Assert.Equal(100, second.Y);
+        Assert.Equal(240, other.X);
+    }
+
+    [Fact]
+    public void Quick_size_preserves_individual_values_on_undo_and_respects_model_limits()
+    {
+        var settings = Settings();
+        var first = new SkillAura { GroupNumber = 7, IndividualIconSize = 179 };
+        var second = new SkillAura { GroupNumber = 7, IndividualIconSize = 42 };
+        settings.Skills.Add(first);
+        settings.Skills.Add(second);
+        var target = OverlayLayoutTargets.Build(settings).Single(row => row.Key == "cooldown:7");
+
+        var undo = target.AdjustSize(1);
+        Assert.NotNull(undo);
+        Assert.Equal(180, first.IndividualIconSize);
+        Assert.Equal(44, second.IndividualIconSize);
+        undo();
+        Assert.Equal(179, first.IndividualIconSize);
+        Assert.Equal(42, second.IndividualIconSize);
+    }
+
+    [Fact]
+    public void Grid_and_alignment_preserve_group_spacing_and_support_undo()
+    {
+        var first = new Point(53, 61);
+        var second = new Point(103, 81);
+        var target = new OverlayLayoutTarget("test", "Quests", null,
+        [
+            new(() => new Rect(first, new Size(20, 20)), point => first = point),
+            new(() => new Rect(second, new Size(20, 20)), point => second = point)
+        ]);
+        var drag = target.BeginDrag(new Size(300, 200));
+        drag.MoveScreen(new Point(0, 0), new Point(15, 30), 1.5, snap: true);
+        Assert.Equal(new Point(60, 80), first);
+        Assert.Equal(new Point(110, 100), second);
+        drag.Align(1, .5);
+        Assert.Equal(new Point(230, 80), first);
+        Assert.Equal(new Point(280, 100), second);
+        drag.Restore();
+        Assert.Equal(new Point(53, 61), first);
+        Assert.Equal(new Point(103, 81), second);
     }
 
     [Fact]

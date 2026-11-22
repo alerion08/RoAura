@@ -50,8 +50,11 @@ public partial class App : Application
     private SpringRoMarketService? _marketService;
     private MarketWatchService _marketWatch = new();
     private System.Windows.Threading.DispatcherTimer? _watchHistoryTimer;
-    public IReadOnlyList<MarketWatchHistoryEntry> MarketWatchHistory => _marketWatch.History;
-    public bool MarketWatchHistoryPersistenceFailed => _marketWatch.HistoryPersistenceFailed;
+    private MarketWatchService _ragnarokPlusWatch = new();
+    private MarketWatchService ActiveMarketWatch =>
+        _marketWatchSettings?.ServerProfile == GameServerProfile.RagnarokPlus ? _ragnarokPlusWatch : _marketWatch;
+    public IReadOnlyList<MarketWatchHistoryEntry> MarketWatchHistory => ActiveMarketWatch.History;
+    public bool MarketWatchHistoryPersistenceFailed => ActiveMarketWatch.HistoryPersistenceFailed;
     public event Action? MarketWatchHistoryChanged;
     private readonly HashSet<MarketWatchRule> _observedWatchRules = [];
     private AppSettings? _marketWatchSettings;
@@ -73,45 +76,44 @@ public partial class App : Application
             MarketListing l => _watchDatabase?.Item(l.ItemId) ?? new DatabaseItem { Id = l.ItemId, Name = l.ItemName },
             _ => null
         };
-        if (item is null || _marketWatchSettings is null || !GameServerProfile.SupportsMarket(_marketWatchSettings.ServerProfile)) return;
-        var existing = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == item.Id);
+        if (item is null || _marketWatchSettings is null || !GameServerProfile.SupportsMarketWatch(_marketWatchSettings.ServerProfile)) return;
+        var buying = _marketWatchSettings.ServerProfile == GameServerProfile.RagnarokPlus &&
+            value is MarketListing { ShopType: "BUY" };
+        var existing = _marketWatchSettings.ActiveMarketWatchRules.FirstOrDefault(r => r.ItemId == item.Id && r.Buying == buying);
         if (existing is not null && !existing.Enabled) { existing.Enabled = true; return; }
         if (existing is not null)
         {
-            _marketWatchSettings.MarketWatchRules.Remove(existing);
+            _marketWatchSettings.ActiveMarketWatchRules.Remove(existing);
 
             PersistMarketWatchSettings();
         }
-        else ShowMarketWatchDialog(owner, item, null);
+        else ShowMarketWatchDialog(owner, item, null, buying);
     }
 
     public void EditMarketWatch(Window? owner, MarketWatchRule? rule = null) =>
         ShowMarketWatchDialog(owner, rule is null ? null :
             _watchDatabase?.Item(rule.ItemId) ?? new DatabaseItem { Id = rule.ItemId, Name = rule.ItemName }, rule);
 
-    private void ShowMarketWatchDialog(Window? owner, DatabaseItem? item, MarketWatchRule? rule)
+    private void ShowMarketWatchDialog(Window? owner, DatabaseItem? item, MarketWatchRule? rule, bool buying = false)
     {
         if (_watchDatabase is null || _marketWatchSettings is null) return;
-        var dialog = new MarketWatchDialog(_watchDatabase, item, rule) { Owner = owner, Topmost = owner?.Topmost == true };
+        var dialog = new MarketWatchDialog(_watchDatabase, item, rule, buying) { Owner = owner, Topmost = owner?.Topmost == true };
         if (_databaseOverlay?.IsDatabaseOpen == true) _databaseOverlay.PositionWatchDialog(dialog);
         if (dialog.ShowDialog() != true || dialog.Rule is not { } added) return;
         SaveMarketWatchRule(added);
     }
 
-    public void SaveMarketWatchRule(MarketWatchRule added, int? replacedItemId = null)
+    public void SaveMarketWatchRule(MarketWatchRule added, MarketWatchRule? replaced = null)
     {
         if (_marketWatchSettings is null) return;
-        if (replacedItemId.HasValue && replacedItemId != added.ItemId)
-        {
-            var replaced = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == replacedItemId);
-            if (replaced is not null) _marketWatchSettings.MarketWatchRules.Remove(replaced);
-        }
-        var old = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == added.ItemId);
-        if (old is not null) _marketWatchSettings.MarketWatchRules.Remove(old);
-        _marketWatchSettings.MarketWatchRules.Add(added);
+        var rules = _marketWatchSettings.ActiveMarketWatchRules;
+        if (replaced is not null) rules.Remove(replaced);
+        var old = rules.FirstOrDefault(r => r.ItemId == added.ItemId && r.Buying == added.Buying);
+        if (old is not null) _marketWatchSettings.ActiveMarketWatchRules.Remove(old);
+        _marketWatchSettings.ActiveMarketWatchRules.Add(added);
 
         PersistMarketWatchSettings();
-        if (added.SuppressCurrentOffers && !added.InitialOffersCaptured && _marketService is not null)
+        if (_marketWatchSettings.ServerProfile == GameServerProfile.SpringRo && added.SuppressCurrentOffers && !added.InitialOffersCaptured && _marketService is not null)
             _ = _marketService.RefreshSnapshotAsync();
     }
 
@@ -120,7 +122,7 @@ public partial class App : Application
         foreach (var rule in _observedWatchRules) rule.PropertyChanged -= WatchRuleChanged;
         _observedWatchRules.Clear();
         if (_marketWatchSettings is null) return;
-        foreach (var rule in _marketWatchSettings.MarketWatchRules)
+        foreach (var rule in _marketWatchSettings.MarketWatchRules.Concat(_marketWatchSettings.RagnarokPlusMarketWatchRules))
             if (_observedWatchRules.Add(rule)) rule.PropertyChanged += WatchRuleChanged;
     }
     private void WatchRuleChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -128,6 +130,17 @@ public partial class App : Application
         if (sender is not MarketWatchRule || e.PropertyName != nameof(MarketWatchRule.Enabled)) return;
         PersistMarketWatchSettings();
     }
+    internal void EvaluateRagnarokPlusOffers(int itemId, IReadOnlyList<MarketListing> offers, bool buying)
+    {
+        if (_marketWatchSettings is not { ServerProfile: GameServerProfile.RagnarokPlus } settings) return;
+        var rules = settings.RagnarokPlusMarketWatchRules.Where(rule => rule.Enabled && rule.Buying == buying && rule.ItemId == itemId).ToArray();
+        if (rules.Length == 0) return;
+        var captureBaseline = rules.Any(rule => rule.SuppressCurrentOffers && !rule.InitialOffersCaptured);
+        var matches = _ragnarokPlusWatch.Evaluate(rules, offers, settings.MarketWatchHistoryRetentionDays, buying);
+        if (captureBaseline) PersistMarketWatchSettings();
+        foreach (var match in matches) _overlay?.ShowMarketWatchNotification(match);
+    }
+
     public void AuditionMarketWatchSound() => _overlay?.PlayMarketWatchSound();
     public void BeginMarketWatchMove()
     {
@@ -302,7 +315,10 @@ public partial class App : Application
             effect.ApplyDuration(0, 0);
         }
         foreach (var reminder in _settingsWindow.Settings.Reminders)
+        {
+            reminder.RemainingStatusSeconds = 0;
             reminder.IsStatusPresent = false;
+        }
         foreach (var equipment in _settingsWindow.Settings.Equipment)
             equipment.IsEquipped = false;
     }
@@ -367,6 +383,8 @@ public partial class App : Application
         if (AppEnvironment.CharacterSessionsEnabled)
         {
             _packetCapture.CharacterSessionChanged += OnCharacterSessionChanged;
+            _packetCapture.UnboundRagnarokPlusExperience += OnUnboundRagnarokPlusExperience;
+            _packetCapture.UnboundRagnarokPlusLoot += OnUnboundRagnarokPlusLoot;
             _packetCapture.CharacterItemAdded += evt =>
                 Dispatcher.BeginInvoke(() => HandleItemAdded(evt.Packet, evt.Session));
             _packetCapture.CharacterExperienceChanged += evt =>
@@ -387,21 +405,38 @@ public partial class App : Application
             settings.UpdatePacketCaptureState(state));
 
         _marketWatchSettings = settings;
-        _watchDatabase = new GameDatabaseService();
-        foreach (var rule in settings.MarketWatchRules)
+        _watchDatabase = new GameDatabaseService(settings.ServerProfile);
+        foreach (var rule in settings.ActiveMarketWatchRules)
             if (_watchDatabase.Item(rule.ItemId) is { } knownItem) rule.ItemName = knownItem.Name;
         _marketWatch = new MarketWatchService(new MarketWatchHistoryStore());
         _marketWatch.HistoryChanged += () => MarketWatchHistoryChanged?.Invoke();
+        _ragnarokPlusWatch = new MarketWatchService(new MarketWatchHistoryStore(
+            Path.Combine(AppEnvironment.LocalDirectory, "market-watch-history.ragnarokplus.json")));
+        _ragnarokPlusWatch.HistoryChanged += () => MarketWatchHistoryChanged?.Invoke();
+        _ragnarokPlusWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
         _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
         settings.PropertyChanged += (_, args) =>
         {
             if (args.PropertyName == nameof(AppSettings.MarketWatchHistoryRetentionDays))
+            {
                 _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+                _ragnarokPlusWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+            }
+            if (args.PropertyName == nameof(AppSettings.ServerProfile))
+            {
+                _watchDatabase.Reload(settings.ServerProfile);
+                MarketWatchHistoryChanged?.Invoke();
+            }
         };
         _watchHistoryTimer = new System.Windows.Threading.DispatcherTimer { Interval = TimeSpan.FromHours(1) };
-        _watchHistoryTimer.Tick += (_, _) => _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+        _watchHistoryTimer.Tick += (_, _) =>
+        {
+            _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+            _ragnarokPlusWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+        };
         _watchHistoryTimer.Start();
         settings.MarketWatchRules.CollectionChanged += (_, _) => SyncWatchRuleSubscriptions();
+        settings.RagnarokPlusMarketWatchRules.CollectionChanged += (_, _) => SyncWatchRuleSubscriptions();
         SyncWatchRuleSubscriptions();
         _marketService = new SpringRoMarketService();
         _marketService.SnapshotUpdated += snapshot => Dispatcher.BeginInvoke(() =>
@@ -412,6 +447,10 @@ public partial class App : Application
             foreach (var match in matches) _overlay?.ShowMarketWatchNotification(match);
         });
         _goldGoblin = new GoldGoblinService(settings, _marketService);
+        RagnarokPlusData.MarketImported += () => Dispatcher.BeginInvoke(() =>
+        {
+            if (settings.ServerProfile == GameServerProfile.RagnarokPlus) _goldGoblin?.Reprice();
+        });
         if (AppEnvironment.CharacterSessionsEnabled)
         {
             _characterStore = new CharacterStatisticsStore();
@@ -432,7 +471,7 @@ public partial class App : Application
                 { _characterLedger?.Flush(DateTime.UtcNow); SaveFarmingHistory(); });
             _characterFlushTimer.Start();
         }
-        _activeDatabase = new GameDatabaseService(settings.ServerProfile == GameServerProfile.Toc ? GameDatabaseVersion.Toc : GameDatabaseVersion.SpringRo);
+        _activeDatabase = new GameDatabaseService(GameServerProfile.SupportsDatabaseOverlay(settings.ServerProfile) ? settings.ServerProfile : GameDatabaseVersion.SpringRo);
         _databaseOverlay = new DatabaseOverlayWindow(settings, _activeDatabase, _marketService);
         _databaseOverlay.HideRequested += HideDatabase;
         _settingsWindow = new MainWindow(settings, _settingsStore, _overlay, _packetCapture, _goldGoblin);
@@ -607,6 +646,30 @@ public partial class App : Application
         if (_settingsWindow is not null)
             _marketWatch.PruneHistory(_settingsWindow.Settings.MarketWatchHistoryRetentionDays);
         SyncWatchRuleSubscriptions();
+    }
+
+    internal void SaveDatabasePreferences() => _settingsWindow?.SaveSharedSettings();
+
+    internal void OpenCatalogSettings()
+    {
+        _databaseOverlay?.HideDatabase();
+        ShowSettingsFromSecondInstance();
+        _settingsWindow?.OpenCatalogSettingsPage();
+    }
+
+    internal void ServerCatalogUpdated(string profile)
+    {
+        _databaseOverlay?.ReloadInstalledCatalog(profile);
+        if (profile == GameServerProfile.RagnarokPlus) RagnarokPlusCatalogUpdated();
+    }
+
+    internal void RagnarokPlusCatalogUpdated()
+    {
+        if (_marketWatchSettings?.ServerProfile != GameServerProfile.RagnarokPlus) return;
+        _settingsWindow?.RefreshTimerCatalog();
+        _watchDatabase?.Reload(GameServerProfile.RagnarokPlus);
+        _itemCatalog = ItemCatalogService.Load(GameServerProfile.RagnarokPlus);
+        _goldGoblin?.ReloadRagnarokPlusPrices();
     }
 
     public void ReloadItemCatalog(string gameVersion)
@@ -945,6 +1008,13 @@ public partial class App : Application
     private void OnPacketItemAdded(RoItemAddedPacket packet) =>
         Dispatcher.BeginInvoke(() => HandleItemAdded(packet, null));
 
+    private void OnUnboundRagnarokPlusLoot(RoPacketObservation<RoItemAddedPacket> observation) =>
+        Dispatcher.BeginInvoke(() =>
+        {
+            if (CanShowUnboundRagnarokPlusReward(observation))
+                HandleItemAdded(observation.Packet, null);
+        });
+
     private void HandleItemAdded(RoItemAddedPacket packet, CharacterSessionSnapshot? session)
     {
         if (session is { } captured && !TryUseCharacterSession(captured)) return;
@@ -1032,6 +1102,27 @@ public partial class App : Application
             });
         }
     }
+
+    private void OnUnboundRagnarokPlusExperience(RoPacketObservation<RoExperiencePacket> observation, ulong required) =>
+        Dispatcher.BeginInvoke(() =>
+        {
+            if (!CanShowUnboundRagnarokPlusReward(observation) || _settingsWindow is null) return;
+            var settings = _settingsWindow.Settings;
+
+            var packet = observation.Packet;
+            var isJob = packet.ExperienceType == 2;
+            if (packet.Amount > 0 && (!isJob || settings.ShowJobExperience))
+            {
+                var percentage = required > 0 ? packet.Amount / (double)required * 100d : -1d;
+                _overlay?.ShowExperienceReward(packet.Amount, percentage, isJob);
+            }
+        });
+
+    private bool CanShowUnboundRagnarokPlusReward<T>(RoPacketObservation<T> observation) =>
+        _settingsWindow?.Settings is { Enabled: true, PacketCaptureEnabled: true,
+            ServerProfile: GameServerProfile.RagnarokPlus } &&
+        _packetCapture is { } capture && capture.IsCurrentObservation(observation) &&
+        capture.CharacterSession.Phase != CharacterSessionPhase.ActiveObserved;
 
     private void OnPacketExperienceChanged(RoExperiencePacket packet) =>
         Dispatcher.BeginInvoke(() => HandleExperienceChanged(packet, null));

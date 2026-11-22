@@ -24,11 +24,20 @@
                     <RadioButton x:Name="MapsMode" Content="Карты" Tag="Maps" Checked="Mode_Checked" Margin="0,0,13,0"/>
                     <RadioButton x:Name="MarketMode" Content="Маркет" Tag="Market" Checked="Mode_Checked"/>
                 </WrapPanel>
-                <StackPanel x:Name="MarketTypePanel" Orientation="Horizontal" Margin="0,9,0,0" Visibility="Collapsed">
+                <WrapPanel><Button x:Name="FavoriteListsButton" Margin="0,5,0,0" HorizontalAlignment="Left" Click="OpenFavoriteLists_Click"/><Button x:Name="RecentCardsButton" Margin="6,5,0,0" Click="RecentCards_Click"/></WrapPanel>
+                <DockPanel x:Name="CatalogDownloadPanel" Margin="0,8,0,0" Visibility="Collapsed">
+                    <Button x:Name="CatalogDownloadButton" DockPanel.Dock="Right" Content="Загрузить данные"
+                            Click="OpenCatalogSettings_Click" Margin="8,0,0,0"/>
+                    <TextBlock x:Name="CatalogDownloadStatus" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                </DockPanel>
+                <WrapPanel x:Name="MarketTypePanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,9,0,0" Visibility="Collapsed">
                     <TextBlock x:Name="MarketTypeLabel" Text="Тип магазина:" VerticalAlignment="Center" Margin="0,0,9,0"/>
-                    <RadioButton x:Name="MarketSellMode" Content="Продажа" IsChecked="True" Checked="MarketType_Checked" Margin="0,0,14,0"/>
-                    <RadioButton x:Name="MarketBuyMode" Content="Покупка" Checked="MarketType_Checked"/>
-                </StackPanel>
+                    <RadioButton x:Name="MarketSellMode" VerticalAlignment="Center" Content="Продажа" IsChecked="True" Checked="MarketType_Checked" Margin="0,0,14,0"/>
+                    <RadioButton x:Name="MarketBuyMode" VerticalAlignment="Center" Content="Покупка" Checked="MarketType_Checked"/>
+                    <Button x:Name="RagnarokPlusSignInButton" VerticalAlignment="Center" Content="Войти" Margin="12,0,0,0"
+                            Visibility="Collapsed" Click="RagnarokPlusSignIn_Click"/>
+                <CheckBox x:Name="CompactMarketPrices" Margin="6,0,0,0" Checked="CompactMarketPrices_Changed" Unchecked="CompactMarketPrices_Changed"/>
+                </WrapPanel>
             </StackPanel>
             <Grid Grid.Row="2" Margin="10,5,10,8"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                 <TextBox x:Name="SearchBox" Height="36" FontSize="13" Padding="10,3"
@@ -60,7 +69,39 @@
                     <CheckBox x:Name="AggressiveFilter" Grid.Row="5" Content="Агрессивный" Margin="0,4,0,5" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
                     <CheckBox x:Name="BossFilter" Grid.Row="5" Grid.Column="2" Content="Boss" Margin="0,4,0,5" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
                     <CheckBox x:Name="MvpFilter" Grid.Row="6" Content="MVP" Margin="0,2,0,2" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
+                    <StackPanel Grid.Row="7" Grid.ColumnSpan="3">
+                        <TextBlock x:Name="DropItemLabel"/>
+                        <TextBox x:Name="DropItemFilter" TextChanged="AdvancedFilter_Changed"/>
+                    </StackPanel>
                 </Grid>
+            </Expander>
+            <WrapPanel x:Name="ItemFilters" Grid.Row="3" Margin="10,0,10,7" Visibility="Collapsed">
+                <TextBlock x:Name="ItemSlotsLabel" VerticalAlignment="Center"/>
+                <TextBox x:Name="ItemSlotsFilter" Width="40" Margin="5,0,8,0" TextChanged="ItemFilters_Changed"/>
+                <CheckBox x:Name="NpcPriceSort" VerticalAlignment="Center" Checked="ItemFilters_Changed" Unchecked="ItemFilters_Changed"/>
+            </WrapPanel>
+            <Grid x:Name="MapLevelFilters" Grid.Row="3" Margin="10,0,10,7" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/><ColumnDefinition Width="8"/><ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock x:Name="MapLevelMinLabel" Text="Уровень монстра, от"/>
+                    <TextBox x:Name="MapLevelMinFilter" AutomationProperties.LabeledBy="{Binding ElementName=MapLevelMinLabel}"
+                             Margin="0,3,0,0" TextChanged="MapLevelFilter_Changed"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock x:Name="MapLevelMaxLabel" Text="Уровень монстра, до"/>
+                    <TextBox x:Name="MapLevelMaxFilter" AutomationProperties.LabeledBy="{Binding ElementName=MapLevelMaxLabel}"
+                             Margin="0,3,0,0" TextChanged="MapLevelFilter_Changed"/>
+                </StackPanel>
+            </Grid>
+            <Expander x:Name="MarketPriceDepthPanel" Grid.Row="3" Margin="10,0,10,7" Visibility="Collapsed">
+                <Expander.Header>
+                    <TextBlock x:Name="MarketPriceDepthHeader" TextWrapping="Wrap"/>
+                </Expander.Header>
+                <ScrollViewer MaxHeight="150" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel x:Name="MarketPriceDepthRows" Margin="4,4,4,2"/>
+                </ScrollViewer>
             </Expander>
             <Border Grid.Row="4" Margin="10,0,10,8" BorderBrush="{DynamicResource UiBorder_A9C0DD}" BorderThickness="1" Background="{DynamicResource UiBackground_F8FBFF}" CornerRadius="5">
                 <ListBox x:Name="ResultsList" HorizontalContentAlignment="Stretch" BorderThickness="0" Background="Transparent" SelectionChanged="Results_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">

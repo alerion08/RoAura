@@ -19,7 +19,7 @@ public partial class MainWindow
     internal bool IsMvpWizardOpen => _gameMvpWizard?.IsVisible == true;
 
     private bool UsesReferenceTimerCatalog =>
-        Settings.ServerProfile is GameServerProfile.MuhRo or GameServerProfile.Other;
+        Settings.ServerProfile is GameServerProfile.MuhRo or GameServerProfile.RagnarokPlus or GameServerProfile.Other;
 
     internal void AddMvpTimerInGame()
     {
@@ -55,7 +55,7 @@ public partial class MainWindow
         var game = QuestWindowNative.GetForegroundWindow();
         var server = Settings.ServerProfile;
         var timers = Settings.ActiveMvpTimers;
-        var wizard = new MvpTimerWizardWindow(_monsters, restartSource, killedAtUtc, UsesReferenceTimerCatalog)
+        var wizard = new MvpTimerWizardWindow(_monsters, restartSource, killedAtUtc, UsesReferenceTimerCatalog, Settings.ServerUtcOffsetMinutes)
         {
             Tag = "RoAura.GameInterface", StartAfterCreate = restartSource is null, WindowStyle = WindowStyle.None,
             ResizeMode = ResizeMode.NoResize, AllowsTransparency = true, ShowInTaskbar = false,

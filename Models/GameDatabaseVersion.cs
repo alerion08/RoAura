@@ -8,6 +8,7 @@ public static class GameDatabaseVersion
     public const string Toc = "ToC";
 
     public static string Normalize(string? value) =>
+        string.Equals(value, GameServerProfile.RagnarokPlus, StringComparison.OrdinalIgnoreCase) ? GameServerProfile.RagnarokPlus :
         string.Equals(value, Toc, StringComparison.OrdinalIgnoreCase) ? Toc :
         string.Equals(value, SpringRo, StringComparison.OrdinalIgnoreCase) ? SpringRo : Rtm;
 }

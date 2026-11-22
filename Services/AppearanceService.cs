@@ -38,7 +38,24 @@ public static class AppearanceService
   ApplyWindow(window);
  }
  private static void SettingsChanged(object? sender,PropertyChangedEventArgs e)
- {if(e.PropertyName is nameof(AppSettings.ApplicationTheme) or nameof(AppSettings.GameOverlayTheme) or "")Refresh();}
+ {
+  if(e.PropertyName is nameof(AppSettings.TableDensity)) ApplyTableDensity();
+  if(e.PropertyName is nameof(AppSettings.ApplicationTheme) or nameof(AppSettings.GameOverlayTheme) or "")Refresh();
+ }
+ private static void ApplyTableDensity()
+ {
+  if (Application.Current is not { } app) return;
+  var (row, header, watchRow, watchHeader) = _settings?.TableDensity switch
+  {
+   "Compact" => (28d, 29d, 22d, 24d),
+   "Spacious" => (50d, 44d, 36d, 36d),
+   _ => (40d, 38d, 26d, 28d)
+  };
+  app.Resources["TableRowMinHeight"] = row;
+  app.Resources["TableHeaderHeight"] = header;
+  app.Resources["WatchTableRowMinHeight"] = watchRow;
+  app.Resources["WatchTableHeaderHeight"] = watchHeader;
+ }
  public static bool IsGameWindow(Window? window)
  {
   for(var n=0;n<12 && window is not null;n++,window=window.Owner)
@@ -47,6 +64,7 @@ public static class AppearanceService
  }
  public static void Refresh()
  {
+  ApplyTableDensity();
   if(Application.Current is {} app)
    foreach(Window window in app.Windows)ApplyWindow(window);
   Changed?.Invoke();

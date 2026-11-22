@@ -107,6 +107,8 @@ public sealed class AppSettings : INotifyPropertyChanged
             {
                 Set(ref _serverProfile, normalized);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarket)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarketWatch)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveMarketWatchRules)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveMvpTimers)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveGoldGoblinPriceRules)));
             }
@@ -114,6 +116,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     }
 
     [JsonIgnore] public bool SupportsMarket => GameServerProfile.SupportsMarket(ServerProfile);
+    [JsonIgnore] public bool SupportsMarketWatch => GameServerProfile.SupportsMarketWatch(ServerProfile);
 
     private bool _enabled = true;
     public bool Enabled { get => _enabled; set => Set(ref _enabled, value); }
@@ -133,6 +136,19 @@ public sealed class AppSettings : INotifyPropertyChanged
     public double NotificationGap { get => _notificationGap; set => Set(ref _notificationGap, Math.Clamp(value, 0, 40)); }
     public string ApplicationTheme {get=>_applicationTheme;set=>Set(ref _applicationTheme,Services.AppearanceService.NormalizeApplication(value));}
     public string GameOverlayTheme {get=>_gameOverlayTheme;set=>Set(ref _gameOverlayTheme,Services.AppearanceService.NormalizeOverlays(value));}
+    private string _tableDensity = "Standard";
+    private int _serverUtcOffsetMinutes;
+    public int ServerUtcOffsetMinutes
+    {
+        get => _serverUtcOffsetMinutes;
+        set => Set(ref _serverUtcOffsetMinutes, Math.Clamp(value, -720, 840) / 15 * 15);
+    }
+
+    public string TableDensity
+    {
+        get => _tableDensity;
+        set => Set(ref _tableDensity, value is "Compact" or "Spacious" ? value : "Standard");
+    }
     public string Language { get => _language; set => Set(ref _language, value is "en" ? "en" : "ru"); }
     public string SettingsHotkey { get => _settingsHotkey; set => Set(ref _settingsHotkey, NormalizeHotkey(value, "F8")); }
     public string OverlaysHotkey { get => _overlaysHotkey; set => Set(ref _overlaysHotkey, NormalizeHotkey(value, "F9")); }
@@ -156,7 +172,26 @@ public sealed class AppSettings : INotifyPropertyChanged
     public double TimersX { get => _timersX; set => Set(ref _timersX, value); }
     public double TimersY { get => _timersY; set => Set(ref _timersY, value); }
     public double TimersTextSize { get => _timersTextSize; set => Set(ref _timersTextSize, Math.Clamp(value, 10, 72)); }
+    private double _timerSecondsThresholdMinutes;
+    public double TimerSecondsThresholdMinutes
+    {
+        get => _timerSecondsThresholdMinutes;
+        set => Set(ref _timerSecondsThresholdMinutes, double.IsFinite(value) ? Math.Clamp(value, 0, 1440) : 0);
+    }
+
+    private string _timerRouteSummary = "";
+    [JsonIgnore]
+    public string TimerRouteSummary
+    {
+        get => _timerRouteSummary;
+        internal set => Set(ref _timerRouteSummary, value);
+    }
+
     public double TimersGap { get => _timersGap; set => Set(ref _timersGap, Math.Clamp(value, 0, 40)); }
+    private string _timersWindowColor = "#FFFFCE60";
+    private string _timersCompletedColor = "#FF9DE8A3";
+    public string TimersWindowColor { get => _timersWindowColor; set => Set(ref _timersWindowColor, value); }
+    public string TimersCompletedColor { get => _timersCompletedColor; set => Set(ref _timersCompletedColor, value); }
     public string TimersTextColor { get => _timersTextColor; set => Set(ref _timersTextColor, value); }
     public bool TimersShowBackground { get => _timersShowBackground; set => Set(ref _timersShowBackground, value); }
     public string TimersBackgroundColor { get => _timersBackgroundColor; set => Set(ref _timersBackgroundColor, value); }
@@ -301,9 +336,19 @@ public sealed class AppSettings : INotifyPropertyChanged
     public ObservableCollection<MvpTimer> TocMvpTimers { get; set; } = [];
     [JsonIgnore] public ObservableCollection<MvpTimer> ActiveMvpTimers => ServerProfile == GameServerProfile.Toc ? TocMvpTimers : MvpTimers;
     public ObservableCollection<GoldGoblinPriceRule> TocGoldGoblinPriceRules { get; set; } = [];
-    [JsonIgnore] public ObservableCollection<GoldGoblinPriceRule> ActiveGoldGoblinPriceRules => ServerProfile == GameServerProfile.Toc ? TocGoldGoblinPriceRules : GoldGoblinPriceRules;
+    public ObservableCollection<GoldGoblinPriceRule> RagnarokPlusGoldGoblinPriceRules { get; set; } = [];
+    [JsonIgnore] public ObservableCollection<GoldGoblinPriceRule> ActiveGoldGoblinPriceRules => ServerProfile switch
+    {
+        GameServerProfile.Toc => TocGoldGoblinPriceRules,
+        GameServerProfile.RagnarokPlus => RagnarokPlusGoldGoblinPriceRules,
+        _ => GoldGoblinPriceRules
+    };
     public ObservableCollection<MvpTimer> MvpTimers { get; set; } = [];
     public ObservableCollection<BuffPanelGroup> BuffPanelGroups { get; set; } = [];
+    public Dictionary<int, int> RagnarokPlusCraftStock { get; set; } = [];
+    public Dictionary<string, List<DatabaseFavoriteList>> DatabaseFavoriteLists { get; set; } = [];
+    public Dictionary<string, HashSet<int>> WantedLootByServer { get; set; } = [];
+
     public ObservableCollection<RewardChannelSettings> RewardChannels { get; set; } =
     [
         new() { Kind = RewardKind.Loot, GroupNumber = 1, Order = 1, TextColor = "#FFFFD45C" },
@@ -326,6 +371,9 @@ public sealed class AppSettings : INotifyPropertyChanged
         new() { Kind = RateIndicatorKind.TotalJobExperience, Enabled = false, X = 1050, Y = 634, TextColor = "#FFC9A7FF" }
     ];
     public ObservableCollection<MarketWatchRule> MarketWatchRules { get; set; } = [];
+    public ObservableCollection<MarketWatchRule> RagnarokPlusMarketWatchRules { get; set; } = [];
+    [JsonIgnore] public ObservableCollection<MarketWatchRule> ActiveMarketWatchRules =>
+        ServerProfile == GameServerProfile.RagnarokPlus ? RagnarokPlusMarketWatchRules : MarketWatchRules;
     public MarketWatchNotificationSettings MarketWatchNotifications { get; set; } = new();
     [JsonIgnore] public ObservableCollection<MarketWatchNotification> ActiveMarketNotifications { get; } = [];
     public ObservableCollection<GoldGoblinPriceRule> GoldGoblinPriceRules { get; set; } = [];

@@ -9,6 +9,38 @@ public sealed class FarmingSessionsTests
 {
     private static readonly DateTime Start = new(2026,11,3,12,0,0,DateTimeKind.Utc);
     [Fact]
+    public void Timeline_uses_active_minutes_and_survives_reload()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "RoAura-timeline-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            var store = new CharacterStatisticsStore(directory);
+            var key = CharacterStatisticsKey.Create("SpringRO", 123);
+            var ledger = new CharacterStatisticsLedger(store);
+            ledger.SwitchTo(key, Start);
+            ledger.StartNewSession(Start);
+            ledger.ObserveZeny(1000, Start);
+            ledger.AddExperience(100, false, Start.AddMinutes(4));
+            ledger.SetPaused(true, Start.AddMinutes(4));
+            Assert.False(ledger.AddExperience(500, false, Start.AddMinutes(8)));
+            ledger.SetPaused(false, Start.AddMinutes(10));
+            ledger.AddExperience(25, true, Start.AddMinutes(11));
+            ledger.ObserveZeny(1075, Start.AddMinutes(11));
+            ledger.Flush(Start.AddMinutes(11));
+
+            var restored = new CharacterStatisticsLedger(store);
+            restored.SwitchTo(key, Start.AddHours(1));
+            var intervals = restored.Snapshot(key, Start.AddHours(1))!.SessionIntervals;
+            Assert.Equal(new FarmingInterval(100, 0, 0), intervals[0]);
+            Assert.Equal(new FarmingInterval(0, 25, 75), intervals[1]);
+            Assert.Equal(2, intervals.Count);
+            restored.StartNewSession(Start.AddHours(1));
+            Assert.Empty(restored.Snapshot(key, Start.AddHours(1))!.SessionIntervals);
+        }
+        finally { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
+    }
+
+    [Fact]
     public void Pause_excludes_time_income_and_loot_and_updates_the_balance_baseline()
     {
         var directory = Path.Combine(Path.GetTempPath(), "RoAura-farming-" + Guid.NewGuid().ToString("N"));
@@ -77,6 +109,32 @@ public sealed class FarmingSessionsTests
             Assert.Empty(restored.List());
         }
         finally { if(Directory.Exists(directory))Directory.Delete(directory,true); }
+    }
+
+    [Fact]
+    public void Expenses_save_with_pending_loot_and_reduce_net_value()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "RoAura-expenses-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            var store = new FarmingSessionHistoryStore(directory);
+            var session = new FarmingSession { Id = Guid.NewGuid(), Server = "SPRINGRO", CharacterId = 123,
+                StartedUtc = Start, UpdatedUtc = Start, ActiveTicks = TimeSpan.FromMinutes(30).Ticks,
+                ZenyGained = 120 };
+            session.RecordLoot(Start, 501, "Potion", 2, 50, "Vending", true, false);
+            store.Queue(session);
+            store.SetExpenses(session.Id, 270);
+            store.Flush();
+
+            var restored = Assert.Single(new FarmingSessionHistoryStore(directory).List());
+            Assert.Equal(270, restored.ExpensesZeny);
+            Assert.Equal(100, restored.LootValue);
+            Assert.Equal(-50m, restored.NetValue);
+            Assert.Equal(-100m, restored.NetPerHour);
+            restored.ActiveTicks = 0;
+            Assert.Null(restored.NetPerHour);
+        }
+        finally { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
     }
 
     [Fact]

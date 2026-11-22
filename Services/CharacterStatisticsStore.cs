@@ -1,3 +1,4 @@
+using RoAura.Models;
 using System.Text;
 using System.Text.Json;
 
@@ -143,6 +144,8 @@ public sealed class CharacterStatisticsStore
             data.SessionZenyGained > data.LifetimeZenyGained ||
             data.SessionActiveTicks > data.LifetimeActiveTicks)
             throw new InvalidDataException("Negative or contradictory statistics values.");
+        if (data.SessionIntervals is null || data.SessionIntervals.Any(pair => pair.Key is < 0 or > long.MaxValue / FarmingInterval.Ticks || !pair.Value.IsValid))
+            throw new InvalidDataException("Invalid farming intervals.");
         if (data.LifetimeLoot is null || data.SessionLoot is null ||
             data.LifetimeLoot.Count > 50000 || data.SessionLoot.Count > 50000 ||
             data.GoldGoblinRows is null || data.GoldGoblinRows.Count > 50000)
