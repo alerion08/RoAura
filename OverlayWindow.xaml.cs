@@ -496,7 +496,7 @@ public partial class OverlayWindow : Window
 
     public void ShowLootReward(int itemId, string itemName, string itemType, int count, bool stolen = false) =>
         ShowReward(RewardKind.Loot, stolen ? $"stolen:{itemId}" : $"item:{itemId}",
-            stolen ? $"[S] {itemName}" : itemName, count, 0, itemType, itemId);
+            itemName, count, 0, itemType, itemId);
 
     public void ShowZenyReward(long amount) =>
         ShowReward(RewardKind.Zeny, "zeny", "Zeny", amount, 0);
@@ -877,7 +877,8 @@ public partial class OverlayWindow : Window
 
     private string FormatRewardText(RewardNotification notification) => notification.Kind switch
     {
-        RewardKind.Loot => $"{notification.ItemName} x{notification.Amount:N0}" +
+        RewardKind.Loot => (notification.AggregationKey.StartsWith("stolen:", StringComparison.Ordinal) ? "[S] " : "") +
+            $"{notification.ItemName} x{notification.Amount:N0}" +
             (GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile) && _settings.ShowLootZenyPrice
                 ? $" ({_goldGoblin.LootValue(notification.ItemId, notification.ItemName, notification.Amount):N0} Z)"
                 : ""),
