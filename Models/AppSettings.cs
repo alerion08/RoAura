@@ -94,6 +94,8 @@ public sealed class AppSettings : INotifyPropertyChanged
     private int _goldGoblinOverchargeLevel;
     private bool _showLootZenyPrice;
     private bool _includeGoldGoblinInZenyPerHour;
+    private volatile bool _trackSteal;
+    private bool _rogueMode;
 
     public int SettingsVersion { get; set; }
     public bool OverlayCoordinatesRelativeToGame { get; set; }
@@ -106,6 +108,7 @@ public sealed class AppSettings : INotifyPropertyChanged
             if (_serverProfile != normalized)
             {
                 Set(ref _serverProfile, normalized);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsStealTracking)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarket)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarketWatch)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveMarketWatchRules)));
@@ -115,6 +118,7 @@ public sealed class AppSettings : INotifyPropertyChanged
         }
     }
 
+    [JsonIgnore] public bool SupportsStealTracking => ServerProfile == GameServerProfile.RagnarokPlus;
     [JsonIgnore] public bool SupportsMarket => GameServerProfile.SupportsMarket(ServerProfile);
     [JsonIgnore] public bool SupportsMarketWatch => GameServerProfile.SupportsMarketWatch(ServerProfile);
 
@@ -201,6 +205,18 @@ public sealed class AppSettings : INotifyPropertyChanged
     public double TimersBorderThickness { get => _timersBorderThickness; set => Set(ref _timersBorderThickness, Math.Clamp(value, 0, 10)); }
     public bool RewardsEnabled { get => _rewardsEnabled; set => Set(ref _rewardsEnabled, value); }
     public bool ShowJobExperience { get => _showJobExperience; set => Set(ref _showJobExperience, value); }
+    public bool TrackSteal
+    {
+        get => _trackSteal;
+        set
+        {
+            if (_trackSteal == value) return;
+            _trackSteal = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TrackSteal)));
+        }
+    }
+    public bool RogueMode { get => _rogueMode; set => Set(ref _rogueMode, value); }
+
     public int GoldGoblinOverchargeLevel { get => _goldGoblinOverchargeLevel; set => Set(ref _goldGoblinOverchargeLevel, Math.Clamp(value, 0, 10)); }
     public bool ShowLootZenyPrice { get => _showLootZenyPrice; set => Set(ref _showLootZenyPrice, value); }
     public bool IncludeGoldGoblinInZenyPerHour { get => _includeGoldGoblinInZenyPerHour; set => Set(ref _includeGoldGoblinInZenyPerHour, value); }

@@ -13,6 +13,10 @@ public sealed class FarmingLootEntry
     public string PriceSource { get; set; } = "";
     public bool PriceKnown { get; set; }
     public bool Excluded { get; set; }
+    public long StolenCount { get; set; }
+    [JsonIgnore] public long RegularCount => Count - StolenCount;
+    [JsonIgnore] public long StolenRevenue => Excluded ? 0 : checked(StolenCount * UnitPrice);
+    [JsonIgnore] public long RegularRevenue => Total - StolenRevenue;
     [JsonIgnore] public long Total => Excluded ? 0 : checked(Count * UnitPrice);
     [JsonIgnore] public string TimeText => ReceivedUtc.ToLocalTime().ToString("G") +
         (LastReceivedUtc > ReceivedUtc ? " — " + LastReceivedUtc.ToLocalTime().ToString("T") : "");
@@ -46,15 +50,20 @@ public sealed class FarmingSession
     public FarmingPlan? Plan { get; set; }
     public long ExpensesZeny { get; set; }
     public List<FarmingLootEntry> Loot { get; set; } = [];
-    public void RecordLoot(DateTime receivedUtc, int id, string name, long count, long price, string source, bool known, bool excluded)
+    public void RecordLoot(DateTime receivedUtc, int id, string name, long count, long price, string source, bool known, bool excluded, bool stolen = false)
     {
         // A price bucket retains its original valuation while bounding long-session growth.
         var row = Loot.LastOrDefault(row => row.ItemId == id && row.UnitPrice == price &&
             row.PriceSource == source && row.PriceKnown == known && row.Excluded == excluded && row.Name == name);
-        if (row is not null) { row.Count = checked(row.Count + count); row.LastReceivedUtc = receivedUtc; }
+        if (row is not null)
+        {
+            row.Count = checked(row.Count + count);
+            if (stolen) row.StolenCount = checked(row.StolenCount + count);
+            row.LastReceivedUtc = receivedUtc;
+        }
         else Loot.Add(new FarmingLootEntry { ReceivedUtc = receivedUtc, LastReceivedUtc = receivedUtc,
             ItemId = id, Name = name, Count = count, UnitPrice = price, PriceSource = source,
-            PriceKnown = known, Excluded = excluded });
+            PriceKnown = known, Excluded = excluded, StolenCount = stolen ? count : 0 });
     }
     [JsonIgnore] public long ItemCount => Loot.Where(row => !row.Excluded).Sum(row => row.Count);
     [JsonIgnore] public long LootValue => Loot.Sum(row => row.Total);

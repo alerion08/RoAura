@@ -7,6 +7,47 @@ namespace RoAura.Tests;
 public sealed class PacketFramingRegressionTests
 {
     [Theory]
+    [InlineData(50, 1, true, true)]
+    [InlineData(50, 0, true, false)]
+    [InlineData(51, 1, true, false)]
+    [InlineData(50, 1, false, false)]
+    public void RagnarokPlus_loot_requires_an_adjacent_successful_Steal_result(
+        int skill, int success, bool tracking, bool stolen)
+    {
+        var bytes = new byte[95];
+        W16(bytes, 0, 0x0B41); W16(bytes, 2, 37); W16(bytes, 4, 2); W32(bytes, 6, 7001);
+        W16(bytes, 70, 0x00B0); W16(bytes, 72, 11); W32(bytes, 74, 99);
+        W16(bytes, 78, 0x09CB); W16(bytes, 80, (ushort)skill);
+        W32(bytes, 86, 2000); W32(bytes, 90, 1000); bytes[94] = (byte)success;
+
+        for (var split = 1; split < bytes.Length; split++)
+        {
+            var scanner = new RoPacketStreamScanner { TrackSteal = () => tracking };
+            var loot = new List<RoItemAddedPacket>();
+            scanner.ItemAdded += loot.Add;
+            scanner.Process(bytes.AsSpan(0, split));
+            scanner.Process(bytes.AsSpan(split));
+            scanner.FlushPendingLoot();
+            Assert.Equal(new RoItemAddedPacket(37, 7001, 2, stolen), Assert.Single(loot));
+        }
+    }
+
+    [Fact]
+    public void Ordinary_RagnarokPlus_loot_is_flushed_once_without_a_skill_result()
+    {
+        var bytes = new byte[70];
+        W16(bytes, 0, 0x0B41); W16(bytes, 2, 37); W16(bytes, 4, 1); W32(bytes, 6, 7001);
+        var scanner = new RoPacketStreamScanner { TrackSteal = () => true };
+        var loot = new List<RoItemAddedPacket>();
+        scanner.ItemAdded += loot.Add;
+        scanner.Process(bytes);
+        Assert.Empty(loot);
+        scanner.FlushPendingLoot();
+        scanner.ResetStream();
+        Assert.Equal(new RoItemAddedPacket(37, 7001, 1), Assert.Single(loot));
+    }
+
+    [Theory]
     [InlineData((ushort)11, 230u)]
     [InlineData((ushort)55, 45u)]
     public void Fragmented_level_update_keeps_the_following_experience_packet(ushort parameter, uint level)

@@ -137,7 +137,8 @@ public sealed class NpcapPacketCapture : IDisposable
             AppEnvironment.CharacterSessionsEnabled && settings.AutoDetectConnection && settings.PacketCaptureEnabled
                 ? settings.AllowedProcesses.Select(name => Path.GetFileNameWithoutExtension(name.Trim()))
                     .Where(name => !string.IsNullOrEmpty(name)).ToHashSet(StringComparer.OrdinalIgnoreCase)
-                : null, settings.ServerProfile == GameServerProfile.RagnarokPlus);
+                : null, settings.ServerProfile == GameServerProfile.RagnarokPlus)
+            { TrackSteal = () => settings.TrackSteal };
         int generation;
         lock (_lifecycleLock)
         {
@@ -537,6 +538,7 @@ public sealed class NpcapPacketCapture : IDisposable
                                         : null);
                                 if (target.AutoDiscovery)
                                     scanner.CharacterRosterObserved += roster => RememberRosterLevels(generation, target, flowKey, roster);
+                                if (target.LogRagnarokPlusStatistics) scanner.TrackSteal = target.TrackSteal;
                                 flow = new TcpFlowState(scanner);
                                 tcpFlows[flowKey] = flow;
                             }
@@ -1025,6 +1027,7 @@ public sealed class NpcapPacketCapture : IDisposable
     private sealed class CaptureTarget(string address, int port, IReadOnlySet<string>? allowedProcesses, bool logRagnarokPlusStatistics)
     {
         public bool LogRagnarokPlusStatistics => logRagnarokPlusStatistics;
+        public Func<bool>? TrackSteal { get; init; }
         private readonly uint? _addressValue = IPAddress.TryParse(address, out var parsed) &&
             parsed.AddressFamily == AddressFamily.InterNetwork
             ? BinaryPrimitives.ReadUInt32BigEndian(parsed.GetAddressBytes()) : null;
@@ -1271,6 +1274,8 @@ internal sealed class TcpFlowState
     private const uint MaximumRetransmissionWindow = 1_048_576;
     private readonly object _sync = new();
     private readonly RoPacketStreamScanner _scanner;
+    private long _pendingLootSince;
+    private bool _lootFlushScheduled;
     private bool _initialized;
     private uint _nextSequence;
     private long _lastSeenTick = Environment.TickCount64;
@@ -1335,6 +1340,29 @@ internal sealed class TcpFlowState
     {
         _scanner.Process(payload);
         _nextSequence = unchecked(sequence + (uint)payload.Length);
+        if (!_scanner.HasPendingLoot) return;
+
+        _pendingLootSince = Environment.TickCount64;
+        if (_lootFlushScheduled) return;
+        _lootFlushScheduled = true;
+        _ = FlushIdleLootAsync();
+    }
+
+    private async Task FlushIdleLootAsync()
+    {
+        const int timeoutMs = 150;
+        while (true)
+        {
+            await Task.Delay(timeoutMs).ConfigureAwait(false);
+            lock (_sync)
+            {
+                if (_scanner.HasPendingLoot && Environment.TickCount64 - _pendingLootSince < timeoutMs)
+                    continue;
+                _lootFlushScheduled = false;
+                _scanner.FlushPendingLoot();
+                return;
+            }
+        }
     }
 
 }

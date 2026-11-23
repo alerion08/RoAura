@@ -1029,9 +1029,10 @@ public partial class App : Application
         if (session.HasValue)
             SafeCharacterStatisticsAction(() => _characterLedger?.AddLoot(packet.ItemId, item.FullName,
                 packet.Count, DateTime.UtcNow));
-        _overlay.ShowLootReward(packet.ItemId, item.Name, item.Type, packet.Count);
+        var stolen = packet.Stolen && _settingsWindow.Settings.TrackSteal;
+        _overlay.ShowLootReward(packet.ItemId, item.Name, item.Type, packet.Count, stolen);
         if (GameServerProfile.SupportsGoldGoblin(_settingsWindow.Settings.ServerProfile))
-            _goldGoblin?.AddLoot(packet.ItemId, item.FullName, packet.Count);
+            _goldGoblin?.AddLoot(packet.ItemId, item.FullName, packet.Count, stolen);
         DebugLog.Write($"PACKET LOOT item={packet.ItemId}; name={item.Name}; type={item.Type}; count={packet.Count}");
         if (session.HasValue) _overlay.RefreshCharacterStatistics();
     }

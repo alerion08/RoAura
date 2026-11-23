@@ -20,7 +20,7 @@ public sealed class GoldGoblinService
     private readonly Dictionary<string, (IReadOnlyList<CharacterLootCount> Rows, DateTime? Started)> _serverRows = [];
     public ObservableCollection<GoldGoblinLootRow> Rows { get; } = [];
     public event Action? Changed;
-    public event Action<int, string, long, long, string, bool, bool>? LootRecorded;
+    public event Action<int, string, long, long, string, bool, bool, bool>? LootRecorded;
     public long SessionTotal => Rows.Sum(row => row.Total);
     public DateTime? SessionStartedUtc { get; private set; }
 
@@ -58,7 +58,7 @@ public sealed class GoldGoblinService
         market.DataUpdated += Market_DataUpdated;
     }
 
-    public void AddLoot(int itemId, string name, long count)
+    public void AddLoot(int itemId, string name, long count, bool stolen = false)
     {
         if (count <= 0 || _settings.SessionPaused) return;
         if (!AppEnvironment.CharacterSessionsEnabled) SessionStartedUtc ??= DateTime.UtcNow;
@@ -72,9 +72,9 @@ public sealed class GoldGoblinService
             Rows.Add(row);
         }
         row.Excluded = IsExcluded(itemId, name);
-        row.Count += count;
+        row.SetCounts(checked(row.Count + count), checked(row.StolenCount + (stolen ? count : 0)));
         Changed?.Invoke();
-        LootRecorded?.Invoke(itemId, name, count, row.Cost, row.PriceSource, row.PriceKnown, row.Excluded);
+        LootRecorded?.Invoke(itemId, name, count, row.Cost, row.PriceSource, row.PriceKnown, row.Excluded, stolen);
     }
 
     public bool IsExcluded(int itemId, string name) => _settings.ActiveGoldGoblinPriceRules
@@ -132,7 +132,7 @@ public sealed class GoldGoblinService
     public IReadOnlyList<CharacterLootCount> SnapshotCharacterRows() =>
         Rows.Select(row => new CharacterLootCount
         {
-            ItemId = row.ItemId, Name = row.Item, Count = row.Count,
+            ItemId = row.ItemId, Name = row.Item, Count = row.Count, StolenCount = row.StolenCount,
             HasManualCost = row.HasManualCost,
             ManualUnitCost = row.HasManualCost ? row.Cost : 0
         }).ToList();
@@ -152,7 +152,7 @@ public sealed class GoldGoblinService
                 row.SetCalculatedCost(price.Value, price.Source, price.Known);
                 if (item.HasManualCost) row.Cost = item.ManualUnitCost;
                 row.Excluded = IsExcluded(item.ItemId, item.Name);
-                row.Count = item.Count;
+                row.SetCounts(item.Count, item.StolenCount);
                 Watch(row);
                 Rows.Add(row);
             }

@@ -91,12 +91,12 @@ public partial class App
         return history;
     }
 
-    private void RecordFarmingLoot(int id, string name, long count, long price, string source, bool known, bool excluded)
+    private void RecordFarmingLoot(int id, string name, long count, long price, string source, bool known, bool excluded, bool stolen)
     {
         try
         {
             if (GetFarmingSession() is not { } session) return;
-            session.RecordLoot(DateTime.UtcNow, id, name, count, price, source, known, excluded);
+            session.RecordLoot(DateTime.UtcNow, id, name, count, price, source, known, excluded, stolen);
             FarmingHistory.Queue(session);
         }
         catch (Exception ex) { ReportHistoryError(ex); }

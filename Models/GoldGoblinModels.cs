@@ -41,20 +41,50 @@ public sealed class GoldGoblinPriceRule : INotifyPropertyChanged
 public sealed class GoldGoblinLootRow : INotifyPropertyChanged
 {
     private long _count;
+    private long _stolenCount;
     private long _cost;
     private bool _hasManualCost;
     private string _priceSource = "—";
     private bool _priceKnown;
     public int ItemId { get; init; }
     public string Item { get; init; } = "";
-    public long Count { get => _count; set { _count = Math.Max(0, value); Changed(); Changed(nameof(Total)); } }
+    public long Count
+    {
+        get => _count;
+        set
+        {
+            _count = Math.Max(0, value);
+            _stolenCount = Math.Min(_stolenCount, _count);
+            Changed();
+            NotifyTotals();
+        }
+    }
+    public long StolenCount => _stolenCount;
+    public long RegularCount => Count - StolenCount;
+    public long StolenRevenue => Excluded ? 0 : checked(StolenCount * Cost);
+    public long RegularRevenue => Total - StolenRevenue;
+
+    internal void SetCounts(long count, long stolenCount)
+    {
+        _stolenCount = Math.Max(0, stolenCount);
+        Count = count;
+    }
+
+    private void NotifyTotals()
+    {
+        Changed(nameof(StolenCount));
+        Changed(nameof(RegularCount));
+        Changed(nameof(StolenRevenue));
+        Changed(nameof(RegularRevenue));
+        Changed(nameof(Total));
+    }
     public long Cost
     {
         get => _cost;
-        set { _cost = Math.Max(0, value); _hasManualCost = true; PriceSource = "Manual"; PriceKnown = true; Changed(); Changed(nameof(Total)); }
+        set { _cost = Math.Max(0, value); _hasManualCost = true; PriceSource = "Manual"; PriceKnown = true; Changed(); NotifyTotals(); }
     }
     private bool _excluded;
-    public bool Excluded { get => _excluded; set { _excluded = value; Changed(); Changed(nameof(Total)); } }
+    public bool Excluded { get => _excluded; set { _excluded = value; Changed(); NotifyTotals(); } }
     public long Total => Excluded ? 0 : checked(Count * Cost);
     public bool HasManualCost => _hasManualCost;
     public string PriceSource { get => _priceSource; private set { _priceSource = value; Changed(); } }
@@ -65,7 +95,7 @@ public sealed class GoldGoblinLootRow : INotifyPropertyChanged
         PriceSource = source;
         PriceKnown = known;
         Changed(nameof(Cost));
-        Changed(nameof(Total));
+        NotifyTotals();
     }
     public event PropertyChangedEventHandler? PropertyChanged;
     private void Changed([CallerMemberName] string? name = null) =>

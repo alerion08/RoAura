@@ -494,8 +494,9 @@ public partial class OverlayWindow : Window
         _ = RemoveNotificationLaterAsync(notification, effect.NotificationDurationSeconds);
     }
 
-    public void ShowLootReward(int itemId, string itemName, string itemType, int count) =>
-        ShowReward(RewardKind.Loot, $"item:{itemId}", itemName, count, 0, itemType, itemId);
+    public void ShowLootReward(int itemId, string itemName, string itemType, int count, bool stolen = false) =>
+        ShowReward(RewardKind.Loot, stolen ? $"stolen:{itemId}" : $"item:{itemId}",
+            stolen ? $"[S] {itemName}" : itemName, count, 0, itemType, itemId);
 
     public void ShowZenyReward(long amount) =>
         ShowReward(RewardKind.Zeny, "zeny", "Zeny", amount, 0);

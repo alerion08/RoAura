@@ -9,6 +9,21 @@ public sealed class FarmingSessionsTests
 {
     private static readonly DateTime Start = new(2026,11,3,12,0,0,DateTimeKind.Utc);
     [Fact]
+    public void Loot_source_totals_keep_the_original_valuation_bucket()
+    {
+        var session = new FarmingSession();
+        session.RecordLoot(Start, 7001, "Mould Powder", 2, 50, "NPC", true, false);
+        session.RecordLoot(Start.AddSeconds(1), 7001, "Mould Powder", 1, 50, "NPC", true, false, stolen: true);
+
+        var row = Assert.Single(session.Loot);
+        Assert.Equal(1L, row.StolenCount);
+        Assert.Equal(2L, row.RegularCount);
+        Assert.Equal(50L, row.StolenRevenue);
+        Assert.Equal(100L, row.RegularRevenue);
+        Assert.Equal(150L, session.LootValue);
+    }
+
+    [Fact]
     public void Timeline_uses_active_minutes_and_survives_reload()
     {
         var directory = Path.Combine(Path.GetTempPath(), "RoAura-timeline-" + Guid.NewGuid().ToString("N"));
