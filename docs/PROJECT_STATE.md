@@ -7,6 +7,12 @@
 - [Windows publication run](https://github.com/alerion08/RoAura/actions/runs/45060245412) passed 433 tests, eight ToC checks, native startup and input checks, portable and installer builds, installation verification and package validation. The public release has the portable ZIP, Setup EXE and checksum manifest.
 - The owner confirmed Ragnarok+ catalog download in the Windows test build. Live market authentication, character and EXP tracking, and in-game overlay behavior remain manual regression checks on the released package.
 
+## Ragnarok+ loot-source diagnostics
+
+- Branch `integration/ragnarokplus-loot-diagnostics` adds a DEV-only, opt-in trace for manual Steal, auto-Steal and ground pickup. Launch with `--diagnose-loot-source` and select Ragnarok+.
+- Search the DEV debug log for `LOOT SOURCE DIAG`. The trace records bounded packet-candidate metadata around inventory additions. A guessed boundary can be a false match. The trace does not classify loot or change Gold Goblin totals.
+- Live validation: isolate auto-Steal, manual Steal and ground pickup, then acquire the same item via Steal and pickup in quick succession.
+
 ## Previous published baseline — RoAura 3.5.0
 
 - [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.

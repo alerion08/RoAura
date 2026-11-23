@@ -643,6 +643,8 @@ public sealed class NpcapPacketCapture : IDisposable
         var equipmentCache = new ConcurrentDictionary<ushort, RoEquipmentPacket>();
         var pendingEquipmentEvents = new ConcurrentDictionary<ushort, RoPacketObservation<RoEquipmentPacket>>();
         var scanner = new RoPacketStreamScanner(equipmentCache);
+        if (logRagnarokPlusStatistics && LootSourceDiagnostics.Enabled)
+            scanner.LootDiagnostics = new LootSourceDiagnostics();
         var clientStatusBridge = _clientStatusBridge;
         scanner.CaptureStatusWireBytes = _springRoStatusCorrelationEnabled &&
             (WireSamplesRequested || clientStatusBridge is not null);
