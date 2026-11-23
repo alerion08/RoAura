@@ -7,7 +7,7 @@ namespace RoAura;
 
 public sealed class FarmingSessionDetailsWindow : Window
 {
-    public FarmingSessionDetailsWindow(FarmingSession session, bool showRogueColumns = false)
+    public FarmingSessionDetailsWindow(FarmingSession session)
     {
         Title = LocalizationService.Get("SessionLootDetails");
         Width = 850; Height = 560; MinWidth = 620; MinHeight = 360;
@@ -104,31 +104,19 @@ public sealed class FarmingSessionDetailsWindow : Window
         FarmingSessionHistoryControl.AddColumn(grid,"HistoryUnitPrice","UnitPrice");
         FarmingSessionHistoryControl.AddColumn(grid,"PriceSource","PriceSource");
         FarmingSessionHistoryControl.AddColumn(grid,"Total","Total");
-        var firstRogueColumn = grid.Columns.Count;
-        FarmingSessionHistoryControl.AddColumn(grid, "LootStolenCount", nameof(FarmingLootEntry.StolenCount));
-        FarmingSessionHistoryControl.AddColumn(grid, "LootStolenRevenue", nameof(FarmingLootEntry.StolenRevenue));
-        FarmingSessionHistoryControl.AddColumn(grid, "LootRegularCount", nameof(FarmingLootEntry.RegularCount));
-        FarmingSessionHistoryControl.AddColumn(grid, "LootRegularRevenue", nameof(FarmingLootEntry.RegularRevenue));
-        var rogueColumns = grid.Columns.Skip(firstRogueColumn).ToArray();
-        var rogueMode = new CheckBox { Content = "Rogue Mode", ToolTip = LocalizationService.Get("RogueModeHint"),
-            Margin = new Thickness(12, 5, 0, 8), IsChecked = showRogueColumns };
-        void UpdateRogueColumns()
+        if (session.Loot.Any(row => row.StolenCount > 0))
         {
-            foreach (var column in rogueColumns)
-                column.Visibility = rogueMode.IsChecked == true ? Visibility.Visible : Visibility.Collapsed;
+            FarmingSessionHistoryControl.AddColumn(grid, "LootStolenCount", nameof(FarmingLootEntry.StolenCount));
+            FarmingSessionHistoryControl.AddColumn(grid, "LootStolenRevenue", nameof(FarmingLootEntry.StolenRevenue));
+            FarmingSessionHistoryControl.AddColumn(grid, "LootRegularCount", nameof(FarmingLootEntry.RegularCount));
+            FarmingSessionHistoryControl.AddColumn(grid, "LootRegularRevenue", nameof(FarmingLootEntry.RegularRevenue));
         }
-        rogueMode.Checked += (_, _) => UpdateRogueColumns();
-        rogueMode.Unchecked += (_, _) => UpdateRogueColumns();
-        UpdateRogueColumns();
         var lootPanel = new DockPanel();
         var hideZero = new CheckBox { Content = LocalizationService.Get("HideZeroValueLoot"), Margin = new Thickness(4, 5, 0, 8) };
         hideZero.Checked += (_, _) => grid.ItemsSource = session.Loot.Where(row => row.Total != 0).ToArray();
         hideZero.Unchecked += (_, _) => grid.ItemsSource = session.Loot;
-        var lootFilters = new WrapPanel();
-        lootFilters.Children.Add(hideZero);
-        lootFilters.Children.Add(rogueMode);
-        DockPanel.SetDock(lootFilters, Dock.Top);
-        lootPanel.Children.Add(lootFilters);
+        DockPanel.SetDock(hideZero, Dock.Top);
+        lootPanel.Children.Add(hideZero);
         lootPanel.Children.Add(grid);
         tabs.Items.Add(new TabItem { Header = LocalizationService.Get("SessionLootDetails"), Content = lootPanel });
         tabs.Items.Add(changesTab);

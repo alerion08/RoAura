@@ -56,13 +56,10 @@ public sealed class GoldGoblinLootRow : INotifyPropertyChanged
             _count = Math.Max(0, value);
             _stolenCount = Math.Min(_stolenCount, _count);
             Changed();
-            NotifyTotals();
+            Changed(nameof(Total));
         }
     }
     public long StolenCount => _stolenCount;
-    public long RegularCount => Count - StolenCount;
-    public long StolenRevenue => Excluded ? 0 : checked(StolenCount * Cost);
-    public long RegularRevenue => Total - StolenRevenue;
 
     internal void SetCounts(long count, long stolenCount)
     {
@@ -70,21 +67,13 @@ public sealed class GoldGoblinLootRow : INotifyPropertyChanged
         Count = count;
     }
 
-    private void NotifyTotals()
-    {
-        Changed(nameof(StolenCount));
-        Changed(nameof(RegularCount));
-        Changed(nameof(StolenRevenue));
-        Changed(nameof(RegularRevenue));
-        Changed(nameof(Total));
-    }
     public long Cost
     {
         get => _cost;
-        set { _cost = Math.Max(0, value); _hasManualCost = true; PriceSource = "Manual"; PriceKnown = true; Changed(); NotifyTotals(); }
+        set { _cost = Math.Max(0, value); _hasManualCost = true; PriceSource = "Manual"; PriceKnown = true; Changed(); Changed(nameof(Total)); }
     }
     private bool _excluded;
-    public bool Excluded { get => _excluded; set { _excluded = value; Changed(); NotifyTotals(); } }
+    public bool Excluded { get => _excluded; set { _excluded = value; Changed(); Changed(nameof(Total)); } }
     public long Total => Excluded ? 0 : checked(Count * Cost);
     public bool HasManualCost => _hasManualCost;
     public string PriceSource { get => _priceSource; private set { _priceSource = value; Changed(); } }
@@ -95,7 +84,7 @@ public sealed class GoldGoblinLootRow : INotifyPropertyChanged
         PriceSource = source;
         PriceKnown = known;
         Changed(nameof(Cost));
-        NotifyTotals();
+        Changed(nameof(Total));
     }
     public event PropertyChangedEventHandler? PropertyChanged;
     private void Changed([CallerMemberName] string? name = null) =>

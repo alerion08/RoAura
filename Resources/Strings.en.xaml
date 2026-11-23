@@ -836,12 +836,10 @@
     <sys:String x:Key="SessionNote">Note</sys:String>
     <sys:String x:Key="SessionNoteSaved">Note saved.</sys:String>
     <sys:String x:Key="TrackSteal">Track Steal</sys:String>
-    <sys:String x:Key="RogueModeHint">Shows loot quantities and revenue by source. Loot without a confirmed Steal counts as regular loot.</sys:String>
     <sys:String x:Key="LootStolenCount">Stolen qty</sys:String>
     <sys:String x:Key="LootStolenRevenue">Stolen revenue</sys:String>
     <sys:String x:Key="LootRegularCount">Regular loot qty</sys:String>
     <sys:String x:Key="LootRegularRevenue">Regular loot revenue</sys:String>
-    <sys:String x:Key="RogueLootSummary">Stolen: {0:N0} items, {1:N0} z  ·  Regular loot: {2:N0} items, {3:N0} z</sys:String>
     <sys:String x:Key="HideZeroValueLoot">Hide loot valued at 0 z</sys:String>
     <sys:String x:Key="SessionPriceChanges">Valuation changes ({0:N0})</sys:String>
     <sys:String x:Key="SessionPriceItemId">Item ID</sys:String>

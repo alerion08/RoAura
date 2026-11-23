@@ -13,10 +13,10 @@
 - Search the DEV debug log for `LOOT SOURCE DIAG`. The trace records bounded packet-candidate metadata around inventory additions. A guessed boundary can be a false match. The trace does not classify loot or change Gold Goblin totals.
 - Live validation: isolate auto-Steal, manual Steal and ground pickup, then acquire the same item via Steal and pickup in quick succession.
 
-## Ragnarok+ Steal tracking and Rogue Mode
+## Ragnarok+ Steal tracking
 
-- The loot-source development branch matches a successful Steal result, skill 50, immediately after the inventory add and status update on the same Ragnarok+ stream. Manual and automatic Steal shared this sequence in six observed samples. The Statistics setting is off by default.
-- Confirmed Steal rewards display `[S]`. Gold Goblin tracks distinct quantities and accounted loot value, including saved sessions. Rogue Mode controls the optional columns. Old or unclassified loot contributes to regular loot.
+- The loot-source development branch matches a successful Steal result, skill 50, immediately after the inventory add and status update on the same Ragnarok+ stream. Manual and automatic Steal shared this sequence in six observed samples. The setting in Statistics → Appearance → General settings is off by default.
+- Confirmed Steal rewards display `[S]`. Gold Goblin shows distinct quantities and accounted loot value in the details of saved sessions with stolen loot. Old or unclassified loot contributes to regular loot.
 - Manual acceptance on Ragnarok+ is pending. Test manual and automatic Steal, an ordinary pickup of the same item, changing prices, and reopening both current and saved sessions.
 
 ## Previous published baseline — RoAura 3.5.0

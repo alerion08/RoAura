@@ -95,7 +95,6 @@ public sealed class AppSettings : INotifyPropertyChanged
     private bool _showLootZenyPrice;
     private bool _includeGoldGoblinInZenyPerHour;
     private volatile bool _trackSteal;
-    private bool _rogueMode;
 
     public int SettingsVersion { get; set; }
     public bool OverlayCoordinatesRelativeToGame { get; set; }
@@ -215,7 +214,6 @@ public sealed class AppSettings : INotifyPropertyChanged
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TrackSteal)));
         }
     }
-    public bool RogueMode { get => _rogueMode; set => Set(ref _rogueMode, value); }
 
     public int GoldGoblinOverchargeLevel { get => _goldGoblinOverchargeLevel; set => Set(ref _goldGoblinOverchargeLevel, Math.Clamp(value, 0, 10)); }
     public bool ShowLootZenyPrice { get => _showLootZenyPrice; set => Set(ref _showLootZenyPrice, value); }

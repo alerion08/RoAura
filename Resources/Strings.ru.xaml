@@ -836,12 +836,10 @@
     <sys:String x:Key="SessionNote">Заметка</sys:String>
     <sys:String x:Key="SessionNoteSaved">Заметка сохранена.</sys:String>
     <sys:String x:Key="TrackSteal">Отслеживать Steal</sys:String>
-    <sys:String x:Key="RogueModeHint">Показывает количество и выручку по источникам. Добыча без подтверждения Steal учитывается как обычная.</sys:String>
     <sys:String x:Key="LootStolenCount">Украдено, шт.</sys:String>
     <sys:String x:Key="LootStolenRevenue">Украдено, z</sys:String>
     <sys:String x:Key="LootRegularCount">Обычная добыча, шт.</sys:String>
     <sys:String x:Key="LootRegularRevenue">Обычная добыча, z</sys:String>
-    <sys:String x:Key="RogueLootSummary">Украдено: {0:N0} шт., {1:N0} z  ·  Обычная добыча: {2:N0} шт., {3:N0} z</sys:String>
     <sys:String x:Key="HideZeroValueLoot">Скрыть добычу с оценкой 0 z</sys:String>
     <sys:String x:Key="SessionPriceChanges">Изменения оценки ({0:N0})</sys:String>
     <sys:String x:Key="SessionPriceItemId">Item ID</sys:String>

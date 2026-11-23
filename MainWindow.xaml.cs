@@ -93,7 +93,6 @@ public partial class MainWindow : Window
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
         _packetCapture.EquipmentIdentityMissing += OnLearningEquipmentObserved;
         DataContext = settings;
-        UpdateRogueColumns();
         RefreshMvpTimerDetails();
         _effectsView = CollectionViewSource.GetDefaultView(settings.Effects);
         _skillsView = CollectionViewSource.GetDefaultView(settings.Skills);
@@ -269,9 +268,8 @@ public partial class MainWindow : Window
 
     private void Settings_RuntimeChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(AppSettings.RogueMode)) UpdateRogueColumns();
         if (_applyingPreset) return;
-        if (e.PropertyName is nameof(AppSettings.TrackSteal) or nameof(AppSettings.RogueMode))
+        if (e.PropertyName == nameof(AppSettings.TrackSteal))
         {
             RequestSave();
             return;
@@ -324,17 +322,6 @@ public partial class MainWindow : Window
 
     private string T(string ru, string en) => Settings.Language == "en" ? en : ru;
 
-    private void UpdateRogueColumns()
-    {
-        var visibility = Settings.RogueMode ? Visibility.Visible : Visibility.Collapsed;
-        GoldGoblinStolenCountColumn.Visibility = visibility;
-        GoldGoblinStolenRevenueColumn.Visibility = visibility;
-        GoldGoblinRegularCountColumn.Visibility = visibility;
-        GoldGoblinRegularRevenueColumn.Visibility = visibility;
-        GoldGoblinRogueSummary.Visibility = visibility;
-        GoldGoblin_Changed();
-    }
-
     private void GoldGoblin_Changed()
     {
         if (!Dispatcher.CheckAccess()) { Dispatcher.BeginInvoke(GoldGoblin_Changed); return; }
@@ -353,13 +340,6 @@ public partial class MainWindow : Window
                 GoldGoblinPriceBreakdownText.Text = string.Join(" · ", GoldGoblinRows
                     .GroupBy(row => row.Excluded ? "Excluded" : row.PriceSource)
                     .Select(group => $"{group.Key}: {group.Sum(row => (decimal)row.Total):N0} z"));
-            if (Settings.RogueMode)
-            {
-                var accounted = GoldGoblinRows.Where(row => !row.Excluded);
-                GoldGoblinRogueSummary.Text = string.Format(LocalizationService.Get("RogueLootSummary"),
-                    accounted.Sum(row => row.StolenCount), accounted.Sum(row => (decimal)row.StolenRevenue),
-                    accounted.Sum(row => row.RegularCount), accounted.Sum(row => (decimal)row.RegularRevenue));
-            }
             UpdateGoldGoblinSessionTime();
         });
     }

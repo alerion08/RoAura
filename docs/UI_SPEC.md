@@ -200,6 +200,8 @@ Settings → General stores a server UTC offset. The timer wizard can interpret 
 
 - Ragnarok+ supports independent watch rules for the same item on both shop sides. Buying rules use a minimum price. The item card has a separate buying watch action, and watch history identifies the shop side. Gold Goblin uses selling offers for Vending Price.
 - Gold Goblin shows session quantity, unit price and total value.
+- Ragnarok+ Steal tracking is under Statistics → Appearance → General settings. The saved-session loot details show stolen and regular quantities and values when the session contains stolen items.
+- The Price History column in Price Rules sizes to its header and button content.
 - NPC price, Overcharge, Vending price and manual rule behavior remain distinct.
 - Overcharge levels are 0–10.
 - Market search should return cached/local results immediately and refresh in the background.

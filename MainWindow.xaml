@@ -1321,8 +1321,6 @@
                                 <StackPanel>
                                     <TextBlock Text="{DynamicResource RewardsSettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
                                     <TextBlock Text="{DynamicResource RewardsSettingsHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/>
-                                    <CheckBox Margin="0,6,0,0" Content="{DynamicResource TrackSteal}"
-                                              IsChecked="{Binding TrackSteal}" IsEnabled="{Binding SupportsStealTracking}"/>
                                     <Button Content="{DynamicResource FarmingTutorialButton}" Click="StatisticsTutorial_Click"
                                             Style="{StaticResource FarmingTutorialButtonStyle}"
                                             AutomationProperties.Name="{DynamicResource StatisticsTutorialTitle}"/>
@@ -1629,6 +1627,8 @@
                                                 <CheckBox Content="{DynamicResource EnableRewardNotifications}" IsChecked="{Binding RewardsEnabled}" Margin="4,6"/>
                                                 <CheckBox Content="{DynamicResource ShowJobExperience}" IsChecked="{Binding ShowJobExperience}" Margin="4,6"/>
                                                 <CheckBox Content="{DynamicResource ShowLootZenyPrice}" IsChecked="{Binding ShowLootZenyPrice}" Margin="4,6"/>
+                                                <CheckBox Content="{DynamicResource TrackSteal}" IsChecked="{Binding TrackSteal}"
+                                                          IsEnabled="{Binding SupportsStealTracking}" Margin="4,6"/>
                                                 <CheckBox Content="{DynamicResource IncludeGoldGoblinInZenyPerHour}" IsChecked="{Binding IncludeGoldGoblinInZenyPerHour}" Margin="4,6"/>
                                                 <TextBlock Text="{DynamicResource RewardLimitHint}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="4,12,8,4"/>
                                             </StackPanel>
@@ -1707,7 +1707,6 @@
                                         <StackPanel><TextBlock Text="{DynamicResource CurrentSessionLoot}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource CurrentSessionLootHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/><Expander Header="{DynamicResource HistoryPriceBreakdown}" Margin="0,6,0,0">
                                             <TextBlock x:Name="GoldGoblinPriceBreakdownText" TextWrapping="Wrap" Margin="2,4,0,0"/>
                                         </Expander>
-                                            <TextBlock x:Name="GoldGoblinRogueSummary" Visibility="Collapsed" TextWrapping="Wrap" Margin="0,6,0,0"/>
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="1" Grid.Column="0">
@@ -1716,12 +1715,8 @@
                                             <Grid Background="{DynamicResource UiBackground_F4F8FD}" Margin="12,10">
                                                 <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="180"/><ColumnDefinition Width="180"/></Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                                                <WrapPanel Grid.Row="1" Grid.ColumnSpan="3" Margin="0,6,0,0">
-                                                    <CheckBox x:Name="GoldGoblinHideZero" Margin="0,0,16,0"
-                                                              Content="{DynamicResource HideZeroValueLoot}" Checked="GoldGoblinFilter_Changed" Unchecked="GoldGoblinFilter_Changed"/>
-                                                    <CheckBox Content="Rogue Mode" IsChecked="{Binding RogueMode}"
-                                                              ToolTip="{DynamicResource RogueModeHint}"/>
-                                                </WrapPanel>
+                                                <CheckBox x:Name="GoldGoblinHideZero" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,6,0,0"
+                                                          Content="{DynamicResource HideZeroValueLoot}" Checked="GoldGoblinFilter_Changed" Unchecked="GoldGoblinFilter_Changed"/>
                                                 <TextBox x:Name="GoldGoblinSearchBox" Margin="0,0,10,0" TextChanged="GoldGoblinFilter_Changed" ToolTip="{DynamicResource ItemNameOrId}"/>
                                                 <ComboBox x:Name="GoldGoblinSourceFilter" Grid.Column="1" Margin="0,0,10,0" SelectionChanged="GoldGoblinFilter_Changed">
                                                     <ComboBoxItem Content="{DynamicResource AllItems}" Tag="all"/><ComboBoxItem Content="{DynamicResource PriceNpcName}" Tag="npc"/><ComboBoxItem Content="{DynamicResource PriceVendingName}" Tag="vending" IsEnabled="{Binding SupportsMarket}"/><ComboBoxItem Content="{DynamicResource PriceManualName}" Tag="manual"/><ComboBoxItem Content="{DynamicResource WithoutPrice}" Tag="unknown"/>
@@ -1742,10 +1737,6 @@
                                                 <DataGridTemplateColumn Header="{DynamicResource Count}" Width="110">
                                                     <DataGridTemplateColumn.CellTemplate><DataTemplate><TextBox Style="{StaticResource RoTextBoxStyle}" Text="{Binding Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="GoldGoblinCount_LostFocus" Margin="5,2" Padding="4,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate>
                                                 </DataGridTemplateColumn>
-                                                <DataGridTextColumn x:Name="GoldGoblinStolenCountColumn" Header="{DynamicResource LootStolenCount}" IsReadOnly="True" Width="Auto" Visibility="Collapsed" Binding="{Binding StolenCount, StringFormat=N0}"/>
-                                                <DataGridTextColumn x:Name="GoldGoblinStolenRevenueColumn" Header="{DynamicResource LootStolenRevenue}" IsReadOnly="True" Width="Auto" Visibility="Collapsed" Binding="{Binding StolenRevenue, StringFormat=N0}"/>
-                                                <DataGridTextColumn x:Name="GoldGoblinRegularCountColumn" Header="{DynamicResource LootRegularCount}" IsReadOnly="True" Width="Auto" Visibility="Collapsed" Binding="{Binding RegularCount, StringFormat=N0}"/>
-                                                <DataGridTextColumn x:Name="GoldGoblinRegularRevenueColumn" Header="{DynamicResource LootRegularRevenue}" IsReadOnly="True" Width="Auto" Visibility="Collapsed" Binding="{Binding RegularRevenue, StringFormat=N0}"/>
                                                 <DataGridTemplateColumn Header="{DynamicResource UnitPrice}" IsReadOnly="True" Width="125">
                                                     <DataGridTemplateColumn.CellTemplate><DataTemplate><TextBlock Text="{Binding Cost, StringFormat=N0}" Margin="9,0,4,0" VerticalAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate>
                                                 </DataGridTemplateColumn>
@@ -1817,9 +1808,9 @@
                                             <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
                                             <DataGridTemplateColumn Header="{DynamicResource VendingPrice}" Width="180"><DataGridTemplateColumn.CellTemplate><DataTemplate><CheckBox IsChecked="{Binding UseVendingPrice, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.SupportsMarket, RelativeSource={RelativeSource AncestorType=DataGrid}}" HorizontalAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
                                             <DataGridTextColumn x:Name="GoldGoblinManualPriceColumn" Header="{DynamicResource ManualPrice}" Binding="{Binding ManualPrice, UpdateSourceTrigger=Explicit}" Width="180"/>
-                                            <DataGridTemplateColumn Header="{DynamicResource ManualPriceHistory}" Width="95" IsReadOnly="True">
+                                            <DataGridTemplateColumn Header="{DynamicResource ManualPriceHistory}" Width="Auto" MinWidth="128" IsReadOnly="True">
                                                 <DataGridTemplateColumn.CellTemplate><DataTemplate>
-                                                    <Button Content="{DynamicResource ManualPriceHistory}" Click="ShowGoldGoblinPriceHistory_Click"/>
+                                                    <Button Content="{DynamicResource ManualPriceHistory}" HorizontalAlignment="Center" Margin="4,2" Click="ShowGoldGoblinPriceHistory_Click"/>
                                                 </DataTemplate></DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
                                         </DataGrid.Columns>

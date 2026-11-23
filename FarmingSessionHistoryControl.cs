@@ -181,9 +181,7 @@ public sealed class FarmingSessionHistoryControl : UserControl
     private void OpenSelected()
     {
         if (_sessions.SelectedItems.Count != 1 || _sessions.SelectedItem is not FarmingSession session) return;
-        var owner = Window.GetWindow(this);
-        var details = new FarmingSessionDetailsWindow(session, (owner as MainWindow)?.Settings.RogueMode == true)
-            { Owner = owner };
+        var details = new FarmingSessionDetailsWindow(session) { Owner = Window.GetWindow(this) };
         details.ShowDialog();
         RefreshRows();
     }
