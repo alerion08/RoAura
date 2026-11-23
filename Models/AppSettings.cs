@@ -204,6 +204,9 @@ public sealed class AppSettings : INotifyPropertyChanged
     public double TimersBorderThickness { get => _timersBorderThickness; set => Set(ref _timersBorderThickness, Math.Clamp(value, 0, 10)); }
     public bool RewardsEnabled { get => _rewardsEnabled; set => Set(ref _rewardsEnabled, value); }
     public bool ShowJobExperience { get => _showJobExperience; set => Set(ref _showJobExperience, value); }
+    public Dictionary<string, OverlayPanelPreference> OverlayPanels { get; set; } = [];
+    public Dictionary<string, double[]> TableColumnWidths { get; set; } = [];
+
     public bool TrackSteal
     {
         get => _trackSteal;

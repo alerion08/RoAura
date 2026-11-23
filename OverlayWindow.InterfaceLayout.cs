@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Controls;
 using RoAura.Services;
 
 namespace RoAura;
@@ -7,6 +8,25 @@ public partial class OverlayWindow
 {
     public bool IsLayoutEditing { get; private set; }
     private bool _layoutTimerPreview;
+    internal void RefreshPanelLayers()
+    {
+        var settings = _settings;
+        foreach (var source in PacketOverlaySurface.Children.OfType<OverlayLayerSource>())
+            source.RefreshLayers(OverlaySurface, settings);
+        ApplyLayer(ExperienceBarsPanel, "experience-bars", RateIndicatorsPanel.Visibility, -3);
+        ApplyLayer(MvpOverlayLayer, "mvp", Visibility.Visible, 0);
+        ApplyLayer(MarketWatchPanel, "market", settings.ServerProfile == RoAura.Models.GameServerProfile.SpringRo
+            ? Visibility.Visible : Visibility.Collapsed, 1);
+
+        void ApplyLayer(UIElement element, string key, Visibility supported, int baseline)
+        {
+            var preference = settings.OverlayPanels.GetValueOrDefault(key);
+            element.Visibility = preference?.Hidden == true ? Visibility.Collapsed : supported;
+            Panel.SetZIndex(element, preference is { Layer: not 0 } ? preference.Layer : baseline);
+        }
+        Panel.SetZIndex(EditBanner, int.MaxValue);
+    }
+
     internal void SetLayoutPreview(bool enabled, IReadOnlyList<OverlayLayoutTarget> targets)
     {
         IsLayoutEditing = enabled;

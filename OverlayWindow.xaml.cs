@@ -122,8 +122,7 @@ public partial class OverlayWindow : Window
         var supported = FeatureAvailability.CanUse(_settings.ServerProfile, _settings.PacketCaptureEnabled, AppFeature.Statistics);
         RewardGroupsPanel.Visibility = supported ? Visibility.Visible : Visibility.Collapsed;
         RateIndicatorsPanel.Visibility = supported ? Visibility.Visible : Visibility.Collapsed;
-        ExperienceBarsPanel.Visibility = RateIndicatorsPanel.Visibility;
-        MarketWatchPanel.Visibility = _settings.ServerProfile == GameServerProfile.SpringRo ? Visibility.Visible : Visibility.Collapsed;
+        RefreshPanelLayers();
         if (_settings.ServerProfile != GameServerProfile.SpringRo) _settings.ActiveMarketNotifications.Clear();
         UpdateTimerPanelVisibility();
         if (supported) return;
@@ -139,6 +138,7 @@ public partial class OverlayWindow : Window
         _goldGoblin = goldGoblin;
         _goldGoblin.Changed += () => Dispatcher.BeginInvoke(() => UpdateRateIndicators(true));
         DataContext = settings;
+        RefreshPanelLayers();
         _settings.SyncBuffPanelGroups();
         _settings.SyncRewardGroups();
         _settings.SyncRateIndicators();
@@ -1476,7 +1476,11 @@ public partial class OverlayWindow : Window
         // band without changing our WS_EX_TOPMOST flag. Reissuing this
         // non-activating call is what keeps the click-through overlay visible.
         var browser = Application.Current?.Windows.OfType<QuestBrowserWindow>().FirstOrDefault(w=>w.IsVisible);
-        var after = browser is null ? HwndTopmost : new WindowInteropHelper(browser).Handle;
+        var quest = _settings.OverlayPanels.GetValueOrDefault("quest")?.Layer > 0
+            ? Application.Current?.Windows.OfType<QuestPassiveWindow>().FirstOrDefault(window =>
+                window.IsVisible && Equals(window.Tag, "RoAura.QuestTracker")) : null;
+        var above = (Window?)quest ?? browser;
+        var after = above is null ? HwndTopmost : new WindowInteropHelper(above).Handle;
         SetWindowPos(hwnd, after, 0, 0, 0, 0,
             SwpNoMove | SwpNoSize | SwpNoActivate);
         _isTopmost = true;

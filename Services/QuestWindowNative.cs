@@ -17,7 +17,7 @@ internal static class QuestWindowNative
         style=noActivate?style|0x08000000:style&~0x08000000;
         SetWindowLong(hwnd,-20,style);
     }
-    internal static void Place(Window window,Rect pixels,bool topmost=true,bool preserveZOrder=false)
+    internal static void Place(Window window,Rect pixels,bool topmost=true,bool preserveZOrder=false, IntPtr insertAfter=default)
     {
         var hwnd=new WindowInteropHelper(window).EnsureHandle();
         // Keep WPF layout and the layered HWND in sync after content invalidation.
@@ -25,7 +25,7 @@ internal static class QuestWindowNative
         var width=pixels.Width/dpi;var height=pixels.Height/dpi;
         if(Math.Abs(window.Width-width)>.01)window.Width=width;
         if(Math.Abs(window.Height-height)>.01)window.Height=height;
-        SetWindowPos(hwnd,topmost?new IntPtr(-1):new IntPtr(-2),(int)Math.Round(pixels.X),(int)Math.Round(pixels.Y),
+        SetWindowPos(hwnd,insertAfter != IntPtr.Zero ? insertAfter : topmost?new IntPtr(-1):new IntPtr(-2),(int)Math.Round(pixels.X),(int)Math.Round(pixels.Y),
             Math.Max(1,(int)Math.Round(pixels.Width)),Math.Max(1,(int)Math.Round(pixels.Height)),preserveZOrder ? 0x14u : 0x10u);
     }
     internal static Geometry? ExclusionClip(FrameworkElement visual,Size size,IEnumerable<Rect> screenBounds)=>

@@ -93,6 +93,9 @@ public partial class MainWindow : Window
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
         _packetCapture.EquipmentIdentityMissing += OnLearningEquipmentObserved;
         DataContext = settings;
+        TableLayout.Attach(GoldGoblinLootGrid, settings, "gold-goblin-loot", RequestSave);
+        TableLayout.Attach(GoldGoblinRulesGrid, settings, "gold-goblin-rules", RequestSave,
+            GoldGoblinRuleNameColumn);
         RefreshMvpTimerDetails();
         _effectsView = CollectionViewSource.GetDefaultView(settings.Effects);
         _skillsView = CollectionViewSource.GetDefaultView(settings.Skills);
@@ -851,7 +854,7 @@ public partial class MainWindow : Window
     /// results, panel membership refreshes). Coalesces bursts into one write
     /// 500 ms after the last request; explicit user actions still save at once.
     /// </summary>
-    private void RequestSave()
+    internal void RequestSave()
     {
         _saveDebounceTimer.Stop();
         _saveDebounceTimer.Start();
@@ -936,6 +939,7 @@ public partial class MainWindow : Window
             // write values back into newly restored rows.
             DataContext = null;
             _store.ApplyProfileTo(name, Settings);
+            _overlay.RefreshPanelLayers();
             EnabledBox.IsChecked = Settings.Enabled;
             ProcessesBox.Text = string.Join(", ", Settings.AllowedProcesses);
             _cooldownGroupFilter = null;

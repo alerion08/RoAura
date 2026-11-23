@@ -835,6 +835,13 @@
     <sys:String x:Key="ManualPriceNew">Новая цена</sys:String>
     <sys:String x:Key="SessionNote">Заметка</sys:String>
     <sys:String x:Key="SessionNoteSaved">Заметка сохранена.</sys:String>
+    <sys:String x:Key="LayoutBringFront">На передний план</sys:String>
+    <sys:String x:Key="LayoutSendBack">На задний план</sys:String>
+    <sys:String x:Key="LayoutShowPanel">Показать панель</sys:String>
+    <sys:String x:Key="LayoutHidePanel">Скрыть панель</sys:String>
+    <sys:String x:Key="LayoutLockPanel">Заблокировать перемещение</sys:String>
+    <sys:String x:Key="LayoutUnlockPanel">Разблокировать перемещение</sys:String>
+    <sys:String x:Key="StealRevenueShare">Вклад Steal: {0:N0} из {1:N0} z стоимости добычи ({2})</sys:String>
     <sys:String x:Key="TrackSteal">Отслеживать Steal</sys:String>
     <sys:String x:Key="LootStolenCount">Украдено, шт.</sys:String>
     <sys:String x:Key="LootStolenRevenue">Украдено, z</sys:String>

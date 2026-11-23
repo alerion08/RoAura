@@ -439,6 +439,18 @@ internal static class QuestInputSmoke
             Click(label.PointToScreen(new Point(20,13)));
             await Until(()=>Read(reportPath)!.Clicks>clicks,"layout labels pass mouse clicks to the game");
             var grip=editor.GripWindows["cooldown:17"];
+            Click(grip.PointToScreen(new Point(39, 13)));
+            await Until(() => settings.OverlayPanels.GetValueOrDefault("cooldown:17")?.Hidden == true,
+                "layout eye hides the selected group");
+            Click(grip.PointToScreen(new Point(39, 13)));
+            await Until(() => settings.OverlayPanels.GetValueOrDefault("cooldown:17")?.Hidden == false,
+                "layout eye shows the hidden group");
+            Click(grip.PointToScreen(new Point(65, 13)));
+            await Until(() => settings.OverlayPanels.GetValueOrDefault("cooldown:17")?.Locked == true,
+                "layout lock is enabled");
+            Click(grip.PointToScreen(new Point(65, 13)));
+            await Until(() => settings.OverlayPanels.GetValueOrDefault("cooldown:17")?.Locked == false,
+                "layout lock is released");
             var cursor=grip.PointToScreen(new Point(13,13));
             SetCursorPos((int)cursor.X,(int)cursor.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});await Pause(80);
             SetCursorPos((int)cursor.X+45,(int)cursor.Y+30);await Pause(200);
@@ -463,6 +475,8 @@ internal static class QuestInputSmoke
         {
             main.StopInterfaceLayout();hook.SetEscapeEnabled(false);settings.InterfaceLayoutHotkey=originalKey;
             settings.PacketCaptureEnabled=originalPackets;
+            settings.OverlayPanels.Remove("cooldown:17");
+            overlay.RefreshPanelLayers();
             settings.Skills.Remove(first);settings.Skills.Remove(second);settings.Skills.Remove(other);
             foreach(var group in settings.CooldownGroups.Where(group=>!groups.Contains(group.GroupNumber)).ToArray())settings.CooldownGroups.Remove(group);
         }

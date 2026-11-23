@@ -465,6 +465,7 @@ public partial class DatabaseOverlayWindow : Window
         {
             var type = MarketBuyMode.IsChecked == true ? "BUY" : "SELL";
             IReadOnlyList<MarketListing> listings;
+            IReadOnlyList<MarketListing>? previousListings = null;
             if (ragnarokPlus)
             {
                 DatabaseItem[] candidates;
@@ -504,13 +505,15 @@ public partial class DatabaseOverlayWindow : Window
                 var item = candidates[0];
                 listings = await (_ragnarokPlusMarket ??= new()).SearchAsync(item, type, cancellation.Token);
                 cancellation.Token.ThrowIfCancellationRequested();
+                previousListings = RagnarokPlusData.LoadMarket()?.Listings
+                    .Where(offer => offer.ItemId == item.Id && offer.ShopType == type).ToArray() ?? [];
                 RecordRagnarokPlusOffers(item.Id, listings, type == "BUY");
             }
             else
                 listings = await _market.SearchAsync(query, type, cancellation.Token);
             if (searchVersion != _marketSearchVersion || cancellation.IsCancellationRequested) return;
             ResultsList.ItemsSource = listings.Select(MarketResult).ToList();
-            if (SearchBox.Text.Trim() == query) ShowMarketPriceDepth(listings, buying: type == "BUY");
+            if (SearchBox.Text.Trim() == query) ShowMarketPriceDepth(listings, type == "BUY", previousListings);
             FooterText.Text = ragnarokPlus
                 ? (listings.Count == 0
                     ? T("Нет действующих предложений.", "No active listings.")

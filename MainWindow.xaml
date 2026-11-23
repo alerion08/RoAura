@@ -1805,7 +1805,7 @@
                                         <DataGridTemplateColumn Header="{DynamicResource ExcludeItem}" Width="110"><DataGridTemplateColumn.CellTemplate><DataTemplate><CheckBox IsChecked="{Binding Exclude, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
 
                                             <DataGridTextColumn Header="Item ID" Binding="{Binding ItemId}" IsReadOnly="True" Width="100"/>
-                                            <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                            <DataGridTextColumn x:Name="GoldGoblinRuleNameColumn" Header="{DynamicResource Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
                                             <DataGridTemplateColumn Header="{DynamicResource VendingPrice}" Width="180"><DataGridTemplateColumn.CellTemplate><DataTemplate><CheckBox IsChecked="{Binding UseVendingPrice, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.SupportsMarket, RelativeSource={RelativeSource AncestorType=DataGrid}}" HorizontalAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
                                             <DataGridTextColumn x:Name="GoldGoblinManualPriceColumn" Header="{DynamicResource ManualPrice}" Binding="{Binding ManualPrice, UpdateSourceTrigger=Explicit}" Width="180"/>
                                             <DataGridTemplateColumn Header="{DynamicResource ManualPriceHistory}" Width="Auto" MinWidth="128" IsReadOnly="True">

@@ -62,6 +62,7 @@ public sealed class QuestOverlayHost : IDisposable
             if(Browser.IsVisible && (!_browserRequested || !_global))Browser.Hide();
             KeyboardModeChanged?.Invoke();
         };
+        _text.Tag = "RoAura.QuestTracker";
         _text.Content=_canvas;_canvas.Children.Add(_cards);
         _workspace.Changed+=Changed;Options.PropertyChanged+=VisualChanged;
         _timer.Tick+=(_,_)=>Tick();_timer.Start();
@@ -151,6 +152,7 @@ public sealed class QuestOverlayHost : IDisposable
             PlaceBrowser(promote);if(!Browser.IsVisible)Browser.Show();
         }
         else if(Browser.IsVisible)Browser.Hide();
+        if (_workspace.Settings.OverlayPanels.GetValueOrDefault("quest")?.Hidden == true) { HideTracker(); return; }
         if(_otherEditing() || (!_trackerRequested && !_layoutEditing) || !Options.Enabled ||
             (!_layoutEditing && _workspace.Active.All(q=>!q.Progress.IsVisibleInOverlay)))
         {HideTracker();return;}
@@ -162,7 +164,11 @@ public sealed class QuestOverlayHost : IDisposable
             .Where(r=>!r.IsEmpty).ToArray();
         var trackerVisible = _text.IsVisible;
         if (!trackerVisible) _text.Show();
-        QuestWindowNative.Place(_text, _gamePixels, promote, preserveZOrder: _layoutEditing && trackerVisible);
+        var overlay = Application.Current?.Windows.OfType<OverlayWindow>().FirstOrDefault(window => window.IsVisible);
+        var behind = _workspace.Settings.OverlayPanels.GetValueOrDefault("quest")?.Layer < 0 && overlay is not null
+            ? new WindowInteropHelper(overlay).Handle : IntPtr.Zero;
+        QuestWindowNative.Place(_text, _gamePixels, promote, preserveZOrder: _layoutEditing && trackerVisible && behind == IntPtr.Zero,
+            insertAfter: behind);
         _canvas.UpdateLayout();_canvas.Clip=QuestWindowNative.ExclusionClip(_canvas,new Size(_canvas.Width,_canvas.Height),excluded);
         var scale=Options.Scale*_dpi;
         foreach(var (window,y) in _actions)

@@ -90,7 +90,7 @@
     </Window.Resources>
     <Grid x:Name="OverlaySurface" Background="Transparent">
       <Grid x:Name="PacketOverlaySurface" Visibility="{Binding PacketCaptureEnabled, Converter={StaticResource BoolToVisibility}}">
-        <ItemsControl ItemsSource="{Binding Skills}">
+        <local:OverlayLayerSource LayerSource="{Binding Skills}" LayerPrefix="cooldown">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
@@ -201,9 +201,9 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
-        <ItemsControl ItemsSource="{Binding BuffPanelGroups}">
+        <local:OverlayLayerSource LayerSource="{Binding BuffPanelGroups}" LayerPrefix="buff">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
@@ -312,9 +312,9 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
-        <ItemsControl ItemsSource="{Binding Reminders}">
+        <local:OverlayLayerSource LayerSource="{Binding Reminders}" LayerPrefix="reminder">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
@@ -422,9 +422,9 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
-        <ItemsControl ItemsSource="{Binding Equipment}">
+        <local:OverlayLayerSource LayerSource="{Binding Equipment}" LayerPrefix="equipment">
             <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter"><Setter Property="Visibility" Value="{Binding CharacterScope.IsAllowed, Converter={StaticResource BoolToVisibility}}"/>
@@ -457,9 +457,9 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
-        <ItemsControl ItemsSource="{Binding ActiveNotifications}">
+        <local:OverlayLayerSource LayerSource="{Binding ActiveNotifications}" LayerPrefix="effect">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
@@ -522,9 +522,9 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
-        <ItemsControl x:Name="RewardGroupsPanel" ItemsSource="{Binding RewardGroups}">
+        <local:OverlayLayerSource x:Name="RewardGroupsPanel" LayerSource="{Binding RewardGroups}" LayerPrefix="reward">
             <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
@@ -574,20 +574,10 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
-        <Canvas x:Name="ExperienceBarsPanel" IsHitTestVisible="False">
-            <StackPanel Canvas.Left="{Binding ExperienceBarsX}" Canvas.Top="{Binding ExperienceBarsY}"
-                        Width="{Binding ExperienceBarWidth}"
-                        Visibility="{Binding ShowExperienceBars, Converter={StaticResource BoolToVisibility}}">
-                <ContentControl x:Name="BaseExperienceBar" HorizontalContentAlignment="Stretch" ContentTemplate="{StaticResource ExperienceBarTemplate}"/>
-                <ContentControl x:Name="JobExperienceBar" Tag="Job" Margin="0,2,0,0" HorizontalContentAlignment="Stretch"
-                                ContentTemplate="{StaticResource ExperienceBarTemplate}"
-                                Visibility="{Binding ShowJobExperienceBar, Converter={StaticResource BoolToVisibility}}"/>
-            </StackPanel>
-        </Canvas>
 
-        <ItemsControl x:Name="RateIndicatorsPanel" ItemsSource="{Binding RateIndicators}">
+        <local:OverlayLayerSource x:Name="RateIndicatorsPanel" LayerSource="{Binding RateIndicators}" LayerPrefix="statistics">
             <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
@@ -624,10 +614,21 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
         </Grid>
-        <Canvas IsHitTestVisible="True">
+        <Canvas x:Name="ExperienceBarsPanel" IsHitTestVisible="False">
+            <StackPanel Canvas.Left="{Binding ExperienceBarsX}" Canvas.Top="{Binding ExperienceBarsY}"
+                        Width="{Binding ExperienceBarWidth}"
+                        Visibility="{Binding ShowExperienceBars, Converter={StaticResource BoolToVisibility}}">
+                <ContentControl x:Name="BaseExperienceBar" HorizontalContentAlignment="Stretch" ContentTemplate="{StaticResource ExperienceBarTemplate}"/>
+                <ContentControl x:Name="JobExperienceBar" Tag="Job" Margin="0,2,0,0" HorizontalContentAlignment="Stretch"
+                                ContentTemplate="{StaticResource ExperienceBarTemplate}"
+                                Visibility="{Binding ShowJobExperienceBar, Converter={StaticResource BoolToVisibility}}"/>
+            </StackPanel>
+        </Canvas>
+
+        <Canvas x:Name="MvpOverlayLayer" IsHitTestVisible="True">
             <Border x:Name="MvpTimerPanel" Canvas.Left="{Binding TimersX}" Canvas.Top="{Binding TimersY}"
                     Style="{StaticResource TimerPanelFrameStyle}"
                     Cursor="SizeAll" Visibility="Collapsed"

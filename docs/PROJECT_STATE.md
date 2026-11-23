@@ -19,6 +19,12 @@
 - Confirmed Steal rewards display `[S]`. Gold Goblin shows distinct quantities and accounted loot value in the details of saved sessions with stolen loot. Old or unclassified loot contributes to regular loot.
 - Manual acceptance on Ragnarok+ is pending. Test manual and automatic Steal, an ordinary pickup of the same item, changing prices, and reopening both current and saved sessions.
 
+## Selected RoAura ideas
+
+- RA-103 compares best market prices by item variant, mode and offer side. RA-156 shows the value and share of stolen loot in saved sessions.
+- Layout mode gets a per-panel visibility toggle, movement lock and front/back actions (RA-309, RA-311). Quest overlay ordering uses its own window above or below the ordinary overlay surface.
+- The Gold Goblin session, rules and history tables retain manually resized columns and freeze their first identity column (RA-485, RA-487).
+
 ## Previous published baseline — RoAura 3.5.0
 
 - [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.
