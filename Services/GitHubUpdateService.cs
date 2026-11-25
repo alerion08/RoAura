@@ -11,7 +11,8 @@ namespace RoAura.Services;
 
 public sealed class GitHubUpdateService
 {
-    private const string LatestReleaseUrl = "https://api.github.com/repos/alerion08/RoAura/releases/latest";
+    private const string ReleasesApiUrl = "https://api.github.com/repos/alerion08/RoAura/releases";
+    private const string LatestReleaseUrl = ReleasesApiUrl + "/latest";
     private static readonly TimeSpan CheckTimeout = TimeSpan.FromSeconds(30);
     private static readonly TimeSpan ReadIdleTimeout = TimeSpan.FromSeconds(60);
     private static readonly TimeSpan StaleDownloadAge = TimeSpan.FromDays(7);
@@ -56,7 +57,10 @@ public sealed class GitHubUpdateService
         if (installer is null) return null;
 
         return new UpdateInfo(latest, release.Name, release.Body, release.HtmlUrl,
-            installer.Name, installer.BrowserDownloadUrl, installer.Digest);
+            installer.Name, installer.BrowserDownloadUrl, installer.Digest)
+        {
+            InstallerAssetId = installer.Id
+        };
     }
 
     public async Task<string> DownloadInstallerAsync(UpdateInfo update, IProgress<double>? progress = null,
@@ -76,10 +80,8 @@ public sealed class GitHubUpdateService
         using var idle = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         try
         {
+            using var response = await OpenInstallerAsync(_client, update, cancellationToken);
             idle.CancelAfter(ReadIdleTimeout);
-            using var response = await _client.GetAsync(update.InstallerUrl,
-                HttpCompletionOption.ResponseHeadersRead, idle.Token);
-            response.EnsureSuccessStatusCode();
             var length = response.Content.Headers.ContentLength;
             await using (var input = await response.Content.ReadAsStreamAsync(idle.Token))
             await using (var output = new FileStream(temporaryPath, FileMode.Create, FileAccess.Write, FileShare.None,
@@ -125,6 +127,51 @@ public sealed class GitHubUpdateService
         {
             TryDelete(temporaryPath);
             throw;
+        }
+    }
+
+    internal static async Task<HttpResponseMessage> OpenInstallerAsync(HttpClient client, UpdateInfo update,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            return await SendAsync(update.InstallerUrl, acceptBinary: false);
+        }
+        catch (HttpRequestException ex) when (update.InstallerAssetId > 0 &&
+            (ex.StatusCode is null or HttpStatusCode.RequestTimeout or HttpStatusCode.TooManyRequests ||
+             (int?)ex.StatusCode >= 500))
+        {
+            // The browser route and the public asset API can fail independently.
+            DebugLog.Write($"UPDATE DOWNLOAD FALLBACK: {ex.StatusCode}");
+        }
+        catch (OperationCanceledException) when (update.InstallerAssetId > 0 &&
+                                                 !cancellationToken.IsCancellationRequested)
+        {
+            DebugLog.Write("UPDATE DOWNLOAD FALLBACK: response headers timed out");
+        }
+
+        var assetId = update.InstallerAssetId.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        return await SendAsync($"{ReleasesApiUrl}/assets/{assetId}", acceptBinary: true);
+
+        async Task<HttpResponseMessage> SendAsync(string url, bool acceptBinary)
+        {
+            using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            timeout.CancelAfter(ReadIdleTimeout);
+            using var request = new HttpRequestMessage(HttpMethod.Get, url);
+            if (acceptBinary)
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/octet-stream"));
+
+            var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, timeout.Token);
+            try
+            {
+                response.EnsureSuccessStatusCode();
+                return response;
+            }
+            catch
+            {
+                response.Dispose();
+                throw;
+            }
         }
     }
 
@@ -184,6 +231,7 @@ public sealed class GitHubUpdateService
 
     private sealed class GitHubAsset
     {
+        public long Id { get; set; }
         public string Name { get; set; } = "";
         [JsonPropertyName("browser_download_url")] public string BrowserDownloadUrl { get; set; } = "";
         public string? Digest { get; set; }
@@ -191,4 +239,7 @@ public sealed class GitHubUpdateService
 }
 
 public sealed record UpdateInfo(Version Version, string Name, string Notes, string ReleaseUrl,
-    string InstallerName, string InstallerUrl, string? Digest);
+    string InstallerName, string InstallerUrl, string? Digest)
+{
+    public long InstallerAssetId { get; init; }
+}
