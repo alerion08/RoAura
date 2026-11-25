@@ -15,6 +15,8 @@ public sealed class BuffPanelGroup : INotifyPropertyChanged
     private double _iconSize = 40;
     private double _iconPadding;
     private double _gap = 4;
+    private string _direction = "Horizontal";
+    private string _notificationDirection = "Vertical";
     private double _activeOpacityPercent = 100;
     private double _inactiveOpacityPercent = 42;
     private bool _isPlacementPreview;
@@ -24,6 +26,8 @@ public sealed class BuffPanelGroup : INotifyPropertyChanged
     public double Y { get => _y; set => Set(ref _y, value); }
     public double IconSize { get => _iconSize; set => Set(ref _iconSize, Math.Clamp(value, 20, 180)); }
     public double IconPadding { get => _iconPadding; set => Set(ref _iconPadding, Math.Clamp(value, 0, 40)); }
+    public string Direction { get => _direction; set => Set(ref _direction, value == "Vertical" ? "Vertical" : "Horizontal"); }
+    public string NotificationDirection { get => _notificationDirection; set => Set(ref _notificationDirection, value == "Horizontal" ? "Horizontal" : "Vertical"); }
     public double Gap { get => _gap; set => Set(ref _gap, Math.Clamp(value, 0, 40)); }
     public double ActiveOpacityPercent { get => _activeOpacityPercent; set => Set(ref _activeOpacityPercent, Math.Clamp(value, 0, 100)); }
     public double InactiveOpacityPercent { get => _inactiveOpacityPercent; set => Set(ref _inactiveOpacityPercent, Math.Clamp(value, 0, 100)); }

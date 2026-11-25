@@ -12,6 +12,7 @@ public partial class OverlayWindow
     private Window? _mvpMapPopup;
     internal bool IsMvpMapVisible => _mvpMapPopup?.IsVisible == true;
     private MvpTimer? _hoveredMvp;
+    private double _mvpPopupHeight;
     private DateTime _mvpHoverSince;
 
     private static IEnumerable<FrameworkElement> TimerLabels(DependencyObject root)
@@ -44,10 +45,15 @@ public partial class OverlayWindow
         if (_mvpMapPopup is null)
         {
             var map = new MvpMapEditor { ReadOnly = true, DataContext = selected, Margin = new Thickness(10) };
+            var content = new StackPanel();
+            var header = CreateMvpMapHeader(selected);
+            if (header is not null) content.Children.Add(header);
+            content.Children.Add(map);
+            _mvpPopupHeight = header is null ? 305 : 353;
             _mvpMapPopup = new Window { WindowStyle = WindowStyle.None, AllowsTransparency = true,
                 Tag = "RoAura.GameInterface", Background = Brushes.Transparent, ShowActivated = false, ShowInTaskbar = false,
-                ResizeMode = ResizeMode.NoResize, Width = 280, Height = 305,
-                Content = new Border { Child = map, CornerRadius = new CornerRadius(6),
+                ResizeMode = ResizeMode.NoResize, Width = 280, Height = _mvpPopupHeight,
+                Content = new Border { Child = content, CornerRadius = new CornerRadius(6),
                     Background = (Brush)FindResource("RoWindowBrush") } };
             AppearanceService.ApplyPalette(_mvpMapPopup,
                 AppearanceService.Resolve(_settings.ApplicationTheme, _settings.GameOverlayTheme, true));
@@ -56,7 +62,7 @@ public partial class OverlayWindow
             _mvpMapPopup.Show();
         }
         var dpi = QuestWindowNative.Scale(new System.Windows.Interop.WindowInteropHelper(_mvpMapPopup).Handle);
-        var width = 280*dpi; var height = 305*dpi;
+        var width = 280*dpi; var height = _mvpPopupHeight*dpi;
         var panel = new Rect(MvpTimerPanel.PointToScreen(new Point()),
             MvpTimerPanel.PointToScreen(new Point(MvpTimerPanel.ActualWidth, MvpTimerPanel.ActualHeight)));
         var placement = MvpMapPlacement.Find(panel, new Size(width,height),
@@ -64,6 +70,36 @@ public partial class OverlayWindow
         if (placement.IsEmpty) { HideMvpMap(); return; }
         QuestWindowNative.Place(_mvpMapPopup, placement);
     }
+    private FrameworkElement? CreateMvpMapHeader(MvpTimer timer)
+    {
+        if (!_settings.TimersPopupIcon && !_settings.TimersPopupName && !_settings.TimersPopupMap)
+            return null;
+        var header = new DockPanel { Height = 48, Margin = new Thickness(12, 8, 12, 0) };
+        if (_settings.TimersPopupIcon && new RoAura.Converters.TimerImageConverter().Convert(
+                timer.TimerImage, typeof(ImageSource), null!, System.Globalization.CultureInfo.CurrentCulture) is ImageSource source)
+        {
+            var icon = new Image { Source = source, Width = 32, Height = 32,
+                Stretch = Stretch.Uniform, Margin = new Thickness(0, 0, 8, 0) };
+            DockPanel.SetDock(icon, Dock.Left);
+            header.Children.Add(icon);
+        }
+        var labels = new StackPanel { VerticalAlignment = VerticalAlignment.Center };
+        if (_settings.TimersPopupName) AddLabel(timer.Name, true);
+        if (_settings.TimersPopupMap) AddLabel(timer.LocationLabel, false);
+        header.Children.Add(labels);
+        return header;
+
+        void AddLabel(string text, bool emphasized)
+        {
+            var label = new TextBlock { Text = text, TextTrimming = TextTrimming.CharacterEllipsis,
+                FontWeight = emphasized ? FontWeights.SemiBold : FontWeights.Normal, ToolTip = text };
+            label.SetResourceReference(TextBlock.ForegroundProperty, "RoTextBrush");
+            labels.Children.Add(label);
+        }
+    }
+
+    internal void RefreshTimerMapAppearance() => HideMvpMap();
+
     private void HideMvpMap()
     {
         _mvpMapPopup?.Close(); _mvpMapPopup = null; _hoveredMvp = null;

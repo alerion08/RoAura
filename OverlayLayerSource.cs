@@ -42,6 +42,7 @@ public sealed class OverlayLayerSource : ItemsControl
     private void RowChanged(object? sender, PropertyChangedEventArgs args)
     {
         if (args.PropertyName is "GroupNumber" or null or "") SyncGroups();
+        else if (LayerPrefix == "equipment" && args.PropertyName is ("X" or "Y")) ApplyPreferences();
     }
 
     internal void RefreshLayers(Grid surface, AppSettings settings)
@@ -107,7 +108,43 @@ public sealed class OverlayLayerSource : ItemsControl
             var preference = _settings?.OverlayPanels.GetValueOrDefault($"{LayerPrefix}:{number}");
             layer.View.Visibility = IsVisible && preference?.Hidden != true ? Visibility.Visible : Visibility.Collapsed;
             Panel.SetZIndex(layer.View, preference is { Layer: not 0 } ? preference.Layer : baseline);
+            if (LayerPrefix == "equipment") ApplyEquipmentLayout(number, layer.View, layer.Rows);
         }
+    }
+
+    private void ApplyEquipmentLayout(int number, ItemsControl view, ObservableCollection<object> rows)
+    {
+        var layout = _settings?.EquipmentGroupLayouts.GetValueOrDefault(number);
+        foreach (var item in rows.OfType<EquipmentTracker>())
+            item.SetGroupIconSize(layout is null ? null : Math.Clamp(layout.IconSize, 20, 180));
+        if (layout is null || rows.FirstOrDefault() is not EquipmentTracker anchor)
+        {
+            if (view.ItemsPanel != ItemsPanel) view.ItemsPanel = ItemsPanel;
+            if (view.ItemContainerStyle != ItemContainerStyle) view.ItemContainerStyle = ItemContainerStyle;
+            view.ClearValue(MarginProperty);
+            view.ClearValue(HorizontalAlignmentProperty);
+            view.ClearValue(VerticalAlignmentProperty);
+            view.Tag = null;
+            return;
+        }
+        if (!Equals(view.Tag, layout))
+        {
+            var panel = new FrameworkElementFactory(typeof(StackPanel));
+            panel.SetValue(StackPanel.OrientationProperty, layout.Vertical ? Orientation.Vertical : Orientation.Horizontal);
+            view.ItemsPanel = new ItemsPanelTemplate(panel);
+            var gap = Math.Clamp(layout.Gap, 0, 100);
+            var style = new Style(typeof(ContentPresenter), ItemContainerStyle);
+            var hidden = new DataTrigger { Binding = new System.Windows.Data.Binding(nameof(EquipmentTracker.IsVisible)), Value = false };
+            hidden.Setters.Add(new Setter(VisibilityProperty, Visibility.Collapsed));
+            style.Triggers.Add(hidden);
+            style.Setters.Add(new Setter(MarginProperty, layout.Vertical ? new Thickness(0, 0, 0, gap)
+                : new Thickness(0, 0, gap, 0)));
+            view.ItemContainerStyle = style;
+            view.HorizontalAlignment = HorizontalAlignment.Left;
+            view.VerticalAlignment = VerticalAlignment.Top;
+            view.Tag = layout;
+        }
+        view.Margin = new Thickness(Math.Max(0, anchor.X), Math.Max(0, anchor.Y), 0, 0);
     }
 
     private static int GroupNumber(object row) => row switch

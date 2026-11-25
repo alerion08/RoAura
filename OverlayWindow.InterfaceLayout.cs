@@ -30,6 +30,7 @@ public partial class OverlayWindow
     internal void SetLayoutPreview(bool enabled, IReadOnlyList<OverlayLayoutTarget> targets)
     {
         IsLayoutEditing = enabled;
+        RefreshPanelLayers();
         _layoutTimerPreview = enabled && targets.Any(target => target.Key == "mvp");
         var keys = targets.Select(target => target.Key).ToHashSet();
         foreach (var skill in _settings.Skills)
@@ -48,6 +49,7 @@ public partial class OverlayWindow
                 _settings.ActiveNotifications.Add(CreateNotification(effect, true, true));
         foreach (var notification in _settings.ActiveMarketNotifications.Where(row => row.IsPlacementPreview).ToArray())
             _settings.ActiveMarketNotifications.Remove(notification);
+        ReflowNotifications();
         if (enabled && keys.Contains("market"))
             ShowMarketWatchNotification(new RoAura.Models.MarketWatchMatch(730, "1carat Diamond", 5000), preview: true, placement: true);
         TimerPanelPreview.Visibility = _layoutTimerPreview || _timerPanelEditMode ? Visibility.Visible : Visibility.Collapsed;

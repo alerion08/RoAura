@@ -842,6 +842,14 @@
     <sys:String x:Key="LayoutLockPanel">Lock movement</sys:String>
     <sys:String x:Key="LayoutUnlockPanel">Unlock movement</sys:String>
     <sys:String x:Key="StealRevenueShare">Steal contribution: {0:N0} of {1:N0} z in loot value ({2})</sys:String>
+    <sys:String x:Key="EquipmentGroupLayoutTitle">Equipment group</sys:String>
+    <sys:String x:Key="EquipmentApplyGroupLayout">Use a shared layout for the group</sys:String>
+    <sys:String x:Key="EquipmentGroupLayoutInvalid">Enter a group number from 0 to 999, an icon size from 20 to 180 and a gap from 0 to 100. Group 0 leaves the item ungrouped.</sys:String>
+    <sys:String x:Key="EffectNotificationDirection">Group notification direction</sys:String>
+    <sys:String x:Key="TimerRowFields">Timer row fields</sys:String>
+    <sys:String x:Key="TimerPopupFields">Minimap popup fields</sys:String>
+    <sys:String x:Key="TimerMonsterNameField">Monster name</sys:String>
+    <sys:String x:Key="TimerMapField">Map name</sys:String>
     <sys:String x:Key="TrackSteal">Track Steal</sys:String>
     <sys:String x:Key="LootStolenCount">Stolen qty</sys:String>
     <sys:String x:Key="LootStolenRevenue">Stolen revenue</sys:String>

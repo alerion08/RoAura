@@ -196,6 +196,20 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string TimersWindowColor { get => _timersWindowColor; set => Set(ref _timersWindowColor, value); }
     public string TimersCompletedColor { get => _timersCompletedColor; set => Set(ref _timersCompletedColor, value); }
     public string TimersTextColor { get => _timersTextColor; set => Set(ref _timersTextColor, value); }
+    public Dictionary<int, EquipmentGroupLayout> EquipmentGroupLayouts { get; set; } = [];
+    private bool _timersShowIcon = true;
+    public bool TimersShowIcon { get => _timersShowIcon; set => Set(ref _timersShowIcon, value); }
+    private bool _timersShowName = true;
+    public bool TimersShowName { get => _timersShowName; set => Set(ref _timersShowName, value); }
+    private bool _timersShowMap = true;
+    public bool TimersShowMap { get => _timersShowMap; set => Set(ref _timersShowMap, value); }
+    private bool _timersPopupIcon;
+    public bool TimersPopupIcon { get => _timersPopupIcon; set => Set(ref _timersPopupIcon, value); }
+    private bool _timersPopupName;
+    public bool TimersPopupName { get => _timersPopupName; set => Set(ref _timersPopupName, value); }
+    private bool _timersPopupMap;
+    public bool TimersPopupMap { get => _timersPopupMap; set => Set(ref _timersPopupMap, value); }
+
     public bool TimersShowBackground { get => _timersShowBackground; set => Set(ref _timersShowBackground, value); }
     public string TimersBackgroundColor { get => _timersBackgroundColor; set => Set(ref _timersBackgroundColor, value); }
     public double TimersBackgroundOpacityPercent { get => _timersBackgroundOpacityPercent; set => Set(ref _timersBackgroundOpacityPercent, Math.Clamp(value, 0, 100)); }
@@ -437,7 +451,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     public void SyncBuffPanelGroups()
     {
         var groupNumbers = Effects
-            .Where(effect => effect.Enabled && effect.ShowOnBuffPanel && effect.GroupNumber > 0)
+            .Where(effect => effect.GroupNumber > 0)
             .Select(effect => effect.GroupNumber).Distinct().OrderBy(number => number).ToList();
 
         foreach (var number in groupNumbers)

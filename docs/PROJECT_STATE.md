@@ -25,6 +25,12 @@
 - Layout mode gets a per-panel visibility toggle, movement lock and front/back actions (RA-309, RA-311). Quest overlay ordering uses its own window above or below the ordinary overlay surface.
 - The Gold Goblin session, rules and history tables retain manually resized columns and freeze their first identity column (RA-485, RA-487).
 
+## Equipment, effects and timer presentation
+
+- Equipment group numbers can opt into a shared icon size, gap and horizontal or vertical layout. Existing individual layouts remain in use until a shared layout is saved. Group 0 is ungrouped.
+- Effect groups can configure the icon panel and notification directions independently. Cooldown layout applies on a changed direction when the selector closes or from the Apply button.
+- Timer rows and minimap headings have separate icon, monster name and map controls. The countdown and map marker remain visible with their respective surfaces.
+
 ## Previous published baseline — RoAura 3.5.0
 
 - [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.

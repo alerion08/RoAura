@@ -71,7 +71,20 @@ public sealed class EquipmentTracker : INotifyPropertyChanged
     public int GroupNumber { get => _groupNumber; set => Set(ref _groupNumber, Math.Clamp(value, 0, 999)); }
     public double X { get => _x; set => Set(ref _x, value); }
     public double Y { get => _y; set => Set(ref _y, value); }
-    public double IconSize { get => _iconSize; set => Set(ref _iconSize, Math.Clamp(value, 20, 180)); }
+    public double IconSize
+    {
+        get => _iconSize;
+        set { if (Set(ref _iconSize, Math.Clamp(value, 20, 180))) OnPropertyChanged(nameof(OverlayIconSize)); }
+    }
+    private double? _groupIconSize;
+    [JsonIgnore] public double OverlayIconSize => _groupIconSize ?? IconSize;
+
+    internal void SetGroupIconSize(double? size)
+    {
+        if (_groupIconSize == size) return;
+        _groupIconSize = size;
+        OnPropertyChanged(nameof(OverlayIconSize));
+    }
     public double IconPadding { get => _iconPadding; set => Set(ref _iconPadding, Math.Clamp(value, 0, 40)); }
     public double TextSize { get => _textSize; set => Set(ref _textSize, Math.Clamp(value, 10, 96)); }
     public double OpacityPercent { get => _opacityPercent; set { if (Set(ref _opacityPercent, Math.Clamp(value, 0, 100))) OnPropertyChanged(nameof(Opacity)); } }

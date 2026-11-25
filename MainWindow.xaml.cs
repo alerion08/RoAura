@@ -279,8 +279,11 @@ public partial class MainWindow : Window
         }
         if (e.PropertyName is nameof(AppSettings.TimersShowBackground) or nameof(AppSettings.TimersBackgroundColor) or
             nameof(AppSettings.TimersBackgroundOpacityPercent) or nameof(AppSettings.TimersShowBorder) or
-            nameof(AppSettings.TimersBorderColor) or nameof(AppSettings.TimersBorderThickness))
+            nameof(AppSettings.TimersBorderColor) or nameof(AppSettings.TimersBorderThickness) or
+            nameof(AppSettings.TimersShowIcon) or nameof(AppSettings.TimersShowName) or nameof(AppSettings.TimersShowMap) or
+            nameof(AppSettings.TimersPopupIcon) or nameof(AppSettings.TimersPopupName) or nameof(AppSettings.TimersPopupMap))
         {
+            _overlay.RefreshTimerMapAppearance();
             RequestSave();
             return;
         }
@@ -1855,6 +1858,7 @@ public partial class MainWindow : Window
         {
             GroupNumber = nextNumber, X = source.X + 35, Y = source.Y + 35,
             IconSize = source.IconSize, IconPadding = source.IconPadding, Gap = source.Gap,
+            Direction = source.Direction, NotificationDirection = source.NotificationDirection,
             ActiveOpacityPercent = source.ActiveOpacityPercent, InactiveOpacityPercent = source.InactiveOpacityPercent
         };
         Settings.BuffPanelGroups.Add(copy);

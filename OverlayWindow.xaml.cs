@@ -244,6 +244,7 @@ public partial class OverlayWindow : Window
         foreach (var effect in effects)
             _settings.ActiveNotifications.Add(CreateNotification(effect, true, true));
 
+        ReflowNotifications();
         ShowEditBanner(groupMode
             ? LocalizationService.Get("OverlayMoveEffectGroup")
             : LocalizationService.Get("OverlayMoveEffectSingle"));
@@ -297,7 +298,8 @@ public partial class OverlayWindow : Window
     {
         foreach (var item in _settings.Equipment) item.IsPlacementPreview = false;
         _equipmentEditMode = enabled && selected is not null;
-        _equipmentGroupMode = _equipmentEditMode && groupMode;
+        _equipmentGroupMode = _equipmentEditMode && (groupMode ||
+            _settings.EquipmentGroupLayouts.ContainsKey(selected!.GroupNumber));
         _draggedEquipment = null;
         _equipmentDragStarts.Clear();
         if (!_equipmentEditMode || selected is null) { FinishEditingIfIdle(); return; }
@@ -943,24 +945,42 @@ public partial class OverlayWindow : Window
 
     private void ReflowNotifications()
     {
-        var active = _settings.ActiveNotifications.Where(notification => !notification.IsPlacementPreview);
+        var active = _settings.ActiveNotifications.GroupBy(notification => notification.IsPlacementPreview);
+        foreach (var entries in active) ReflowNotificationSet(entries, entries.Key);
+    }
+
+    private void ReflowNotificationSet(IEnumerable<EffectNotification> active, bool preview)
+    {
         foreach (var group in active.GroupBy(notification => notification.GroupNumber > 0
                      ? $"group:{notification.GroupNumber}"
                      : $"effect:{notification.EffectId}"))
         {
             var first = group.First();
-            var anchorEffect = first.GroupNumber > 0
+            var anchorEffect = first.GroupNumber > 0 && (!preview || group.Skip(1).Any())
                 ? _settings.Effects.FirstOrDefault(effect => effect.GroupNumber == first.GroupNumber)
                 : _settings.Effects.FirstOrDefault(effect => effect.Id == first.EffectId);
             var anchorX = anchorEffect?.NotificationX ?? first.BaseX;
             var anchorY = anchorEffect?.NotificationY ?? first.BaseY;
+            var horizontal = _settings.BuffPanelGroups.FirstOrDefault(panel =>
+                panel.GroupNumber == first.GroupNumber)?.NotificationDirection == "Horizontal";
             var offset = 0d;
+            var previousWidth = 0d;
             foreach (var notification in group)
             {
-                notification.X = anchorX;
-                notification.Y = anchorY + offset;
                 var iconHeight = notification.ShowIcon ? notification.IconSize : 0;
-                offset += Math.Max(iconHeight, notification.TextSize * 1.5) + 20 + _settings.NotificationGap;
+                if (horizontal)
+                {
+                    var text = new FormattedText(notification.Text, System.Globalization.CultureInfo.CurrentCulture,
+                        FlowDirection.LeftToRight, new Typeface(FontFamily, FontStyles.Normal, FontWeights.Black, FontStretches.Normal),
+                        notification.TextSize, Brushes.Transparent, VisualTreeHelper.GetDpi(this).PixelsPerDip);
+                    var width = text.WidthIncludingTrailingWhitespace + (notification.ShowIcon ? iconHeight + 12 : 0)
+                        + notification.IconPadding * 2 + (notification.ShowBorder ? 4 : 0);
+                    if (previousWidth > 0) offset += (previousWidth + width) / 2 + _settings.NotificationGap;
+                    previousWidth = Math.Max(1, width);
+                }
+                notification.X = anchorX + (horizontal ? offset : 0);
+                notification.Y = anchorY + (horizontal ? 0 : offset);
+                if (!horizontal) offset += Math.Max(iconHeight, notification.TextSize * 1.5) + 20 + _settings.NotificationGap;
             }
         }
     }
@@ -1304,8 +1324,8 @@ public partial class OverlayWindow : Window
         _draggedEquipment = item;
         _equipmentDragStart = e.GetPosition(this);
         _equipmentDragStarts.Clear();
-        var items = _equipmentGroupMode && item.GroupNumber > 0
-            ? _settings.Equipment.Where(other => other.Enabled && other.GroupNumber == item.GroupNumber)
+        var items = (_equipmentGroupMode || _settings.EquipmentGroupLayouts.ContainsKey(item.GroupNumber)) && item.GroupNumber > 0
+            ? _settings.Equipment.Where(other => other.GroupNumber == item.GroupNumber)
             : [item];
         foreach (var other in items) _equipmentDragStarts[other.Id] = new Point(other.X, other.Y);
         border.CaptureMouse();

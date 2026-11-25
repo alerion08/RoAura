@@ -842,6 +842,14 @@
     <sys:String x:Key="LayoutLockPanel">Заблокировать перемещение</sys:String>
     <sys:String x:Key="LayoutUnlockPanel">Разблокировать перемещение</sys:String>
     <sys:String x:Key="StealRevenueShare">Вклад Steal: {0:N0} из {1:N0} z стоимости добычи ({2})</sys:String>
+    <sys:String x:Key="EquipmentGroupLayoutTitle">Группа экипировки</sys:String>
+    <sys:String x:Key="EquipmentApplyGroupLayout">Применять общую раскладку к группе</sys:String>
+    <sys:String x:Key="EquipmentGroupLayoutInvalid">Укажите номер группы 0–999, размер иконки 20–180 и отступ 0–100. Группа 0 означает отдельный элемент.</sys:String>
+    <sys:String x:Key="EffectNotificationDirection">Направление уведомлений группы</sys:String>
+    <sys:String x:Key="TimerRowFields">Поля строки таймера</sys:String>
+    <sys:String x:Key="TimerPopupFields">Поля всплывающей мини-карты</sys:String>
+    <sys:String x:Key="TimerMonsterNameField">Название монстра</sys:String>
+    <sys:String x:Key="TimerMapField">Название карты</sys:String>
     <sys:String x:Key="TrackSteal">Отслеживать Steal</sys:String>
     <sys:String x:Key="LootStolenCount">Украдено, шт.</sys:String>
     <sys:String x:Key="LootStolenRevenue">Украдено, z</sys:String>
