@@ -607,7 +607,7 @@ internal static class QuestInputSmoke
             var panel=(Border)overlay.FindName("MvpTimerPanel");
             await Until(()=>panel.IsVisible && Descendants<TextBlock>(panel).Any(text=>ReferenceEquals(text.DataContext,timer)),"MVP hover row appears");
             var labels=Descendants<TextBlock>(panel).Where(text=>ReferenceEquals(text.DataContext,timer)).ToArray();
-            var name=labels.Single(text=>text.Text==timer.NumberedName);
+            var name=labels.Single(text=>text.Text==timer.Name);
             var icon=labels.Single(text=>text.Tag as string=="MvpMapHover");
             if (icon.Text != timer.LocationCode || icon.Parent is not Border { BorderThickness.Left: > 0 })
                 throw new InvalidOperationException("Timer map code is missing its outlined badge.");
@@ -619,7 +619,16 @@ internal static class QuestInputSmoke
             Hover(name);await Until(()=>overlay.IsMvpMapVisible,"MVP name opens the map");
             Hover(icon);await Pause(250);
             if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("Timer map badge lost the row hover map.");
-            Hover(labels.Single(text=>text.Tag as string=="MvpCountdown"));await Pause(250);
+            var countdown = labels.Single(text=>text.Tag as string=="MvpCountdown");
+            var showName = settings.TimersShowName;
+            try
+            {
+                settings.TimersShowName = false;
+                await Until(() => !name.IsVisible && countdown.Text.StartsWith($"{timer.DisplayNumber}.", StringComparison.Ordinal),
+                    "timer number remains visible without the monster name");
+            }
+            finally { settings.TimersShowName = showName; }
+            Hover(countdown);await Until(()=>overlay.IsMvpMapVisible,"MVP countdown opens the map");
             if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP timer text lost the row hover map.");
             if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("MVP map stole game focus.");
             SaveElement(panel,"timer-map-badge");SaveDesktop(overlay,"timer-map-hover");
