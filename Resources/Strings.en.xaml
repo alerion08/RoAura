@@ -850,6 +850,8 @@
     <sys:String x:Key="TimerPopupFields">Minimap popup fields</sys:String>
     <sys:String x:Key="TimerMonsterNameField">Monster name</sys:String>
     <sys:String x:Key="TimerMapField">Map name</sys:String>
+    <sys:String x:Key="OverlayImport">Import</sys:String>
+    <sys:String x:Key="OverlayExport">Export</sys:String>
     <sys:String x:Key="TrackSteal">Track Steal</sys:String>
     <sys:String x:Key="LootStolenCount">Stolen qty</sys:String>
     <sys:String x:Key="LootStolenRevenue">Stolen revenue</sys:String>

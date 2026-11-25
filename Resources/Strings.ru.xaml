@@ -850,6 +850,8 @@
     <sys:String x:Key="TimerPopupFields">Поля всплывающей мини-карты</sys:String>
     <sys:String x:Key="TimerMonsterNameField">Название монстра</sys:String>
     <sys:String x:Key="TimerMapField">Название карты</sys:String>
+    <sys:String x:Key="OverlayImport">Импорт</sys:String>
+    <sys:String x:Key="OverlayExport">Экспорт</sys:String>
     <sys:String x:Key="TrackSteal">Отслеживать Steal</sys:String>
     <sys:String x:Key="LootStolenCount">Украдено, шт.</sys:String>
     <sys:String x:Key="LootStolenRevenue">Украдено, z</sys:String>

@@ -31,6 +31,11 @@
 - Effect groups can configure the icon panel and notification directions independently. Cooldown layout applies on a changed direction when the selector closes or from the Apply button.
 - Timer rows and minimap headings have separate icon, monster name and map controls. The countdown and map marker remain visible with their respective surfaces.
 
+## Overlay import and export
+
+- Cooldowns, Effects, Equipment and Reminders can export their configured entries and group settings to a versioned JSON package. Import appends copies with new overlay IDs and remaps conflicting group numbers. Embedded images travel with the package. Local sound paths still refer to local files.
+- The timer row always displays its shortcut number beside the countdown, independently of the monster-name setting.
+
 ## Previous published baseline — RoAura 3.5.0
 
 - [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.

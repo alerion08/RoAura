@@ -471,7 +471,7 @@
                                     <TextBlock Text="{DynamicResource CooldownSettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
                                     <TextBlock Text="{DynamicResource CooldownSettingsHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/>
                                 </StackPanel>
-                                <Button Grid.Column="1" Content="{DynamicResource AddSkill}" Click="Add_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal"><Button Content="{DynamicResource OverlayImport}" Tag="Cooldown" Click="ImportOverlays_Click"/><Button Content="{DynamicResource OverlayExport}" Tag="Cooldown" Click="ExportOverlays_Click"/><Button Content="{DynamicResource AddSkill}" Click="Add_Click" Style="{StaticResource PrimaryButtonStyle}"/></StackPanel>
                             </Grid>
                         </Border>
                         <TabControl Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="3" Style="{StaticResource SectionTabControlStyle}">
@@ -666,7 +666,7 @@
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Orientation="Horizontal">
                                     <Button Content="{DynamicResource CheckNotification}" Click="CheckEffectNotification_Click"/>
-                                    <Button Content="{DynamicResource AddEffect}" Click="AddEffect_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                                    <Button Content="{DynamicResource OverlayImport}" Tag="Effect" Click="ImportOverlays_Click"/><Button Content="{DynamicResource OverlayExport}" Tag="Effect" Click="ExportOverlays_Click"/><Button Content="{DynamicResource AddEffect}" Click="AddEffect_Click" Style="{StaticResource PrimaryButtonStyle}"/>
                                 </StackPanel>
                             </Grid>
                         </Border>
@@ -1015,7 +1015,7 @@
                         <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
                         <Grid.ColumnDefinitions><ColumnDefinition Width="340"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                         <Border Grid.ColumnSpan="3" Margin="0,0,0,8" Padding="14,9" CornerRadius="7" Background="{DynamicResource UiBackground_E5F0FC}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1">
-                            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{DynamicResource ReminderSettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource ReminderSettingsHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/></StackPanel><Button Grid.Column="1" Content="{DynamicResource AddReminder}" Click="AddReminder_Click" Style="{StaticResource PrimaryButtonStyle}"/></Grid>
+                            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{DynamicResource ReminderSettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource ReminderSettingsHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/></StackPanel><StackPanel Grid.Column="1" Orientation="Horizontal"><Button Content="{DynamicResource OverlayImport}" Tag="Reminder" Click="ImportOverlays_Click"/><Button Content="{DynamicResource OverlayExport}" Tag="Reminder" Click="ExportOverlays_Click"/><Button Content="{DynamicResource AddReminder}" Click="AddReminder_Click" Style="{StaticResource PrimaryButtonStyle}"/></StackPanel></Grid>
                         </Border>
                         <Border Grid.Row="1" Style="{StaticResource WorkspacePanelStyle}">
                             <Grid>
@@ -1107,7 +1107,7 @@
                         <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
                         <Grid.ColumnDefinitions><ColumnDefinition Width="340"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                         <Border Grid.ColumnSpan="3" Margin="0,0,0,8" Padding="14,9" CornerRadius="7" Background="{DynamicResource UiBackground_E5F0FC}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1">
-                            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{DynamicResource EquipmentSettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource EquipmentSettingsHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/></StackPanel><Button Grid.Column="1" Content="{DynamicResource AddEquipmentTracking}" Click="AddEquipment_Click" Style="{StaticResource PrimaryButtonStyle}"/></Grid>
+                            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{DynamicResource EquipmentSettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource EquipmentSettingsHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/></StackPanel><StackPanel Grid.Column="1" Orientation="Horizontal"><Button Content="{DynamicResource OverlayImport}" Tag="Equipment" Click="ImportOverlays_Click"/><Button Content="{DynamicResource OverlayExport}" Tag="Equipment" Click="ExportOverlays_Click"/><Button Content="{DynamicResource AddEquipmentTracking}" Click="AddEquipment_Click" Style="{StaticResource PrimaryButtonStyle}"/></StackPanel></Grid>
                         </Border>
                         <Border Grid.Row="1" Style="{StaticResource WorkspacePanelStyle}">
                             <Grid>
