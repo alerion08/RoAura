@@ -1,3 +1,17 @@
+# RoAura 3.7.1
+
+## Русский
+
+- Исправлено автоматическое определение эффектов и напоминаний на Ragnarok+. При наложении баффа на себя RoAura пропускает служебный статус 46 и определяет ID самого баффа.
+- Если у баффа ранее сохранился ID 46, запустите определение снова и примените бафф на себя.
+
+## English
+
+- Fixed automatic effect and reminder status detection on Ragnarok+. When a buff is cast on yourself, RoAura skips post-cast delay status 46 and learns the buff's status ID.
+- If a buff was previously assigned status 46, run detection again and cast the buff on yourself.
+
+---
+
 # RoAura 3.7.0
 
 ## Gold Goblin и статистика
