@@ -204,6 +204,21 @@ public static class OverlayLayoutTargets
                 x => quest.X = x, y => quest.Y = y, () => new(quest.Width * quest.Scale, 60 * quest.Scale),
                 new("QScale", () => quest.Scale, value => quest.Scale = value, .05)));
         }
+        if (settings.LootListTracker.Enabled && settings.PacketCaptureEnabled)
+        {
+            var tracker = settings.LootListTracker;
+            var lists = LootLists.ForServer(settings, settings.ServerProfile).Where(list => list.ShowInTracker)
+                .Select(list => list.Items.Count(item => item.Active)).Where(count => count > 0).ToArray();
+            var gap = Math.Clamp(tracker.Gap, 0, 40);
+            var width = Math.Clamp(tracker.Width, 170, 680);
+            var line = Math.Clamp(tracker.TextSize, 10, 32) * 1.4;
+            var heights = lists.Select(count => (count + 1) * line + 19).DefaultIfEmpty(line * 2 + 19).ToArray();
+            Single("loot-list-tracker", "LootListTrackerTitle", Item(() => tracker.X, () => tracker.Y,
+                x => tracker.X = x, y => tracker.Y = y, () => tracker.Horizontal
+                    ? new((width + gap) * heights.Length, heights.Max())
+                    : new(width, heights.Sum() + gap * heights.Length),
+                new("TextSize", () => tracker.TextSize, value => tracker.TextSize = Math.Clamp(value, 10, 32))));
+        }
         return result;
     }
 }

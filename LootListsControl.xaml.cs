@@ -57,9 +57,30 @@ public partial class LootListsControl : UserControl
         finally { _updating = false; }
     }
 
+    private LootList? SelectedList => (ListFilter.SelectedItem as ComboBoxItem)?.Tag as LootList;
+
+    private void Rename_Click(object sender, RoutedEventArgs e)
+    {
+        if (_settings is null || SelectedList is not { } list || Window.GetWindow(this) is not { } owner) return;
+        if (LootListNameDialog.Create(owner, _settings, list.Server, list) is null) return;
+        _save?.Invoke();
+        RefreshLists();
+    }
+
+    private void Delete_Click(object sender, RoutedEventArgs e)
+    {
+        if (_settings is null || SelectedList is not { } list || Window.GetWindow(this) is not { } owner) return;
+        var prompt = string.Format(LocalizationService.Get("LootListDeleteConfirm"), list.Name);
+        if (!LootListNameDialog.Confirm(owner, prompt, LocalizationService.Get("Delete"))) return;
+        _settings.LootLists.Remove(list);
+        _save?.Invoke();
+        RefreshLists();
+    }
+
     private void RenderRows(LootList[] lists)
     {
-        var selected = (ListFilter.SelectedItem as ComboBoxItem)?.Tag as LootList;
+        var selected = SelectedList;
+        RenameListButton.IsEnabled = DeleteListButton.IsEnabled = selected is not null;
         var rows = lists.Where(list => selected is null || list == selected).SelectMany(list => list.Items.Select(item =>
             new Row(list, item, lists.Where(candidate => candidate == list || candidate.Items.All(row => row.ItemId != item.ItemId)).ToArray(),
                 item.Name == $"Item #{item.ItemId}" ? _resolveName?.Invoke(item.ItemId) ?? item.Name : item.Name))).ToArray();

@@ -120,8 +120,10 @@ public partial class QuestDetailsControl : UserControl
   var active=_quest is not null && _workspace?.SelectedGuide?.Key==_quest.Id && _workspace.IsActive(_workspace.SelectedGuide);
   AddButton.Content=active?L("✓ Активен","✓ Active"):L("+ Добавить в активные","+ Add to active");AddButton.IsEnabled=Editable;
   if(active)QuestCopyFeedback.ColorState(AddButton,BB("#298E38"));else{AddButton.ClearValue(Button.TemplateProperty);AddButton.ClearValue(Button.ForegroundProperty);}
-  WantedQuestLootButton.Content = L("Материалы в желаемый лут", "Add materials to wanted loot");
-  WantedQuestLootButton.Visibility = active && Editable ? Visibility.Visible : Visibility.Collapsed;
+  WantedQuestLootButton.Content = LocalizationService.Get("LootListAddAction");
+  WantedQuestLootButton.Visibility = _quest is not null ? Visibility.Visible : Visibility.Collapsed;
+  WantedQuestLootButton.IsEnabled = _quest?.Source.Kind != "Ragnarok+" ||
+      _workspace?.Settings.ServerProfile == GameServerProfile.RagnarokPlus;
   GoCurrentButton.Content=L("К текущему этапу","Go to current step");GoCurrentButton.IsEnabled=Current() is not null;
   WalkTab.Header=L("Прохождение","Walkthrough");FactsTab.Header=L("Требования и награды","Requirements and rewards");SourcesTab.Header=L("Источники","Sources");
   var done=_quest?.Steps.Count(Done)??0;var count=_quest?.Steps.Count??0;
@@ -131,38 +133,31 @@ public partial class QuestDetailsControl : UserControl
  }
  private void WantedQuestLoot_Click(object sender, RoutedEventArgs e)
  {
-  if (!Editable || _workspace?.SelectedGuide is not { } guide || !_workspace.IsActive(guide) ||
-      _quest is not { } quest || Application.Current is not App app || app.MarketWatchDatabase is not { } database)
-   return;
+  if (_workspace is null || _quest is not { } quest || Application.Current is not App app ||
+      Window.GetWindow(this) is not { } owner) return;
 
   var settings = _workspace.Settings;
   var server = settings.ServerProfile;
-  if (!string.Equals(server, database.Version, StringComparison.OrdinalIgnoreCase)) return;
-  var materials = quest.Steps.Where(step => !Done(step)).SelectMany(step => step.Items)
-   .Where(item => item.Required != false && item.Operation is ("collect" or "bring" or "deliver" or "buy" or "use" or "consume"))
-   .Select(item => (Name: item.Name.Trim(), item.DatabaseItemId)).Where(item => item.Name.Length > 0).Distinct().ToArray();
-  if (materials.Length == 0)
+  if (quest.Source.Kind == "Ragnarok+" && server != GameServerProfile.RagnarokPlus) return;
+  var materials = QuestFactPresentation.MaterialSummary(quest, _language)
+   .Concat(quest.Steps.SelectMany(QuestFactPresentation.StepMaterials))
+   .Where(fact => fact.Name is not null && (fact.DatabaseItemId.HasValue ||
+       fact.Kind.StartsWith("item", StringComparison.Ordinal) || fact.Kind is "quest_item" or "puzzle_item"))
+   .Select(fact => (Id: fact.DatabaseItemId ?? app.ResolveQuestItemId(fact.Name!) ?? 0,
+       Name: fact.Name!, Target: long.TryParse(fact.Amount, out var amount) && amount > 0 ? amount : 1L))
+   .ToArray();
+  var resolved = materials.Where(item => item.Id > 0).ToArray();
+  if (resolved.Length == 0)
   {
-   Notify(L("В оставшихся этапах нет материалов.", "No materials for the remaining steps."));
+   Notify(L("Нет материалов с однозначным совпадением в базе.", "No materials match the database unambiguously."));
    return;
   }
-
-  var names = database.Items.GroupBy(item => item.Name.Trim(), StringComparer.OrdinalIgnoreCase)
-   .ToDictionary(group => group.Key, group => group.Select(item => item.Id).Distinct().ToArray(), StringComparer.OrdinalIgnoreCase);
-  if (!settings.WantedLootByServer.TryGetValue(server, out var wanted))
-   settings.WantedLootByServer[server] = wanted = [];
-  var added = 0;
-  var unresolved = 0;
-  foreach (var material in materials)
-  {
-   if (material.DatabaseItemId is int exactId && database.Item(exactId) is not null)
-   { if (wanted.Add(exactId)) added++; continue; }
-   if (material.DatabaseItemId is not null || !names.TryGetValue(material.Name, out var ids) || ids.Length != 1)
-   { unresolved++; continue; }
-   if (wanted.Add(ids[0])) added++;
-  }
-  if (added > 0) app.SaveDatabasePreferences();
-  Notify(L($"Добавлено: {added}. Без точного совпадения в базе: {unresolved}.",
+  if (!LootListNameDialog.Confirm(owner, L("Добавить предметы в список?", "Add items to the list?"),
+      LocalizationService.Get("LootListAddAction"))) return;
+  var added = LootLists.ImportQuest(settings, server, quest.Id, quest.Title, resolved);
+  app.LootListsChanged();
+  var unresolved = materials.Where(item => item.Id == 0).Select(item => item.Name).Distinct(StringComparer.OrdinalIgnoreCase).Count();
+  Notify(L($"Добавлено: {added}. Без точного совпадения: {unresolved}.",
            $"Added: {added}. No exact catalog match: {unresolved}."));
  }
  private void RenderSteps()

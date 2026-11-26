@@ -593,6 +593,10 @@
     <sys:String x:Key="QHuntingFaction">Фракция</sys:String>
     <sys:String x:Key="QHuntingReputation">Репутация за квест</sys:String>
     <sys:String x:Key="ShowQuestLootPrefix">Показывать префикс [Q]</sys:String>
+    <sys:String x:Key="LootListRename">Переименовать</sys:String>
+    <sys:String x:Key="LootListDeleteConfirm">Удалить список «{0}» со всеми предметами и прогрессом?</sys:String>
+    <sys:String x:Key="LootListTrackerDisplay">Отображение в трекере</sys:String>
+    <sys:String x:Key="LootListEnableOverlay">Включить оверлей</sys:String>
     <sys:String x:Key="LootListTitle">Список добычи</sys:String>
     <sys:String x:Key="LootListAddAction">В список добычи</sys:String>
     <sys:String x:Key="LootListCreate">Создать список добычи</sys:String>

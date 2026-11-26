@@ -24,6 +24,7 @@ public partial class OverlayWindow
             element.Visibility = preference?.Hidden == true ? Visibility.Collapsed : supported;
             Panel.SetZIndex(element, preference is { Layer: not 0 } ? preference.Layer : baseline);
         }
+        ApplyLayer(LootListTrackerLayer, "loot-list-tracker", Visibility.Visible, 1);
         Panel.SetZIndex(EditBanner, int.MaxValue);
     }
 
@@ -55,6 +56,7 @@ public partial class OverlayWindow
         TimerPanelPreview.Visibility = _layoutTimerPreview || _timerPanelEditMode ? Visibility.Visible : Visibility.Collapsed;
         if (enabled) HideMvpMap();
         UpdateTimerPanelVisibility(); UpdateTimerPanelPreviewPosition();
+        RefreshLootListTracker();
     }
     internal void RefreshLayoutPreviewPositions()
     {
@@ -65,5 +67,6 @@ public partial class OverlayWindow
             preview.X = effect.NotificationX; preview.Y = effect.NotificationY;
         }
         ReflowNotifications(); UpdateTimerPanelPreviewPosition();
+        UpdateLootListTrackerPosition();
     }
 }

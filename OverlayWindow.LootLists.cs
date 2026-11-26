@@ -27,13 +27,16 @@ public partial class OverlayWindow
         var ink = new SolidColorBrush(foreground);
         ink.Freeze();
 
-        Canvas.SetLeft(LootListTrackerPanel, Limit(options.X, 12, 0, 10000));
-        Canvas.SetTop(LootListTrackerPanel, Limit(options.Y, 420, 0, 10000));
+        UpdateLootListTrackerPosition();
         LootListTrackerPanel.Orientation = options.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
-        foreach (var list in LootLists.ForServer(_settings, _settings.ServerProfile).Where(list => list.ShowInTracker))
+        var lists = LootLists.ForServer(_settings, _settings.ServerProfile)
+            .Where(list => list.ShowInTracker && list.Items.Any(item => item.Active)).ToArray();
+        if (IsLayoutEditing && lists.Length == 0)
+            lists = [new LootList { Name = LocalizationService.Get("LootListTrackerTitle"),
+                Items = [new LootListItem { Name = LocalizationService.Get("Item"), Target = 25, Acquired = 5 }] }];
+        foreach (var list in lists)
         {
             var active = list.Items.Where(item => item.Active).ToArray();
-            if (active.Length == 0) continue;
             var rows = new StackPanel();
             rows.Children.Add(new TextBlock { Text = list.Name, Foreground = ink, FontSize = fontSize,
                 FontWeight = FontWeights.Bold, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 0, 0, 4) });
@@ -61,6 +64,13 @@ public partial class OverlayWindow
                 Margin = options.Horizontal ? new Thickness(0, 0, gap, 0) : new Thickness(0, 0, 0, gap)
             });
         }
+    }
+
+    internal void UpdateLootListTrackerPosition()
+    {
+        var options = _settings.LootListTracker;
+        Canvas.SetLeft(LootListTrackerPanel, Limit(options.X, 12, 0, 10000));
+        Canvas.SetTop(LootListTrackerPanel, Limit(options.Y, 420, 0, 10000));
     }
 
     private static double Limit(double value, double fallback, double minimum, double maximum) =>

@@ -47,20 +47,14 @@
                 <StackPanel Margin="12">
                     <TextBlock Text="{DynamicResource LootListTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
                     <Button Content="{DynamicResource LootListCreate}" Click="Create_Click" HorizontalAlignment="Left" Margin="0,6,0,8"/>
-                    <ItemsControl x:Name="ListOptions">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="0,0,0,7">
-                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextWrapping="Wrap"/>
-                                    <CheckBox Content="{DynamicResource LootListShowTracker}" IsChecked="{Binding ShowInTracker}" Click="ShowInTracker_Click" Margin="0,4,0,0"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <WrapPanel Margin="0,0,0,8">
+                        <Button x:Name="RenameListButton" Content="{DynamicResource LootListRename}" Click="Rename_Click"/>
+                        <Button x:Name="DeleteListButton" Content="{DynamicResource Delete}" Click="Delete_Click"/>
+                    </WrapPanel>
                     <Separator Margin="0,6"/>
                     <StackPanel x:Name="TrackerOptions" Binding.SourceUpdated="TrackerOptions_Changed">
                         <TextBlock Text="{DynamicResource LootListTrackerTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
-                        <CheckBox Content="{DynamicResource QOverlayEnabled}" IsChecked="{Binding Enabled, NotifyOnSourceUpdated=True}" Margin="0,4"/>
+                        <CheckBox Content="{DynamicResource LootListEnableOverlay}" IsChecked="{Binding Enabled, NotifyOnSourceUpdated=True}" Margin="0,4"/>
                         <CheckBox Content="{DynamicResource LootListHorizontal}" IsChecked="{Binding Horizontal, NotifyOnSourceUpdated=True}" Margin="0,4"/>
                         <WrapPanel Margin="0,3">
                             <TextBlock Text="X" VerticalAlignment="Center"/>
@@ -81,6 +75,15 @@
                         <TextBlock Text="{DynamicResource QTextColor}"/>
                         <controls:ColorTextBox Text="{Binding TextColor, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,5"/>
                     </StackPanel>
+                    <Separator Margin="0,8"/>
+                    <TextBlock Text="{DynamicResource LootListTrackerDisplay}" Style="{StaticResource RoSectionTitleStyle}" Margin="0,0,0,6"/>
+                    <ItemsControl x:Name="ListOptions">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Name}" IsChecked="{Binding ShowInTracker}" Click="ShowInTracker_Click" Margin="0,3"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
             </ScrollViewer>
         </Grid>

@@ -43,18 +43,31 @@ internal static class LootLists
     internal static bool ContainsActiveItem(AppSettings settings, string server, int itemId) =>
         ForServer(settings, server).Any(list => list.Items.Any(item => item.Active && item.ItemId == itemId));
 
-    internal static void ImportWantedLoot(AppSettings settings)
+    internal static int ImportQuest(AppSettings settings, string server, string questKey, string name,
+        IEnumerable<(int Id, string Name, long Target)> materials)
     {
-        if (settings.LootListsMigrated || !settings.WantedLootByServer.Values.Any(ids => ids is { Count: > 0 })) return;
-        settings.LootListsMigrated = true;
-        foreach (var (server, ids) in settings.WantedLootByServer)
+        var rows = materials.Where(item => item.Id > 0).GroupBy(item => item.Id).ToArray();
+        if (rows.Length == 0) return 0;
+        var lists = ForServer(settings, server).ToArray();
+        var list = lists.FirstOrDefault(item => item.SourceQuestKey == questKey) ??
+            lists.FirstOrDefault(item => item.SourceQuestKey is null &&
+                string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
+        if (list is null)
         {
-            if (ids is null || ids.Count == 0) continue;
-            var list = new LootList { Server = GameServerProfile.Normalize(server),
-                Name = settings.Language == "en" ? "Wanted loot" : "Желаемый лут" };
-            foreach (var id in ids.OrderBy(id => id)) AddItem(list, id, $"Item #{id}");
-            if (list.Items.Count > 0) settings.LootLists.Add(list);
+            var unique = name;
+            for (var suffix = 2; lists.Any(item => string.Equals(item.Name, unique, StringComparison.OrdinalIgnoreCase)); suffix++)
+                unique = $"{name} ({suffix})";
+            list = new LootList { Name = unique, Server = GameServerProfile.Normalize(server) };
+            settings.LootLists.Add(list);
         }
-        settings.WantedLootByServer.Clear();
+        list.SourceQuestKey = questKey;
+        var added = 0;
+        foreach (var group in rows)
+        {
+            if (!AddItem(list, group.Key, group.First().Name)) continue;
+            list.Items[^1].Target = group.Max(item => item.Target);
+            added++;
+        }
+        return added;
     }
 }

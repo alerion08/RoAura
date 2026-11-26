@@ -379,7 +379,6 @@ public sealed class AppSettings : INotifyPropertyChanged
     public Dictionary<int, int> RagnarokPlusCraftStock { get; set; } = [];
     public Dictionary<string, List<DatabaseFavoriteList>> DatabaseFavoriteLists { get; set; } = [];
     public ObservableCollection<LootList> LootLists { get; set; } = [];
-    public bool LootListsMigrated { get; set; }
     public LootListTrackerSettings LootListTracker { get; set; } = new();
     public double GoldGoblinEditorRatio { get; set; }
     public double GoldGoblinLootListEditorRatio { get; set; }

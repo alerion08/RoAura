@@ -9,6 +9,8 @@ public sealed class LootList
 {
     public string Server { get; set; } = "";
     public string Name { get; set; } = "";
+    public string? SourceQuestKey { get; set; }
+    public override string ToString() => Name;
     public bool ShowInTracker { get; set; }
     public ObservableCollection<LootListItem> Items { get; set; } = [];
 }

@@ -45,13 +45,19 @@ public sealed class LootListsTests
     }
 
     [Fact]
-    public void ExistingWantedItemsBecomeAListExactlyOnce()
+    public void QuestImportCreatesOneListAndPreservesProgressAfterRename()
     {
         var settings = new AppSettings();
-        settings.WantedLootByServer[GameServerProfile.RagnarokPlus] = [501, 502];
-        LootLists.ImportWantedLoot(settings);
-        LootLists.ImportWantedLoot(settings);
-        Assert.Equal(new[] { 501, 502 }, Assert.Single(settings.LootLists).Items.Select(row => row.ItemId));
-        Assert.True(LootLists.ContainsActiveItem(settings, GameServerProfile.RagnarokPlus, 501));
+        var server = GameServerProfile.RagnarokPlus;
+        Assert.Equal(1, LootLists.ImportQuest(settings, server, "quest:id", "Quest", [(501, "Red Potion", 5L)]));
+        var list = Assert.Single(settings.LootLists);
+        list.Name = "Renamed";
+        list.Items[0].Acquired = 3;
+        Assert.Equal(1, LootLists.ImportQuest(settings, server, "quest:id", "Quest",
+            [(501, "Red Potion", 9L), (502, "Orange Potion", 2L)]));
+        Assert.Same(list, Assert.Single(settings.LootLists));
+        Assert.Equal("Renamed", list.Name);
+        Assert.Equal(3L, list.Items[0].Acquired);
+        Assert.Equal(5L, list.Items[0].Target);
     }
 }
