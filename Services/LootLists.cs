@@ -45,7 +45,7 @@ internal static class LootLists
 
     internal static void ImportWantedLoot(AppSettings settings)
     {
-        if (settings.LootListsMigrated) return;
+        if (settings.LootListsMigrated || !settings.WantedLootByServer.Values.Any(ids => ids is { Count: > 0 })) return;
         settings.LootListsMigrated = true;
         foreach (var (server, ids) in settings.WantedLootByServer)
         {
