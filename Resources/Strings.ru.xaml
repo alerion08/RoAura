@@ -142,6 +142,8 @@
     <sys:String x:Key="BuffPanel">Панель</sys:String>
     <sys:String x:Key="Add">Добавить</sys:String>
     <sys:String x:Key="Delete">Удалить</sys:String>
+    <sys:String x:Key="EquipmentTextBackgroundOpacity">Непрозрачность фона текста (%)</sys:String>
+    <sys:String x:Key="EquipmentTextOnIcon">Текст поверх иконки</sys:String>
     <sys:String x:Key="UseEquipmentDatabaseIcon">Использовать иконку из БД</sys:String>
     <sys:String x:Key="PickIcon">Выбрать иконку</sys:String>
     <sys:String x:Key="LearnSkill">Определить умение</sys:String>
@@ -437,7 +439,6 @@
     <sys:String x:Key="EditItem">Редактирование предмета</sys:String>
     <sys:String x:Key="QuantityPerSession">Количество</sys:String>
     <sys:String x:Key="CurrentPriceSource">Текущий источник цены</sys:String>
-    <sys:String x:Key="GoldGoblinPriceEditHint">Источник цены настраивается во вкладке «Правила цен». Изменение количества влияет только на текущую сессию.</sys:String>
     <sys:String x:Key="OverchargeDescription">Надбавка применяется только к NPC Price. Vending Price и Manual Price не изменяются.</sys:String>
     <sys:String x:Key="GoldGoblinResetHint">Начало и сброс сессии общие для статистики и Gold Goblin: очищаются опыт, добыча, Zeny, время и пауза. История сессий, правила цен и уровень Overcharge сохраняются.</sys:String>
     <sys:String x:Key="GoldGoblinEyebrow">УЧЁТ ЛУТА И СТОИМОСТИ</sys:String>

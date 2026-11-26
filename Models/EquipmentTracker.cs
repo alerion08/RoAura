@@ -34,6 +34,8 @@ public sealed class EquipmentTracker : INotifyPropertyChanged
     private string _backgroundColor = "#D911141B";
     private string _borderColor = "#B8C5CBD4";
     private bool _showText = true;
+    private bool _showTextOnIcon;
+    private double _textBackgroundOpacityPercent = 65;
     private bool _showBackground = true;
     private bool _showBorder = true;
     private bool _isEquipped;
@@ -133,7 +135,33 @@ public sealed class EquipmentTracker : INotifyPropertyChanged
     public string TextColor { get => _textColor; set => Set(ref _textColor, value); }
     public string BackgroundColor { get => _backgroundColor; set => Set(ref _backgroundColor, value); }
     public string BorderColor { get => _borderColor; set => Set(ref _borderColor, value); }
-    public bool ShowText { get => _showText; set => Set(ref _showText, value); }
+    public bool ShowText
+    {
+        get => _showText;
+        set { if (Set(ref _showText, value)) NotifyTextPositionChanged(); }
+    }
+
+    public bool ShowTextOnIcon
+    {
+        get => _showTextOnIcon;
+        set { if (Set(ref _showTextOnIcon, value)) NotifyTextPositionChanged(); }
+    }
+
+    public double TextBackgroundOpacityPercent
+    {
+        get => _textBackgroundOpacityPercent;
+        set => Set(ref _textBackgroundOpacityPercent, Math.Clamp(value, 0, 100));
+    }
+
+    [JsonIgnore] public bool ShowTextBelowIcon => ShowText && !ShowTextOnIcon;
+    [JsonIgnore] public bool ShowTextOverIcon => ShowText && ShowTextOnIcon;
+
+    private void NotifyTextPositionChanged()
+    {
+        OnPropertyChanged(nameof(ShowTextBelowIcon));
+        OnPropertyChanged(nameof(ShowTextOverIcon));
+    }
+
     public bool ShowBackground { get => _showBackground; set => Set(ref _showBackground, value); }
     public bool ShowBorder { get => _showBorder; set => Set(ref _showBorder, value); }
 

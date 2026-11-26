@@ -137,6 +137,7 @@ MuhRO is selectable in the header/server settings and character manager. It enab
 
 - Learned equipment is identified from packets using inventory index, Item ID and wear slot.
 - **Use database icon** selects the active local catalog sprite for the configured Item ID when one is available. The list, preview and overlay fall back to the manually selected image. Picking a new image selects it as the icon source.
+- **Text over icon** centers the equipment label on the icon with a black fill. Its opacity is adjustable independently from the label and icon. Leave the option off to show the label below the icon. The appearance preview follows the same placement and fill settings.
 - Exact variants may include refine, grade, cards and random options.
 - UI changes must not discard learned equipment mappings or preset data.
 - A visual redesign must preserve all edit, learn, clear and display actions currently available.

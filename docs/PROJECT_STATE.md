@@ -37,8 +37,8 @@
 ## Timer, Gold Goblin and equipment layout polish
 
 - Timer rows start with their ordinal number even when the icon, monster name or map is hidden.
-- Gold Goblin uses compact session controls and totals, with one add-item button in the loot editor. Drag the divider on the editor’s left edge to resize it.
-- Equipment can show an icon from the active local catalog by Item ID. When a catalog sprite is unavailable, the manually selected icon is used if present.
+- Gold Goblin uses compact session controls in the upper-right corner and compact totals. Add sits at the bottom left of the loot editor and Delete sits at the bottom right. Drag the divider on the editor’s left edge to resize it.
+- Equipment can place its text over the icon with an independently adjustable dark fill. It can also show an icon from the active local catalog by Item ID. When a catalog sprite is unavailable, the manually selected icon is used if present.
 - Pending Windows validation of the divider, timer display combinations and catalog images in the equipment list, preview and overlay.
 
 ## Previous published baseline — RoAura 3.5.0
