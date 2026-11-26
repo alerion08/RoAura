@@ -116,7 +116,7 @@ public class QuestCatalogTests : IDisposable
     public async Task PinnedResearchSnapshotPassesActualWindowsReaderAndSampleChecks()
     {
         var path = Environment.GetEnvironmentVariable("ROAURA_QUEST_CATALOG_TEST_PATH")!;
-        Assert.Equal("7C89954C66B90603467EE4B645979FE4BAD46FF0003EBAF9073E32C18D748745",
+        Assert.Equal("4DC0A544B084344D4BB653F70807A01ACCA25E493B56137DAEE6D7AD1D2F8CAF",
             Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(path))));
         var catalog = await new QuestCatalogService(path).LoadAsync();
         Assert.NotEmpty(catalog.Guides); Assert.DoesNotContain(catalog.Guides.Values,q=>q.Category=="historical_or_seasonal"); Assert.NotEmpty(catalog.ArchivedKeys);

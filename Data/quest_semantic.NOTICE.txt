@@ -1,8 +1,8 @@
 ROQuestie semantic reference snapshot — schema 5
 
 Source: alerion08/RoAura research/quest-database
-Pinned revision: e3206beccbdd414c6d6f31d146d168247634c578
-SQLite SHA256: af4de49aa11587dc6ec971aa019c6ff60e6ed4aa3fee802c61282db65ac7091d
+Pinned revision: e4e6b8ac21c92bc86017ac8385d8b22d200a3f88
+SQLite SHA256: 7aee69ab8c8bf503a4ed8dd9a2c213d80af5e13bf6d39a9aa3a6b9b21ed32b77
 
 Original guide text: iRO Wiki Classic contributors, https://irowiki.org/classic/
 The sources table retains original URLs, revisions and license fields.
