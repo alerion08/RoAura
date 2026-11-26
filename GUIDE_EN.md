@@ -21,6 +21,8 @@ Open the EXP bar settings in Statistics. Enable Base EXP and optionally Job EXP,
 
 ## Gold Goblin
 
+In Gold Goblin → Loot lists (BETA), edit the target and acquired quantities. Active tracks new pickups, and Tracker controls each row's visibility. Completed goals turn green. Add an item from its database card, or import required materials from ROQuestie to create a quest list and enable its tracker.
+
 This section is available for SpringRO and ToC; Vending prices apply to SpringRO only. Received loot is automatically added to the `Item / Count / Cost / Total` table. The default cost is the official NPC sell value. Select an Overcharge level to apply the NPC selling bonus. Special price rules can use the lowest current Vending sell price and/or a manual price; when Vending is enabled, the manual value is used if the item is not listed. Start, Pause and complete Reset are shared with Statistics; completed history and price rules remain.
 
 In “Loot / Zeny / EXP”, `Zeny Price` appends the calculated value to loot notifications, while `Gold Goblin` includes loot value in Zeny per hour.

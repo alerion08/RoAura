@@ -1,6 +1,13 @@
 # Project state
 
-## Current published baseline — RoAura 3.6.0
+## Current published baseline — RoAura 3.7.0
+
+- [v3.7.0](https://github.com/alerion08/RoAura/releases/tag/v3.7.0) was published from main commit `032eda29fe092addb55b5c5d8138d5e67970b71f` after PR #25. Start subsequent work from current `main`.
+- Shipped Gold Goblin loot lists and their tracker, Ragnarok+ quest guides and Hunting Quest filters, the offline skill icon picker, overlay import/export and layout controls, and database favorites changes.
+- [Windows publication run](https://github.com/alerion08/RoAura/actions/runs/45871745080) passed logic and ToC tests, native startup and input checks, portable and installer builds, silent install and package verification. The release contains the portable ZIP, Setup EXE and SHA256SUMS.txt.
+- Manual gameplay checks remain for simultaneous loot tracker cards, live visibility and completion color, quest-to-database navigation and Ragnarok+ Steal capture.
+
+## Previous published baseline — RoAura 3.6.0
 
 - [v3.6.0](https://github.com/alerion08/RoAura/releases/tag/v3.6.0) was published from main commit `8849c4e2ca9be45c332ee327131e6b2c88f00075` after PRs #20–#23. Start subsequent work from current `main`.
 - Shipped Ragnarok+ catalog downloads, market search and watches, farming tools, Gold Goblin history improvements, and countdown and overlay controls.

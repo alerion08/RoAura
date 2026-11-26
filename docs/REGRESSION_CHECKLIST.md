@@ -1,5 +1,12 @@
 # Regression checklist
 
+## RoAura 3.7.0 publication
+
+- [x] [Windows publication](https://github.com/alerion08/RoAura/actions/runs/45871745080) on `032eda29fe092addb55b5c5d8138d5e67970b71f` passed regression tests, ToC checks, portable and installer builds and silent installation/package verification.
+- [x] [Public release](https://github.com/alerion08/RoAura/releases/tag/v3.7.0) contains the portable ZIP, Setup EXE and checksum manifest.
+- [ ] In Ragnarok, import materials from a quest, enable multiple loot lists, hide a single item and verify completion color from both pickups and manual edits. Reopen a linked quest from the database and verify the original view is restored.
+- [ ] Verify Ragnarok+ manual Steal, auto-Steal and ordinary pickup classification on the released client.
+
 ## RoAura 3.6.0 publication
 
 - [x] [Windows publication run](https://github.com/alerion08/RoAura/actions/runs/45060245412) on `8849c4e2ca9be45c332ee327131e6b2c88f00075` passed 433 tests, eight ToC checks, native startup and input checks, both package builds, installation verification and clean package validation.

@@ -1,6 +1,10 @@
 # RoAura UI specification
 
-Current published version: **3.6.0**, [release](https://github.com/alerion08/RoAura/releases/tag/v3.6.0).
+Current published version: **3.7.0**, [release](https://github.com/alerion08/RoAura/releases/tag/v3.7.0).
+
+## 3.7.0 interface
+
+Gold Goblin → Loot lists (BETA) keeps per-server lists with editable progress, goals and a Tracker checkbox per item. A list appears as a separate card when it has visible active items. Completed rows change color. ROQuestie can create a list from the current quest and enable its tracker. Hunting Quests have faction and reputation filters. The database favorites star opens a checklist of named lists. Skill icon selection supports offline name, ID, code and profession searches.
 
 ## 3.6.0 interface
 
