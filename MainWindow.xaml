@@ -1849,7 +1849,17 @@
                                         </Border>
                                 </Grid></Border>
                             </TabItem>
-                            <TabItem Header="{DynamicResource LootListTitle}"><local:LootListsControl x:Name="GoldGoblinLootLists"/></TabItem>
+                            <TabItem>
+                                <TabItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{DynamicResource LootListTitle}" VerticalAlignment="Center"/>
+                                        <Border Style="{StaticResource QuestBetaBadgeStyle}">
+                                            <TextBlock Text="BETA" FontSize="10" FontWeight="SemiBold" Foreground="{DynamicResource RoBlueBrush}"/>
+                                        </Border>
+                                    </StackPanel>
+                                </TabItem.Header>
+                                <local:LootListsControl x:Name="GoldGoblinLootLists"/>
+                            </TabItem>
                             <TabItem Header="{DynamicResource SessionHistory}"><local:FarmingSessionHistoryControl/></TabItem>
                             <TabItem Header="{DynamicResource GoldGoblinRulesTab}">
                                 <Border Margin="0,8,0,0" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="8" Background="{DynamicResource UiBackground_FFFFFF}">
