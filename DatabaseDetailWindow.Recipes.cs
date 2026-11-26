@@ -7,18 +7,33 @@ namespace RoAura;
 
 public partial class DatabaseDetailWindow
 {
+    private Expander AddItemInformationExpander(string title, Panel content)
+    {
+        var expander = new Expander
+        {
+            Header = title, Content = content, FontSize = 14, FontWeight = FontWeights.SemiBold,
+            Margin = new Thickness(0, 6, 0, 4)
+        };
+        expander.SetResourceReference(StyleProperty, "ItemInformationExpanderStyle");
+        System.Windows.Documents.TextElement.SetFontSize(content, 12);
+        System.Windows.Documents.TextElement.SetFontWeight(content, FontWeights.Normal);
+        DetailsPanel.Children.Add(expander);
+        return expander;
+    }
+
     private void ShowCrafting(DatabaseItem item)
     {
         var recipes = RagnarokPlusRecipes.ForItem(item.Id).ToArray();
         var uses = RagnarokPlusRecipes.UsingItem(item.Id).ToArray();
         if (recipes.Length > 0)
         {
-            AddSection(T("Рецепты", "Recipes"));
+            var recipesPanel = new StackPanel();
+            AddItemInformationExpander(T($"Рецепты ({recipes.Length})", $"Recipes ({recipes.Length})"), recipesPanel);
             var common = recipes[0].Materials.Select(part => (part.ItemId, part.Amount, part.IsGuide)).ToHashSet();
             foreach (var recipe in recipes.Skip(1))
                 common.IntersectWith(recipe.Materials.Select(part => (part.ItemId, part.Amount, part.IsGuide)));
             if (recipes.Length > 1)
-                DetailsPanel.Children.Add(Meta(T("★ — различие между вариантами", "★ marks a difference between recipes")));
+                recipesPanel.Children.Add(Meta(T("★ — различие между вариантами", "★ marks a difference between recipes")));
             var tabs = new TabControl { Margin = new Thickness(0, 2, 0, 4) };
             for (var index = 0; index < recipes.Length; index++)
             {
@@ -82,25 +97,20 @@ public partial class DatabaseDetailWindow
                 }
                 tabs.Items.Add(new TabItem { Header = (index + 1).ToString(), Content = ingredients });
             }
-            DetailsPanel.Children.Add(tabs);
+            recipesPanel.Children.Add(tabs);
         }
 
         if (uses.Length == 0) return;
         var products = new StackPanel { Margin = new Thickness(6, 3, 0, 0) };
         var view = _itemCardView;
-        var expander = new Expander
-        {
-            Header = T($"Что можно изготовить ({uses.Length})", $"Recipes using this item ({uses.Length})"),
-            Content = products,
-            IsExpanded = view?.RecipesExpanded ?? false,
-            Margin = new Thickness(0, 6, 0, 4)
-        };
+        var expander = AddItemInformationExpander(T($"Что можно изготовить ({uses.Length})", $"Recipes using this item ({uses.Length})"),
+            products);
+        expander.IsExpanded = view?.RecipesExpanded ?? false;
         if (view is not null)
         {
             expander.Expanded += (_, _) => view.RecipesExpanded = true;
             expander.Collapsed += (_, _) => view.RecipesExpanded = false;
         }
-        DetailsPanel.Children.Add(expander);
         foreach (var recipe in uses.DistinctBy(recipe => recipe.ItemId).OrderBy(recipe => recipe.Name))
         {
             if (_database.Item(recipe.ItemId) is not null)

@@ -677,6 +677,7 @@ public partial class App : Application
         _itemCatalog = ItemCatalogService.Load(gameVersion);
         if (_activeDatabase is not null && GameServerProfile.SupportsDatabaseOverlay(gameVersion) && _activeDatabase.Version != gameVersion)
         {
+            _questLinkBack.Clear();
             CloseDatabaseOverlay();
             _activeDatabase.Reload(gameVersion);
             _databaseOverlay?.RefreshServer();
@@ -1392,6 +1393,25 @@ public partial class App : Application
         });
     }
 
+    private enum QuestLinkWindow { Database, Quest }
+    private readonly Stack<(QuestLinkWindow Destination, Func<Task> Resume)> _questLinkBack = new();
+
+    private bool ReturnFromQuestLink(QuestLinkWindow destination)
+    {
+        if (!_questLinkBack.TryPeek(out var back) || back.Destination != destination) return false;
+        _questLinkBack.Pop();
+        _ = ResumeQuestLinkAsync(back.Resume);
+        return true;
+    }
+
+    private static async Task ResumeQuestLinkAsync(Func<Task> resume)
+    {
+        try { await resume(); }
+        catch (Exception ex) { DebugLog.Write($"Quest link return: {ex.Message}"); }
+    }
+
+    internal void QuestBrowserClosedByUser() => ReturnFromQuestLink(QuestLinkWindow.Quest);
+
     internal bool OpenQuestDatabaseCard(DatabaseSearchKind kind, int id)
     {
         if (_activeDatabase?.Version != GameServerProfile.RagnarokPlus || _databaseOverlay is null) return false;
@@ -1402,14 +1422,21 @@ public partial class App : Application
             _ => null
         };
         if (card is null) return false;
+        if (_settingsWindow?.IsQuestBrowserOpen == true)
+            _questLinkBack.Push((QuestLinkWindow.Database, _settingsWindow.CaptureQuestBrowserReturn()));
         _settingsWindow?.HideQuestBrowser();
         _databaseOverlay.ShowQuestCard(card);
         RefreshKeyboardMode();
         return true;
     }
 
-    internal Task OpenQuestFromDatabaseAsync(string key) =>
-        _settingsWindow?.OpenQuestFromDatabaseAsync(key) ?? Task.CompletedTask;
+    internal async Task OpenQuestFromDatabaseAsync(string key)
+    {
+        if (_settingsWindow is null) return;
+        var resume = _databaseOverlay?.IsDatabaseOpen == true ? _databaseOverlay.CaptureQuestLinkReturn() : null;
+        if (await _settingsWindow.OpenQuestFromDatabaseAsync(key) && resume is not null)
+            _questLinkBack.Push((QuestLinkWindow.Quest, () => { resume(); RefreshKeyboardMode(); return Task.CompletedTask; }));
+    }
 
     public void ToggleDatabase()
     {
@@ -1428,6 +1455,7 @@ public partial class App : Application
             }
             else
             {
+                _questLinkBack.Clear();
                 _settingsWindow?.HideQuestBrowser();
                 _databaseOverlay.ShowForGame();
                 RefreshKeyboardMode();
@@ -1435,10 +1463,13 @@ public partial class App : Application
         });
     }
 
-    private void HideDatabase()
+    private void HideDatabase() => HideDatabase(restoreLink: true);
+
+    private void HideDatabase(bool restoreLink)
     {
         _databaseOverlay?.HideDatabase();
         RefreshKeyboardMode();
+        if (restoreLink && ReturnFromQuestLink(QuestLinkWindow.Database)) return;
         if (ForegroundProcess.TryActivateWindow(
                 _settingsWindow?.Settings.AllowedProcesses ?? [], out _)) { }
     }
@@ -1447,7 +1478,7 @@ public partial class App : Application
 
     public void CloseDatabaseOverlay()
     {
-        if (_databaseOverlay?.IsDatabaseOpen == true) HideDatabase();
+        if (_databaseOverlay?.IsDatabaseOpen == true) HideDatabase(restoreLink: false);
     }
 
     protected override void OnExit(ExitEventArgs e)

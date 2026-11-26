@@ -92,6 +92,22 @@ public partial class DatabaseDetailWindow : Window
         Clear();
     }
 
+    internal Action CaptureQuestLinkReturn()
+    {
+        var page = _currentPage;
+        var back = _back.Reverse().ToArray();
+        var offset = DetailsScroll.VerticalOffset;
+        return () =>
+        {
+            if (ReferenceEquals(page, _currentPage)) return;
+            ResetDetails();
+            foreach (var previous in back) _back.Push(previous);
+            _currentPage = page;
+            page?.Invoke();
+            RestoreScroll(offset, _detailVersion);
+        };
+    }
+
     private void Navigate(Action page)
     {
         if (_currentPage is { } previous)
@@ -236,15 +252,6 @@ public partial class DatabaseDetailWindow : Window
         }
         DetailsPanel.Children.Add(header);
         AddItemActions(item);
-        foreach (var quest in RagnarokPlusQuestCatalog.Instance.RequiredFor(_database.Version, item.Id))
-        {
-            AddLink(T($"Нужен для задания «{quest.Title}»", $"Needed for quest “{quest.Title}”"), async () =>
-            {
-                if (Application.Current is App app) await app.OpenQuestFromDatabaseAsync(quest.Key);
-            });
-        }
-
-
         var server = _settings.ServerProfile;
         var wanted = new CheckBox
         {
@@ -262,10 +269,24 @@ public partial class DatabaseDetailWindow : Window
         };
         DetailsPanel.Children.Add(wanted);
         AddMarketComparison(item);
-        if (_database.Version == GameServerProfile.RagnarokPlus) ShowCrafting(item);
 
         AddSection(T("Информация", "Information"));
         AddItemWeight(item, detail);
+        if (_database.Version == GameServerProfile.RagnarokPlus)
+        {
+            ShowCrafting(item);
+            var quests = RagnarokPlusQuestCatalog.Instance.RequiredFor(_database.Version, item.Id).ToArray();
+            if (quests.Length > 0)
+            {
+                var links = new StackPanel();
+                AddItemInformationExpander(T($"Нужен для задания ({quests.Length})", $"Needed for quests ({quests.Length})"), links);
+                foreach (var quest in quests)
+                    AddLink(quest.Title, async () =>
+                    {
+                        if (Application.Current is App app) await app.OpenQuestFromDatabaseAsync(quest.Key);
+                    }, links);
+            }
+        }
         if (_database.Version == GameDatabaseVersion.Toc) ShowTocItemInformation(item);
         else if (loading)
             DetailsPanel.Children.Add(Meta(T("Загружаем актуальные данные SpringRO…", "Loading current SpringRO data…")));

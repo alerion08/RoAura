@@ -28,6 +28,10 @@
      <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
       <StackPanel Margin="0,0,0,8"><TextBlock Text="{DynamicResource QSearch}"/><TextBox x:Name="SearchInput" TextChanged="Search_Changed" Margin="0,4"/>
        <ComboBox x:Name="CategoryChoice" DisplayMemberPath="Caption" SelectionChanged="Filter_Changed" Margin="0,3"/>
+       <WrapPanel Margin="0,4">
+        <CheckBox x:Name="RPlusOnly" Content="Ragnarok+" Click="Filter_Click" Margin="0,0,10,0"/>
+        <CheckBox x:Name="HuntingOnly" Content="Hunting Quests" Click="Filter_Click"/>
+       </WrapPanel>
        <StackPanel x:Name="HuntingFilters" Visibility="Collapsed">
         <TextBlock Text="{DynamicResource QHuntingFaction}"/><ComboBox x:Name="HuntingFaction" Margin="0,3" SelectionChanged="Filter_Changed"/>
         <TextBlock Text="{DynamicResource QHuntingReputation}"/><ComboBox x:Name="HuntingReputation" Margin="0,3" SelectionChanged="Filter_Changed"/>

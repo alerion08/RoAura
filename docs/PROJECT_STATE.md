@@ -60,9 +60,9 @@
 
 ## Ragnarok+ quests and tracker background
 
-- The bundled Ragnarok+ snapshot was exported from the supplied SQLite and contains 122 regular quests and 178 Hunting Quests. Quest keys are namespaced by source. The catalog can filter Hunting Quests by faction and listed base reputation; per-mode multipliers remain visible in the guide.
+- The bundled Ragnarok+ snapshot was exported from the supplied SQLite and contains 122 regular quests and 178 Hunting Quests. Quest keys are namespaced by source. The catalog hides Hunting Quests until their checkbox is selected, and supports faction (including All Clan) and listed base reputation filters. Hunting instructions display only kill objectives. Explicit final reward-only summaries are shown in the rewards tab.
 - Required-item links use only explicit collector `bring` records. Item and monster links from Ragnarok+ guides use explicit source IDs and resolve against the active Ragnarok+ item and monster databases.
-- The tracker preview and overlay have rounded backgrounds with independent color, opacity and common/per-card mode. The separate weekly snapshot and offline image blobs are outside this package.
+- The tracker preview and overlay have padded, rounded backgrounds with independent color, opacity and common/per-card mode. Database and quest links preserve the origin view and reading position when returning. The separate weekly snapshot and offline image blobs are outside this package.
 
 ## Previous published baseline — RoAura 3.5.0
 

@@ -168,6 +168,12 @@ public partial class DatabaseOverlayWindow : Window
         SearchBox.Focus();
     }
 
+    internal Action CaptureQuestLinkReturn()
+    {
+        var restore = _details.CaptureQuestLinkReturn();
+        return () => { ShowForGame(); restore(); };
+    }
+
     internal void ShowQuestCard(object card)
     {
         if (!IsDatabaseOpen) ShowForGame();

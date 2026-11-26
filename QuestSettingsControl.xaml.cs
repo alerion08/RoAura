@@ -20,7 +20,7 @@ public partial class QuestSettingsControl : UserControl
         if (_workspace is null) return;
         CatalogStatus.Text=_workspace.IsLoadingCatalog?T("QLoading"):_workspace.Catalog is null?T("QCatalogMissing"):T("QCatalogReady")+" · v5 · "+_workspace.Catalog.Guides.Count;
         PreviewPanel.Children.Clear();
-        PreviewPanel.Children.Add(new TextBlock {Text="ROQuestie  ⋮⋮",Foreground=Brushes.White,FontWeight=FontWeights.SemiBold,Margin=new Thickness(0,0,0,8)});
+        PreviewPanel.Children.Add(new TextBlock {Text="ROQuestie  ⋮⋮",Foreground=Brushes.White,FontWeight=FontWeights.SemiBold,Margin=new Thickness(8,4,8,8)});
         var options = _workspace.Settings.QuestOverlay;
         PreviewPanel.Width = options.Width;
         PreviewFrame.Opacity = options.OpacityPercent / 100;
@@ -29,7 +29,7 @@ public partial class QuestSettingsControl : UserControl
         PreviewFrame.Background = options.PerCardBackground ? null : background;
         StackPanel NewCard()
         {
-            var card = new StackPanel();
+            var card = new StackPanel { Margin = new Thickness(8, 4, 8, 4) };
             PreviewPanel.Children.Add(new Border { Child = card, CornerRadius = new CornerRadius(8),
                 Background = options.PerCardBackground ? background : null, Margin = new Thickness(0, 0, 0, options.CardGap) });
             return card;

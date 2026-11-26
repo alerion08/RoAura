@@ -77,12 +77,16 @@ public partial class MainWindow
         }
         finally { _questClosing = false; }
     }
-    internal async Task OpenQuestFromDatabaseAsync(string key)
+    internal async Task<bool> OpenQuestFromDatabaseAsync(string key)
     {
         if (_questWorkspace.Catalog is null) await _questWorkspace.LoadCatalogAsync();
-        if (_questWorkspace.Catalog?.Guides.GetValueOrDefault(key) is not { } guide) return;
-        if (!await _questWindows.OpenBrowserAsync(guide)) QuestPage.Report(LocalizationService.Get("QNoGame"));
+        if (_questWorkspace.Catalog?.Guides.GetValueOrDefault(key) is not { } guide) return false;
+        if (await _questWindows.OpenBrowserAsync(guide)) return true;
+        QuestPage.Report(LocalizationService.Get("QNoGame"));
+        return false;
     }
+
+    internal Func<Task> CaptureQuestBrowserReturn() => _questWindows.CaptureBrowserReturn();
 
     public void ToggleQuestBrowser()
     {

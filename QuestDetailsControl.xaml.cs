@@ -41,6 +41,13 @@ public partial class QuestDetailsControl : UserControl
  private string? _selectedId,_semanticChoice,_workspaceKey;private string _language="ru",_fingerprint="";private bool _loading,_rendering;private Task? _loadTask;private FileSystemWatcher? _watcher;
  private readonly Dictionary<string,Border> _cards=new();
  private Border? _answerCard;
+ private bool _showHuntingChoices;
+ internal void SetHuntingChoiceVisibility(bool show)
+ {
+  if (_showHuntingChoices == show) return;
+  _showHuntingChoices = show;
+  if (_workspace is not null) Render(_workspace);
+ }
  private bool Editable=>_workspace?.CanEdit==true && _quest is not null && _workspace.Catalog?.Guides.GetValueOrDefault(_quest.Id)==_workspace.SelectedGuide && SemanticReadiness.MatchesProgress(_quest,_workspace.SelectedGuide);
  public QuestDetailsControl()
  {
@@ -88,7 +95,8 @@ public partial class QuestDetailsControl : UserControl
    var previous=_quest?.Id;var workspaceKey=workspace.SelectedGuide?.Key;
    if(workspaceKey!=_workspaceKey){_semanticChoice=null;_workspaceKey=workspaceKey;}
    var key=_semanticChoice??workspaceKey;var ready=ReadyCatalog;_quest=key is null?null:ready?.Quests.GetValueOrDefault(key);
-   ReadyChoice.ItemsSource=ready?.Quests.Values.OrderBy(q=>q.Title).ToList();ReadyChoice.SelectedValue=_quest?.Id;
+   ReadyChoice.ItemsSource=ready?.Quests.Values.Where(q => _showHuntingChoices || q.Id == key ||
+    !q.Id.StartsWith("ragnarokplus:/hunting-db/", StringComparison.Ordinal)).OrderBy(q=>q.Title).ToList();ReadyChoice.SelectedValue=_quest?.Id;
    if(_quest?.Id!=previous)_selectedId=null;
    if(_quest is not null && !_quest.Steps.Any(s=>s.Id==_selectedId))_selectedId=Current()?.Id??_quest.Steps[0].Id;
    RenderChrome();RenderSteps();RenderDetail();RenderFacts();RenderSources();
@@ -273,7 +281,10 @@ public partial class QuestDetailsControl : UserControl
   {
    var monsters = new StackPanel();
    foreach (var monster in step.DatabaseMonsters)
-    monsters.Children.Add(DatabaseLink(string.Join(" · ", new[] { monster.Name, monster.Count }.Where(v => !string.IsNullOrWhiteSpace(v))), monster.Id, DatabaseSearchKind.Monsters));
+   {
+    var label = string.Join(" · ", new[] { monster.Name, monster.Count }.Where(v => !string.IsNullOrWhiteSpace(v)));
+    monsters.Children.Add(monster.Id is int id ? DatabaseLink(label, id, DatabaseSearchKind.Monsters) : Text(label));
+   }
    aside.Children.Add(Info(L("Монстры","Monsters"),monsters));
   }
   if(ActualWidth<760){layout.ColumnDefinitions[1].Width=new GridLength(0);layout.RowDefinitions.Add(new(){Height=GridLength.Auto});layout.RowDefinitions.Add(new(){Height=GridLength.Auto});Grid.SetColumn(aside,0);Grid.SetRow(aside,1);}
@@ -328,7 +339,11 @@ public partial class QuestDetailsControl : UserControl
   {
    var row=new DockPanel();
    if(fact.Amount is not null){var amount=Text((fact.Kind.Contains("exp") || fact.Kind.EndsWith("level")?"":"×")+fact.Amount,12,true);amount.Margin=new Thickness(8,2,0,4);DockPanel.SetDock(amount,Dock.Right);row.Children.Add(amount);}
-   var label=Text(fact.Name??FactLabel(fact.Kind),12,true);if(fact.Name is not null && fact.Kind.Contains("item"))label.Foreground=B("#087747");row.Children.Add(label);
+   if (fact.DatabaseItemId is int id) row.Children.Add(DatabaseLink(fact.Name ?? FactLabel(fact.Kind), id, DatabaseSearchKind.Items));
+   else
+   {
+    var label=Text(fact.Name??FactLabel(fact.Kind),12,true);if(fact.Name is not null && fact.Kind.Contains("item"))label.Foreground=B("#087747");row.Children.Add(label);
+   }
    var content=new StackPanel();content.Children.Add(row);
    if(fact.Condition is not null && fact.Condition!=sharedCondition)content.Children.Add(Text(Comment(fact.Condition),11));
 
@@ -367,6 +382,25 @@ public partial class QuestDetailsControl : UserControl
  private void Language(string language){if(_workspace is null)return;var offset=WalkScroll.VerticalOffset;_workspace.Settings.Language=language;LocalizationService.ApplyLanguage(language);_workspace.RefreshLanguage();Render(_workspace);WalkScroll.ScrollToVerticalOffset(offset);Notify(L("Язык изменён","Language changed"));}
  private void Add_Click(object sender,RoutedEventArgs e){if(Editable && _workspace?.SelectedGuide is {} guide){_workspace.ToggleTracking(guide);Notify(L("Отслеживание обновлено","Tracking updated"));}}
  private void Current_Click(object sender,RoutedEventArgs e)=>ShowCurrentStep();
+ internal Action CaptureReadingPosition()
+ {
+  var choice = _semanticChoice;
+  var selected = _selectedId;
+  var tab = DetailsTabs.SelectedIndex;
+  var offset = WalkScroll.VerticalOffset;
+  return () =>
+  {
+   if (_workspace is null) return;
+   _semanticChoice = choice;
+   _selectedId = selected;
+   Render(_workspace);
+   _selectedId = selected;
+   DetailsTabs.SelectedIndex = tab;
+   RenderSteps();
+   RenderDetail();
+   Dispatcher.BeginInvoke(() => WalkScroll.ScrollToVerticalOffset(offset), DispatcherPriority.ContextIdle);
+  };
+ }
  public void ShowCurrentStep(){DetailsTabs.SelectedIndex=0;if(Current() is {} step)_selectedId=step.Id;RenderSteps();RenderDetail();Dispatcher.BeginInvoke(ScrollToCurrent,DispatcherPriority.ContextIdle);}
  public void ScrollToCurrent(){if(Current() is {} step && _cards.TryGetValue(step.Id,out var card)){WalkScroll.UpdateLayout();WalkScroll.ScrollToVerticalOffset(card.TranslatePoint(new Point(),StepsPanel).Y);}}
  internal void ShowFacts()=>DetailsTabs.SelectedIndex=1;

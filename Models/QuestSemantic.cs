@@ -5,7 +5,8 @@ public sealed record SemanticMention(string Field,int Start,int End,string Type,
 public sealed record SemanticPoint(string Id,string? Map,int X,int Y,string Role,int? Order,string? Condition);
 public sealed record SemanticItem(string Id,string Name,int? Quantity,string Operation,bool? Required,string? Condition,string? Branch)
 { public int? DatabaseItemId { get; init; } }
-public sealed record SemanticFact(string Id,string Kind,string? Name,string? Amount,string? Condition,string? Branch,string? StepId);
+public sealed record SemanticFact(string Id,string Kind,string? Name,string? Amount,string? Condition,string? Branch,string? StepId)
+{ public int? DatabaseItemId { get; init; } }
 public sealed record SemanticAnswer(string Id,string Text,bool? Correct,string Operation,string? Condition,string? Branch);
 public sealed record SemanticImage(string Url,string? LocalPath,string Purpose,string? Caption,string Rights);
 public sealed record SemanticSource(string Url,string Revision,string Kind,string? License);

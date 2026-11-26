@@ -43,4 +43,41 @@ public sealed class RagnarokPlusQuestCatalogTests
         Assert.Equal("Koshei the Immortal (R+)", guide.Title);
         Assert.True(SemanticReadiness.MatchesProgress(source.CreateSemantic(card, guide.Title), guide));
     }
+    [Fact]
+    public void EveryHuntingDescriptionContainsOnlyKillObjectives()
+    {
+        var source = RagnarokPlusQuestCatalog.Instance;
+        foreach (var card in source.Cards.Values.Where(card => card.Hunting))
+        {
+            var step = Assert.Single(source.CreateSemantic(card, card.Title).Steps);
+            Assert.NotEmpty(step.DatabaseMonsters);
+            Assert.All(step.FullEn!.Split('\n'), line => Assert.StartsWith("Kill ", line));
+            Assert.All(step.FullRu!.Split('\n'), line => Assert.StartsWith("Убей ", line));
+        }
+        var unlinked = Assert.Single(source.Cards.Values, card => card.Title == "Archer Clan: Tick Tock");
+        var targets = Assert.Single(source.CreateSemantic(unlinked, unlinked.Title).Steps).DatabaseMonsters;
+        Assert.Contains(targets, monster => monster.Name == "Penomena" && monster.Count == "x255" && monster.Id is null);
+        var allClan = source.Cards["ragnarokplus:/hunting-db/75170"];
+        Assert.True(QuestsPage.MatchesHunting(allClan, "All Clan", 50));
+        Assert.False(QuestsPage.MatchesHunting(unlinked, "All Clan", null));
+    }
+
+    [Fact]
+    public void RewardSummaryLeavesActionStepsAndMigratesOnlyItsKnownAnchor()
+    {
+        var source = RagnarokPlusQuestCatalog.Instance;
+        var card = Assert.Single(source.Cards.Values, entry => entry.Title == "Sight Blaster");
+        var guide = source.Combine(new QuestCatalog([])).Guides[card.Key];
+        var semantic = source.CreateSemantic(card, guide.Title);
+        Assert.Equal(4, guide.Steps.Count);
+        Assert.True(SemanticReadiness.MatchesProgress(semantic, guide));
+        Assert.Contains(semantic.Rewards, reward => reward.Name == "Learn Sight Blaster");
+
+        var removed = card.Steps[^1];
+        var previous = new QuestStep(5, removed.Number, card.Kind, removed.Title, removed.Title + "\n" + removed.Text, []);
+        var progress = new QuestProgressEntry { QuestKey = card.Key, CurrentStep = 5, StepAnchor = QuestProgress.Anchor(previous) };
+        Assert.True(source.MigratePresentationChange(progress, guide));
+        Assert.Equal(4, progress.CurrentStep);
+        Assert.False(progress.NeedsStepReview);
+    }
 }
