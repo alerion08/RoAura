@@ -14,6 +14,11 @@
 - [Windows publication run](https://github.com/alerion08/RoAura/actions/runs/45060245412) passed 433 tests, eight ToC checks, native startup and input checks, portable and installer builds, installation verification and package validation. The public release has the portable ZIP, Setup EXE and checksum manifest.
 - The owner confirmed Ragnarok+ catalog download in the Windows test build. Live market authentication, character and EXP tracking, and in-game overlay behavior remain manual regression checks on the released package.
 
+## Ragnarok+ status ID learning
+
+- The development fix on `integration/ragnarokplus-status-learning` excludes Ragnarok+ cast-recovery status 46 from automatic effect and reminder learning. Active status tracking still uses the configured ID.
+- Live acceptance: learn self-cast buffs that previously returned 46, verify status 20 and 12 where applicable, and repeat on a party member's client.
+
 ## Ragnarok+ loot-source diagnostics
 
 - Branch `integration/ragnarokplus-loot-diagnostics` adds a DEV-only, opt-in trace for manual Steal, auto-Steal and ground pickup. Launch with `--diagnose-loot-source` and select Ragnarok+.
