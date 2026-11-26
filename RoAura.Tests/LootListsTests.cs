@@ -1,0 +1,57 @@
+using RoAura.Models;
+using RoAura.Services;
+using Xunit;
+
+namespace RoAura.Tests;
+
+public sealed class LootListsTests
+{
+    [Fact]
+    public void PickupsAdvanceOnlyActiveRowsOnTheMatchingServer()
+    {
+        var first = new LootList { Server = GameServerProfile.RagnarokPlus };
+        var second = new LootList { Server = GameServerProfile.RagnarokPlus };
+        var other = new LootList { Server = GameServerProfile.SpringRo };
+        var settings = new AppSettings { LootLists = [first, second, other] };
+        foreach (var list in settings.LootLists)
+            Assert.True(LootLists.AddItem(list, 501, "Red Potion"));
+        first.Items[0].Target = 25;
+        second.Items[0].Active = false;
+
+        Assert.True(LootLists.RecordPickup(settings, "RagnarokPlus", 501, 5));
+        Assert.Equal(5L, first.Items[0].Acquired);
+        Assert.Equal(20L, first.Items[0].Remaining);
+        Assert.Equal(0L, second.Items[0].Acquired);
+        Assert.Equal(0L, other.Items[0].Acquired);
+        Assert.False(LootLists.RecordPickup(settings, GameServerProfile.RagnarokPlus, 501, -1));
+    }
+
+    [Fact]
+    public void ChangingListsPreservesProgressAndRejectsDuplicateMembership()
+    {
+        var first = new LootList { Server = GameServerProfile.RagnarokPlus };
+        var second = new LootList { Server = GameServerProfile.RagnarokPlus };
+        var other = new LootList { Server = GameServerProfile.SpringRo };
+        LootLists.AddItem(first, 501, "Red Potion");
+        var row = first.Items[0];
+        row.Acquired = 5;
+        row.Target = 25;
+        Assert.False(LootLists.MoveItem(first, other, row));
+        Assert.True(LootLists.MoveItem(first, second, row));
+        Assert.Same(row, Assert.Single(second.Items));
+        Assert.Equal(20L, row.Remaining);
+        Assert.False(LootLists.AddItem(second, 501, "Red Potion"));
+        Assert.Empty(first.Items);
+    }
+
+    [Fact]
+    public void ExistingWantedItemsBecomeAListExactlyOnce()
+    {
+        var settings = new AppSettings();
+        settings.WantedLootByServer[GameServerProfile.RagnarokPlus] = [501, 502];
+        LootLists.ImportWantedLoot(settings);
+        LootLists.ImportWantedLoot(settings);
+        Assert.Equal(new[] { 501, 502 }, Assert.Single(settings.LootLists).Items.Select(row => row.ItemId));
+        Assert.True(LootLists.ContainsActiveItem(settings, GameServerProfile.RagnarokPlus, 501));
+    }
+}

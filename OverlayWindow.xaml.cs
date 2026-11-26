@@ -124,6 +124,7 @@ public partial class OverlayWindow : Window
         RateIndicatorsPanel.Visibility = supported ? Visibility.Visible : Visibility.Collapsed;
         RefreshPanelLayers();
         if (_settings.ServerProfile != GameServerProfile.SpringRo) _settings.ActiveMarketNotifications.Clear();
+        RefreshLootListTracker();
         UpdateTimerPanelVisibility();
         if (supported) return;
         foreach (var group in _settings.RewardGroups) group.Notifications.Clear();
@@ -537,7 +538,8 @@ public partial class OverlayWindow : Window
         if (kind == RewardKind.Loot)
         {
             var server = _settings.ServerProfile;
-            color = itemId > 0 && _settings.WantedLootByServer.TryGetValue(server, out var wanted) && wanted.Contains(itemId)
+            color = itemId > 0 && (LootLists.ContainsActiveItem(_settings, server, itemId) ||
+                _settings.WantedLootByServer.TryGetValue(server, out var wanted) && wanted.Contains(itemId))
                 ? channel.WantedLootColor
                 : itemId > 0 && RagnarokPlusQuestCatalog.Instance.RequiredFor(server, itemId).Any()
                     ? channel.QuestLootColor
@@ -879,9 +881,14 @@ public partial class OverlayWindow : Window
         ? $"{(int)value.TotalDays}d {value:hh\\:mm\\:ss}"
         : value.ToString("hh\\:mm\\:ss");
 
+    private string QuestLootPrefix(int itemId) =>
+        itemId > 0 && _settings.RewardChannel(RewardKind.Loot)?.ShowQuestLootPrefix == true &&
+        RagnarokPlusQuestCatalog.Instance.RequiredFor(_settings.ServerProfile, itemId).Any() ? "[Q] " : "";
+
     private string FormatRewardText(RewardNotification notification) => notification.Kind switch
     {
-        RewardKind.Loot => (notification.AggregationKey.StartsWith("stolen:", StringComparison.Ordinal) ? "[S] " : "") +
+        RewardKind.Loot => QuestLootPrefix(notification.ItemId) +
+            (notification.AggregationKey.StartsWith("stolen:", StringComparison.Ordinal) ? "[S] " : "") +
             $"{notification.ItemName} x{notification.Amount:N0}" +
             (GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile) && _settings.ShowLootZenyPrice
                 ? $" ({_goldGoblin.LootValue(notification.ItemId, notification.ItemName, notification.Amount):N0} Z)"

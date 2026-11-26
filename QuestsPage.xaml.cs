@@ -120,7 +120,7 @@ public partial class QuestsPage : UserControl
                 .Where(g => g.Category switch
                 {
                     HuntingCategory => hunting && MatchesHunting(source.Cards[g.Key], faction, repValue),
-                    RPlusCategory => rplus || !hunting,
+                    RPlusCategory => !hunting,
                     _ => !rplus && !hunting
                 })
                 .Select(g => new QuestCatalogListRow(g, _workspace.IsActive(g), _workspace.CanEdit &&

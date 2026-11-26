@@ -71,6 +71,12 @@
 - Statistics assigns quest-required Ragnarok+ pickups a configurable notification color. Manually wanted items keep their higher-priority color.
 - The tracker skips redundant native geometry and clip changes, rebuilds for actual tracker changes, and insets the action buttons.
 
+## Loot lists and tracker
+
+- Gold Goblin has server-scoped loot lists. Pickups advance each active matching row from the time the row is added, independently of farming-session resets or pause. Goal, progress and tracker visibility persist. Older manually wanted items are imported once per settings document.
+- Database cards add/remove items through a checklist and can create a list. Gold Goblin remembers both workspace splitters and table column widths. The tracker has its own geometry, text and background options and renders separate rounded cards for visible lists.
+- Quest-loot notifications can show the optional `[Q]` prefix. With Hunting Quests checked, the quest catalog shows only hunts even when Ragnarok+ is also checked.
+
 ## Previous published baseline — RoAura 3.5.0
 
 - [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.

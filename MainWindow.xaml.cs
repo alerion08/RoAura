@@ -40,6 +40,7 @@ public partial class MainWindow : Window
     private ICollectionView? _skillsView;
     private readonly ICollectionView _goldGoblinRowsView;
     private bool _updatingGoldGoblinEditor;
+    private readonly Action _restoreGoldGoblinSplit;
     private bool _goldGoblinRefreshPending;
     private int? _cooldownGroupFilter;
     private readonly DispatcherTimer _connectionDetectionTimer;
@@ -103,6 +104,9 @@ public partial class MainWindow : Window
         TableLayout.Attach(GoldGoblinLootGrid, settings, "gold-goblin-loot", RequestSave);
         TableLayout.Attach(GoldGoblinRulesGrid, settings, "gold-goblin-rules", RequestSave,
             GoldGoblinRuleNameColumn);
+        _restoreGoldGoblinSplit = GoldGoblinSplitLayout.Attach(GoldGoblinItemSplitter, GoldGoblinItemEditorColumn,
+            () => Settings.GoldGoblinEditorRatio, value => Settings.GoldGoblinEditorRatio = value, RequestSave);
+        GoldGoblinLootLists.Initialize(Settings, SaveLootListChanges, id => _items.GetValueOrDefault(id)?.FullName);
         RefreshMvpTimerDetails();
         _effectsView = CollectionViewSource.GetDefaultView(settings.Effects);
         _skillsView = CollectionViewSource.GetDefaultView(settings.Skills);
@@ -278,6 +282,9 @@ public partial class MainWindow : Window
         }
         if (!supportsOverlayDatabase && Application.Current is App currentApp)
             currentApp.CloseDatabaseOverlay();
+        GoldGoblinLootLists.RefreshLists();
+        _restoreGoldGoblinSplit();
+        GoldGoblinLootLists.RestoreLayout();
         _overlay.RefreshServerProfile();
         if (save) ApplyPacketCaptureIfChanged(force: true);
         if (save) _store.Save(Settings);
@@ -461,6 +468,18 @@ public partial class MainWindow : Window
             "unknown" => !row.PriceKnown,
             _ => true
         };
+    }
+
+    internal void SaveLootListChanges()
+    {
+        _overlay.RefreshLootListTracker();
+        RequestSave();
+    }
+
+    internal void RefreshLootListsFromDatabase()
+    {
+        GoldGoblinLootLists.RefreshLists();
+        SaveLootListChanges();
     }
 
     private void GoldGoblinFilter_Changed(object sender, EventArgs e) => _goldGoblinRowsView.Refresh();

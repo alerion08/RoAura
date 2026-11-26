@@ -1653,7 +1653,7 @@
                                         <GroupBox x:Name="LootColorsGroup" Header="{DynamicResource LootTypeColors}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions><ColumnDefinition Width="175"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                                                 <TextBlock Text="{DynamicResource ItemTypeEquip}" Style="{StaticResource FieldLabelStyle}"/><controls:ColorTextBox Grid.Column="1" Text="{Binding EquipColor}" Style="{StaticResource FieldEditorStyle}"/>
                                                 <TextBlock Grid.Row="1" Text="{DynamicResource ItemTypeCard}" Style="{StaticResource FieldLabelStyle}"/><controls:ColorTextBox Grid.Row="1" Grid.Column="1" Text="{Binding CardColor}" Style="{StaticResource FieldEditorStyle}"/>
                                                 <TextBlock Grid.Row="2" Text="{DynamicResource ItemTypeLoot}" Style="{StaticResource FieldLabelStyle}"/><controls:ColorTextBox Grid.Row="2" Grid.Column="1" Text="{Binding LootColor}" Style="{StaticResource FieldEditorStyle}"/>
@@ -1667,6 +1667,8 @@
                                                 <controls:ColorTextBox Grid.Row="6" Grid.Column="1" Text="{Binding WantedLootColor}" Style="{StaticResource FieldEditorStyle}"/>
                                                 <TextBlock Grid.Row="7" Text="{DynamicResource QuestLootColor}" Style="{StaticResource FieldLabelStyle}" TextWrapping="Wrap"/>
                                                 <controls:ColorTextBox Grid.Row="7" Grid.Column="1" Text="{Binding QuestLootColor}" Style="{StaticResource FieldEditorStyle}"/>
+                                                <CheckBox Grid.Row="8" Grid.ColumnSpan="2" Margin="0,6,0,0"
+                                                          Content="{DynamicResource ShowQuestLootPrefix}" IsChecked="{Binding ShowQuestLootPrefix}"/>
                                             </Grid>
                                         </GroupBox>
                                         <GroupBox Grid.Column="2" Header="{DynamicResource GeneralSettings}" DataContext="{Binding DataContext, ElementName=RootWindow}">
@@ -1752,7 +1754,7 @@
                                 <Border Margin="0,8,0,0" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="8" Background="{DynamicResource UiBackground_FFFFFF}">
                                 <Grid>
                                     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions><ColumnDefinition Width="5*" MinWidth="390"/><ColumnDefinition Width="7"/><ColumnDefinition Width="3*" MinWidth="280"/></Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="5*" MinWidth="390"/><ColumnDefinition Width="7"/><ColumnDefinition x:Name="GoldGoblinItemEditorColumn" Width="3*" MinWidth="280"/></Grid.ColumnDefinitions>
                                     <Grid Margin="16,12" Grid.Column="0">
                                         <StackPanel><TextBlock Text="{DynamicResource CurrentSessionLoot}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource CurrentSessionLootHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/><Expander Header="{DynamicResource HistoryPriceBreakdown}" Margin="0,6,0,0">
                                             <TextBlock x:Name="GoldGoblinPriceBreakdownText" TextWrapping="Wrap" Margin="2,4,0,0"/>
@@ -1806,7 +1808,7 @@
                                         </DataGrid>
                                         </Grid>
                                     </Grid>
-                                        <GridSplitter Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Stretch"
+                                        <GridSplitter x:Name="GoldGoblinItemSplitter" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Stretch"
                                                       VerticalAlignment="Stretch" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"
                                                       Background="{DynamicResource RoSoftBorderBrush}" ShowsPreview="True"/>
                                         <Border Grid.RowSpan="2" Grid.Column="2" Background="{DynamicResource UiBackground_F4F8FD}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1,0,0,0" Padding="12,10">
@@ -1847,6 +1849,7 @@
                                         </Border>
                                 </Grid></Border>
                             </TabItem>
+                            <TabItem Header="{DynamicResource LootListTitle}"><local:LootListsControl x:Name="GoldGoblinLootLists"/></TabItem>
                             <TabItem Header="{DynamicResource SessionHistory}"><local:FarmingSessionHistoryControl/></TabItem>
                             <TabItem Header="{DynamicResource GoldGoblinRulesTab}">
                                 <Border Margin="0,8,0,0" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="8" Background="{DynamicResource UiBackground_FFFFFF}">

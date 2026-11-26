@@ -378,6 +378,11 @@ public sealed class AppSettings : INotifyPropertyChanged
     public ObservableCollection<BuffPanelGroup> BuffPanelGroups { get; set; } = [];
     public Dictionary<int, int> RagnarokPlusCraftStock { get; set; } = [];
     public Dictionary<string, List<DatabaseFavoriteList>> DatabaseFavoriteLists { get; set; } = [];
+    public ObservableCollection<LootList> LootLists { get; set; } = [];
+    public bool LootListsMigrated { get; set; }
+    public LootListTrackerSettings LootListTracker { get; set; } = new();
+    public double GoldGoblinEditorRatio { get; set; }
+    public double GoldGoblinLootListEditorRatio { get; set; }
     public Dictionary<string, HashSet<int>> WantedLootByServer { get; set; } = [];
 
     public ObservableCollection<RewardChannelSettings> RewardChannels { get; set; } =

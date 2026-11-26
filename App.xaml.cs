@@ -648,6 +648,10 @@ public partial class App : Application
         SyncWatchRuleSubscriptions();
     }
 
+    internal string? ResolveLootListItemName(int itemId) => _itemCatalog.GetValueOrDefault(itemId)?.FullName;
+
+    internal void LootListsChanged() => _settingsWindow?.RefreshLootListsFromDatabase();
+
     internal void SaveDatabasePreferences() => _settingsWindow?.SaveSharedSettings();
 
     internal void OpenCatalogSettings()
@@ -1020,6 +1024,9 @@ public partial class App : Application
     {
         if (session is { } captured && !TryUseCharacterSession(captured)) return;
         if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled || !_settingsWindow.Settings.PacketCaptureEnabled) return;
+        var settings = _settingsWindow.Settings;
+        if (LootLists.RecordPickup(settings, settings.ServerProfile, packet.ItemId, packet.Count))
+            _settingsWindow.RequestSave();
         if (CurrentCharacterStatistics()?.SessionPaused == true) return;
         var item = _itemCatalog.GetValueOrDefault(packet.ItemId) ?? new ItemEntry
         {

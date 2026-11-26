@@ -252,22 +252,7 @@ public partial class DatabaseDetailWindow : Window
         }
         DetailsPanel.Children.Add(header);
         AddItemActions(item);
-        var server = _settings.ServerProfile;
-        var wanted = new CheckBox
-        {
-            Content = T("Желаемый лут", "Wanted loot"),
-            IsChecked = _settings.WantedLootByServer.TryGetValue(server, out var saved) && saved.Contains(item.Id),
-            Margin = new Thickness(0, 7, 0, 2)
-        };
-        wanted.Click += (_, _) =>
-        {
-            if (!_settings.WantedLootByServer.TryGetValue(server, out var ids))
-                _settings.WantedLootByServer[server] = ids = [];
-            if (wanted.IsChecked == true) ids.Add(item.Id);
-            else ids.Remove(item.Id);
-            (Application.Current as App)?.SaveDatabasePreferences();
-        };
-        DetailsPanel.Children.Add(wanted);
+        AddLootListAction(item);
         AddMarketComparison(item);
 
         AddSection(T("Информация", "Information"));
