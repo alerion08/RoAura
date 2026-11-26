@@ -139,6 +139,7 @@ public sealed class OverlayLayerSource : ItemsControl
             style.Triggers.Add(hidden);
             style.Setters.Add(new Setter(MarginProperty, layout.Vertical ? new Thickness(0, 0, 0, gap)
                 : new Thickness(0, 0, gap, 0)));
+            if (!layout.Vertical) style.Setters.Add(new Setter(VerticalAlignmentProperty, VerticalAlignment.Top));
             view.ItemContainerStyle = style;
             view.HorizontalAlignment = HorizontalAlignment.Left;
             view.VerticalAlignment = VerticalAlignment.Top;

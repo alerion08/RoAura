@@ -144,6 +144,13 @@
     <sys:String x:Key="Delete">Удалить</sys:String>
     <sys:String x:Key="EquipmentTextBackgroundOpacity">Непрозрачность фона текста (%)</sys:String>
     <sys:String x:Key="EquipmentTextOnIcon">Текст поверх иконки</sys:String>
+    <sys:String x:Key="SkillIconCatalogTitle">Каталог иконок навыков</sys:String>
+    <sys:String x:Key="SkillIconSearchLabel">Название на английском, код или ID</sys:String>
+    <sys:String x:Key="SkillIconJobLabel">Профессия</sys:String>
+    <sys:String x:Key="SkillIconAllJobs">Все профессии</sys:String>
+    <sys:String x:Key="SkillIconNoResults">Совпадений нет</sys:String>
+    <sys:String x:Key="SkillIconUse">Выбрать из каталога</sys:String>
+    <sys:String x:Key="SkillIconFromFile">Выбрать файл</sys:String>
     <sys:String x:Key="UseEquipmentDatabaseIcon">Использовать иконку из БД</sys:String>
     <sys:String x:Key="PickIcon">Выбрать иконку</sys:String>
     <sys:String x:Key="LearnSkill">Определить умение</sys:String>

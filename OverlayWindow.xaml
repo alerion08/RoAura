@@ -445,7 +445,7 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border Padding="{Binding IconPadding, Converter={StaticResource IconPadding}}" CornerRadius="6" Cursor="SizeAll" Opacity="{Binding Opacity}"
+                    <Border VerticalAlignment="Top" Padding="{Binding IconPadding, Converter={StaticResource IconPadding}}" CornerRadius="6" Cursor="SizeAll" Opacity="{Binding Opacity}"
                             Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}"
                             MouseLeftButtonDown="Equipment_MouseLeftButtonDown" MouseMove="Equipment_MouseMove" MouseLeftButtonUp="Equipment_MouseLeftButtonUp">
                         <Border.Style>

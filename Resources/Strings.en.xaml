@@ -144,6 +144,13 @@
     <sys:String x:Key="Delete">Delete</sys:String>
     <sys:String x:Key="EquipmentTextBackgroundOpacity">Text background opacity (%)</sys:String>
     <sys:String x:Key="EquipmentTextOnIcon">Text over icon</sys:String>
+    <sys:String x:Key="SkillIconCatalogTitle">Skill icon catalog</sys:String>
+    <sys:String x:Key="SkillIconSearchLabel">English name, code or ID</sys:String>
+    <sys:String x:Key="SkillIconJobLabel">Job</sys:String>
+    <sys:String x:Key="SkillIconAllJobs">All jobs</sys:String>
+    <sys:String x:Key="SkillIconNoResults">No matching skills</sys:String>
+    <sys:String x:Key="SkillIconUse">Choose from catalog</sys:String>
+    <sys:String x:Key="SkillIconFromFile">Choose file</sys:String>
     <sys:String x:Key="UseEquipmentDatabaseIcon">Use database icon</sys:String>
     <sys:String x:Key="PickIcon">Choose icon</sys:String>
     <sys:String x:Key="LearnSkill">Detect skill</sys:String>

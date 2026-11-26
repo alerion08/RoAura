@@ -135,12 +135,25 @@ public partial class SkillWizardWindow : Window
         NextButton.Content = _step == 4 ? (_english ? "Create" : "Создать") : (_english ? "Next" : "Далее");
     }
 
+    private void ChooseCatalogIcon_Click(object sender, RoutedEventArgs e)
+    {
+        int.TryParse(SkillIdBox.Text, out var skillId);
+        var dialog = new SkillIconPickerWindow(skillId) { Owner = this };
+        if (dialog.ShowDialog() != true || dialog.SelectedIcon is not { } icon) return;
+        ApplyIcon(Convert.FromBase64String(icon.IconBase64), icon.Name);
+    }
+
     private void ChooseIcon_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new OpenFileDialog { Filter = "PNG (*.png)|*.png|Images|*.png;*.jpg;*.jpeg;*.bmp" };
         if (dialog.ShowDialog(this) != true) return;
-        var bytes = File.ReadAllBytes(dialog.FileName);
-        _iconBase64 = Convert.ToBase64String(bytes); _iconFileName = Path.GetFileName(dialog.FileName);
+        ApplyIcon(File.ReadAllBytes(dialog.FileName), Path.GetFileName(dialog.FileName));
+    }
+
+    private void ApplyIcon(byte[] bytes, string displayName)
+    {
+        _iconBase64 = Convert.ToBase64String(bytes);
+        _iconFileName = displayName;
         var image = new BitmapImage(); image.BeginInit(); image.CacheOption = BitmapCacheOption.OnLoad; image.StreamSource = new MemoryStream(bytes); image.EndInit(); image.Freeze();
         IconPreview.Source = image; IconFileText.Text = _iconFileName;
     }

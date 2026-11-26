@@ -1294,6 +1294,16 @@ public partial class MainWindow : Window
         SetStatus(T("Расположение группы кулдаунов применено.", "Cooldown group layout applied."));
     }
 
+    private void PickCatalogSkillIcon_Click(object sender, RoutedEventArgs e)
+    {
+        if (SkillsGrid.SelectedItem is not SkillAura skill) { SelectFirst("skill"); return; }
+        var dialog = new SkillIconPickerWindow(skill.PacketSkillId) { Owner = this };
+        if (dialog.ShowDialog() != true || dialog.SelectedIcon is not { } icon) return;
+        skill.IconImageBase64 = icon.IconBase64;
+        skill.IconFileName = icon.Name;
+        SaveSettings();
+    }
+
     private void PickIcon_Click(object sender, RoutedEventArgs e)
     {
         if (SkillsGrid.SelectedItem is not SkillAura skill) { SelectFirst("skill"); return; }

@@ -41,6 +41,11 @@
 - Equipment can place its text over the icon with an independently adjustable dark fill. It can also show an icon from the active local catalog by Item ID. When a catalog sprite is unavailable, the manually selected icon is used if present.
 - Pending Windows validation of the divider, timer display combinations and catalog images in the equipment list, preview and overlay.
 
+## Offline skill icon picker and equipment alignment
+
+- The bundled iRO Wiki catalog supplies 1,126 icons and 80 job trees. The cooldown wizard and editor can search by English name, code or exact numeric ID and filter by job with inherited skills. The chosen icon is stored with the cooldown.
+- Horizontal equipment groups top-align their items so an icon with overlay text stops at the icon's edge beside an item with a caption underneath.
+
 ## Previous published baseline — RoAura 3.5.0
 
 - [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.
