@@ -1,5 +1,12 @@
 # Regression checklist
 
+## RoAura 3.7.1 publication
+
+- [x] [Windows publication](https://github.com/alerion08/RoAura/actions/runs/45878759571) on `59fb53eda45f2961ab02c9156945805be1caaa16` passed 464 tests, portable and installer builds, and silent installation checks.
+- [x] [Public release](https://github.com/alerion08/RoAura/releases/tag/v3.7.1) has the installer, portable ZIP, and matching SHA-256 checksums.
+- [x] Owner confirmed automatic buff detection in the Ragnarok+ development build.
+- [ ] Repeat detection on the recipient's client for a party cast and verify existing manually configured effects and reminders on the published build.
+
 ## RoAura 3.7.0 publication
 
 - [x] [Windows publication](https://github.com/alerion08/RoAura/actions/runs/45871745080) on `032eda29fe092addb55b5c5d8138d5e67970b71f` passed regression tests, ToC checks, portable and installer builds and silent installation/package verification.

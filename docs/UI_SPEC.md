@@ -1,6 +1,10 @@
 # RoAura UI specification
 
-Current published version: **3.7.0**, [release](https://github.com/alerion08/RoAura/releases/tag/v3.7.0).
+Current published version: **3.7.1**, [release](https://github.com/alerion08/RoAura/releases/tag/v3.7.1).
+
+## 3.7.1 interface
+
+On Ragnarok+, automatic effect and reminder learning skips post-cast delay status 46. If an existing entry learned 46 for a buff, run detection again and cast the buff on yourself.
 
 ## 3.7.0 interface
 

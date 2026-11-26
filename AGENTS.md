@@ -38,7 +38,7 @@ Model choice is controlled outside the repository. Use an economical model/reaso
 
 ## Branches and releases
 
-- `main` is the stable release branch. Current published baseline is **3.7.0**, [v3.7.0](https://github.com/alerion08/RoAura/releases/tag/v3.7.0), released from `032eda29fe092addb55b5c5d8138d5e67970b71f` through PR #25. [Windows publication](https://github.com/alerion08/RoAura/actions/runs/45871745080) passed automated tests and both package checks. See PROJECT_STATE.md for verification and remaining checks.
+- `main` is the stable release branch. Current published baseline is **3.7.1**, [v3.7.1](https://github.com/alerion08/RoAura/releases/tag/v3.7.1), released from `59fb53eda45f2961ab02c9156945805be1caaa16` through PR #27. [Windows publication](https://github.com/alerion08/RoAura/actions/runs/45878759571) passed 464 tests and both package checks. See PROJECT_STATE.md for verification and remaining checks.
 - The combined development changes from `integration/current-dev` shipped through `release/3.5.0` and PR #17. Both refs are historical. Start new tasks from current `main`.
 - Start new implementation work from current `main` in a task-specific branch. `feature/roquestie-mvp` is merged; older redesign/integration branches and PR #5 are historical, not current development targets.
 - `research/quest-database` is independent data work; consuming a new snapshot requires explicit validation and must not silently replace released data.
