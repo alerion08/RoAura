@@ -161,6 +161,7 @@
     <sys:String x:Key="TestCooldown">Проверить отображение</sys:String>
     <sys:String x:Key="TestAppeared">Проверить начало эффекта</sys:String>
     <sys:String x:Key="TestDisappeared">Проверить окончание эффекта</sys:String>
+    <sys:String x:Key="TestReminder">Проверить напоминание</sys:String>
     <sys:String x:Key="MoveOne">Переместить в игре</sys:String>
     <sys:String x:Key="MoveGroup">Переместить всю группу</sys:String>
     <sys:String x:Key="MoveBuffPanel">Переместить панель в игре</sys:String>

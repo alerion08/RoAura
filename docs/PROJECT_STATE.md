@@ -74,7 +74,7 @@
 ## Loot lists and tracker
 
 - Gold Goblin has server-scoped loot lists. Pickups advance each active matching row from the time the row is added, independently of farming-session resets or pause. Goal, progress and tracker visibility persist. Legacy wanted-item settings remain readable without generating a loot list.
-- Database cards add/remove items through a checklist and can create a list. Gold Goblin remembers both workspace splitters and table column widths. The tracker has its own geometry, text and background options, participates in the overlay layout editor, and renders separate rounded cards for visible lists. The loot-list table supports manual progress edits and a per-list tracker checkbox. The overlay wraps separate titled cards within the game client. ROQuestie imports all identifiable materials into a persistent list for the selected quest and enables its tracker card.
+- Database cards add/remove items through a checklist and can create a list. Gold Goblin remembers both workspace splitters and table column widths. The tracker has its own geometry, text and background options, participates in the overlay layout editor, and renders separate rounded cards for visible lists. The loot-list table supports manual progress edits and a per-item tracker checkbox and a live completion color. The overlay wraps separate titled cards within the game client. ROQuestie imports all identifiable materials into a persistent list for the selected quest and enables its tracker card.
 - Quest-loot notifications can show the optional `[Q]` prefix. With Hunting Quests checked, the quest catalog shows only hunts even when Ragnarok+ is also checked.
 
 ## Previous published baseline — RoAura 3.5.0

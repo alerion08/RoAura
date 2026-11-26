@@ -11,6 +11,12 @@ public partial class LootListsControl : UserControl
 {
     public sealed record Row(LootList List, LootListItem? Item, IReadOnlyList<LootList> Lists, string Name)
     {
+        public bool ShowInTracker
+        {
+            get => Item is not null && LootLists.IsShownInTracker(List, Item);
+            set { if (Item is not null) Item.ShowInTracker = value; }
+        }
+
         public Visibility ItemVisibility => Item is null ? Visibility.Collapsed : Visibility.Visible;
         public Visibility EmptyListVisibility => Item is null ? Visibility.Visible : Visibility.Collapsed;
     }

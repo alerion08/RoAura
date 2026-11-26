@@ -5,24 +5,13 @@ using System.Text.Json.Serialization;
 
 namespace RoAura.Models;
 
-public sealed class LootList : INotifyPropertyChanged
+public sealed class LootList
 {
-    private bool _showInTracker;
     public string Server { get; set; } = "";
     public string Name { get; set; } = "";
     public string? SourceQuestKey { get; set; }
     public override string ToString() => Name;
-    public bool ShowInTracker
-    {
-        get => _showInTracker;
-        set
-        {
-            if (_showInTracker == value) return;
-            _showInTracker = value;
-            PropertyChanged?.Invoke(this, new(nameof(ShowInTracker)));
-        }
-    }
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public bool ShowInTracker { get; set; }
     public ObservableCollection<LootListItem> Items { get; set; } = [];
 }
 
@@ -37,6 +26,9 @@ public sealed class LootListItem : INotifyPropertyChanged
     public long Target { get => _target; set => Set(ref _target, Math.Clamp(value, 1, int.MaxValue)); }
     public long Acquired { get => _acquired; set => Set(ref _acquired, Math.Clamp(value, 0, int.MaxValue)); }
     public bool Active { get => _active; set => Set(ref _active, value); }
+    // Older settings store only the list-wide value.
+    public bool? ShowInTracker { get; set; }
+    [JsonIgnore] public bool IsComplete => Acquired >= Target;
     [JsonIgnore] public long Remaining => Math.Max(0, Target - Acquired);
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -45,7 +37,11 @@ public sealed class LootListItem : INotifyPropertyChanged
         if (EqualityComparer<T>.Default.Equals(field, value)) return;
         field = value;
         PropertyChanged?.Invoke(this, new(name));
-        if (name is nameof(Target) or nameof(Acquired)) PropertyChanged?.Invoke(this, new(nameof(Remaining)));
+        if (name is nameof(Target) or nameof(Acquired))
+        {
+            PropertyChanged?.Invoke(this, new(nameof(Remaining)));
+            PropertyChanged?.Invoke(this, new(nameof(IsComplete)));
+        }
     }
 }
 

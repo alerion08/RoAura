@@ -161,6 +161,7 @@
     <sys:String x:Key="TestCooldown">Preview display</sys:String>
     <sys:String x:Key="TestAppeared">Preview effect start</sys:String>
     <sys:String x:Key="TestDisappeared">Preview effect end</sys:String>
+    <sys:String x:Key="TestReminder">Preview reminder</sys:String>
     <sys:String x:Key="MoveOne">Move in game</sys:String>
     <sys:String x:Key="MoveGroup">Move entire group</sys:String>
     <sys:String x:Key="MoveBuffPanel">Move panel in game</sys:String>

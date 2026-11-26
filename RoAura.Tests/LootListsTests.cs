@@ -27,6 +27,27 @@ public sealed class LootListsTests
     }
 
     [Fact]
+    public void TrackerVisibilityIsPerItemAndCompletionUpdatesWithProgress()
+    {
+        var list = new LootList { ShowInTracker = true };
+        var hidden = new LootListItem { ShowInTracker = false };
+        var visible = new LootListItem { Target = 5 };
+        list.Items = [hidden, visible];
+        Assert.Same(visible, Assert.Single(LootLists.TrackerItems(list)));
+
+        var completionUpdates = 0;
+        visible.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(LootListItem.IsComplete)) completionUpdates++;
+        };
+        visible.Acquired = 6;
+        Assert.True(visible.IsComplete);
+        visible.Target = 7;
+        Assert.False(visible.IsComplete);
+        Assert.Equal(2, completionUpdates);
+    }
+
+    [Fact]
     public void ChangingListsPreservesProgressAndRejectsDuplicateMembership()
     {
         var first = new LootList { Server = GameServerProfile.RagnarokPlus };

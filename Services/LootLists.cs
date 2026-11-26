@@ -10,6 +10,12 @@ internal static class LootLists
         return settings.LootLists.Where(list => GameServerProfile.Normalize(list.Server) == profile);
     }
 
+    internal static bool IsShownInTracker(LootList list, LootListItem item) =>
+        item.ShowInTracker ?? list.ShowInTracker;
+
+    internal static IEnumerable<LootListItem> TrackerItems(LootList list) =>
+        list.Items.Where(item => item.Active && IsShownInTracker(list, item));
+
     internal static bool AddItem(LootList list, int itemId, string name)
     {
         if (itemId <= 0 || list.Items.Any(row => row.ItemId == itemId)) return false;
@@ -22,6 +28,7 @@ internal static class LootLists
         if (source == destination || !source.Items.Contains(item) ||
             GameServerProfile.Normalize(source.Server) != GameServerProfile.Normalize(destination.Server) ||
             destination.Items.Any(row => row.ItemId == item.ItemId)) return false;
+        item.ShowInTracker ??= IsShownInTracker(source, item);
         source.Items.Remove(item);
         destination.Items.Add(item);
         return true;

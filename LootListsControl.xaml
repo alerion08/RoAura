@@ -86,7 +86,8 @@
                         <DataGridTemplateColumn Header="{DynamicResource LootListTrackerColumn}" Width="66">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding List.ShowInTracker, Mode=TwoWay, NotifyOnSourceUpdated=True}"
+                                    <CheckBox IsChecked="{Binding ShowInTracker, Mode=TwoWay, NotifyOnSourceUpdated=True}"
+                                              Visibility="{Binding ItemVisibility}"
                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

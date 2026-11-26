@@ -27,15 +27,28 @@ public partial class OverlayWindow
         var ink = new SolidColorBrush(foreground);
         ink.Freeze();
 
+        var completeInk = new SolidColorBrush(background.G + background.R / 2 + background.B / 4 >= 210 && opacity >= 0.6
+            ? Color.FromRgb(0, 102, 55) : Color.FromRgb(139, 239, 166));
+        completeInk.Freeze();
+        var rowStyle = new Style(typeof(TextBlock));
+        rowStyle.Setters.Add(new Setter(TextBlock.ForegroundProperty, ink));
+        rowStyle.Triggers.Add(new DataTrigger
+        {
+            Binding = new Binding(nameof(LootListItem.IsComplete)),
+            Value = true,
+            Setters = { new Setter(TextBlock.ForegroundProperty, completeInk) }
+        });
+
         LootListTrackerPanel.Orientation = options.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
         var lists = LootLists.ForServer(_settings, _settings.ServerProfile)
-            .Where(list => list.ShowInTracker).ToArray();
+            .Select(list => (list.Name, Items: LootLists.TrackerItems(list).ToArray()))
+            .Where(list => list.Items.Length > 0).ToArray();
         if (IsLayoutEditing && lists.Length == 0)
-            lists = [new LootList { Name = LocalizationService.Get("LootListTrackerTitle"),
-                Items = [new LootListItem { Name = LocalizationService.Get("Item"), Target = 25, Acquired = 5 }] }];
+            lists = [(LocalizationService.Get("LootListTrackerTitle"),
+                [new LootListItem { Name = LocalizationService.Get("Item"), Target = 25, Acquired = 5 }])];
         foreach (var list in lists)
         {
-            var active = list.Items.Where(item => item.Active).ToArray();
+            var active = list.Items;
             var rows = new StackPanel();
             rows.Children.Add(new TextBlock { Text = list.Name, Foreground = ink, FontSize = fontSize,
                 FontWeight = FontWeights.Bold, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 0, 0, 4) });
@@ -44,7 +57,7 @@ public partial class OverlayWindow
                 var item = active[index];
                 var name = item.Name == $"Item #{item.ItemId}" && Application.Current is App app
                     ? app.ResolveLootListItemName(item.ItemId) ?? item.Name : item.Name;
-                var line = new TextBlock { Foreground = ink, FontSize = fontSize, TextWrapping = TextWrapping.Wrap,
+                var line = new TextBlock { DataContext = item, Style = rowStyle, FontSize = fontSize, TextWrapping = TextWrapping.Wrap,
                     Margin = new Thickness(0, 2, 0, 0) };
                 var progress = new MultiBinding { StringFormat = "{0}/{1}" };
                 progress.Bindings.Add(new Binding(nameof(LootListItem.Acquired)) { Source = item });
