@@ -142,6 +142,7 @@
     <sys:String x:Key="BuffPanel">Панель</sys:String>
     <sys:String x:Key="Add">Добавить</sys:String>
     <sys:String x:Key="Delete">Удалить</sys:String>
+    <sys:String x:Key="UseEquipmentDatabaseIcon">Использовать иконку из БД</sys:String>
     <sys:String x:Key="PickIcon">Выбрать иконку</sys:String>
     <sys:String x:Key="LearnSkill">Определить умение</sys:String>
     <sys:String x:Key="LearnStatus">Найти эффект в игре</sys:String>
@@ -455,7 +456,6 @@
     <sys:String x:Key="SortByCount">По количеству</sys:String>
     <sys:String x:Key="ManualFallbackPrice">Ручная цена</sys:String>
     <sys:String x:Key="DeleteFromSession">Удалить из сессии</sys:String>
-    <sys:String x:Key="GoldGoblinTableHint">Количество редактируется прямо в строке. Неизвестная цена не равна нулю.</sys:String>
     <sys:String x:Key="PriceRulesTitle">Правила определения стоимости</sys:String>
     <sys:String x:Key="PriceRulesHint">Vending используется первым, Manual — как запасная цена, NPC — по умолчанию с Overcharge.</sys:String>
     <sys:String x:Key="AddItemToSession">Добавить предмет в сессию</sys:String>

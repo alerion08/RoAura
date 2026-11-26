@@ -620,14 +620,27 @@ internal static class QuestInputSmoke
             Hover(icon);await Pause(250);
             if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("Timer map badge lost the row hover map.");
             var countdown = labels.Single(text=>text.Tag as string=="MvpCountdown");
+            var ordinal = labels.Single(text => text.Tag as string == "MvpOrdinal");
+            if (ordinal.Parent is not StackPanel row || row.Children[0] != ordinal)
+                throw new InvalidOperationException("Timer number must lead the overlay row.");
             var showName = settings.TimersShowName;
+            var showIcon = settings.TimersShowIcon;
+            var showMap = settings.TimersShowMap;
             try
             {
                 settings.TimersShowName = false;
-                await Until(() => !name.IsVisible && countdown.Text.StartsWith($"{timer.DisplayNumber}.", StringComparison.Ordinal),
-                    "timer number remains visible without the monster name");
+                settings.TimersShowIcon = false;
+                settings.TimersShowMap = false;
+                await Until(() => !name.IsVisible && !icon.IsVisible && ordinal.IsVisible &&
+                    ordinal.Text == $"{timer.DisplayNumber}." && countdown.Text == timer.OverlayCountdown,
+                    "timer ordinal and countdown are separate when optional fields are hidden");
             }
-            finally { settings.TimersShowName = showName; }
+            finally
+            {
+                settings.TimersShowName = showName;
+                settings.TimersShowIcon = showIcon;
+                settings.TimersShowMap = showMap;
+            }
             Hover(countdown);await Until(()=>overlay.IsMvpMapVisible,"MVP countdown opens the map");
             if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP timer text lost the row hover map.");
             if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("MVP map stole game focus.");

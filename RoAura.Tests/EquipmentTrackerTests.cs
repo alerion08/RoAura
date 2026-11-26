@@ -40,6 +40,26 @@ public sealed class EquipmentTrackerTests
     }
 
     [Fact]
+    public void Database_icon_follows_item_id_and_preserves_the_manual_fallback()
+    {
+        const string manual = "bWFudWFs";
+        const string catalog = "Y2F0YWxvZw==";
+        var item = new EquipmentTracker { ItemId = 1148, IconImageBase64 = manual };
+        item.SetDatabaseIconResolver(id => id == 1148 ? catalog : null);
+
+        Assert.Equal(manual, item.EffectiveIconImageBase64);
+        item.UseDatabaseIcon = true;
+        Assert.Equal(catalog, item.EffectiveIconImageBase64);
+        item.ItemId = 1149;
+        Assert.Equal(manual, item.EffectiveIconImageBase64);
+        item.ItemId = 1148;
+        Assert.Equal(catalog, item.EffectiveIconImageBase64);
+        item.SetDatabaseIconResolver(_ => null);
+        Assert.Equal(manual, item.EffectiveIconImageBase64);
+        Assert.Equal(manual, item.IconImageBase64);
+    }
+
+    [Fact]
     public void Placement_preview_does_not_change_equipped_state()
     {
         var item = new EquipmentTracker { ItemId = 1148, IsEquipped = false };

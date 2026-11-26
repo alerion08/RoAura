@@ -142,6 +142,7 @@
     <sys:String x:Key="BuffPanel">Panel</sys:String>
     <sys:String x:Key="Add">Add</sys:String>
     <sys:String x:Key="Delete">Delete</sys:String>
+    <sys:String x:Key="UseEquipmentDatabaseIcon">Use database icon</sys:String>
     <sys:String x:Key="PickIcon">Choose icon</sys:String>
     <sys:String x:Key="LearnSkill">Detect skill</sys:String>
     <sys:String x:Key="LearnStatus">Find effect in game</sys:String>
@@ -455,7 +456,6 @@
     <sys:String x:Key="SortByCount">By quantity</sys:String>
     <sys:String x:Key="ManualFallbackPrice">Manual price</sys:String>
     <sys:String x:Key="DeleteFromSession">Remove from session</sys:String>
-    <sys:String x:Key="GoldGoblinTableHint">Quantity can be edited directly in the row. An unknown price is not zero.</sys:String>
     <sys:String x:Key="PriceRulesTitle">Price resolution rules</sys:String>
     <sys:String x:Key="PriceRulesHint">Vending is tried first, Manual is its fallback, and NPC is the default with Overcharge.</sys:String>
     <sys:String x:Key="AddItemToSession">Add item to session</sys:String>

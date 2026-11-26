@@ -34,7 +34,12 @@
 ## Overlay import and export
 
 - Cooldowns, Effects, Equipment and Reminders can export their configured entries and group settings to a versioned JSON package. Import appends copies with new overlay IDs and remaps conflicting group numbers. Embedded images travel with the package. Local sound paths still refer to local files.
-- The timer row always displays its shortcut number beside the countdown, independently of the monster-name setting.
+## Timer, Gold Goblin and equipment layout polish
+
+- Timer rows start with their ordinal number even when the icon, monster name or map is hidden.
+- Gold Goblin uses compact session controls and totals, with one add-item button in the loot editor. Drag the divider on the editor’s left edge to resize it.
+- Equipment can show an icon from the active local catalog by Item ID. When a catalog sprite is unavailable, the manually selected icon is used if present.
+- Pending Windows validation of the divider, timer display combinations and catalog images in the equipment list, preview and overlay.
 
 ## Previous published baseline — RoAura 3.5.0
 

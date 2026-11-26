@@ -81,6 +81,13 @@ public partial class MainWindow : Window
         InitializeComponent();
         SourceInitialized += MainWindow_SourceInitialized;
         Settings = settings;
+        Settings.Equipment.CollectionChanged += (_, e) =>
+        {
+            if (e.NewItems is null) return;
+            foreach (EquipmentTracker item in e.NewItems)
+                item.SetDatabaseIconResolver(ResolveEquipmentDatabaseIcon);
+        };
+        RefreshEquipmentDatabaseIcons();
         _store = store;
         _overlay = overlay;
         _packetCapture = packetCapture;
@@ -262,6 +269,7 @@ public partial class MainWindow : Window
             if (Application.Current is App app) app.ReloadItemCatalog(version);
         }
 
+        RefreshEquipmentDatabaseIcons();
         if (!supportsOverlayDatabase && Application.Current is App currentApp)
             currentApp.CloseDatabaseOverlay();
         _overlay.RefreshServerProfile();
@@ -404,12 +412,6 @@ public partial class MainWindow : Window
             SetStatus(T("Сначала войдите на персонажа: общая сессия не запущена.",
                 "Log in to a character first: shared session could not start."));
         else SetStatus(T("Общая сессия начата.", "Shared session started."));
-    }
-
-    private void OpenGoldGoblinAdd_Click(object sender, RoutedEventArgs e)
-    {
-        GoldGoblinWorkspaceTabs.SelectedIndex = 0;
-        ShowGoldGoblinAddDialog();
     }
 
     private void AddGoldGoblinLoot_Click(object sender, RoutedEventArgs e)
@@ -874,6 +876,7 @@ public partial class MainWindow : Window
     {
         if (DataContext is not AppSettings) return;
         _items = ItemCatalogService.Load(Settings.LootDatabaseVersion);
+        RefreshEquipmentDatabaseIcons();
         if (Application.Current is App app) app.ReloadItemCatalog(Settings.LootDatabaseVersion);
         SetStatus(T($"База предметов: {Settings.LootDatabaseVersion} ({_items.Count} записей).",
             $"Item database: {Settings.LootDatabaseVersion} ({_items.Count} entries)."));
@@ -1983,7 +1986,26 @@ public partial class MainWindow : Window
     {
         if (EquipmentGrid.SelectedItem is not EquipmentTracker item) { SelectFirst("equipment"); return; }
         if (!TryPickImage(out var path)) return;
-        ImportImage(path, value => item.IconImageBase64 = value, value => item.IconFileName = value);
+        ImportImage(path, value =>
+        {
+            item.IconImageBase64 = value;
+            item.UseDatabaseIcon = false;
+        }, value => item.IconFileName = value);
+    }
+
+    private void UseEquipmentDatabaseIcon_Click(object sender, RoutedEventArgs e) =>
+        SaveSettings(applyPacketCapture: false);
+
+    private string? ResolveEquipmentDatabaseIcon(int itemId) =>
+        GameServerProfile.SupportsServerDatabases(Settings.ServerProfile) &&
+        _items.TryGetValue(itemId, out var item) && item.LocalImagePng is { Length: > 0 } image
+            ? Convert.ToBase64String(image)
+            : null;
+
+    private void RefreshEquipmentDatabaseIcons()
+    {
+        foreach (var item in Settings.Equipment)
+            item.SetDatabaseIconResolver(ResolveEquipmentDatabaseIcon);
     }
 
     private void LearnEquipment_Click(object sender, RoutedEventArgs e)
@@ -2094,6 +2116,9 @@ public partial class MainWindow : Window
 
     internal void RefreshTimerCatalog()
     {
+        _items = ItemCatalogService.Load(Settings.LootDatabaseVersion);
+        RefreshGoldGoblinItemSuggestions();
+        RefreshEquipmentDatabaseIcons();
         _monsters.Clear();
         foreach (var monster in MonsterCatalogService.LoadForTimers(Settings.MvpDatabaseVersion))
             _monsters.Add(monster);

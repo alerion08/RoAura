@@ -457,7 +457,7 @@
                             </Style>
                         </Border.Style>
                         <StackPanel HorizontalAlignment="Center">
-                            <Image Source="{Binding IconImageBase64, Converter={StaticResource Base64Image}}" Width="{Binding OverlayIconSize}" Height="{Binding OverlayIconSize}" Stretch="UniformToFill"/>
+                            <Image Source="{Binding EffectiveIconImageBase64, Converter={StaticResource Base64Image}}" Width="{Binding OverlayIconSize}" Height="{Binding OverlayIconSize}" Stretch="UniformToFill"/>
                             <TextBlock Text="{Binding Text}" FontSize="{Binding TextSize}" FontWeight="Bold" TextAlignment="Center"
                                        Foreground="{Binding TextColor, Converter={StaticResource ColorBrush}}" Margin="0,4,0,0"
                                        Visibility="{Binding ShowText, Converter={StaticResource BoolToVisibility}}">
@@ -666,6 +666,7 @@
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style></StackPanel.Resources>
+                                <TextBlock Tag="MvpOrdinal" Text="{Binding DisplayNumber, StringFormat={}{0}.}" Margin="0,0,6,0" VerticalAlignment="Center"/>
                                 <Image Width="20" Height="20" Margin="0,0,5,0" Stretch="Uniform">
                                     <Image.Source><Binding Path="TimerImage"><Binding.Converter><converters:TimerImageConverter/></Binding.Converter></Binding></Image.Source>
                                     <Image.Style><Style TargetType="Image"><Setter Property="Visibility" Value="{Binding DataContext.TimersShowIcon, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}"/>
@@ -686,9 +687,7 @@
                                     </Border.Style>
                                     <TextBlock Tag="MvpMapHover" Text="{Binding LocationLabel}" FontWeight="Normal"/>
                                 </Border>
-                                <TextBlock Tag="MvpCountdown" Margin="5,0,0,0">
-                                    <Run Text="{Binding DisplayNumber, Mode=OneWay, StringFormat={}{0}. }"/><Run Text="{Binding OverlayCountdown, Mode=OneWay}"/>
-                                </TextBlock>
+                                <TextBlock Tag="MvpCountdown" Margin="5,0,0,0" Text="{Binding OverlayCountdown}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
