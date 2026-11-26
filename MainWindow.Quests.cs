@@ -81,12 +81,7 @@ public partial class MainWindow
     {
         if (_questWorkspace.Catalog is null) await _questWorkspace.LoadCatalogAsync();
         if (_questWorkspace.Catalog?.Guides.GetValueOrDefault(key) is not { } guide) return;
-        if (await _questWindows.OpenBrowserAsync(guide)) return;
-        (Application.Current as App)?.CloseDatabaseOverlay();
-        Show();
-        Activate();
-        QuestsNavButton.IsChecked = true;
-        QuestPage.ShowGuide(guide);
+        if (!await _questWindows.OpenBrowserAsync(guide)) QuestPage.Report(LocalizationService.Get("QNoGame"));
     }
 
     public void ToggleQuestBrowser()

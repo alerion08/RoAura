@@ -238,8 +238,7 @@ public partial class DatabaseDetailWindow : Window
         AddItemActions(item);
         foreach (var quest in RagnarokPlusQuestCatalog.Instance.RequiredFor(_database.Version, item.Id))
         {
-            var title = quest.Title;
-            AddLink(T($"Нужен для задания «{title}»", $"Needed for quest “{title}”"), async () =>
+            AddLink(T($"Нужен для задания «{quest.Title}»", $"Needed for quest “{quest.Title}”"), async () =>
             {
                 if (Application.Current is App app) await app.OpenQuestFromDatabaseAsync(quest.Key);
             });
