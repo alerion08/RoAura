@@ -706,8 +706,9 @@
             </Border>
         </Canvas>
 
-        <Canvas x:Name="LootListTrackerLayer" IsHitTestVisible="False" ClipToBounds="True">
-            <StackPanel x:Name="LootListTrackerPanel"/>
+        <Canvas x:Name="LootListTrackerLayer" IsHitTestVisible="False" ClipToBounds="True"
+                SizeChanged="LootListTrackerLayer_SizeChanged">
+            <WrapPanel x:Name="LootListTrackerPanel"/>
         </Canvas>
 
         <Border x:Name="EditBanner" HorizontalAlignment="Left" VerticalAlignment="Top"

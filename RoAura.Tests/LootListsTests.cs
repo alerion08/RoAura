@@ -51,11 +51,14 @@ public sealed class LootListsTests
         var server = GameServerProfile.RagnarokPlus;
         Assert.Equal(1, LootLists.ImportQuest(settings, server, "quest:id", "Quest", [(501, "Red Potion", 5L)]));
         var list = Assert.Single(settings.LootLists);
+        Assert.True(list.ShowInTracker);
+        list.ShowInTracker = false;
         list.Name = "Renamed";
         list.Items[0].Acquired = 3;
         Assert.Equal(1, LootLists.ImportQuest(settings, server, "quest:id", "Quest",
             [(501, "Red Potion", 9L), (502, "Orange Potion", 2L)]));
         Assert.Same(list, Assert.Single(settings.LootLists));
+        Assert.True(list.ShowInTracker);
         Assert.Equal("Renamed", list.Name);
         Assert.Equal(3L, list.Items[0].Acquired);
         Assert.Equal(5L, list.Items[0].Target);

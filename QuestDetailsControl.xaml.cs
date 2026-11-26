@@ -153,7 +153,7 @@ public partial class QuestDetailsControl : UserControl
    return;
   }
   if (!LootListNameDialog.Confirm(owner, L("Добавить предметы в список?", "Add items to the list?"),
-      LocalizationService.Get("LootListAddAction"))) return;
+      LocalizationService.Get("LootListAddAction"), centerContent: true)) return;
   var added = LootLists.ImportQuest(settings, server, quest.Id, quest.Title, resolved);
   app.LootListsChanged();
   var unresolved = materials.Where(item => item.Id == 0).Select(item => item.Name).Distinct(StringComparer.OrdinalIgnoreCase).Count();

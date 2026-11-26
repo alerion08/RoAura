@@ -13,7 +13,7 @@ public partial class OverlayWindow
     {
         var options = _settings.LootListTracker;
         LootListTrackerPanel.Children.Clear();
-        if (!options.Enabled || !_settings.PacketCaptureEnabled) return;
+        if (!options.Enabled) return;
 
         var fontSize = Limit(options.TextSize, 14, 10, 32);
         var width = Limit(options.Width, 300, 170, 680);
@@ -27,10 +27,9 @@ public partial class OverlayWindow
         var ink = new SolidColorBrush(foreground);
         ink.Freeze();
 
-        UpdateLootListTrackerPosition();
         LootListTrackerPanel.Orientation = options.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
         var lists = LootLists.ForServer(_settings, _settings.ServerProfile)
-            .Where(list => list.ShowInTracker && list.Items.Any(item => item.Active)).ToArray();
+            .Where(list => list.ShowInTracker).ToArray();
         if (IsLayoutEditing && lists.Length == 0)
             lists = [new LootList { Name = LocalizationService.Get("LootListTrackerTitle"),
                 Items = [new LootListItem { Name = LocalizationService.Get("Item"), Target = 25, Acquired = 5 }] }];
@@ -61,16 +60,34 @@ public partial class OverlayWindow
             {
                 Child = rows, Width = width, Padding = new Thickness(9, 7, 9, 8),
                 CornerRadius = new CornerRadius(8), Background = brush,
-                Margin = options.Horizontal ? new Thickness(0, 0, gap, 0) : new Thickness(0, 0, 0, gap)
+                Margin = new Thickness(0, 0, gap, gap)
             });
         }
+        UpdateLootListTrackerPosition();
     }
+
+    private void LootListTrackerLayer_SizeChanged(object sender, SizeChangedEventArgs e) =>
+        UpdateLootListTrackerPosition();
 
     internal void UpdateLootListTrackerPosition()
     {
         var options = _settings.LootListTracker;
-        Canvas.SetLeft(LootListTrackerPanel, Limit(options.X, 12, 0, 10000));
-        Canvas.SetTop(LootListTrackerPanel, Limit(options.Y, 420, 0, 10000));
+        var viewportWidth = LootListTrackerLayer.ActualWidth;
+        var viewportHeight = LootListTrackerLayer.ActualHeight;
+        var x = Limit(options.X, 12, 0, 10000);
+        var y = Limit(options.Y, 420, 0, 10000);
+        if (viewportWidth > 0 && viewportHeight > 0)
+        {
+            // Let cards wrap before clamping the group back inside the game client.
+            LootListTrackerPanel.MaxWidth = viewportWidth;
+            LootListTrackerPanel.MaxHeight = viewportHeight;
+            LootListTrackerPanel.Measure(new Size(viewportWidth, viewportHeight));
+            var bounds = LootListTrackerPanel.DesiredSize;
+            x = Math.Min(x, Math.Max(0, viewportWidth - bounds.Width));
+            y = Math.Min(y, Math.Max(0, viewportHeight - bounds.Height));
+        }
+        Canvas.SetLeft(LootListTrackerPanel, x);
+        Canvas.SetTop(LootListTrackerPanel, y);
     }
 
     private static double Limit(double value, double fallback, double minimum, double maximum) =>

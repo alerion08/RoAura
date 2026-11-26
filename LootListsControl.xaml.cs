@@ -9,7 +9,11 @@ namespace RoAura;
 
 public partial class LootListsControl : UserControl
 {
-    public sealed record Row(LootList List, LootListItem Item, IReadOnlyList<LootList> Lists, string Name);
+    public sealed record Row(LootList List, LootListItem? Item, IReadOnlyList<LootList> Lists, string Name)
+    {
+        public Visibility ItemVisibility => Item is null ? Visibility.Collapsed : Visibility.Visible;
+        public Visibility EmptyListVisibility => Item is null ? Visibility.Visible : Visibility.Collapsed;
+    }
 
     private AppSettings? _settings;
     private Action? _save;
@@ -51,7 +55,6 @@ public partial class LootListsControl : UserControl
                 .Prepend(new ComboBoxItem { Content = LocalizationService.Get("LootListAll") }).ToArray();
             ListFilter.SelectedItem = ListFilter.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Tag == selected)
                 ?? ListFilter.Items[0];
-            ListOptions.ItemsSource = lists;
             RenderRows(lists);
         }
         finally { _updating = false; }
@@ -81,11 +84,13 @@ public partial class LootListsControl : UserControl
     {
         var selected = SelectedList;
         RenameListButton.IsEnabled = DeleteListButton.IsEnabled = selected is not null;
-        var rows = lists.Where(list => selected is null || list == selected).SelectMany(list => list.Items.Select(item =>
-            new Row(list, item, lists.Where(candidate => candidate == list || candidate.Items.All(row => row.ItemId != item.ItemId)).ToArray(),
+        var visibleLists = lists.Where(list => selected is null || list == selected).ToArray();
+        ItemsGrid.ItemsSource = visibleLists.SelectMany(list => list.Items.Count == 0
+            ? Enumerable.Repeat(new Row(list, null, [], ""), 1)
+            : list.Items.Select(item => new Row(list, item,
+                lists.Where(candidate => candidate == list || candidate.Items.All(row => row.ItemId != item.ItemId)).ToArray(),
                 item.Name == $"Item #{item.ItemId}" ? _resolveName?.Invoke(item.ItemId) ?? item.Name : item.Name))).ToArray();
-        ItemsGrid.ItemsSource = rows;
-        Observe(rows.Select(row => row.Item).ToArray());
+        Observe(visibleLists.SelectMany(list => list.Items).ToArray());
     }
 
     private void Observe(LootListItem[] items)
@@ -107,9 +112,9 @@ public partial class LootListsControl : UserControl
 
     private void ItemList_Changed(object sender, SelectionChangedEventArgs e)
     {
-        if (_updating || sender is not ComboBox { DataContext: Row row, SelectedItem: LootList destination } box ||
+        if (_updating || sender is not ComboBox { DataContext: Row { Item: { } item } row, SelectedItem: LootList destination } box ||
             ReferenceEquals(row.List, destination) || !box.IsDropDownOpen && !box.IsKeyboardFocusWithin) return;
-        if (LootLists.MoveItem(row.List, destination, row.Item))
+        if (LootLists.MoveItem(row.List, destination, item))
         {
             _save?.Invoke();
             Dispatcher.BeginInvoke(RefreshLists);
@@ -129,6 +134,5 @@ public partial class LootListsControl : UserControl
         RefreshLists();
     }
 
-    private void ShowInTracker_Click(object sender, RoutedEventArgs e) => _save?.Invoke();
     private void TrackerOptions_Changed(object sender, DataTransferEventArgs e) => _save?.Invoke();
 }

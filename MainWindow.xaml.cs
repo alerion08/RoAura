@@ -1661,14 +1661,6 @@ public partial class MainWindow : Window
         _ = ExpireLearningAsync(reminder.Id, "reminder", _learningGeneration);
     }
 
-    private async void TestReminder_Click(object sender, RoutedEventArgs e)
-    {
-        if (RemindersGrid.SelectedItem is not ReminderItem reminder) { SelectFirst("reminder"); return; }
-        reminder.IsPlacementPreview = true;
-        await Task.Delay(2500);
-        if (!_overlay.IsBusyEditing) reminder.IsPlacementPreview = false;
-    }
-
     private DateTime _learningStartedUtc;
     private string _learningObservedSummary = "";
 

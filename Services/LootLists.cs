@@ -61,6 +61,7 @@ internal static class LootLists
             settings.LootLists.Add(list);
         }
         list.SourceQuestKey = questKey;
+        list.ShowInTracker = true;
         var added = 0;
         foreach (var group in rows)
         {

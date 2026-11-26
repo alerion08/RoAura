@@ -5,13 +5,24 @@ using System.Text.Json.Serialization;
 
 namespace RoAura.Models;
 
-public sealed class LootList
+public sealed class LootList : INotifyPropertyChanged
 {
+    private bool _showInTracker;
     public string Server { get; set; } = "";
     public string Name { get; set; } = "";
     public string? SourceQuestKey { get; set; }
     public override string ToString() => Name;
-    public bool ShowInTracker { get; set; }
+    public bool ShowInTracker
+    {
+        get => _showInTracker;
+        set
+        {
+            if (_showInTracker == value) return;
+            _showInTracker = value;
+            PropertyChanged?.Invoke(this, new(nameof(ShowInTracker)));
+        }
+    }
+    public event PropertyChangedEventHandler? PropertyChanged;
     public ObservableCollection<LootListItem> Items { get; set; } = [];
 }
 

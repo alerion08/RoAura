@@ -161,7 +161,6 @@
     <sys:String x:Key="TestCooldown">Preview display</sys:String>
     <sys:String x:Key="TestAppeared">Preview effect start</sys:String>
     <sys:String x:Key="TestDisappeared">Preview effect end</sys:String>
-    <sys:String x:Key="TestReminder">Preview reminder</sys:String>
     <sys:String x:Key="MoveOne">Move in game</sys:String>
     <sys:String x:Key="MoveGroup">Move entire group</sys:String>
     <sys:String x:Key="MoveBuffPanel">Move panel in game</sys:String>
@@ -595,7 +594,8 @@
     <sys:String x:Key="ShowQuestLootPrefix">Show [Q] prefix</sys:String>
     <sys:String x:Key="LootListRename">Rename</sys:String>
     <sys:String x:Key="LootListDeleteConfirm">Delete the “{0}” list, its items and progress?</sys:String>
-    <sys:String x:Key="LootListTrackerDisplay">Tracker visibility</sys:String>
+    <sys:String x:Key="LootListTrackerColumn">Tracker</sys:String>
+    <sys:String x:Key="LootListTrackerSettings">Tracker settings</sys:String>
     <sys:String x:Key="LootListEnableOverlay">Enable overlay</sys:String>
     <sys:String x:Key="LootListTitle">Loot list</sys:String>
     <sys:String x:Key="LootListAddAction">Add to loot list</sys:String>

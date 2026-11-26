@@ -61,17 +61,17 @@ internal static class LootListNameDialog
         settings.LootLists.Add(list);
         return list;
     }
-    internal static bool Confirm(Window owner, string message, string action)
+    internal static bool Confirm(Window owner, string message, string action, bool centerContent = false)
     {
         var dialog = new Window { Owner = owner, Width = 360, SizeToContent = SizeToContent.Height,
             WindowStartupLocation = WindowStartupLocation.CenterOwner, WindowStyle = WindowStyle.None,
             ResizeMode = ResizeMode.NoResize, AllowsTransparency = true, Background = Brushes.Transparent,
             ShowInTaskbar = false, Topmost = owner.Topmost };
         var body = new StackPanel { Margin = new Thickness(14) };
-        var prompt = new TextBlock { Text = message, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 0, 0, 10) };
+        var prompt = new TextBlock { Text = message, TextAlignment = centerContent ? TextAlignment.Center : TextAlignment.Left, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 0, 0, 10) };
         prompt.SetResourceReference(FrameworkElement.StyleProperty, "RoSectionTitleStyle");
         body.Children.Add(prompt);
-        var actions = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right };
+        var actions = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = centerContent ? HorizontalAlignment.Center : HorizontalAlignment.Right };
         actions.Children.Add(new Button { Content = LocalizationService.Get("Cancel"), IsCancel = true });
         var confirm = new Button { Content = action };
         confirm.SetResourceReference(FrameworkElement.StyleProperty, "PrimaryButtonStyle");

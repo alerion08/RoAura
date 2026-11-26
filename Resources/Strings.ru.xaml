@@ -161,7 +161,6 @@
     <sys:String x:Key="TestCooldown">Проверить отображение</sys:String>
     <sys:String x:Key="TestAppeared">Проверить начало эффекта</sys:String>
     <sys:String x:Key="TestDisappeared">Проверить окончание эффекта</sys:String>
-    <sys:String x:Key="TestReminder">Проверить напоминание</sys:String>
     <sys:String x:Key="MoveOne">Переместить в игре</sys:String>
     <sys:String x:Key="MoveGroup">Переместить всю группу</sys:String>
     <sys:String x:Key="MoveBuffPanel">Переместить панель в игре</sys:String>
@@ -595,7 +594,8 @@
     <sys:String x:Key="ShowQuestLootPrefix">Показывать префикс [Q]</sys:String>
     <sys:String x:Key="LootListRename">Переименовать</sys:String>
     <sys:String x:Key="LootListDeleteConfirm">Удалить список «{0}» со всеми предметами и прогрессом?</sys:String>
-    <sys:String x:Key="LootListTrackerDisplay">Отображение в трекере</sys:String>
+    <sys:String x:Key="LootListTrackerColumn">Трекер</sys:String>
+    <sys:String x:Key="LootListTrackerSettings">Настройки трекера</sys:String>
     <sys:String x:Key="LootListEnableOverlay">Включить оверлей</sys:String>
     <sys:String x:Key="LootListTitle">Список добычи</sys:String>
     <sys:String x:Key="LootListAddAction">В список добычи</sys:String>
