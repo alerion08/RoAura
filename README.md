@@ -1,8 +1,10 @@
-# RoAura 3.7.0
+# RoAura 3.7.1
 
 Windows x64 overlay for Ragnarok Online. It tracks cooldowns and statuses from incoming RO packets via Npcap and displays configurable overlays.
 
 Gold Goblin calculates the value of the current SpringRO/ToC loot session using NPC sell prices, Overcharge, current Vending offers or manual price rules. The calculated value can be included in loot notifications and Zeny-per-hour statistics.
+
+Version 3.7.1 fixes automatic buff detection on Ragnarok+. See [3.7.1 release notes](docs/releases/3.7.1.md).
 
 Version 3.7.0 adds Gold Goblin loot lists, Ragnarok+ quest guides, and the offline skill icon catalog. See [3.7.0 release notes](docs/releases/3.7.0.md).
 

@@ -1,4 +1,5 @@
 using System.Buffers.Binary;
+using RoAura.Models;
 using RoAura.Services;
 using Xunit;
 
@@ -6,6 +7,19 @@ namespace RoAura.Tests;
 
 public sealed class PacketSkillEffectRegressionTests
 {
+    [Theory]
+    [InlineData(GameServerProfile.RagnarokPlus, 46, true, false)]
+    [InlineData(GameServerProfile.RagnarokPlus, 20, true, true)]
+    [InlineData(GameServerProfile.RagnarokPlus, 12, true, true)]
+    [InlineData(GameServerProfile.RagnarokPlus, 20, false, false)]
+    [InlineData(GameServerProfile.SpringRo, 46, true, true)]
+    public void Status_learning_skips_cast_recovery_for_ragnarok_plus(
+        string server, ushort statusId, bool active, bool expected)
+    {
+        var packet = new RoStatusPacket(0x0983, statusId, 4200, active, 1000, 1000);
+        Assert.Equal(expected, MainWindow.IsLearnableStatus(server, packet));
+    }
+
     [Fact]
     public void New_status_change_0983_reads_total_then_left_not_backwards()
     {

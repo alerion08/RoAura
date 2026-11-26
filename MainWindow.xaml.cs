@@ -1724,6 +1724,14 @@ public partial class MainWindow : Window
         return false;
     }
 
+    internal static bool IsLearnableStatus(string serverProfile, RoStatusPacket packet)
+    {
+        // Ragnarok+ can send status 46 for the cast recovery before the actual buff.
+        const ushort ragnarokPlusCastRecoveryStatus = 46;
+        return packet.Active && (GameServerProfile.Normalize(serverProfile) != GameServerProfile.RagnarokPlus ||
+            packet.StatusId != ragnarokPlusCastRecoveryStatus);
+    }
+
     private void OnLearningStatusObserved(RoPacketObservation<RoStatusPacket> observation)
     {
         var generation = _learningGeneration;
@@ -1734,7 +1742,7 @@ public partial class MainWindow : Window
             var valid = IsLearningObservation(observation, generation);
             LogLearning("status", packet.PacketId, packet.StatusId, armed, valid,
                 observation.SelfAid != 0, observation.IsOwnActor(packet.Aid));
-            if (!packet.Active || !armed || !valid) return;
+            if (!armed || !valid || !IsLearnableStatus(Settings.ServerProfile, packet)) return;
             if (!ReportLearningActor(observation, "Status ID", packet.StatusId, packet.Aid)) return;
             string name;
             if (_learningEffect is { } effect)
