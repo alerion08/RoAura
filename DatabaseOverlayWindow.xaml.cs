@@ -85,7 +85,7 @@ public partial class DatabaseOverlayWindow : Window
         foreach (var key in _searchQueries.Keys.ToList()) _searchQueries[key] = "";
         SearchBox.Text = "";
         _kind = DatabaseSearchKind.Monsters;
-        MonstersMode.IsChecked = true;
+        MonstersMode.IsSelected = true;
         RefreshLanguage();
         RefreshResults();
     }
@@ -98,11 +98,11 @@ public partial class DatabaseOverlayWindow : Window
         OverlayTitle.Text = T($"База {_database.Version}", $"{_database.Version} Database");
         MarketMode.IsEnabled = GameServerProfile.SupportsMarket(_settings.ServerProfile);
         MarketMode.Opacity = MarketMode.IsEnabled ? 1 : 0.6;
-        MonstersMode.Content = T("Монстры", "Monsters");
-        ItemsMode.Content = T("Предметы", "Items");
-        MapsMode.Content = T("Карты", "Maps");
-        MarketMode.Content = T("Маркет", "Market");
-        RecentCardsButton.Content = T("Недавние карточки", "Recent cards");
+        MonstersMode.Header = T("Монстры", "Monsters");
+        ItemsMode.Header = T("Предметы", "Items");
+        MapsMode.Header = T("Карты", "Maps");
+        MarketMode.Header = T("Маркет", "Market");
+        RecentCardsButton.Content = T("Недавно просмотрено", "Recently viewed");
         ItemSlotsLabel.Text = T("Слотов от", "Min. slots");
         DropItemLabel.Text = T("Предмет дропа: название или ID", "Drop item name or ID");
         NpcPriceSort.Content = T("Сначала дорогие у NPC", "Highest NPC sell price first");
@@ -558,13 +558,13 @@ public partial class DatabaseOverlayWindow : Window
         }
     }
 
-    private void Mode_Checked(object sender, RoutedEventArgs e)
+    private void Mode_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (sender is RadioButton { Tag: string tag } && Enum.TryParse(tag, out DatabaseSearchKind kind))
+        if (e.Source is TabControl { SelectedItem: TabItem { Tag: string tag } } && Enum.TryParse(tag, out DatabaseSearchKind kind))
         {
             var previousKind = _kind;
             _kind = kind;
-            // Checked fires while InitializeComponent is still constructing the visual tree.
+            // Selection can change while InitializeComponent constructs the visual tree.
             // No named controls other than the sender are guaranteed to exist at that point.
             if (!IsLoaded) return;
             _searchQueries[previousKind] = SearchBox.Text;

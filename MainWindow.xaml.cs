@@ -475,23 +475,39 @@ public partial class MainWindow : Window
         _goldGoblinRowsView.SortDescriptions.Add(new SortDescription(property, direction));
     }
 
-    private void GoldGoblinLootGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void GoldGoblinWorkspaceTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row) return;
+        if (ReferenceEquals(e.Source, GoldGoblinWorkspaceTabs) && GoldGoblinWorkspaceTabs?.SelectedIndex == 0)
+            RefreshGoldGoblinItemEditor();
+    }
+
+    private void GoldGoblinLootGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) =>
+        RefreshGoldGoblinItemEditor();
+
+    private void RefreshGoldGoblinItemEditor()
+    {
+        if (GoldGoblinExcludeItem is null) return;
+        var row = GoldGoblinLootGrid.SelectedItem as GoldGoblinLootRow;
+        var rule = row is null ? null : FindGoldGoblinRule(row);
         _updatingGoldGoblinEditor = true;
-        var rule = Settings.ActiveGoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
-        GoldGoblinPriceSourceBox.SelectedValue = rule is null
+        GoldGoblinPriceSourceBox.SelectedValue = rule is null or { UseNpcPrice: true }
             ? "npc"
             : rule.UseVendingPrice ? "vending" : "manual";
         GoldGoblinManualPriceBox.Text = rule?.ManualPrice.ToString() ?? "0";
+        GoldGoblinExcludeItem.IsChecked = rule?.Exclude == true;
+        GoldGoblinExcludeItem.IsEnabled = row is not null;
         _updatingGoldGoblinEditor = false;
     }
 
+    private GoldGoblinPriceRule? FindGoldGoblinRule(GoldGoblinLootRow row) =>
+        Settings.ActiveGoldGoblinPriceRules.FirstOrDefault(rule => rule.ItemId > 0
+            ? rule.ItemId == row.ItemId
+            : string.Equals(rule.Name, row.Item, StringComparison.CurrentCultureIgnoreCase));
+
     private GoldGoblinPriceRule GetOrCreateGoldGoblinRule(GoldGoblinLootRow row)
     {
-        var rule = Settings.ActiveGoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
-        if (rule is not null) return rule;
-        rule = new GoldGoblinPriceRule { ItemId = row.ItemId, Name = row.Item };
+        if (FindGoldGoblinRule(row) is { } existing) return existing;
+        var rule = new GoldGoblinPriceRule { ItemId = row.ItemId, Name = row.Item, UseNpcPrice = true };
         Settings.ActiveGoldGoblinPriceRules.Add(rule);
         return rule;
     }
@@ -500,17 +516,19 @@ public partial class MainWindow : Window
     {
         if (_updatingGoldGoblinEditor || GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row ||
             GoldGoblinPriceSourceBox.SelectedValue is not string source) return;
-        var existing = Settings.ActiveGoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
-        if (source == "npc")
-        {
-            if (existing is not null) Settings.ActiveGoldGoblinPriceRules.Remove(existing);
-        }
-        else
-        {
-            var rule = GetOrCreateGoldGoblinRule(row);
-            rule.UseVendingPrice = source == "vending";
-        }
+        var rule = source == "npc" ? FindGoldGoblinRule(row) : GetOrCreateGoldGoblinRule(row);
+        if (rule is null) return;
+        rule.UseVendingPrice = source == "vending";
+        rule.UseNpcPrice = source == "npc";
         _goldGoblin.Reprice();
+    }
+
+    private void GoldGoblinExcludeItem_Click(object sender, RoutedEventArgs e)
+    {
+        if (_updatingGoldGoblinEditor || GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row) return;
+        GetOrCreateGoldGoblinRule(row).Exclude = GoldGoblinExcludeItem.IsChecked == true;
+        _goldGoblin.Reprice();
+        SaveSettings(applyPacketCapture: false);
     }
 
     private void GoldGoblinManualPrice_LostFocus(object sender, RoutedEventArgs e)
@@ -519,13 +537,16 @@ public partial class MainWindow : Window
         if (!long.TryParse(GoldGoblinManualPriceBox.Text, out var price) || price < 0)
         {
             SetStatus(T("Цена должна быть целым неотрицательным числом.", "Price must be a non-negative whole number."));
-            GoldGoblinLootGrid_SelectionChanged(GoldGoblinLootGrid,
-                new SelectionChangedEventArgs(Selector.SelectionChangedEvent, Array.Empty<object>(), Array.Empty<object>()));
+            RefreshGoldGoblinItemEditor();
             return;
         }
         var rule = GetOrCreateGoldGoblinRule(row);
         rule.ChangeManualPrice(price);
-        if (GoldGoblinPriceSourceBox.SelectedValue?.ToString() == "manual") rule.UseVendingPrice = false;
+        if (GoldGoblinPriceSourceBox.SelectedValue?.ToString() == "manual")
+        {
+            rule.UseNpcPrice = false;
+            rule.UseVendingPrice = false;
+        }
         _goldGoblin.Reprice();
     }
 
@@ -539,6 +560,7 @@ public partial class MainWindow : Window
             SetStatus(T("Цена должна быть целым неотрицательным числом.", "Price must be a non-negative whole number."));
             return;
         }
+        rule.UseNpcPrice = false;
         rule.ChangeManualPrice(price);
     }
 
@@ -1297,8 +1319,7 @@ public partial class MainWindow : Window
     private void PickCatalogSkillIcon_Click(object sender, RoutedEventArgs e)
     {
         if (SkillsGrid.SelectedItem is not SkillAura skill) { SelectFirst("skill"); return; }
-        var dialog = new SkillIconPickerWindow(skill.PacketSkillId) { Owner = this };
-        if (dialog.ShowDialog() != true || dialog.SelectedIcon is not { } icon) return;
+        if (SkillIconPickerWindow.Pick(this) is not { } icon) return;
         skill.IconImageBase64 = icon.IconBase64;
         skill.IconFileName = icon.Name;
         SaveSettings();
@@ -1468,6 +1489,15 @@ public partial class MainWindow : Window
         ShowDurationFill = source.ShowDurationFill
     };
 
+    private void PickEffectCatalogIcon_Click(object sender, RoutedEventArgs e)
+    {
+        if (EffectsGrid.SelectedItem is not TrackedEffect item) { SelectFirst("effect"); return; }
+        if (SkillIconPickerWindow.Pick(this) is not { } icon) return;
+        item.TemplateImageBase64 = icon.IconBase64;
+        item.TemplateFileName = icon.Name;
+        SaveSettings();
+    }
+
     private void PickEffectIcon_Click(object sender, RoutedEventArgs e)
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
@@ -1574,6 +1604,15 @@ public partial class MainWindow : Window
     private void DeleteReminder_Click(object sender, RoutedEventArgs e)
     {
         if (RemindersGrid.SelectedItem is ReminderItem reminder) Settings.Reminders.Remove(reminder);
+    }
+
+    private void PickReminderCatalogIcon_Click(object sender, RoutedEventArgs e)
+    {
+        if (RemindersGrid.SelectedItem is not ReminderItem item) { SelectFirst("reminder"); return; }
+        if (SkillIconPickerWindow.Pick(this) is not { } icon) return;
+        item.IconImageBase64 = icon.IconBase64;
+        item.IconFileName = icon.Name;
+        SaveSettings();
     }
 
     private void PickReminderIcon_Click(object sender, RoutedEventArgs e)

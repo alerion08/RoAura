@@ -12,7 +12,72 @@ public partial class DatabaseDetailWindow
 
     private void AddFavoriteAction(DatabaseFavorite entry)
     {
-        AddLink(T("Добавить в список…", "Add to favorites list…"), () => ShowFavoriteLists(entry));
+        var button = new Button { Content = T("Добавить в избранное", "Add to favorites"), HorizontalAlignment = HorizontalAlignment.Left };
+        AttachFavoriteMenu(button, entry);
+        DetailsPanel.Children.Add(button);
+    }
+
+    private void AttachFavoriteMenu(Button button, DatabaseFavorite entry)
+    {
+        void UpdateButton()
+        {
+            if (FavoriteLists.Any(list => list.Entries.Any(Matches)))
+                button.SetResourceReference(StyleProperty, "ActiveItemCardButtonStyle");
+            else
+                button.ClearValue(StyleProperty);
+        }
+
+        bool Matches(DatabaseFavorite row) => row.Kind == entry.Kind &&
+            string.Equals(row.Key, entry.Key, StringComparison.OrdinalIgnoreCase);
+
+        UpdateButton();
+        button.Click += (_, _) =>
+        {
+            var menu = new ContextMenu
+            {
+                PlacementTarget = button,
+                Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom,
+                MaxHeight = 320
+            };
+            foreach (var list in FavoriteLists)
+            {
+                var label = new StackPanel { Orientation = Orientation.Horizontal };
+                label.Children.Add(FavoriteColorMarker(list));
+                label.Children.Add(new TextBlock { Text = list.Name });
+                var option = new MenuItem
+                {
+                    Header = label, IsCheckable = true, IsChecked = list.Entries.Any(Matches),
+                    StaysOpenOnClick = true
+                };
+                option.Click += (_, _) =>
+                {
+                    if (option.IsChecked)
+                    {
+                        if (!list.Entries.Any(Matches)) list.Entries.Add(entry with { });
+                    }
+                    else list.Entries.RemoveAll(row => Matches(row));
+                    SaveFavorites();
+                    UpdateButton();
+                };
+                menu.Items.Add(option);
+            }
+
+            if (menu.Items.Count == 0)
+                menu.Items.Add(new MenuItem { Header = T("Списков пока нет", "No favorites lists yet"), IsEnabled = false });
+            menu.IsOpen = true;
+        };
+    }
+
+    private static Border FavoriteColorMarker(DatabaseFavoriteList list)
+    {
+        var marker = new Border { Width = 5, CornerRadius = new CornerRadius(2), Margin = new Thickness(0, 1, 7, 1) };
+        marker.SetResourceReference(Border.BackgroundProperty, "RoBorderBrush");
+        if (!string.IsNullOrWhiteSpace(list.ColorHex))
+        {
+            try { marker.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(list.ColorHex)); }
+            catch (FormatException) { }
+        }
+        return marker;
     }
 
     private void AddItemActions(DatabaseItem item)
@@ -25,9 +90,7 @@ public partial class DatabaseDetailWindow
             if (_database.Version == GameServerProfile.RagnarokPlus) actions.Children.Add(NewWatch("BUY", "Buy"));
         }
         var favorite = new Button { Content = ItemActionLabel("Favorite"), FontSize = 12, MinHeight = 32, Margin = new Thickness(2), Padding = new Thickness(3) };
-        if (FavoriteLists.Any(list => list.Entries.Any(row => row.Kind == entry.Kind && row.Key == entry.Key)))
-            favorite.SetResourceReference(StyleProperty, "ActiveItemCardButtonStyle");
-        favorite.Click += (_, _) => ShowFavoriteLists(entry);
+        AttachFavoriteMenu(favorite, entry);
         actions.Children.Add(favorite);
         DetailsPanel.Children.Add(actions);
 
@@ -51,16 +114,15 @@ public partial class DatabaseDetailWindow
         return label;
     }
 
-    internal void ShowFavoriteLists(DatabaseFavorite? entry = null, string? selectedName = null, bool navigate = true)
+    internal void ShowFavoriteLists(string? selectedName = null, bool navigate = true)
     {
-        if (navigate) Navigate(() => ShowFavoriteLists(entry, selectedName, false));
+        if (navigate) Navigate(() => ShowFavoriteLists(selectedName, false));
         ++_detailVersion;
         Clear();
-        _appearanceRedraw = () => ShowFavoriteLists(entry, selectedName, false);
+        _appearanceRedraw = () => ShowFavoriteLists(selectedName, false);
         RefreshBackButton();
         DetailsScroll.ScrollToTop();
         AddSection(T("Избранное", "Favorites"));
-        if (entry is not null) DetailsPanel.Children.Add(Meta(entry.Name));
 
         var lists = FavoriteLists;
         var chooser = new ComboBox { ItemsSource = lists.Select(list => list.Name).ToArray(), Margin = new Thickness(0, 4, 0, 4) };
@@ -69,7 +131,9 @@ public partial class DatabaseDetailWindow
         DetailsPanel.Children.Add(Meta(T("Название списка", "List name")));
         DetailsPanel.Children.Add(name);
         var error = Meta("");
-        AddLink(T("Создать список", "Create list"), () =>
+        var createRow = new System.Windows.Controls.Primitives.UniformGrid { Rows = 1 };
+        var newColor = new DatabaseFavoriteList();
+        AddFavoriteButton(createRow, T("Создать список", "Create list"), () =>
         {
             var title = name.Text.Trim();
             if (title.Length == 0 || lists.Any(list => string.Equals(list.Name, title, StringComparison.OrdinalIgnoreCase)))
@@ -77,11 +141,23 @@ public partial class DatabaseDetailWindow
                 error.Text = T("Укажите уникальное название списка.", "Enter a unique list name.");
                 return;
             }
-            lists.Add(new DatabaseFavoriteList { Name = title });
+            newColor.Name = title;
+            lists.Add(newColor);
             _settings.DatabaseFavoriteLists[_database.Version] = lists;
             SaveFavorites();
-            ShowFavoriteLists(entry, title, false);
+            ShowFavoriteLists(title, false);
         });
+        var createColor = new Button { Content = T("Цвет нового списка", "New list color") };
+        createColor.Click += (_, _) =>
+        {
+            if (!PickFavoriteColor(newColor)) return;
+            var preview = new StackPanel { Orientation = Orientation.Horizontal };
+            preview.Children.Add(FavoriteColorMarker(newColor));
+            preview.Children.Add(new TextBlock { Text = T("Цвет нового списка", "New list color") });
+            createColor.Content = preview;
+        };
+        createRow.Children.Add(createColor);
+        DetailsPanel.Children.Add(createRow);
         var management = new System.Windows.Controls.Primitives.UniformGrid { Rows = 1 };
         var rename = new Button { Content = T("Переименовать", "Rename") };
         var delete = new Button { Content = T("Удалить список", "Delete list") };
@@ -101,7 +177,7 @@ public partial class DatabaseDetailWindow
             }
             list.Name = title;
             SaveFavorites();
-            ShowFavoriteLists(entry, title, false);
+            ShowFavoriteLists(title, false);
         };
         delete.Click += (_, _) =>
         {
@@ -112,7 +188,7 @@ public partial class DatabaseDetailWindow
                 MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
             lists.Remove(list);
             SaveFavorites();
-            ShowFavoriteLists(entry, null, false);
+            ShowFavoriteLists(null, false);
         };
         DetailsPanel.Children.Add(error);
         var contents = new StackPanel();
@@ -125,30 +201,18 @@ public partial class DatabaseDetailWindow
             if (chooser.SelectedIndex < 0) return;
             var list = lists[chooser.SelectedIndex];
             selectedName = list.Name;
-            _currentPage = () => ShowFavoriteLists(entry, selectedName, false);
+            _currentPage = () => ShowFavoriteLists(selectedName, false);
             var summary = new DockPanel { Margin = new Thickness(0, 6, 0, 4) };
             var color = new Button { Padding = new Thickness(5, 2, 5, 2), Content = T("Цвет", "Color") };
             DockPanel.SetDock(color, Dock.Right);
             color.Click += (_, _) =>
             {
-                var picker = new ColorPickerWindow(string.IsNullOrWhiteSpace(list.ColorHex) ? "#FF2863AA" : list.ColorHex)
-                {
-                    Owner = this, Topmost = Topmost
-                };
-                if (picker.ShowDialog() != true) return;
-                list.ColorHex = picker.SelectedHex;
+                if (!PickFavoriteColor(list)) return;
                 SaveFavorites();
                 RenderList();
             };
             summary.Children.Add(color);
-            var marker = new Border { Width = 4, CornerRadius = new CornerRadius(2),
-                Margin = new Thickness(0, 3, 6, 3) };
-            marker.SetResourceReference(Border.BackgroundProperty, "RoBorderBrush");
-            if (!string.IsNullOrWhiteSpace(list.ColorHex))
-            {
-                try { marker.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(list.ColorHex)); }
-                catch (FormatException) { }
-            }
+            var marker = FavoriteColorMarker(list);
             DockPanel.SetDock(marker, Dock.Left);
             summary.Children.Add(marker);
             var items = list.Entries.Count(favorite => favorite.Kind == DatabaseSearchKind.Items);
@@ -157,20 +221,6 @@ public partial class DatabaseDetailWindow
             summary.Children.Add(Meta(T($"Предметы {items} · Монстры {monsters} · Карты {maps}",
                 $"Items {items} · Monsters {monsters} · Maps {maps}")));
             contents.Children.Add(summary);
-
-            if (entry is not null)
-            {
-                var existing = list.Entries.FirstOrDefault(favorite => favorite.Kind == entry.Kind &&
-                    string.Equals(favorite.Key, entry.Key, StringComparison.OrdinalIgnoreCase));
-                AddFavoriteButton(contents, existing is null ? T("Добавить в этот список", "Add to this list") :
-                    T("Убрать из этого списка", "Remove from this list"), () =>
-                {
-                    if (existing is null) list.Entries.Add(entry);
-                    else list.Entries.Remove(existing);
-                    SaveFavorites();
-                    RenderList();
-                });
-            }
 
             if (list.Entries.Count == 0) contents.Children.Add(Meta(T("Список пуст.", "The list is empty.")));
             foreach (var favorite in list.Entries.OrderBy(favorite => favorite.Name, StringComparer.CurrentCultureIgnoreCase))
@@ -202,6 +252,17 @@ public partial class DatabaseDetailWindow
         };
         chooser.SelectedItem = lists.FirstOrDefault(list => list.Name == selectedName)?.Name ?? lists.FirstOrDefault()?.Name;
         RenderList();
+    }
+
+    private bool PickFavoriteColor(DatabaseFavoriteList list)
+    {
+        var picker = new ColorPickerWindow(string.IsNullOrWhiteSpace(list.ColorHex) ? "#FF2863AA" : list.ColorHex)
+        {
+            Owner = this, Topmost = Topmost
+        };
+        if (picker.ShowDialog() != true) return false;
+        list.ColorHex = picker.SelectedHex;
+        return true;
     }
 
     private void AddFavoriteNote(Panel parent, DatabaseFavorite favorite)

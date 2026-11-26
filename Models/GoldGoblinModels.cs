@@ -10,13 +10,23 @@ public sealed class GoldGoblinPriceRule : INotifyPropertyChanged
     private string _name = "";
     private int _itemId;
     private bool _useVendingPrice;
+    private bool _useNpcPrice;
     private long _manualPrice;
     private bool _exclude;
     public bool Exclude { get => _exclude; set => Set(ref _exclude, value); }
 
     public int ItemId { get => _itemId; set => Set(ref _itemId, Math.Max(0, value)); }
     public string Name { get => _name; set => Set(ref _name, value?.Trim() ?? ""); }
-    public bool UseVendingPrice { get => _useVendingPrice; set => Set(ref _useVendingPrice, value); }
+    public bool UseNpcPrice { get => _useNpcPrice; set => Set(ref _useNpcPrice, value); }
+    public bool UseVendingPrice
+    {
+        get => _useVendingPrice;
+        set
+        {
+            if (value) UseNpcPrice = false;
+            Set(ref _useVendingPrice, value);
+        }
+    }
     public long ManualPrice { get => _manualPrice; set => Set(ref _manualPrice, Math.Max(0, value)); }
 
     public List<ManualPriceChange> ManualPriceHistory { get; set; } = [];

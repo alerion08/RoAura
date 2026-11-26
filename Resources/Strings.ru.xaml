@@ -146,7 +146,7 @@
     <sys:String x:Key="EquipmentTextOnIcon">Текст поверх иконки</sys:String>
     <sys:String x:Key="SkillIconCatalogTitle">Каталог иконок навыков</sys:String>
     <sys:String x:Key="SkillIconSearchLabel">Название на английском, код или ID</sys:String>
-    <sys:String x:Key="SkillIconJobLabel">Профессия</sys:String>
+    <sys:String x:Key="SkillIconJobSearch">Поиск по названию профессии</sys:String>
     <sys:String x:Key="SkillIconAllJobs">Все профессии</sys:String>
     <sys:String x:Key="SkillIconNoResults">Совпадений нет</sys:String>
     <sys:String x:Key="SkillIconUse">Выбрать из каталога</sys:String>

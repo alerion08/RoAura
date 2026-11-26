@@ -49,25 +49,38 @@ internal sealed class SkillIconCatalog
         return new SkillIconCatalog(manifest.Jobs, skills.ToArray());
     }
 
-    internal IEnumerable<Skill> Search(string query, Job? job = null)
+    internal IEnumerable<Job> FindJobs(string query, bool rebirth, bool renewal) =>
+        Jobs.Where(job => IsAvailable(job, rebirth, renewal) &&
+            job.Name.Contains(query.Trim(), StringComparison.OrdinalIgnoreCase));
+
+    private static bool IsAvailable(Job job, bool rebirth, bool renewal) => job.Id switch
+    {
+        >= 4008 and <= 4021 => rebirth,
+        >= 4054 and <= 4308 => renewal,
+        _ => true
+    };
+
+    internal IEnumerable<Skill> Search(string query, Job? job = null, bool rebirth = true, bool renewal = true)
     {
         query = query.Trim();
         var isId = int.TryParse(query, out var id);
-        var allowed = job is null ? null : SkillsForJob(job.Id);
-        return Skills.Where(skill => (allowed is null || allowed.Contains(skill.Id)) &&
+        var allowed = job is null
+            ? Jobs.Where(row => IsAvailable(row, rebirth, renewal)).SelectMany(row => row.SkillIds).ToHashSet()
+            : SkillsForJob(job.Id, rebirth, renewal);
+        return Skills.Where(skill => allowed.Contains(skill.Id) &&
             (isId ? skill.Id == id :
                 skill.Name.Contains(query, StringComparison.OrdinalIgnoreCase) ||
                 skill.Code.Contains(query, StringComparison.OrdinalIgnoreCase)));
     }
 
-    private HashSet<int> SkillsForJob(int jobId)
+    private HashSet<int> SkillsForJob(int jobId, bool rebirth, bool renewal)
     {
         var skills = new HashSet<int>();
         var visited = new HashSet<int>();
         int? current = jobId;
         while (current is int id && visited.Add(id) && _jobsById.TryGetValue(id, out var job))
         {
-            skills.UnionWith(job.SkillIds);
+            if (IsAvailable(job, rebirth, renewal)) skills.UnionWith(job.SkillIds);
             current = job.PreviousJobId;
         }
         return skills;

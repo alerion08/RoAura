@@ -63,6 +63,13 @@ public partial class ReminderWizardWindow : Window
         ShowSetupStep();
     }
 
+    private void ChooseCatalogIcon_Click(object sender, RoutedEventArgs e)
+    {
+        if (SkillIconPickerWindow.Pick(this) is not { } icon) return;
+        Draft.IconImageBase64 = icon.IconBase64;
+        Draft.IconFileName = icon.Name;
+    }
+
     private void PickIcon_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new OpenFileDialog { Filter = "PNG (*.png)|*.png|Images|*.png;*.jpg;*.jpeg;*.bmp" };

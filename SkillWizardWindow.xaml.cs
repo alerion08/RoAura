@@ -137,9 +137,7 @@ public partial class SkillWizardWindow : Window
 
     private void ChooseCatalogIcon_Click(object sender, RoutedEventArgs e)
     {
-        int.TryParse(SkillIdBox.Text, out var skillId);
-        var dialog = new SkillIconPickerWindow(skillId) { Owner = this };
-        if (dialog.ShowDialog() != true || dialog.SelectedIcon is not { } icon) return;
+        if (SkillIconPickerWindow.Pick(this) is not { } icon) return;
         ApplyIcon(Convert.FromBase64String(icon.IconBase64), icon.Name);
     }
 

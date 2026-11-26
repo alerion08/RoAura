@@ -30,4 +30,16 @@ public sealed class SkillIconCatalogTests
         Assert.Equal(catalog.Search("", swordman).Select(skill => skill.Id).Distinct().Count(),
             catalog.Search("", swordman).Count());
     }
+    [Fact]
+    public void Edition_filters_apply_to_jobs_and_their_exclusive_icons()
+    {
+        var catalog = SkillIconCatalog.Instance;
+        Assert.Single(catalog.FindJobs("assassin cross", true, false));
+        Assert.Empty(catalog.FindJobs("assassin cross", false, true));
+        Assert.Single(catalog.FindJobs("guillotine cross", false, true));
+        Assert.Empty(catalog.FindJobs("guillotine cross", true, false));
+        Assert.Empty(catalog.Search("376", rebirth: false));
+        Assert.Empty(catalog.Search("2022", renewal: false));
+        Assert.Single(catalog.Search("1", rebirth: false, renewal: false));
+    }
 }

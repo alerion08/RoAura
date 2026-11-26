@@ -43,8 +43,13 @@
 
 ## Offline skill icon picker and equipment alignment
 
-- The bundled iRO Wiki catalog supplies 1,126 icons and 80 job trees. The cooldown wizard and editor can search by English name, code or exact numeric ID and filter by job with inherited skills. The chosen icon is stored with the cooldown.
+- The bundled iRO Wiki catalog supplies 1,126 icons and 80 job trees. Cooldowns, effects and reminders can search the catalog by English name, code or exact catalog ID. The search opens empty. Job name search and independent Rebirth and Renewal filters apply to the catalog and profession list. The chosen icon is stored with the overlay entry.
 - Horizontal equipment groups top-align their items so an icon with overlay text stops at the icon's edge beside an item with a caption underneath.
+
+## Gold Goblin and database controls
+
+- Gold Goblin matches Statistics session controls and supports excluding the selected item without replacing its price source.
+- Database search modes use section tabs. Card favorite actions open a color-coded checklist of existing lists. List management remains available from Favorites.
 
 ## Previous published baseline — RoAura 3.5.0
 

@@ -92,7 +92,7 @@ public sealed class GoldGoblinService
                 ? item.ItemId == itemId
                 : string.Equals(item.Name, name, StringComparison.CurrentCultureIgnoreCase));
         if (rule?.Exclude == true) return (0, "Excluded", true);
-        if (rule is not null)
+        if (rule is { UseNpcPrice: false })
         {
             if (rule.UseVendingPrice && TryGetVendingPrice(itemId, name, out var vending))
                 return (vending, "Vending", true);

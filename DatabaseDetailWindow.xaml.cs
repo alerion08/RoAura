@@ -447,7 +447,7 @@ public partial class DatabaseDetailWindow : Window
             Clear();
             RefreshBackButton();
             DetailsScroll.ScrollToTop();
-            AddSection(T("Недавние карточки", "Recent cards"));
+            AddSection(T("Недавно просмотрено", "Recently viewed"));
             if (!_recentCards.TryGetValue(_database.Version, out var recent) || recent.Count == 0)
             {
                 DetailsPanel.Children.Add(Meta(T("Нет открытых карточек.", "No recently opened cards.")));

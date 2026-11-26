@@ -43,7 +43,8 @@
                     <TextBlock Text="{DynamicResource Name}" FontWeight="SemiBold"/><TextBox Text="{Binding Draft.Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,6,0,12"/>
                     <TextBlock Text="{DynamicResource ReminderText}" FontWeight="SemiBold"/><TextBox Text="{Binding Draft.Text, UpdateSourceTrigger=PropertyChanged}" Margin="0,6,0,12"/>
                     <TextBlock Text="{DynamicResource Group}" FontWeight="SemiBold"/><TextBox Text="{Binding Draft.GroupNumber, UpdateSourceTrigger=PropertyChanged}" Margin="0,6,0,12"/>
-                    <Button Content="{DynamicResource PickIcon}" Click="PickIcon_Click" HorizontalAlignment="Left"/>
+                    <Button Content="{DynamicResource SkillIconUse}" Click="ChooseCatalogIcon_Click" HorizontalAlignment="Left"/>
+                    <Button Content="{DynamicResource SkillIconFromFile}" Click="PickIcon_Click" HorizontalAlignment="Left"/>
                     <CheckBox Content="{DynamicResource TrackReminder}" IsChecked="{Binding Draft.Enabled}" Margin="0,14,0,0"/>
                     <TextBlock x:Name="SetupValidationText" Foreground="{DynamicResource UiForeground_B64B55}" TextWrapping="Wrap" Margin="0,12,0,0"/>
                 </StackPanel>

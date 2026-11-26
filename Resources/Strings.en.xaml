@@ -146,7 +146,7 @@
     <sys:String x:Key="EquipmentTextOnIcon">Text over icon</sys:String>
     <sys:String x:Key="SkillIconCatalogTitle">Skill icon catalog</sys:String>
     <sys:String x:Key="SkillIconSearchLabel">English name, code or ID</sys:String>
-    <sys:String x:Key="SkillIconJobLabel">Job</sys:String>
+    <sys:String x:Key="SkillIconJobSearch">Search by job name</sys:String>
     <sys:String x:Key="SkillIconAllJobs">All jobs</sys:String>
     <sys:String x:Key="SkillIconNoResults">No matching skills</sys:String>
     <sys:String x:Key="SkillIconUse">Choose from catalog</sys:String>

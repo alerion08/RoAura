@@ -23,9 +23,14 @@
                 <TextBox x:Name="SearchBox" TextChanged="FilterChanged" AutomationProperties.LabeledBy="{Binding ElementName=SearchLabel}"/>
             </StackPanel>
             <StackPanel Grid.Column="1">
-                <TextBlock x:Name="JobLabel" Text="{DynamicResource SkillIconJobLabel}" Margin="0,0,0,4"/>
-                <ComboBox x:Name="JobBox" DisplayMemberPath="Name" SelectionChanged="FilterChanged"
+                <TextBlock x:Name="JobLabel" Text="{DynamicResource SkillIconJobSearch}" Margin="0,0,0,4"/>
+                <TextBox x:Name="JobSearchBox" TextChanged="JobSearchChanged" AutomationProperties.LabeledBy="{Binding ElementName=JobLabel}"/>
+                <ComboBox x:Name="JobBox" SelectionChanged="FilterChanged" Margin="0,4,0,0"
                           AutomationProperties.LabeledBy="{Binding ElementName=JobLabel}"/>
+                <WrapPanel Margin="0,6,0,0">
+                    <CheckBox x:Name="RebirthBox" Content="Rebirth" IsChecked="True" Click="JobEditionChanged" Margin="0,0,12,0"/>
+                    <CheckBox x:Name="RenewalBox" Content="Renewal" IsChecked="True" Click="JobEditionChanged"/>
+                </WrapPanel>
             </StackPanel>
         </Grid>
         <ListBox Grid.Row="1" x:Name="Results" SelectionChanged="SelectionChanged" MouseDoubleClick="ResultDoubleClicked"
