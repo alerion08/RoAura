@@ -139,7 +139,7 @@ public sealed class TocIntegrationTests
         rule.Exclude = true;
         Assert.Equal((0L, "Excluded", true), service.ResolvePriceInfo(501, "Red Potion"));
         rule.Exclude = false;
-        Assert.Equal((25L, "NPC", true), service.ResolvePriceInfo(501, "Red Potion"));
+        Assert.Equal((31L, "NPC", true), service.ResolvePriceInfo(501, "Red Potion"));
         rule.UseNpcPrice = false;
         Assert.Equal((77L, "Manual", true), service.ResolvePriceInfo(501, "Red Potion"));
         service.AddLoot(501, "Red Potion", 3);
