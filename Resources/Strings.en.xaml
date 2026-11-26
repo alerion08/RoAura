@@ -151,6 +151,9 @@
     <sys:String x:Key="SkillIconNoResults">No matching skills</sys:String>
     <sys:String x:Key="SkillIconUse">Choose from catalog</sys:String>
     <sys:String x:Key="SkillIconFromFile">Choose file</sys:String>
+    <sys:String x:Key="EquipmentIconCatalogTitle">Equipment icon catalog</sys:String>
+    <sys:String x:Key="EquipmentItemIconSearch">Search items</sys:String>
+    <sys:String x:Key="EquipmentSkillIconSearch">Search skills</sys:String>
     <sys:String x:Key="UseEquipmentDatabaseIcon">Use database icon</sys:String>
     <sys:String x:Key="PickIcon">Choose icon</sys:String>
     <sys:String x:Key="LearnSkill">Detect skill</sys:String>

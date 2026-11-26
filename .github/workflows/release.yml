@@ -61,16 +61,14 @@ jobs:
         shell: python
         run: |
           import hashlib, os, pathlib, subprocess
-          revision = '41bfc483311fa0e24ee84d1b1edcb0b4558914bd'
+          revision = 'e4e6b8ac21c92bc86017ac8385d8b22d200a3f88'
           subprocess.run(['git', 'fetch', '--depth=1', 'origin', revision], check=True)
           payload = subprocess.check_output(['git', 'show', revision + ':research/quest-database/output/questie_catalog.sqlite'])
-          assert hashlib.sha256(payload).hexdigest() == '7c89954c66b90603467ee4b645979fe4bad46ff0003ebaf9073e32c18d748745'
+          assert hashlib.sha256(payload).hexdigest() == '4dc0a544b084344d4bb653f70807a01acca25e493b56137daee6d7ad1d2f8caf'
           (pathlib.Path(os.environ['RUNNER_TEMP']) / 'questie_catalog.sqlite').write_bytes(payload)
           pathlib.Path('Data/questie_catalog.sqlite').write_bytes(payload)
-          semantic_revision = 'e3206beccbdd414c6d6f31d146d168247634c578'
-          subprocess.run(['git', 'fetch', '--depth=1', 'origin', semantic_revision], check=True)
-          semantic = subprocess.check_output(['git', 'show', semantic_revision + ':research/quest-database/output/quest_semantic.sqlite'])
-          assert hashlib.sha256(semantic).hexdigest() == 'af4de49aa11587dc6ec971aa019c6ff60e6ed4aa3fee802c61282db65ac7091d'
+          semantic = subprocess.check_output(['git', 'show', revision + ':research/quest-database/output/quest_semantic.sqlite'])
+          assert hashlib.sha256(semantic).hexdigest() == '7aee69ab8c8bf503a4ed8dd9a2c213d80af5e13bf6d39a9aa3a6b9b21ed32b77'
           pathlib.Path('Data/quest_semantic.sqlite').write_bytes(semantic)
 
       - name: Bundle timer minimaps and sprites

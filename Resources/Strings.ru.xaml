@@ -151,6 +151,9 @@
     <sys:String x:Key="SkillIconNoResults">Совпадений нет</sys:String>
     <sys:String x:Key="SkillIconUse">Выбрать из каталога</sys:String>
     <sys:String x:Key="SkillIconFromFile">Выбрать файл</sys:String>
+    <sys:String x:Key="EquipmentIconCatalogTitle">Каталог иконок экипировки</sys:String>
+    <sys:String x:Key="EquipmentItemIconSearch">Поиск среди предметов</sys:String>
+    <sys:String x:Key="EquipmentSkillIconSearch">Поиск среди умений</sys:String>
     <sys:String x:Key="UseEquipmentDatabaseIcon">Использовать иконку из БД</sys:String>
     <sys:String x:Key="PickIcon">Выбрать иконку</sys:String>
     <sys:String x:Key="LearnSkill">Определить умение</sys:String>

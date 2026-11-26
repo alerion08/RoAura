@@ -2042,8 +2042,15 @@ public partial class MainWindow : Window
         }, value => item.IconFileName = value);
     }
 
-    private void UseEquipmentDatabaseIcon_Click(object sender, RoutedEventArgs e) =>
+    private void PickEquipmentCatalogIcon_Click(object sender, RoutedEventArgs e)
+    {
+        if (EquipmentGrid.SelectedItem is not EquipmentTracker item) { SelectFirst("equipment"); return; }
+        if (SkillIconPickerWindow.PickEquipment(this, _items.Values) is not { } icon) return;
+        item.IconImageBase64 = icon.IconBase64;
+        item.IconFileName = icon.Name;
+        item.UseDatabaseIcon = false;
         SaveSettings(applyPacketCapture: false);
+    }
 
     private string? ResolveEquipmentDatabaseIcon(int itemId) =>
         GameServerProfile.SupportsServerDatabases(Settings.ServerProfile) &&

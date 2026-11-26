@@ -60,7 +60,15 @@ public sealed class QuestSemanticTests
   Assert.NotEmpty(result.Quests);
   var comments=result.Quests.Values.SelectMany(q=>q.Requirements.Concat(q.Rewards).Select(f=>f.Condition)
    .Concat(q.Steps.SelectMany(s=>s.Items.Select(i=>i.Condition)))).Where(s=>!string.IsNullOrWhiteSpace(s)).Distinct();
-  Assert.All(comments,s=>Assert.True(QuestFactText.HasRussian(s!),"Missing Russian comment: "+s));var ayothaya=result.Quests["irowiki-classic:Ayothaya_Dungeon_Entrance_Quest"];
+  Assert.All(comments, s =>
+  {
+   var text = s!;
+   Assert.False(string.IsNullOrWhiteSpace(QuestFactText.Localize(text, "ru")));
+   if (!QuestFactText.HasRussian(text) && !text.Contains('\n'))
+    Assert.Equal(text, QuestFactText.Localize(text, "ru"));
+  });
+  Assert.Equal(100, result.Quests.Count);
+  var ayothaya=result.Quests["irowiki-classic:Ayothaya_Dungeon_Entrance_Quest"];
   var cursed=result.Quests["irowiki-classic:Cursed_Spirit_Quest"].Steps.Single(s=>s.Order==2);
   Assert.Equal(11,SemanticCoordinates.All(cursed).Count);
   Assert.Equal(10,ayothaya.Steps.Count);Assert.Contains("partial",ayothaya.Review);Assert.Equal("unknown",ayothaya.Availability);

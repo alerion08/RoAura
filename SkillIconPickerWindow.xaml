@@ -3,19 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="clr-namespace:RoAura.Converters"
         Title="{DynamicResource SkillIconCatalogTitle}" Width="650" Height="560" MinWidth="440" MinHeight="340"
-        PreviewMouseDown="Picker_PreviewMouseDown" Deactivated="Picker_Deactivated" WindowStartupLocation="CenterOwner" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Background="{DynamicResource UiBackground_F2F6FC}">
+        PreviewMouseDown="Picker_PreviewMouseDown" Deactivated="Picker_Deactivated" WindowStartupLocation="CenterOwner" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" AllowsTransparency="True" Background="Transparent">
     <Window.Resources>
         <converters:Base64ToImageSourceConverter x:Key="SkillIconImage"/>
     </Window.Resources>
-    <Border BorderBrush="{DynamicResource RoBorderBrush}" BorderThickness="1">
+    <Border BorderBrush="{DynamicResource RoBorderBrush}" BorderThickness="1" CornerRadius="9" Background="{DynamicResource UiBackground_F2F6FC}">
         <DockPanel>
-            <Border DockPanel.Dock="Top" Padding="12,6" Background="{DynamicResource RoTitleBrush}">
+            <Border DockPanel.Dock="Top" Padding="12,6" CornerRadius="8,8,0,0" Background="{DynamicResource RoTitleBrush}">
                 <DockPanel>
                     <Button DockPanel.Dock="Right" Content="&#x2715;" Width="30" Height="26" MinHeight="0" Padding="0"
                             Click="ClosePicker_Click" ToolTip="{DynamicResource Cancel}"/>
-                    <TextBlock Text="{DynamicResource SkillIconCatalogTitle}" Style="{StaticResource RoSectionTitleStyle}" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="CatalogHeading" Text="{DynamicResource SkillIconCatalogTitle}" Style="{StaticResource RoSectionTitleStyle}" VerticalAlignment="Center"/>
                 </DockPanel>
             </Border>
+            <TabControl x:Name="EquipmentCatalogTabs" DockPanel.Dock="Top" Visibility="Collapsed" Margin="12,6,12,0"
+                        Style="{StaticResource SectionTabControlStyle}" SelectionChanged="EquipmentCatalogTabs_SelectionChanged">
+                <TabItem x:Name="ItemIconsTab" Header="{DynamicResource EquipmentItemIconSearch}"/>
+                <TabItem Header="{DynamicResource EquipmentSkillIconSearch}"/>
+            </TabControl>
             <Grid Margin="16">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -27,20 +32,19 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Margin="0,0,10,0">
+                    <StackPanel x:Name="IconSearchField" Margin="0,0,10,0">
                         <TextBlock x:Name="SearchLabel" Text="{DynamicResource SkillIconSearchLabel}" Margin="0,0,0,4"/>
                         <TextBox x:Name="SearchBox" TextChanged="FilterChanged" AutomationProperties.LabeledBy="{Binding ElementName=SearchLabel}"/>
                     </StackPanel>
-                    <StackPanel Grid.Column="1">
+                    <StackPanel x:Name="SkillJobFilters" Grid.Column="1">
                         <TextBlock x:Name="JobLabel" Text="{DynamicResource SkillIconJobSearch}" Margin="0,0,0,4"/>
                         <Grid x:Name="JobField" PreviewMouseLeftButtonDown="JobField_PreviewMouseLeftButtonDown">
                             <TextBox x:Name="JobEditor" Padding="8,4,32,4" TextChanged="JobEditor_TextChanged"
                                      PreviewKeyDown="JobEditor_PreviewKeyDown"
                                      AutomationProperties.LabeledBy="{Binding ElementName=JobLabel}"/>
-                            <Button x:Name="JobArrow" HorizontalAlignment="Right" Width="30" Padding="0" Margin="0"
-                                    Focusable="False" AutomationProperties.Name="{DynamicResource SkillIconJobSearch}">
-                                <Path Data="M 0,0 L 5,5 L 10,0" Stroke="{DynamicResource RoBlueBrush}" StrokeThickness="1.8"/>
-                            </Button>
+                            <Border x:Name="JobArrow" HorizontalAlignment="Right" Width="30" Background="Transparent">
+                                <Path Style="{StaticResource RoDropdownChevronStyle}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                            </Border>
                             <Popup x:Name="JobPopup" PlacementTarget="{Binding ElementName=JobField}" Placement="Bottom"
                                    AllowsTransparency="True">
                                 <Border Width="{Binding ActualWidth, ElementName=JobField}" MaxHeight="260" Padding="3"

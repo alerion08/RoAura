@@ -28,7 +28,7 @@ public static class ItemCatalogService
         {
             try
             {
-                return TocDatabaseService.Database.Items.ToDictionary(i => i.Id, i => new ItemEntry { Id = i.Id, Name = i.Name, Type = i.Type });
+                return TocDatabaseService.Database.Items.ToDictionary(i => i.Id, i => new ItemEntry { Id = i.Id, Name = i.Name, Type = i.Type, LocalImagePng = i.LocalImagePng });
             }
             catch (Exception ex)
             {

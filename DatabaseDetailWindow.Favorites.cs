@@ -131,13 +131,13 @@ public partial class DatabaseDetailWindow
         var dialog = new Window
         {
             Owner = this, Title = title, Width = 360, SizeToContent = SizeToContent.Height,
-            ResizeMode = ResizeMode.NoResize, WindowStyle = WindowStyle.None, ShowInTaskbar = false,
+            ResizeMode = ResizeMode.NoResize, WindowStyle = WindowStyle.None, ShowInTaskbar = false, AllowsTransparency = true,
             WindowStartupLocation = WindowStartupLocation.CenterOwner, Topmost = true
         };
-        dialog.SetResourceReference(BackgroundProperty, "RoWindowBrush");
+        dialog.Background = Brushes.Transparent;
         dialog.SetResourceReference(ForegroundProperty, "RoTextBrush");
         var layout = new DockPanel();
-        var header = new Border { Padding = new Thickness(14,9,14,9), Child = Heading(title, 17) };
+        var header = new Border { Padding = new Thickness(14,9,14,9), CornerRadius = new CornerRadius(8,8,0,0), Child = Heading(title, 17) };
         header.SetResourceReference(Border.BackgroundProperty, "RoTitleBrush");
         DockPanel.SetDock(header, Dock.Top);
         layout.Children.Add(header);
@@ -151,7 +151,8 @@ public partial class DatabaseDetailWindow
         DockPanel.SetDock(actions, Dock.Bottom);
         layout.Children.Add(actions);
         layout.Children.Add(new Border { Padding = new Thickness(14,8,14,8), Child = body });
-        var frame = new Border { BorderThickness = new Thickness(1), Child = layout };
+        var frame = new Border { BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(9), Child = layout };
+        frame.SetResourceReference(Border.BackgroundProperty, "RoWindowBrush");
         frame.SetResourceReference(Border.BorderBrushProperty, "RoBorderBrush");
         dialog.Content = frame;
         return dialog;

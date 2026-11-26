@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using RoAura.Services;
+using RoAura.Models;
 
 namespace RoAura;
 
@@ -11,6 +12,17 @@ public partial class SkillIconPickerWindow : Window
     internal SkillIconCatalog.Skill? SelectedIcon { get; private set; }
 
     private bool _updatingJobs;
+    private IReadOnlyList<ItemIconOption>? _itemIcons;
+
+    private sealed record ItemIconOption(ItemEntry Item)
+    {
+        public string Name => Item.FullName;
+        public string Identifier => $"ID {Item.Id}";
+        public string IconBase64 => Convert.ToBase64String(Item.LocalImagePng!);
+    }
+
+    private bool SearchItems => ReferenceEquals(EquipmentCatalogTabs.SelectedItem, ItemIconsTab);
+
     private SkillIconCatalog.Job? _selectedJob;
     private string AllJobs => LocalizationService.Get("SkillIconAllJobs");
     private bool IncludeRebirth => RebirthBox.IsChecked == true;
@@ -27,6 +39,35 @@ public partial class SkillIconPickerWindow : Window
     {
         var dialog = new SkillIconPickerWindow { Owner = owner };
         return dialog.ShowDialog() == true ? dialog.SelectedIcon : null;
+    }
+
+    internal static SkillIconCatalog.Skill? PickEquipment(Window owner, IEnumerable<ItemEntry> items)
+    {
+        var dialog = new SkillIconPickerWindow { Owner = owner };
+        dialog._itemIcons = items.Where(item => item.LocalImagePng is { Length: > 0 })
+            .OrderBy(item => item.FullName, StringComparer.CurrentCultureIgnoreCase)
+            .Select(item => new ItemIconOption(item)).ToArray();
+        dialog.SetResourceReference(TitleProperty, "EquipmentIconCatalogTitle");
+        dialog.CatalogHeading.SetResourceReference(TextBlock.TextProperty, "EquipmentIconCatalogTitle");
+        dialog.EquipmentCatalogTabs.Visibility = Visibility.Visible;
+        dialog.EquipmentCatalogTabs.SelectedItem = dialog.ItemIconsTab;
+        dialog.UpdateCatalogMode();
+        return dialog.ShowDialog() == true ? dialog.SelectedIcon : null;
+    }
+
+    private void EquipmentCatalogTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_itemIcons is not null && ReferenceEquals(e.Source, EquipmentCatalogTabs)) UpdateCatalogMode();
+    }
+
+    private void UpdateCatalogMode()
+    {
+        JobPopup.IsOpen = false;
+        SkillJobFilters.Visibility = SearchItems ? Visibility.Collapsed : Visibility.Visible;
+        Grid.SetColumnSpan(IconSearchField, SearchItems ? 2 : 1);
+        SearchLabel.SetResourceReference(TextBlock.TextProperty, SearchItems ? "ItemNameOrId" : "SkillIconSearchLabel");
+        SearchBox.Clear();
+        RefreshResults();
     }
 
     private void ClosePicker_Click(object sender, RoutedEventArgs e) => DialogResult = false;
@@ -132,7 +173,11 @@ public partial class SkillIconPickerWindow : Window
     private void RefreshResults()
     {
         if (_updatingJobs || Results is null || EmptyText is null || RebirthBox is null || RenewalBox is null) return;
-        var matches = _catalog.Search(SearchBox.Text, _selectedJob, IncludeRebirth, IncludeRenewal).ToArray();
+        var query = SearchBox.Text.Trim();
+        var byId = int.TryParse(query, out var id);
+        object[] matches = SearchItems && _itemIcons is not null
+            ? _itemIcons.Where(item => byId ? item.Item.Id == id : item.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).ToArray()
+            : _catalog.Search(query, _selectedJob, IncludeRebirth, IncludeRenewal).ToArray();
         Results.ItemsSource = matches;
         Results.SelectedIndex = matches.Length == 1 ? 0 : -1;
         EmptyText.Visibility = matches.Length == 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -140,7 +185,7 @@ public partial class SkillIconPickerWindow : Window
 
     private void SelectionChanged(object sender, RoutedEventArgs e)
     {
-        if (ChooseButton is not null) ChooseButton.IsEnabled = Results.SelectedItem is SkillIconCatalog.Skill;
+        if (ChooseButton is not null) ChooseButton.IsEnabled = Results.SelectedItem is SkillIconCatalog.Skill or ItemIconOption;
     }
 
     private void Choose_Click(object sender, RoutedEventArgs e) => Choose();
@@ -154,8 +199,13 @@ public partial class SkillIconPickerWindow : Window
 
     private void Choose()
     {
-        if (Results.SelectedItem is not SkillIconCatalog.Skill skill) return;
-        SelectedIcon = skill;
+        SelectedIcon = Results.SelectedItem switch
+        {
+            SkillIconCatalog.Skill skill => skill,
+            ItemIconOption item => new SkillIconCatalog.Skill(item.Item.Id, item.Name, "", item.IconBase64),
+            _ => null
+        };
+        if (SelectedIcon is null) return;
         DialogResult = true;
     }
 }

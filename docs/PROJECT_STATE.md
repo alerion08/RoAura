@@ -53,6 +53,11 @@
 - The icon picker opens profession choices from the whole field and filters them without rewriting the editable query.
 - The published Ragnarok+ archive tagged catalog-ragnarokplus-2026-11-22 has 478 monsters with no HP or attack values. The current collector takes identity and experience from the index and exports drops and spawns from each card, but only uses Combat Stats as a page readiness signal. The UI marks missing combat data. Importing combat stats requires an updated collector and a new catalog snapshot.
 
+## Refreshed quest snapshot and equipment icon picker
+
+- The Windows validation and release workflows pin both quest SQLite files to research commit `e4e6b8ac21c92bc86017ac8385d8b22d200a3f88`. It contains 216 quests (100 fully localized semantic guides). Pending entries remain subject to the existing reader rules. Fact notes without a reviewed Russian translation use their original text.
+- Equipment offers item icons from the active local item database and skill icons from the offline skill catalog. Picking an icon stores it on the entry and preserves the configured equipment Item ID. Existing database-linked icon settings remain readable.
+
 ## Previous published baseline — RoAura 3.5.0
 
 - [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.
