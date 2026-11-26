@@ -590,6 +590,14 @@
     <sys:String x:Key="QSearch">Search by original title</sys:String>
     <sys:String x:Key="QAllCategories">All categories</sys:String>
     <sys:String x:Key="QLevelFilter">Character Base Lv.</sys:String>
+    <sys:String x:Key="QHuntingFaction">Faction</sys:String>
+    <sys:String x:Key="QHuntingReputation">Reputation per quest</sys:String>
+    <sys:String x:Key="QNeededForQuest">Needed for a quest</sys:String>
+    <sys:String x:Key="QBackgroundOpacity">Background opacity, %</sys:String>
+    <sys:String x:Key="QBackgroundColor">Background color</sys:String>
+    <sys:String x:Key="QPerCardBackground">Separate background for each card</sys:String>
+    <sys:String x:Key="QCategoryrplus-quest">Ragnarok+</sys:String>
+    <sys:String x:Key="QCategoryrplus-hunting">Hunting Quests</sys:String>
     <sys:String x:Key="QCategoryHint">Categories are provisional source classifications. Unknown levels remain visible.</sys:String>
     <sys:String x:Key="QBaseLevel">Base Lv.</sys:String>
     <sys:String x:Key="QSteps">steps</sys:String>

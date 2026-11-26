@@ -77,6 +77,18 @@ public partial class MainWindow
         }
         finally { _questClosing = false; }
     }
+    internal async Task OpenQuestFromDatabaseAsync(string key)
+    {
+        if (_questWorkspace.Catalog is null) await _questWorkspace.LoadCatalogAsync();
+        if (_questWorkspace.Catalog?.Guides.GetValueOrDefault(key) is not { } guide) return;
+        if (await _questWindows.OpenBrowserAsync(guide)) return;
+        (Application.Current as App)?.CloseDatabaseOverlay();
+        Show();
+        Activate();
+        QuestsNavButton.IsChecked = true;
+        QuestPage.ShowGuide(guide);
+    }
+
     public void ToggleQuestBrowser()
     {
         if(!QuestToggleContext())return;

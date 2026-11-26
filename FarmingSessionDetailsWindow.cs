@@ -124,10 +124,18 @@ public sealed class FarmingSessionDetailsWindow : Window
         }
         var lootPanel = new DockPanel();
         var hideZero = new CheckBox { Content = LocalizationService.Get("HideZeroValueLoot"), Margin = new Thickness(4, 5, 0, 8) };
-        hideZero.Checked += (_, _) => grid.ItemsSource = session.Loot.Where(row => row.Total != 0).ToArray();
-        hideZero.Unchecked += (_, _) => grid.ItemsSource = session.Loot;
-        DockPanel.SetDock(hideZero, Dock.Top);
-        lootPanel.Children.Add(hideZero);
+        var questOnly = new CheckBox { Content = LocalizationService.Get("QNeededForQuest"), Margin = new Thickness(4, 5, 0, 8),
+            Visibility = GameServerProfile.Normalize(session.Server) == GameServerProfile.RagnarokPlus ? Visibility.Visible : Visibility.Collapsed };
+        void FilterLoot(object sender, RoutedEventArgs e) => grid.ItemsSource = session.Loot.Where(row =>
+            (hideZero.IsChecked != true || row.Total != 0) &&
+            (questOnly.IsChecked != true || RagnarokPlusQuestCatalog.Instance.RequiredFor(session.Server, row.ItemId).Any())).ToArray();
+        hideZero.Click += FilterLoot;
+        questOnly.Click += FilterLoot;
+        var filters = new WrapPanel();
+        filters.Children.Add(hideZero);
+        filters.Children.Add(questOnly);
+        DockPanel.SetDock(filters, Dock.Top);
+        lootPanel.Children.Add(filters);
         lootPanel.Children.Add(grid);
         Loaded += (_, _) =>
         {

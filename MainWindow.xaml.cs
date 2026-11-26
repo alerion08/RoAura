@@ -270,6 +270,12 @@ public partial class MainWindow : Window
         }
 
         RefreshEquipmentDatabaseIcons();
+        if (GoldGoblinQuestOnly is not null)
+        {
+            GoldGoblinQuestOnly.Visibility = profile == GameServerProfile.RagnarokPlus ? Visibility.Visible : Visibility.Collapsed;
+            if (profile != GameServerProfile.RagnarokPlus) GoldGoblinQuestOnly.IsChecked = false;
+            _goldGoblinRowsView.Refresh();
+        }
         if (!supportsOverlayDatabase && Application.Current is App currentApp)
             currentApp.CloseDatabaseOverlay();
         _overlay.RefreshServerProfile();
@@ -439,6 +445,8 @@ public partial class MainWindow : Window
     {
         if (value is not GoldGoblinLootRow row) return false;
         if (GoldGoblinHideZero?.IsChecked == true && row.Total == 0) return false;
+        if (GoldGoblinQuestOnly?.IsChecked == true &&
+            !RagnarokPlusQuestCatalog.Instance.RequiredFor(Settings.ServerProfile, row.ItemId).Any()) return false;
         var query = GoldGoblinSearchBox?.Text.Trim() ?? "";
         if (query.Length > 0 &&
             !row.Item.Contains(query, StringComparison.CurrentCultureIgnoreCase) &&

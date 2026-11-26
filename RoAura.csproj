@@ -63,6 +63,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Data\quests.ragnarokplus.json.gz" LogicalName="RoAura.RagnarokPlusQuests" />
     <EmbeddedResource Include="Data\skill-icons.zip" LogicalName="RoAura.SkillIcons.zip" />
     <Content Include="Data\*.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

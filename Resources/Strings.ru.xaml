@@ -590,6 +590,14 @@
     <sys:String x:Key="QSearch">Поиск по оригинальному названию</sys:String>
     <sys:String x:Key="QAllCategories">Все категории</sys:String>
     <sys:String x:Key="QLevelFilter">Base Lv. персонажа</sys:String>
+    <sys:String x:Key="QHuntingFaction">Фракция</sys:String>
+    <sys:String x:Key="QHuntingReputation">Репутация за квест</sys:String>
+    <sys:String x:Key="QNeededForQuest">Нужен для задания</sys:String>
+    <sys:String x:Key="QBackgroundOpacity">Непрозрачность фона, %</sys:String>
+    <sys:String x:Key="QBackgroundColor">Цвет фона</sys:String>
+    <sys:String x:Key="QPerCardBackground">Отдельный фон для каждой карточки</sys:String>
+    <sys:String x:Key="QCategoryrplus-quest">Ragnarok+</sys:String>
+    <sys:String x:Key="QCategoryrplus-hunting">Hunting Quests</sys:String>
     <sys:String x:Key="QCategoryHint">Категории — предварительная классификация источников. Неизвестные уровни остаются в списке.</sys:String>
     <sys:String x:Key="QBaseLevel">Base Lv.</sys:String>
     <sys:String x:Key="QSteps">этапов</sys:String>

@@ -168,6 +168,13 @@ public partial class DatabaseOverlayWindow : Window
         SearchBox.Focus();
     }
 
+    internal void ShowQuestCard(object card)
+    {
+        if (!IsDatabaseOpen) ShowForGame();
+        _details.ResetDetails();
+        _details.ShowDetails(card);
+    }
+
     public void HideDatabase()
     {
         _marketSearchCancellation?.Cancel();

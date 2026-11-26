@@ -1763,8 +1763,12 @@
                                             <Grid Background="{DynamicResource UiBackground_F4F8FD}" Margin="12,10">
                                                 <Grid.ColumnDefinitions><ColumnDefinition Width="2*"/><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                                                <CheckBox x:Name="GoldGoblinHideZero" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,6,0,0"
+                                                <WrapPanel Grid.Row="1" Grid.ColumnSpan="3" Margin="0,6,0,0">
+                                                <CheckBox x:Name="GoldGoblinHideZero" Margin="0,0,12,0"
                                                           Content="{DynamicResource HideZeroValueLoot}" Checked="GoldGoblinFilter_Changed" Unchecked="GoldGoblinFilter_Changed"/>
+                                                    <CheckBox x:Name="GoldGoblinQuestOnly" Content="{DynamicResource QNeededForQuest}"
+                                                              Click="GoldGoblinFilter_Changed"/>
+                                                </WrapPanel>
                                                 <TextBox x:Name="GoldGoblinSearchBox" Margin="0,0,10,0" TextChanged="GoldGoblinFilter_Changed" ToolTip="{DynamicResource ItemNameOrId}"/>
                                                 <ComboBox x:Name="GoldGoblinSourceFilter" Grid.Column="1" Margin="0,0,10,0" SelectionChanged="GoldGoblinFilter_Changed">
                                                     <ComboBoxItem Content="{DynamicResource AllItems}" Tag="all"/><ComboBoxItem Content="{DynamicResource PriceNpcName}" Tag="npc"/><ComboBoxItem Content="{DynamicResource PriceVendingName}" Tag="vending" IsEnabled="{Binding SupportsMarket}"/><ComboBoxItem Content="{DynamicResource PriceManualName}" Tag="manual"/><ComboBoxItem Content="{DynamicResource WithoutPrice}" Tag="unknown"/>

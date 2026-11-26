@@ -15,7 +15,23 @@ public partial class QuestDetailsControl : UserControl
 {
  public event Action<QuestGuide?>? GuideRequested;
  public event Action? CatalogChanged;
- internal SemanticCatalog? ReadyCatalog=>_catalog;
+ internal SemanticCatalog? ReadyCatalog
+ {
+  get
+  {
+   if (ReferenceEquals(_cachedClassic, _catalog) && ReferenceEquals(_cachedLegacy, _workspace?.Catalog) && _combined is not null)
+    return _combined;
+   _cachedClassic = _catalog;
+   _cachedLegacy = _workspace?.Catalog;
+   var source = RagnarokPlusQuestCatalog.Instance;
+   var guides = _cachedLegacy ?? source.Combine(new QuestCatalog([]));
+   var quests = (_catalog?.Quests.Values ?? Enumerable.Empty<SemanticQuest>()).Concat(source.Cards.Values.Select(card =>
+    source.CreateSemantic(card, guides.Guides.GetValueOrDefault(card.Key)?.Title ?? card.Title)));
+   return _combined = new SemanticCatalog(quests.ToDictionary(quest => quest.Id), _catalog?.Version ?? "");
+  }
+ }
+ private SemanticCatalog? _combined, _cachedClassic;
+ private QuestCatalog? _cachedLegacy;
  internal ComboBox QuestChoice=>ReadyChoice;
 
  private readonly QuestSemanticService _reader=new();
@@ -71,8 +87,8 @@ public partial class QuestDetailsControl : UserControl
    _language=LocalizationService.CurrentLanguage=="ru"?"ru":"en";
    var previous=_quest?.Id;var workspaceKey=workspace.SelectedGuide?.Key;
    if(workspaceKey!=_workspaceKey){_semanticChoice=null;_workspaceKey=workspaceKey;}
-   var key=_semanticChoice??workspaceKey;_quest=key is null?null:_catalog?.Quests.GetValueOrDefault(key);
-   ReadyChoice.ItemsSource=_catalog?.Quests.Values.OrderBy(q=>q.Title).ToList();ReadyChoice.SelectedValue=_quest?.Id;
+   var key=_semanticChoice??workspaceKey;var ready=ReadyCatalog;_quest=key is null?null:ready?.Quests.GetValueOrDefault(key);
+   ReadyChoice.ItemsSource=ready?.Quests.Values.OrderBy(q=>q.Title).ToList();ReadyChoice.SelectedValue=_quest?.Id;
    if(_quest?.Id!=previous)_selectedId=null;
    if(_quest is not null && !_quest.Steps.Any(s=>s.Id==_selectedId))_selectedId=Current()?.Id??_quest.Steps[0].Id;
    RenderChrome();RenderSteps();RenderDetail();RenderFacts();RenderSources();
@@ -91,6 +107,7 @@ public partial class QuestDetailsControl : UserControl
   Metadata.ToolTip=_quest?.Source.Revision;
   Quality.Text=_quest is null?L("Новый экран доступен только для квестов, все этапы которых готовы RU/EN.","The new screen accepts only quests with every step ready in RU/EN."):
    L("Описания: готовы RU/EN · Прохождение на сервере: статус неизвестен","Descriptions: RU/EN ready · Server walkthrough: status unknown");
+  if (_quest?.Source.Kind == "Ragnarok+") Quality.Text = L("Данные Ragnarok+ на языке источника.","Ragnarok+ data in the source language.");
   if(_quest is not null && !Editable)Quality.Text+="\n"+L("Изменение прогресса недоступно: выберите профиль; при несовпадении этапов требуется сверка каталога.","Progress editing unavailable: select a profile; mismatching steps require catalog review.");
   var active=_quest is not null && _workspace?.SelectedGuide?.Key==_quest.Id && _workspace.IsActive(_workspace.SelectedGuide);
   AddButton.Content=active?L("✓ Активен","✓ Active"):L("+ Добавить в активные","+ Add to active");AddButton.IsEnabled=Editable;
@@ -115,7 +132,7 @@ public partial class QuestDetailsControl : UserControl
   if (!string.Equals(server, database.Version, StringComparison.OrdinalIgnoreCase)) return;
   var materials = quest.Steps.Where(step => !Done(step)).SelectMany(step => step.Items)
    .Where(item => item.Required != false && item.Operation is ("collect" or "bring" or "deliver" or "buy" or "use" or "consume"))
-   .Select(item => item.Name.Trim()).Where(name => name.Length > 0).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+   .Select(item => (Name: item.Name.Trim(), item.DatabaseItemId)).Where(item => item.Name.Length > 0).Distinct().ToArray();
   if (materials.Length == 0)
   {
    Notify(L("В оставшихся этапах нет материалов.", "No materials for the remaining steps."));
@@ -128,9 +145,12 @@ public partial class QuestDetailsControl : UserControl
    settings.WantedLootByServer[server] = wanted = [];
   var added = 0;
   var unresolved = 0;
-  foreach (var name in materials)
+  foreach (var material in materials)
   {
-   if (!names.TryGetValue(name, out var ids) || ids.Length != 1) { unresolved++; continue; }
+   if (material.DatabaseItemId is int exactId && database.Item(exactId) is not null)
+   { if (wanted.Add(exactId)) added++; continue; }
+   if (material.DatabaseItemId is not null || !names.TryGetValue(material.Name, out var ids) || ids.Length != 1)
+   { unresolved++; continue; }
    if (wanted.Add(ids[0])) added++;
   }
   if (added > 0) app.SaveDatabasePreferences();
@@ -232,7 +252,9 @@ public partial class QuestDetailsControl : UserControl
   if(items.Count==0)materials.Children.Add(Text(L("Не требуются по описанию этапа","None specified for this step"),11));
   foreach(var item in items)
   {
-   var line=Text(item.Name+(item.Quantity is {} n?" ×"+n:" ×?")+" · "+Operation(item.Operation),12,true);line.Foreground=B("#087747");materials.Children.Add(line);
+   var label=item.Name+(item.Quantity is {} n?" ×"+n:"")+" · "+Operation(item.Operation);
+   if(item.DatabaseItemId is int id) materials.Children.Add(DatabaseLink(label, id, DatabaseSearchKind.Items));
+   else {var line=Text(label,12,true);line.Foreground=B("#087747");materials.Children.Add(line);}
    if(item.Condition is not null || item.Branch is not null)materials.Children.Add(Text(Comment(item.Condition),11));
   }
   if(step.Answers.Count>0)
@@ -245,10 +267,29 @@ public partial class QuestDetailsControl : UserControl
    }
    _answerCard=Info(L("Варианты ответов","Answer options"),answers);aside.Children.Add(_answerCard);
   }
-  aside.Children.Add(Info(L("Необходимые предметы","Required items"),materials));
+  var exact = _quest?.Source.Kind == "Ragnarok+";
+  aside.Children.Add(Info(exact ? L("Предметы","Items") : L("Необходимые предметы","Required items"),materials));
+  if (step.DatabaseMonsters.Count > 0)
+  {
+   var monsters = new StackPanel();
+   foreach (var monster in step.DatabaseMonsters)
+    monsters.Children.Add(DatabaseLink(string.Join(" · ", new[] { monster.Name, monster.Count }.Where(v => !string.IsNullOrWhiteSpace(v))), monster.Id, DatabaseSearchKind.Monsters));
+   aside.Children.Add(Info(L("Монстры","Monsters"),monsters));
+  }
   if(ActualWidth<760){layout.ColumnDefinitions[1].Width=new GridLength(0);layout.RowDefinitions.Add(new(){Height=GridLength.Auto});layout.RowDefinitions.Add(new(){Height=GridLength.Auto});Grid.SetColumn(aside,0);Grid.SetRow(aside,1);}
   DetailPanel.Children.Add(layout);
 
+ }
+ private Button DatabaseLink(string label, int id, DatabaseSearchKind kind)
+ {
+  var button = new Button { Content = Text(label,12,true), HorizontalContentAlignment = HorizontalAlignment.Left,
+   ToolTip = L("Открыть в базе данных","Open in database"), IsEnabled = _workspace?.Settings.ServerProfile == GameServerProfile.RagnarokPlus };
+  button.Click += (_, _) =>
+  {
+   if ((Application.Current as App)?.OpenQuestDatabaseCard(kind, id) != true)
+    Notify(L("Карточка отсутствует в локальной базе.","Card is missing from the local database."));
+  };
+  return button;
  }
  private Border Info(string title,UIElement content)
  {var stack=new StackPanel();stack.Children.Add(Text(title,12,true));stack.Children.Add(content);return new(){Child=stack,Background=BB("#FAFCFF"),BorderBrush=BorderB("#D6E4F3"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),Padding=new Thickness(10),Margin=new Thickness(0,10,0,0)};}
@@ -298,7 +339,7 @@ public partial class QuestDetailsControl : UserControl
  }
  private string Comment(string? value)=>QuestFactText.Localize(value,_language);
  private string Operation(string value)=>value switch
- {"collect"=>L("собрать","collect"),"bring"=>L("принести","bring"),"deliver"=>L("передать","deliver"),"buy"=>L("купить","buy"),"use"=>L("использовать","use"),"consume"=>L("расходуется","consumed"),"possess"=>L("иметь при себе","possess"),"show"=>L("показать","show"),_=>value};
+ {"collect"=>L("собрать","collect"),"bring"=>L("принести","bring"),"deliver"=>L("передать","deliver"),"buy"=>L("купить","buy"),"use"=>L("использовать","use"),"consume"=>L("расходуется","consumed"),"possess"=>L("иметь при себе","possess"),"show"=>L("показать","show"),"reward" or "receive"=>L("награда","reward"),"reference"=>L("упоминание","reference"),_=>value};
  private string FactLabel(string value)=>value switch
  {"base_level"=>L("Базовый уровень","Base level"),"job_level"=>L("Уровень профессии","Job level"),"base_exp" or "base_exp_total"=>L("Базовый опыт","Base experience"),"job_exp"=>L("Опыт профессии","Job experience"),"item"=>L("Предмет","Item"),"item_consumed_total"=>L("Суммарные расходуемые материалы","Total consumed materials"),"item_not_consumed"=>L("Нерасходуемый предмет","Retained item"),"conditional_quest_steps"=>L("Этапы предварительного квеста","Prerequisite quest steps"),"quest_completed"=>L("Предварительный квест","Prerequisite quest"),"access"=>L("Доступ к подземелью","Dungeon access"),"service_unlock" or "unlock"=>L("Открываемая возможность","Unlocked feature"),"quest_object" or "quest_item" or "quest_document" or "puzzle_item"=>L("Квестовый предмет","Quest item"),"none"=>L("Нет награды","No reward"),"story_information"=>L("Сведения","Information"),"zeny_per_item"=>L("Зени за предмет","Zeny per item"),"zeny" or "zeny_total"=>L("Зени","Zeny"),"zeny_per_trip"=>L("Зени за поездку","Zeny per trip"),"maximum_trigger_count"=>L("Максимум срабатываний","Maximum triggers"),"door_attempts"=>L("Попытки открытия двери","Door attempts"),"server_donation_count"=>L("Число пожертвований сервера","Server donation count"),"time_limit_seconds"=>L("Лимит времени, секунд","Time limit, seconds"),"approximate_time_limit_minutes"=>L("Примерный лимит времени, минут","Approximate time limit, minutes"),"attempts_per_first_set"=>L("Попытки на первый набор","Attempts per first set"),"search_interval_minutes"=>L("Интервал поиска, минут","Search interval, minutes"),"item_consumed_minimum"=>L("Минимальный расход предмета","Minimum item consumption"),"restart_source_step"=>L("Этап повторного начала","Restart step"),"server_donation_total_zeny"=>L("Общая сумма пожертвований сервера","Server donation total"),"distinct_report_volumes"=>L("Различные тома отчёта","Distinct report volumes"),"concurrent_stage_blocker"=>L("Несовместимый этап","Concurrent stage blocker"),"battle_time_limit"=>L("Ограничение времени боя","Battle time limit"),"room_clear"=>L("Зачистка комнаты","Room clear"),"collection_goal"=>L("Цель сбора","Collection goal"),"completed_source_steps"=>L("Завершённые этапы","Completed steps"),"visit_required"=>L("Обязательное посещение","Required visit"),"repaired_post_total"=>L("Всего отремонтированных опор","Total repaired posts"),"time_limit_minutes"=>L("Лимит времени, минут","Time limit, minutes"),"required_for_prerequisite_use"=>L("Условие для следующего квеста","Required for follow-up quest"),"pry_attempts"=>L("Попытки вскрытия","Pry attempts"),"helper_minimum_source_step"=>L("Минимальный этап помощника","Minimum helper step"),"dialogue_initiators"=>L("Инициаторы диалога","Dialogue initiators"),_=>value.Replace('_',' ')};
  private void RenderSources()

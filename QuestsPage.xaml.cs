@@ -25,6 +25,9 @@ public partial class QuestsPage : UserControl
     private Func<CharacterSessionSnapshot>? _observed;
     private Action? _saveVisuals;
     private bool _updating;
+    private const string RPlusCategory = "rplus-quest";
+    private const string HuntingCategory = "rplus-hunting";
+    private bool IsRPlusServer => _workspace?.Settings.ServerProfile == GameServerProfile.RagnarokPlus;
     private readonly DispatcherTimer _semanticRefresh=new(){Interval=TimeSpan.FromSeconds(2)};
     private readonly DispatcherTimer _searchTimer = new() { Interval = TimeSpan.FromMilliseconds(250) };
     private double _filterLevel = 99;
@@ -84,8 +87,27 @@ public partial class QuestsPage : UserControl
         var old = _updating; _updating = true;
         try
         {
-            var rows = new QuestCatalog(ReadyGuides()).Search(SearchInput.Text, (CategoryChoice.SelectedItem as QuestCategoryChoice)?.Key,
-                UseLevel.IsChecked == true ? (int)FilterLevel : null).Select(g => new QuestCatalogListRow(g, _workspace.IsActive(g), _workspace.CanEdit && _workspace.Catalog?.Guides.GetValueOrDefault(g.Key)==g && g.Steps.Count > 0)).ToList();
+            var category = (CategoryChoice.SelectedItem as QuestCategoryChoice)?.Key;
+            var hunting = category == HuntingCategory;
+            HuntingFilters.Visibility = hunting ? Visibility.Visible : Visibility.Collapsed;
+            var source = RagnarokPlusQuestCatalog.Instance;
+            if (hunting && HuntingFaction.Items.Count == 0)
+            {
+                var reputation = source.Cards.Values.SelectMany(card => card.Reputation).ToArray();
+                HuntingFaction.ItemsSource = new[] { T("QAllCategories") }.Concat(reputation.Select(rep => rep.Faction).Distinct().OrderBy(name => name)).ToArray();
+                HuntingReputation.ItemsSource = new[] { T("QAllCategories") }.Concat(reputation.Select(rep => rep.Value).Distinct().OrderBy(value => value).Select(value => value.ToString())).ToArray();
+                HuntingFaction.SelectedIndex = HuntingReputation.SelectedIndex = 0;
+            }
+            var faction = hunting && HuntingFaction.SelectedIndex > 0 ? HuntingFaction.SelectedItem as string : null;
+            var repValue = hunting && int.TryParse(HuntingReputation.SelectedItem as string, out var amount) ? amount : (int?)null;
+            var rows = new QuestCatalog(ReadyGuides()).Search(SearchInput.Text, category == RPlusCategory ? null : category,
+                UseLevel.IsChecked == true ? (int)FilterLevel : null)
+                .Where(g => category != RPlusCategory || source.Cards.ContainsKey(g.Key))
+                .Where(g => !hunting || (faction is null && repValue is null) ||
+                    source.Cards[g.Key].Reputation.Any(rep => (faction is null || rep.Faction == faction) && (repValue is null || rep.Value == repValue)))
+                .Select(g => new QuestCatalogListRow(g, _workspace.IsActive(g), _workspace.CanEdit &&
+                    _workspace.Catalog?.Guides.GetValueOrDefault(g.Key)==g && g.Steps.Count > 0 &&
+                    (!source.Cards.ContainsKey(g.Key) || IsRPlusServer))).ToList();
             CatalogList.ItemsSource = rows;
             CatalogList.SelectedItem = rows.FirstOrDefault(r => r.Guide.Key == _workspace.SelectedGuide?.Key);
             CatalogEmpty.Visibility = rows.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -147,8 +169,8 @@ public partial class QuestsPage : UserControl
         SearchInput.Text="";_searchTimer.Stop();Filter();
         if(CatalogList.Items.Count!=CatalogDetails.ReadyCatalog?.Quests.Count)throw new InvalidOperationException("Catalog and walkthrough readiness disagree.");
         SearchInput.Text = "Lost Child"; _searchTimer.Stop(); Filter();
-        if (CatalogList.Items.Count != 1) throw new InvalidOperationException("Quest title search failed.");
-        CatalogList.SelectedIndex = 0;
+        if (!CatalogList.Items.Cast<QuestCatalogListRow>().Any(row => row.Guide.Key == "irowiki-classic:Lost_Child_Quest")) throw new InvalidOperationException("Quest title search failed.");
+        CatalogList.SelectedItem = CatalogList.Items.Cast<QuestCatalogListRow>().First(row => row.Guide.Key == "irowiki-classic:Lost_Child_Quest");
         await CatalogDetails.RefreshDataAsync(true);
         CatalogDetails.Render(workspace);
         if (!CatalogDetails.HasStepCount(13)) throw new InvalidOperationException("Quest details lost source instructions.");

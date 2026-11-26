@@ -58,6 +58,12 @@
 - The Windows validation and release workflows pin both quest SQLite files to research commit `e4e6b8ac21c92bc86017ac8385d8b22d200a3f88`. It contains 216 quests (100 fully localized semantic guides). Pending entries remain subject to the existing reader rules. Fact notes without a reviewed Russian translation use their original text.
 - Equipment offers item icons from the active local item database and skill icons from the offline skill catalog. Picking an icon stores it on the entry and preserves the configured equipment Item ID. Existing database-linked icon settings remain readable.
 
+## Ragnarok+ quests and tracker background
+
+- The bundled Ragnarok+ snapshot was exported from the supplied SQLite and contains 122 regular quests and 178 Hunting Quests. Quest keys are namespaced by source. The catalog can filter Hunting Quests by faction and listed base reputation; per-mode multipliers remain visible in the guide.
+- Required-item links use only explicit collector `bring` records. Item and monster links from Ragnarok+ guides use explicit source IDs and resolve against the active Ragnarok+ item and monster databases.
+- The tracker preview and overlay have rounded backgrounds with independent color, opacity and common/per-card mode. The separate weekly snapshot and offline image blobs are outside this package.
+
 ## Previous published baseline — RoAura 3.5.0
 
 - [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.

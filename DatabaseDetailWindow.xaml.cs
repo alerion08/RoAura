@@ -236,6 +236,15 @@ public partial class DatabaseDetailWindow : Window
         }
         DetailsPanel.Children.Add(header);
         AddItemActions(item);
+        foreach (var quest in RagnarokPlusQuestCatalog.Instance.RequiredFor(_database.Version, item.Id))
+        {
+            var title = quest.Title;
+            AddLink(T($"Нужен для задания «{title}»", $"Needed for quest “{title}”"), async () =>
+            {
+                if (Application.Current is App app) await app.OpenQuestFromDatabaseAsync(quest.Key);
+            });
+        }
+
 
         var server = _settings.ServerProfile;
         var wanted = new CheckBox

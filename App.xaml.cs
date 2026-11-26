@@ -1392,6 +1392,25 @@ public partial class App : Application
         });
     }
 
+    internal bool OpenQuestDatabaseCard(DatabaseSearchKind kind, int id)
+    {
+        if (_activeDatabase?.Version != GameServerProfile.RagnarokPlus || _databaseOverlay is null) return false;
+        object? card = kind switch
+        {
+            DatabaseSearchKind.Items => _activeDatabase.Item(id),
+            DatabaseSearchKind.Monsters => _activeDatabase.Monster(id),
+            _ => null
+        };
+        if (card is null) return false;
+        _settingsWindow?.HideQuestBrowser();
+        _databaseOverlay.ShowQuestCard(card);
+        RefreshKeyboardMode();
+        return true;
+    }
+
+    internal Task OpenQuestFromDatabaseAsync(string key) =>
+        _settingsWindow?.OpenQuestFromDatabaseAsync(key) ?? Task.CompletedTask;
+
     public void ToggleDatabase()
     {
         Dispatcher.BeginInvoke(() =>

@@ -23,8 +23,17 @@ public partial class QuestSettingsControl : UserControl
         PreviewPanel.Children.Add(new TextBlock {Text="ROQuestie  ⋮⋮",Foreground=Brushes.White,FontWeight=FontWeights.SemiBold,Margin=new Thickness(0,0,0,8)});
         var options = _workspace.Settings.QuestOverlay;
         PreviewPanel.Width = options.Width;
-        PreviewPanel.Opacity = options.OpacityPercent / 100;
-        PreviewPanel.LayoutTransform = new ScaleTransform(options.Scale, options.Scale);
+        PreviewFrame.Opacity = options.OpacityPercent / 100;
+        PreviewFrame.LayoutTransform = new ScaleTransform(options.Scale, options.Scale);
+        var background = QuestOverlayHost.TrackerBackground(options);
+        PreviewFrame.Background = options.PerCardBackground ? null : background;
+        StackPanel NewCard()
+        {
+            var card = new StackPanel();
+            PreviewPanel.Children.Add(new Border { Child = card, CornerRadius = new CornerRadius(8),
+                Background = options.PerCardBackground ? background : null, Margin = new Thickness(0, 0, 0, options.CardGap) });
+            return card;
+        }
         Brush color;
         try { color = (Brush)new BrushConverter().ConvertFromString(options.TextColor)!; }
         catch { color = Brushes.White; }
@@ -34,32 +43,33 @@ public partial class QuestSettingsControl : UserControl
             // Preview-only examples: never add these to character progress.
             foreach(var example in new[] {("Lost Child Quest [1/13]", "Talk to Vincent (ra_in01 384,246).", "ra_in01 384,246"), ("Sign Quest [48/81]", "Go inside a Niflheim building (niflheim 187 241).", "niflheim 187,241")}.Take(options.MaxTrackedQuests))
             {
-                PreviewPanel.Children.Add(new TextBlock {Text=example.Item1,Foreground=color,FontWeight=FontWeights.SemiBold,FontSize=options.FontSize});
-                PreviewPanel.Children.Add(new TextBlock {Text=example.Item2,Foreground=color,FontSize=options.FontSize,TextWrapping=TextWrapping.Wrap,LineHeight=options.FontSize+3,MaxHeight=(options.FontSize+3)*options.DescriptionLines});
-                if(options.ShowCoordinates)PreviewPanel.Children.Add(new TextBlock {Text="⌖ "+example.Item3,Foreground=color});
-                AddPreviewButtons(options.ShowButtons);
-                PreviewPanel.Children.Add(new Border {Height=options.CardGap});
+                var card = NewCard();
+                card.Children.Add(new TextBlock {Text=example.Item1,Foreground=color,FontWeight=FontWeights.SemiBold,FontSize=options.FontSize});
+                card.Children.Add(new TextBlock {Text=example.Item2,Foreground=color,FontSize=options.FontSize,TextWrapping=TextWrapping.Wrap,LineHeight=options.FontSize+3,MaxHeight=(options.FontSize+3)*options.DescriptionLines});
+                if(options.ShowCoordinates)card.Children.Add(new TextBlock {Text="⌖ "+example.Item3,Foreground=color});
+                AddPreviewButtons(card, options.ShowButtons);
             }
             return;
         }
         foreach (var row in rows)
         {
-            PreviewPanel.Children.Add(new TextBlock {Text=row.Title+" "+row.Position,Foreground=color,FontSize=options.FontSize,FontWeight=FontWeights.SemiBold});
-            PreviewPanel.Children.Add(new TextBlock {Text=row.Instruction,TextWrapping=TextWrapping.Wrap,FontSize=options.FontSize,LineHeight=options.FontSize+3,MaxHeight=(options.FontSize+3)*options.DescriptionLines,TextTrimming=TextTrimming.CharacterEllipsis,Foreground=color,Margin=new Thickness(0,0,0,options.CardGap)});
+            var card = NewCard();
+            card.Children.Add(new TextBlock {Text=row.Title+" "+row.Position,Foreground=color,FontSize=options.FontSize,FontWeight=FontWeights.SemiBold});
+            card.Children.Add(new TextBlock {Text=row.Instruction,TextWrapping=TextWrapping.Wrap,FontSize=options.FontSize,LineHeight=options.FontSize+3,MaxHeight=(options.FontSize+3)*options.DescriptionLines,TextTrimming=TextTrimming.CharacterEllipsis,Foreground=color,Margin=new Thickness(0,0,0,options.CardGap)});
             if (options.ShowCoordinates)
             {
                 var points = row.Guide?.Steps.FirstOrDefault(s => s.Number == row.Progress.CurrentStep)?.Locations;
-                foreach (var point in points ?? []) PreviewPanel.Children.Add(new TextBlock { Text = (point.Map ?? T("QMapUnknown")) + $" {point.X},{point.Y}", TextWrapping = TextWrapping.Wrap, Foreground = color });
+                foreach (var point in points ?? []) card.Children.Add(new TextBlock { Text = (point.Map ?? T("QMapUnknown")) + $" {point.X},{point.Y}", TextWrapping = TextWrapping.Wrap, Foreground = color });
             }
-            AddPreviewButtons(options.ShowButtons);
+            AddPreviewButtons(card, options.ShowButtons);
         }
     }
-    private void AddPreviewButtons(bool visible)
+    private void AddPreviewButtons(Panel parent, bool visible)
     {
         if(!visible)return;
         var buttons=new WrapPanel();
         foreach(var text in new[]{"prev","next","more","navi","done"})
             buttons.Children.Add(new Button {Content=text,IsEnabled=false,FontSize=11,Height=22,MinHeight=22,Padding=new Thickness(5,0,5,0)});
-        PreviewPanel.Children.Add(buttons);
+        parent.Children.Add(buttons);
     }
 }

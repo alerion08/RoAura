@@ -3,7 +3,8 @@ namespace RoAura.Models;
 
 public sealed record SemanticMention(string Field,int Start,int End,string Type,string EntityId,string Surface);
 public sealed record SemanticPoint(string Id,string? Map,int X,int Y,string Role,int? Order,string? Condition);
-public sealed record SemanticItem(string Id,string Name,int? Quantity,string Operation,bool? Required,string? Condition,string? Branch);
+public sealed record SemanticItem(string Id,string Name,int? Quantity,string Operation,bool? Required,string? Condition,string? Branch)
+{ public int? DatabaseItemId { get; init; } }
 public sealed record SemanticFact(string Id,string Kind,string? Name,string? Amount,string? Condition,string? Branch,string? StepId);
 public sealed record SemanticAnswer(string Id,string Text,bool? Correct,string Operation,string? Condition,string? Branch);
 public sealed record SemanticImage(string Url,string? LocalPath,string Purpose,string? Caption,string Rights);
@@ -14,6 +15,7 @@ public sealed record SemanticStep(string Id,string QuestId,int Order,int? Source
 {
  public IReadOnlyList<string> Npcs {get;init;}=[];
  public IReadOnlyList<SemanticImage> Images {get;init;}=[];
+ internal IReadOnlyList<RoAura.Services.RagnarokPlusQuestCatalog.Monster> DatabaseMonsters { get; init; } = [];
  public string Short(string language)=>language=="ru"?ShortRu!:ShortEn!;
  public string Full(string language)=>language=="ru"?FullRu!:FullEn!;
 }
