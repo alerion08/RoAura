@@ -3,58 +3,69 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="clr-namespace:RoAura.Converters"
         Title="{DynamicResource SkillIconCatalogTitle}" Width="650" Height="560" MinWidth="440" MinHeight="340"
-        WindowStartupLocation="CenterOwner" Background="{DynamicResource UiBackground_F2F6FC}">
+        WindowStartupLocation="CenterOwner" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Background="{DynamicResource UiBackground_F2F6FC}">
     <Window.Resources>
         <converters:Base64ToImageSourceConverter x:Key="SkillIconImage"/>
     </Window.Resources>
-    <Grid Margin="16">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid Margin="0,0,0,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Margin="0,0,10,0">
-                <TextBlock x:Name="SearchLabel" Text="{DynamicResource SkillIconSearchLabel}" Margin="0,0,0,4"/>
-                <TextBox x:Name="SearchBox" TextChanged="FilterChanged" AutomationProperties.LabeledBy="{Binding ElementName=SearchLabel}"/>
-            </StackPanel>
-            <StackPanel Grid.Column="1">
-                <TextBlock x:Name="JobLabel" Text="{DynamicResource SkillIconJobSearch}" Margin="0,0,0,4"/>
-                <TextBox x:Name="JobSearchBox" TextChanged="JobSearchChanged" AutomationProperties.LabeledBy="{Binding ElementName=JobLabel}"/>
-                <ComboBox x:Name="JobBox" SelectionChanged="FilterChanged" Margin="0,4,0,0"
-                          AutomationProperties.LabeledBy="{Binding ElementName=JobLabel}"/>
-                <WrapPanel Margin="0,6,0,0">
-                    <CheckBox x:Name="RebirthBox" Content="Rebirth" IsChecked="True" Click="JobEditionChanged" Margin="0,0,12,0"/>
-                    <CheckBox x:Name="RenewalBox" Content="Renewal" IsChecked="True" Click="JobEditionChanged"/>
-                </WrapPanel>
-            </StackPanel>
-        </Grid>
-        <ListBox Grid.Row="1" x:Name="Results" SelectionChanged="SelectionChanged" MouseDoubleClick="ResultDoubleClicked"
-                 VirtualizingPanel.VirtualizationMode="Recycling" ScrollViewer.CanContentScroll="True"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="5,4">
-                        <Image Source="{Binding IconBase64, Converter={StaticResource SkillIconImage}}" Width="30" Height="30"
-                               RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,0,10,0"/>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Identifier}" Foreground="{DynamicResource RoMutedBrush}"/>
-                        </StackPanel>
+    <Border BorderBrush="{DynamicResource RoBorderBrush}" BorderThickness="1">
+        <DockPanel>
+            <Border DockPanel.Dock="Top" Padding="12,6" Background="{DynamicResource RoTitleBrush}">
+                <DockPanel>
+                    <Button DockPanel.Dock="Right" Content="&#x2715;" Width="30" Height="26" MinHeight="0" Padding="0"
+                            Click="ClosePicker_Click" ToolTip="{DynamicResource Cancel}"/>
+                    <TextBlock Text="{DynamicResource SkillIconCatalogTitle}" Style="{StaticResource RoSectionTitleStyle}" VerticalAlignment="Center"/>
+                </DockPanel>
+            </Border>
+            <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="0,0,10,0">
+                        <TextBlock x:Name="SearchLabel" Text="{DynamicResource SkillIconSearchLabel}" Margin="0,0,0,4"/>
+                        <TextBox x:Name="SearchBox" TextChanged="FilterChanged" AutomationProperties.LabeledBy="{Binding ElementName=SearchLabel}"/>
                     </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <TextBlock x:Name="EmptyText" Grid.Row="1" Text="{DynamicResource SkillIconNoResults}"
-                   HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button Content="{DynamicResource Cancel}" IsCancel="True"/>
-            <Button x:Name="ChooseButton" Content="{DynamicResource SkillIconUse}" Click="Choose_Click" IsDefault="True"
-                    Style="{StaticResource PrimaryButtonStyle}" IsEnabled="False"/>
-        </StackPanel>
-    </Grid>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock x:Name="JobLabel" Text="{DynamicResource SkillIconJobSearch}" Margin="0,0,0,4"/>
+                        <ComboBox x:Name="JobBox" IsEditable="True" IsTextSearchEnabled="False" StaysOpenOnEdit="True"
+                                  Loaded="JobBox_Loaded" DropDownOpened="JobBox_DropDownOpened" DropDownClosed="JobBox_DropDownClosed"
+                                  SelectionChanged="JobBox_SelectionChanged" AutomationProperties.LabeledBy="{Binding ElementName=JobLabel}"/>
+                        <WrapPanel Margin="0,6,0,0">
+                            <CheckBox x:Name="RebirthBox" Content="Rebirth" IsChecked="True" Click="JobEditionChanged" Margin="0,0,12,0"/>
+                            <CheckBox x:Name="RenewalBox" Content="Renewal" IsChecked="True" Click="JobEditionChanged"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </Grid>
+                <ListBox Grid.Row="1" x:Name="Results" SelectionChanged="SelectionChanged" MouseDoubleClick="ResultDoubleClicked"
+                         VirtualizingPanel.VirtualizationMode="Recycling" ScrollViewer.CanContentScroll="True"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5,4">
+                                <Image Source="{Binding IconBase64, Converter={StaticResource SkillIconImage}}" Width="30" Height="30"
+                                       RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,0,10,0"/>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Identifier}" Foreground="{DynamicResource RoMutedBrush}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <TextBlock x:Name="EmptyText" Grid.Row="1" Text="{DynamicResource SkillIconNoResults}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                    <Button Content="{DynamicResource Cancel}" IsCancel="True"/>
+                    <Button x:Name="ChooseButton" Content="{DynamicResource SkillIconUse}" Click="Choose_Click" IsDefault="True"
+                            Style="{StaticResource PrimaryButtonStyle}" IsEnabled="False"/>
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+    </Border>
 </Window>

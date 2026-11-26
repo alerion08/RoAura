@@ -21,11 +21,21 @@ public sealed class ColorPickerWindow : Window
     {
         Title = LocalizationService.Get("ColorPickerTitle");
         Width = 430; SizeToContent = SizeToContent.Height; ResizeMode = ResizeMode.NoResize;
-        WindowStartupLocation = WindowStartupLocation.CenterOwner; ShowInTaskbar = false;
+        WindowStartupLocation = WindowStartupLocation.CenterOwner; ShowInTaskbar = false; WindowStyle = WindowStyle.None;
         SetResourceReference(BackgroundProperty, "RoWindowBrush");
         _error.SetResourceReference(TextBlock.ForegroundProperty,"UiForeground_B64B55");
         var root = new StackPanel { Margin = new Thickness(18) };
-        Content = root;
+        var layout = new DockPanel();
+        var heading = new TextBlock { Text = Title, Margin = new Thickness(14, 8, 14, 8) };
+        heading.SetResourceReference(StyleProperty, "RoSectionTitleStyle");
+        var header = new Border { Child = heading };
+        header.SetResourceReference(Border.BackgroundProperty, "RoTitleBrush");
+        DockPanel.SetDock(header, Dock.Top);
+        layout.Children.Add(header);
+        layout.Children.Add(root);
+        var frame = new Border { BorderThickness = new Thickness(1), Child = layout };
+        frame.SetResourceReference(Border.BorderBrushProperty, "RoBorderBrush");
+        Content = frame;
         var palette = new UniformGrid { Columns = 12 };
         foreach (var r in new byte[] { 0, 85, 170, 255 })
         foreach (var g in new byte[] { 0, 85, 170, 255 })

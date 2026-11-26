@@ -201,7 +201,7 @@ public partial class DatabaseOverlayWindow : Window
         var searchHandle = new WindowInteropHelper(this).Handle;
         var detailHandle = _details.Handle;
         var databaseHasFocus = foreground == searchHandle || foreground == detailHandle ||
-            OwnedWindows.Cast<Window>().Any(w => w.IsActive) || _details.OwnedWindows.Cast<Window>().Any(w => w.IsActive);
+            _details.HasFavoritePopupFocus || HasActiveOwnedWindow(this) || HasActiveOwnedWindow(_details);
 
         if (ForegroundProcess.TryGetForegroundAllowedBounds(_settings.AllowedProcesses, out var game))
         {
@@ -230,6 +230,9 @@ public partial class DatabaseOverlayWindow : Window
             if (ForegroundProcess.DoesForegroundWindowCover(_gameBounds)) SetPanelsVisible(false);
         }
     }
+
+    private static bool HasActiveOwnedWindow(Window window) =>
+        window.OwnedWindows.Cast<Window>().Any(owned => owned.IsActive || HasActiveOwnedWindow(owned));
 
     private void PlacePanels(ForegroundProcess.WindowBounds game)
     {

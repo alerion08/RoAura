@@ -54,6 +54,9 @@ public partial class DatabaseDetailWindow : Window
         KeyboardStatus.Text = T($"Ввод в поиск активен · {_settings.DatabaseHotkey} — закрыть",
             $"Search input active · {_settings.DatabaseHotkey} — close");
         BackButton.Content = T("Назад", "Back");
+        FavoriteButton.ToolTip = T("Добавить в избранное", "Add to favorites");
+        System.Windows.Automation.AutomationProperties.SetName(FavoriteButton, FavoriteButton.ToolTip.ToString());
+        CreateFavoriteListButton.Content = T("Создать новый +", "Create new +");
         CloseButton.ToolTip = T("Закрыть базу данных", "Close database");
     }
 
@@ -65,9 +68,18 @@ public partial class DatabaseDetailWindow : Window
         Top = game.Top + ((game.Bottom - game.Top) - height) / 2;
     }
 
+    internal bool HasFavoritePopupFocus => FavoritePopup.IsOpen && FavoritePopup.Child is UIElement { IsKeyboardFocusWithin: true };
+
     public void ResetServer() => ResetDetails();
 
-    public void Clear() {_appearanceRedraw=null;DetailsPanel.Children.Clear();}
+    public void Clear()
+    {
+        _appearanceRedraw = null;
+        _favoriteEntry = null;
+        FavoritePopup.IsOpen = false;
+        FavoriteButton.Visibility = Visibility.Collapsed;
+        DetailsPanel.Children.Clear();
+    }
     private void AppearanceChanged()=>_appearanceRedraw?.Invoke();
 
     private readonly Stack<(Action Page, double Offset)> _back = new();
@@ -180,7 +192,7 @@ public partial class DatabaseDetailWindow : Window
         var title = new StackPanel(); title.Children.Add(Heading(monster.Name, 20));
         title.Children.Add(Meta($"#{monster.Id} · Lv {monster.Level}\n{monster.Race} · {monster.Element} · {monster.Size}"));
         header.Children.Add(title); DetailsPanel.Children.Add(header);
-        AddFavoriteAction(new(DatabaseSearchKind.Monsters, monster.Id.ToString(), monster.Name));
+        SetFavoriteEntry(new(DatabaseSearchKind.Monsters, monster.Id.ToString(), monster.Name));
         ShowMonsterStatistics(monster);
         ShowMonsterSkills(monster.Skills);
         AddLine(T("Средняя стоимость обычного дропа у NPC", "Expected NPC value of regular drops"),
@@ -324,7 +336,7 @@ public partial class DatabaseDetailWindow : Window
         var density = _database.GetMapExperienceDensity(map);
         DetailsPanel.Children.Add(Heading(map.Name, 20));
         DetailsPanel.Children.Add(Meta(map.Code));
-        AddFavoriteAction(new(DatabaseSearchKind.Maps, map.Code, map.Name));
+        SetFavoriteEntry(new(DatabaseSearchKind.Maps, map.Code, map.Name));
         if (map.LocalImagePng is { Length: > 0 } minimap)
             DetailsPanel.Children.Add(new Image { Source = DecodeCatalogImage(minimap), MaxWidth = 256,
                 MaxHeight = 256, Stretch = Stretch.Uniform });

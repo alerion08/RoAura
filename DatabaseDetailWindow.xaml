@@ -30,14 +30,30 @@
         <Grid>
             <Grid.RowDefinitions><RowDefinition Height="42"/><RowDefinition Height="*"/><RowDefinition Height="30"/></Grid.RowDefinitions>
             <Border Background="{DynamicResource UiBackground_DCEBFA}" BorderBrush="{DynamicResource UiBorder_7DA2D1}" BorderThickness="0,0,0,2" CornerRadius="7,7,0,0">
-                <Grid Margin="12,5"><TextBlock x:Name="PanelTitle" Text="Результат" FontFamily="Georgia" FontWeight="Bold" FontSize="17" Foreground="{DynamicResource UiForeground_174D92}" VerticalAlignment="Center"/>
-                    <Button x:Name="BackButton" HorizontalAlignment="Right" Margin="0,0,42,0"
+                <DockPanel Margin="12,5">
+                    <Button x:Name="CloseButton" DockPanel.Dock="Right" Content="&#x2715;" Width="34" Height="30" MinHeight="0"
+                            Margin="0" Padding="0" FontSize="15" Click="Close_Click" ToolTip="Закрыть базу данных"/>
+                    <Button x:Name="FavoriteButton" DockPanel.Dock="Right" Width="34" Height="30" MinHeight="0"
+                            Margin="0,0,6,0" Padding="0" FontSize="18" FontFamily="Segoe UI Symbol"
+                            Visibility="Collapsed" Click="FavoriteButton_Click"/>
+                    <Button x:Name="BackButton" DockPanel.Dock="Right" Margin="0,0,6,0"
                             MinHeight="0" Height="30" Padding="9,0" Visibility="Collapsed" Click="Back_Click"/>
-                    <Button x:Name="CloseButton" HorizontalAlignment="Right" Content="&#x2715;" Width="34" Height="30" MinHeight="0"
-                            Margin="0" Padding="0" FontSize="15" Click="Close_Click"
-                            ToolTip="Закрыть базу данных"/>
-                </Grid>
+                    <TextBlock x:Name="PanelTitle" Text="Результат" FontFamily="Georgia" FontWeight="Bold" FontSize="17"
+                               Foreground="{DynamicResource UiForeground_174D92}" VerticalAlignment="Center"/>
+                </DockPanel>
             </Border>
+            <Popup x:Name="FavoritePopup" PlacementTarget="{Binding ElementName=FavoriteButton}" Placement="Bottom"
+                   StaysOpen="False" AllowsTransparency="True">
+                <Border MinWidth="200" Padding="6" CornerRadius="7" BorderThickness="1"
+                        Background="{DynamicResource RoPanelBrush}" BorderBrush="{DynamicResource RoBorderBrush}">
+                    <DockPanel>
+                        <Button x:Name="CreateFavoriteListButton" DockPanel.Dock="Bottom" Click="CreateFavoriteList_Click" Margin="0,4,0,0"/>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="260">
+                            <StackPanel x:Name="FavoritePopupLists"/>
+                        </ScrollViewer>
+                    </DockPanel>
+                </Border>
+            </Popup>
             <Border Grid.Row="1" Margin="9,8" BorderBrush="{DynamicResource UiBorder_A9C0DD}" BorderThickness="1" Background="{DynamicResource UiBackground_F8FBFF}" CornerRadius="5">
                 <ScrollViewer x:Name="DetailsScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel x:Name="DetailsPanel" Margin="13"/>
