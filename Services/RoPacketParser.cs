@@ -50,7 +50,8 @@ public readonly record struct RoEquipmentPacket(
 public readonly record struct RoItemAddedPacket(
     ushort InventoryIndex,
     int ItemId,
-    int Count);
+    int Count,
+    bool Stolen = false);
 
 public readonly record struct RoExperiencePacket(
     uint Aid,
@@ -122,6 +123,19 @@ public sealed class RoPacketStreamScanner
     public event Action<RoSkillCooldownPacket>? SkillCooldown;
     public event Action<RoEquipmentPacket>? EquipmentChanged;
     public event Action<RoItemAddedPacket>? ItemAdded;
+    internal LootSourceDiagnostics? LootDiagnostics { get; set; }
+    internal Func<bool>? TrackSteal { get; set; }
+
+    private RoItemAddedPacket? _pendingLoot;
+    private long _pendingLootOffset;
+    internal bool HasPendingLoot => _pendingLoot.HasValue;
+
+    internal void FlushPendingLoot(bool stolen = false)
+    {
+        if (_pendingLoot is not { } loot) return;
+        _pendingLoot = null;
+        ItemAdded?.Invoke(loot with { Stolen = stolen });
+    }
     public event Action<RoExperiencePacket>? ExperienceChanged;
     public event Action<RoProgressPacket>? ProgressChanged;
     internal event Action<CharacterRosterLevel[]>? CharacterRosterObserved;
@@ -129,10 +143,12 @@ public sealed class RoPacketStreamScanner
 
     public void ResetStream()
     {
+        FlushPendingLoot();
         _carry = [];
         _knownBoundary = true;
         _streamOffset = 0;
         _inventoryEquipment.Clear();
+        LootDiagnostics?.ResetStream();
         StreamReset?.Invoke();
     }
 
@@ -161,6 +177,29 @@ public sealed class RoPacketStreamScanner
                 RoPacketLayoutProbe.Create(combined.AsSpan(offset, frameLength),
                     _streamOffset + offset, _knownBoundary, CaptureStatusWireBytes) is { } probe)
                 LayoutProbed.Invoke(probe);
+            if (LootDiagnostics is { } lootDiagnostics &&
+                (frameLength > 0 || packetId is 0x008A or 0x009D or 0x009E or 0x00A1 or 0x084B or 0x0ADD))
+            {
+                var skillId = packetId switch
+                {
+                    0x011A or 0x09CB or 0x0117 => ReadUInt16(combined, offset + 2),
+                    0x07FB or 0x0B1A => ReadUInt16(combined, offset + 14),
+                    _ => 0
+                };
+                lootDiagnostics.Observe(packetId, frameLength, _streamOffset + offset, _knownBoundary, skillId);
+            }
+            if (_pendingLoot.HasValue)
+            {
+                var distance = _streamOffset + offset - _pendingLootOffset;
+                // Observed Ragnarok+ sequence: item add (70 B), status update (8 B),
+                // then a successful Steal result. Require byte adjacency in this flow.
+                if (distance != RtmItemAddedPacketSize || packetId != 0x00B0 || frameLength != 8)
+                {
+                    var stolen = distance == RtmItemAddedPacketSize + 8 && packetId == 0x09CB &&
+                        TryReadModernSkillUse(combined, offset, out _, out var result) && result.SkillId == 50;
+                    FlushPendingLoot(stolen);
+                }
+            }
             switch (packetId)
             {
                 case 0x082D when frameLength == 29:
@@ -180,7 +219,13 @@ public sealed class RoPacketStreamScanner
                         DebugLog.Write($"PACKET EQUIPMENT CACHE: 0x0B41; index={addedEquipment.InventoryIndex}; " +
                                        $"item={addedEquipment.ItemId}; variant={addedEquipment.VariantKey}");
                     }
-                    ItemAdded?.Invoke(itemAdded);
+                    LootDiagnostics?.ItemAdded(itemAdded, _streamOffset + offset);
+                    if (TrackSteal?.Invoke() == true)
+                    {
+                        _pendingLoot = itemAdded;
+                        _pendingLootOffset = _streamOffset + offset;
+                    }
+                    else ItemAdded?.Invoke(itemAdded);
                     offset += length - 1;
                     break;
 

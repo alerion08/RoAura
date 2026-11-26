@@ -137,6 +137,8 @@ public static class QuestProgress
                 continue; // retain current position, anchor and history
             }
             entry.IsMissingFromCatalog = false;
+            if (entry.QuestKey.StartsWith("ragnarokplus:", StringComparison.Ordinal) &&
+                RagnarokPlusQuestCatalog.Instance.MigratePresentationChange(entry, guide)) continue;
             var unchanged = guide.ContentHash is not null && guide.ContentHash == entry.CatalogContentHash &&
                 guide.Steps.Any(s => s.Number == entry.CurrentStep && Anchor(s) == entry.StepAnchor);
             if (unchanged && !entry.NeedsStepReview) continue;

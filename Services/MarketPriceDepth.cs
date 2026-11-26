@@ -5,7 +5,10 @@ namespace RoAura.Services;
 
 internal static class MarketPriceDepth
 {
-    internal sealed record Variant(string ItemName, string GameMode, string Refine, string Cards, PriceLevel[] Levels);
+    internal sealed record Variant(int ItemId, string ItemName, string GameMode, string Refine, string Cards, PriceLevel[] Levels)
+    {
+        internal (int ItemId, string Mode, string Refine, string Cards) Key => (ItemId, GameMode, Refine, Cards);
+    }
     internal sealed record PriceLevel(long Price, BigInteger Quantity);
 
     internal static Variant[] Build(IEnumerable<MarketListing> listings, bool buying)
@@ -21,7 +24,7 @@ internal static class MarketPriceDepth
             {
                 var levels = group.GroupBy(offer => offer.Price).Select(priceGroup => new PriceLevel(priceGroup.Key,
                     priceGroup.Aggregate(BigInteger.Zero, (total, offer) => total + offer.Quantity)));
-                return new Variant(group.Key.ItemName, group.Key.GameMode, group.Key.Refine, group.Key.Cards,
+                return new Variant(group.Key.ItemId, group.Key.ItemName, group.Key.GameMode, group.Key.Refine, group.Key.Cards,
                     (buying ? levels.OrderByDescending(level => level.Price) : levels.OrderBy(level => level.Price)).ToArray());
             }).ToArray();
     }

@@ -40,6 +40,11 @@ public sealed class RewardChannelSettings : INotifyPropertyChanged
     private string _wantedLootColor = "#FF65E7FF";
     public string WantedLootColor { get => _wantedLootColor; set => Set(ref _wantedLootColor, value ?? "#FF65E7FF"); }
 
+    private bool _showQuestLootPrefix = true;
+    public bool ShowQuestLootPrefix { get => _showQuestLootPrefix; set => Set(ref _showQuestLootPrefix, value); }
+    private string _questLootColor = "#FFB99AFF";
+    public string QuestLootColor { get => _questLootColor; set => Set(ref _questLootColor, value ?? "#FFB99AFF"); }
+
     public string ColorForItemType(string? type, bool usedInCraft = false) => type switch
     {
         "Equip" => EquipColor,

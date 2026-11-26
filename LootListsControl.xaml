@@ -1,0 +1,130 @@
+<UserControl x:Class="RoAura.LootListsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:RoAura.Controls"
+             x:Name="LootListsRoot">
+    <Border Margin="0,8,0,0" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1"
+            CornerRadius="8" Background="{DynamicResource UiBackground_FFFFFF}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" MinWidth="380"/>
+                <ColumnDefinition Width="7"/>
+                <ColumnDefinition x:Name="EditorColumn" Width="3*" MinWidth="270"/>
+            </Grid.ColumnDefinitions>
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock Text="{DynamicResource LootListTitle}" Style="{StaticResource RoSectionTitleStyle}" Margin="16,12,16,2"/>
+                    <TextBlock Text="{DynamicResource LootListHint}" Style="{StaticResource RoCaptionTextStyle}" TextWrapping="Wrap" Margin="16,0,16,0"/>
+                    <WrapPanel Margin="12,10">
+                        <WrapPanel.Resources>
+                            <Style TargetType="Button" BasedOn="{StaticResource RoButtonBaseStyle}">
+                                <Setter Property="Height" Value="30"/>
+                                <Setter Property="MinHeight" Value="30"/>
+                                <Setter Property="Padding" Value="8,0"/>
+                                <Setter Property="Margin" Value="0,0,4,4"/>
+                            </Style>
+                        </WrapPanel.Resources>
+                        <ComboBox x:Name="ListFilter" Width="145" Height="30" Margin="0,0,6,4" SelectionChanged="ListFilter_Changed"/>
+                        <Button Content="{DynamicResource LootListCreate}" Click="Create_Click"/>
+                        <Button x:Name="RenameListButton" Content="{DynamicResource LootListRename}" Click="Rename_Click"/>
+                        <Button x:Name="DeleteListButton" Content="{DynamicResource Delete}" Click="Delete_Click"/>
+                    </WrapPanel>
+                </StackPanel>
+                <DataGrid x:Name="ItemsGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                          BorderThickness="0" Binding.SourceUpdated="TrackerOptions_Changed">
+                    <DataGrid.Resources>
+                        <Style x:Key="LootListCellText" TargetType="TextBlock">
+                            <Setter Property="Margin" Value="9,0,4,0"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                        </Style>
+                        <Style x:Key="LootListQuantity" TargetType="TextBox" BasedOn="{StaticResource RoTextBoxStyle}">
+                            <Setter Property="Margin" Value="5,2"/>
+                            <Setter Property="Padding" Value="4,0"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{DynamicResource Item}" Binding="{Binding Name}"
+                                            ElementStyle="{StaticResource LootListCellText}" IsReadOnly="True" Width="2*"/>
+                        <DataGridTemplateColumn Header="{DynamicResource LootListAcquired}" Width="75">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Style="{StaticResource LootListQuantity}" Visibility="{Binding ItemVisibility}"
+                                             Text="{Binding Item.Acquired, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="{DynamicResource LootListTarget}" Width="85">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Style="{StaticResource LootListQuantity}" Visibility="{Binding ItemVisibility}"
+                                             Text="{Binding Item.Target, UpdateSourceTrigger=LostFocus}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="{DynamicResource LootListRemaining}" Binding="{Binding Item.Remaining}"
+                                            ElementStyle="{StaticResource LootListCellText}" IsReadOnly="True" Width="85"/>
+                        <DataGridTemplateColumn Header="{DynamicResource LootListActive}" Width="70">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate><CheckBox IsChecked="{Binding Item.Active, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ItemVisibility}"/></DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="{DynamicResource LootListTitle}" Width="1.5*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <ComboBox ItemsSource="{Binding Lists}" SelectedItem="{Binding List, Mode=OneWay}"
+                                                  SelectionChanged="ItemList_Changed" DisplayMemberPath="Name" Margin="5,2"
+                                                  Visibility="{Binding ItemVisibility}"/>
+                                        <TextBlock Text="{Binding List.Name}" Visibility="{Binding EmptyListVisibility}" Style="{StaticResource LootListCellText}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="{DynamicResource LootListTrackerColumn}" Width="66">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding ShowInTracker, Mode=TwoWay, NotifyOnSourceUpdated=True}"
+                                              Visibility="{Binding ItemVisibility}"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+            <GridSplitter x:Name="EditorSplitter" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                          ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" ShowsPreview="True"
+                          Background="{DynamicResource RoSoftBorderBrush}"/>
+            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" Background="{DynamicResource UiBackground_F4F8FD}">
+                <StackPanel Margin="12">
+                    <StackPanel x:Name="TrackerOptions" Binding.SourceUpdated="TrackerOptions_Changed">
+                        <TextBlock Text="{DynamicResource LootListTrackerSettings}" Style="{StaticResource RoSectionTitleStyle}" Margin="0,0,0,6"/>
+                        <CheckBox Content="{DynamicResource LootListEnableOverlay}" IsChecked="{Binding Enabled, NotifyOnSourceUpdated=True}" Margin="0,4"/>
+                        <CheckBox Content="{DynamicResource LootListHorizontal}" IsChecked="{Binding Horizontal, NotifyOnSourceUpdated=True}" Margin="0,4"/>
+                        <WrapPanel Margin="0,3">
+                            <TextBlock Text="X" VerticalAlignment="Center"/>
+                            <controls:NumericTextBox Value="{Binding X, NotifyOnSourceUpdated=True}" Width="58" Margin="4,0,8,0"/>
+                            <TextBlock Text="Y" VerticalAlignment="Center"/>
+                            <controls:NumericTextBox Value="{Binding Y, NotifyOnSourceUpdated=True}" Width="58" Margin="4,0,0,0"/>
+                        </WrapPanel>
+                        <TextBlock Text="{DynamicResource QWidth}"/>
+                        <controls:NumericTextBox Value="{Binding Width, NotifyOnSourceUpdated=True}" Margin="0,2,0,5"/>
+                        <TextBlock Text="{DynamicResource QFontSize}"/>
+                        <controls:NumericTextBox Value="{Binding TextSize, NotifyOnSourceUpdated=True}" Margin="0,2,0,5"/>
+                        <TextBlock Text="{DynamicResource QGap}"/>
+                        <controls:NumericTextBox Value="{Binding Gap, NotifyOnSourceUpdated=True}" Margin="0,2,0,5"/>
+                        <TextBlock Text="{DynamicResource QBackgroundOpacity}"/>
+                        <controls:NumericTextBox Value="{Binding BackgroundOpacityPercent, NotifyOnSourceUpdated=True}" Margin="0,2,0,5"/>
+                        <TextBlock Text="{DynamicResource QBackgroundColor}"/>
+                        <controls:ColorTextBox Text="{Binding BackgroundColor, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,5"/>
+                        <TextBlock Text="{DynamicResource QTextColor}"/>
+                        <controls:ColorTextBox Text="{Binding TextColor, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,5"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>

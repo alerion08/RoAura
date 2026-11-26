@@ -30,6 +30,12 @@ public sealed class QuestOverlaySettings : INotifyPropertyChanged
     public double CardGap { get => _gap; set => Number(ref _gap, value, 0, 24); }
     public double Scale { get => _scale; set => Number(ref _scale, value, .65, 1.5); }
     public string TextColor { get => _textColor; set => Set(ref _textColor, value ?? "#FFFFFFFF"); }
+    private double _backgroundOpacity = 70;
+    private string _backgroundColor = "#FF121C30";
+    private bool _perCardBackground;
+    public double BackgroundOpacityPercent { get => _backgroundOpacity; set => Number(ref _backgroundOpacity, value, 0, 100); }
+    public string BackgroundColor { get => _backgroundColor; set => Set(ref _backgroundColor, value ?? "#FF121C30"); }
+    public bool PerCardBackground { get => _perCardBackground; set => Set(ref _perCardBackground, value); }
     public event PropertyChangedEventHandler? PropertyChanged;
     private void Number(ref double field, double value, double min, double max, [CallerMemberName] string? name = null)
     { if (double.IsFinite(value)) Set(ref field, Math.Clamp(value, min, max), name); }

@@ -21,11 +21,23 @@ public sealed class ColorPickerWindow : Window
     {
         Title = LocalizationService.Get("ColorPickerTitle");
         Width = 430; SizeToContent = SizeToContent.Height; ResizeMode = ResizeMode.NoResize;
-        WindowStartupLocation = WindowStartupLocation.CenterOwner; ShowInTaskbar = false;
-        SetResourceReference(BackgroundProperty, "RoWindowBrush");
+        WindowStartupLocation = WindowStartupLocation.CenterOwner; ShowInTaskbar = false; WindowStyle = WindowStyle.None;
+        AllowsTransparency = true;
+        Background = Brushes.Transparent;
         _error.SetResourceReference(TextBlock.ForegroundProperty,"UiForeground_B64B55");
         var root = new StackPanel { Margin = new Thickness(18) };
-        Content = root;
+        var layout = new DockPanel();
+        var heading = new TextBlock { Text = Title, Margin = new Thickness(14, 8, 14, 8) };
+        heading.SetResourceReference(StyleProperty, "RoSectionTitleStyle");
+        var header = new Border { Child = heading, CornerRadius = new CornerRadius(8, 8, 0, 0) };
+        header.SetResourceReference(Border.BackgroundProperty, "RoTitleBrush");
+        DockPanel.SetDock(header, Dock.Top);
+        layout.Children.Add(header);
+        layout.Children.Add(root);
+        var frame = new Border { BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(9), Child = layout };
+        frame.SetResourceReference(Border.BackgroundProperty, "RoWindowBrush");
+        frame.SetResourceReference(Border.BorderBrushProperty, "RoBorderBrush");
+        Content = frame;
         var palette = new UniformGrid { Columns = 12 };
         foreach (var r in new byte[] { 0, 85, 170, 255 })
         foreach (var g in new byte[] { 0, 85, 170, 255 })

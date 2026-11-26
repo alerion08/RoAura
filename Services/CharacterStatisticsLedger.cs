@@ -211,7 +211,7 @@ public sealed class CharacterStatisticsLedger
                     row.Name.Length > 500 || !next.TryAdd(row.ItemId, new CharacterLootCount
                     {
                         ItemId = row.ItemId, Name = row.Name, Count = row.Count,
-                        HasManualCost = row.HasManualCost, ManualUnitCost = row.ManualUnitCost
+                        StolenCount = Math.Clamp(row.StolenCount, 0, row.Count), HasManualCost = row.HasManualCost, ManualUnitCost = row.ManualUnitCost
                     }))
                     throw new InvalidDataException("Invalid Gold Goblin row.");
             }

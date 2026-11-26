@@ -47,4 +47,21 @@ public sealed class QuestFactPresentationTests
   Assert.Equal("Экипировка для маскировки: должна быть надета, не расходуется.",QuestFactText.Localize(en,"ru"));
   Assert.Contains("60–69",QuestFactText.Localize("Base level 60-69 only.\nBase level 90-99 only.","ru"));
  }
+ [Fact]
+ public void SummaryIncludesStepMaterialsWithoutTreatingRepeatedRequirementsAsCumulative()
+ {
+  var first = new SemanticStep("s1", "q", 1, null, null, "", "", "", "", "", [], [],
+   [new SemanticItem("fruit", "Orange", 2, "bring", true, "Choice of fruit", "fruit-a") { DatabaseItemId = 513 }], []);
+  var second = first with { Id = "s2", Order = 2, Items =
+   [new SemanticItem("fruit", "Orange", 1, "show", true, null, null) { DatabaseItemId = 513 },
+    new SemanticItem("stone", "Jellopy", 5, "bring", true, null, null) { DatabaseItemId = 909 }] };
+  var quest = new SemanticQuest("q", "Quest", null, null, "source", "source", new("", "", "Ragnarok+", null), [first, second], [], []);
+  var summary = QuestFactPresentation.MaterialSummary(quest, "en");
+  var orange = Assert.Single(summary, fact => fact.Name == "Orange");
+  Assert.Null(orange.Amount);
+  Assert.Equal(513, orange.DatabaseItemId);
+  Assert.Contains("Step 1: 2", orange.Condition);
+  Assert.Contains("Step 2: 1", orange.Condition);
+  Assert.Equal("5", Assert.Single(summary, fact => fact.Name == "Jellopy").Amount);
+ }
 }

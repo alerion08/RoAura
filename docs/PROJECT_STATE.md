@@ -7,6 +7,76 @@
 - [Windows publication run](https://github.com/alerion08/RoAura/actions/runs/45060245412) passed 433 tests, eight ToC checks, native startup and input checks, portable and installer builds, installation verification and package validation. The public release has the portable ZIP, Setup EXE and checksum manifest.
 - The owner confirmed Ragnarok+ catalog download in the Windows test build. Live market authentication, character and EXP tracking, and in-game overlay behavior remain manual regression checks on the released package.
 
+## Ragnarok+ loot-source diagnostics
+
+- Branch `integration/ragnarokplus-loot-diagnostics` adds a DEV-only, opt-in trace for manual Steal, auto-Steal and ground pickup. Launch with `--diagnose-loot-source` and select Ragnarok+.
+- Search the DEV debug log for `LOOT SOURCE DIAG`. The trace records bounded packet-candidate metadata around inventory additions. A guessed boundary can be a false match. The trace does not classify loot or change Gold Goblin totals.
+- Live validation: isolate auto-Steal, manual Steal and ground pickup, then acquire the same item via Steal and pickup in quick succession.
+
+## Ragnarok+ Steal tracking
+
+- The loot-source development branch matches a successful Steal result, skill 50, immediately after the inventory add and status update on the same Ragnarok+ stream. Manual and automatic Steal shared this sequence in six observed samples. The setting in Statistics → Appearance → General settings is off by default.
+- Confirmed Steal rewards display `[S]`. Gold Goblin shows distinct quantities and accounted loot value in the details of saved sessions with stolen loot. Old or unclassified loot contributes to regular loot.
+- Manual acceptance on Ragnarok+ is pending. Test manual and automatic Steal, an ordinary pickup of the same item, changing prices, and reopening both current and saved sessions.
+
+## Selected RoAura ideas
+
+- RA-103 compares best market prices by item variant, mode and offer side. RA-156 shows the value and share of stolen loot in saved sessions.
+- Layout mode gets a per-panel visibility toggle, movement lock and front/back actions (RA-309, RA-311). Quest overlay ordering uses its own window above or below the ordinary overlay surface.
+- The Gold Goblin session, rules and history tables retain manually resized columns and freeze their first identity column (RA-485, RA-487).
+
+## Equipment, effects and timer presentation
+
+- Equipment group numbers can opt into a shared icon size, gap and horizontal or vertical layout. Existing individual layouts remain in use until a shared layout is saved. Group 0 is ungrouped.
+- Effect groups can configure the icon panel and notification directions independently. Cooldown layout applies on a changed direction when the selector closes or from the Apply button.
+- Timer rows and minimap headings have separate icon, monster name and map controls. The countdown and map marker remain visible with their respective surfaces.
+
+## Overlay import and export
+
+- Cooldowns, Effects, Equipment and Reminders can export their configured entries and group settings to a versioned JSON package. Import appends copies with new overlay IDs and remaps conflicting group numbers. Embedded images travel with the package. Local sound paths still refer to local files.
+## Timer, Gold Goblin and equipment layout polish
+
+- Timer rows start with their ordinal number even when the icon, monster name or map is hidden.
+- Gold Goblin uses compact session controls in the upper-right corner and compact totals. Add sits at the bottom left of the loot editor and Delete sits at the bottom right. Drag the divider on the editor’s left edge to resize it.
+- Equipment can place its text over the icon with an independently adjustable dark fill. It can also show an icon from the active local catalog by Item ID. When a catalog sprite is unavailable, the manually selected icon is used if present.
+- Pending Windows validation of the divider, timer display combinations and catalog images in the equipment list, preview and overlay.
+
+## Offline skill icon picker and equipment alignment
+
+- The bundled iRO Wiki catalog supplies 1,126 icons and 80 job trees. Cooldowns, effects and reminders can search the catalog by English name, code or exact catalog ID. The search opens empty. Job name search and independent Rebirth and Renewal filters apply to the catalog and profession list. The chosen icon is stored with the overlay entry.
+- Horizontal equipment groups top-align their items so an icon with overlay text stops at the icon's edge beside an item with a caption underneath.
+
+## Gold Goblin and database controls
+
+- Gold Goblin matches Statistics session controls and supports excluding the selected item without replacing its price source.
+- Database search modes use section tabs. The star inside the card’s top-right corner opens a themed, color-coded checklist contained in the card window. Create new opens a themed dialog and bookmarks the current card in the new list. List management remains available from Favorites.
+- The icon picker opens profession choices from the whole field and filters them without rewriting the editable query.
+- The published Ragnarok+ archive tagged catalog-ragnarokplus-2026-11-22 has 478 monsters with no HP or attack values. The current collector takes identity and experience from the index and exports drops and spawns from each card, but only uses Combat Stats as a page readiness signal. The UI marks missing combat data. Importing combat stats requires an updated collector and a new catalog snapshot.
+
+## Refreshed quest snapshot and equipment icon picker
+
+- The Windows validation and release workflows pin both quest SQLite files to research commit `e4e6b8ac21c92bc86017ac8385d8b22d200a3f88`. It contains 216 quests (100 fully localized semantic guides). Pending entries remain subject to the existing reader rules. Fact notes without a reviewed Russian translation use their original text.
+- Equipment offers item icons from the active local item database and skill icons from the offline skill catalog. Picking an icon stores it on the entry and preserves the configured equipment Item ID. Existing database-linked icon settings remain readable.
+
+## Ragnarok+ quests and tracker background
+
+- The bundled Ragnarok+ snapshot was exported from the supplied SQLite and contains 122 regular quests and 178 Hunting Quests. Quest keys are namespaced by source. The catalog hides Hunting Quests until their checkbox is selected, and supports faction (including All Clan) and listed base reputation filters. Hunting instructions display only kill objectives. Explicit final reward-only summaries are shown in the rewards tab.
+- Required-item links use only explicit collector `bring` records. Item and monster links from Ragnarok+ guides use explicit source IDs and resolve against the active Ragnarok+ item and monster databases.
+- The tracker preview and overlay have padded, rounded backgrounds with independent color, opacity and common/per-card mode. Database and quest links preserve the origin view and reading position when returning. The separate weekly snapshot and offline image blobs are outside this package.
+
+## Quest materials, map pins and pickup colors
+
+- ROQuestie shows a quest-wide materials summary that preserves alternatives and known counts by stage. Exact IDs and uniquely matching names link to the database using text links.
+- Ragnarok+ minimaps use the collector's original pin positions. Hunting reputation choices reflect the current faction, title search and level.
+- Statistics assigns quest-required Ragnarok+ pickups a configurable notification color. Manually wanted items keep their higher-priority color.
+- The tracker skips redundant native geometry and clip changes, rebuilds for actual tracker changes, and insets the action buttons.
+
+## Loot lists and tracker
+
+- Gold Goblin has server-scoped loot lists. Pickups advance each active matching row from the time the row is added, independently of farming-session resets or pause. Goal, progress and tracker visibility persist. Legacy wanted-item settings remain readable without generating a loot list.
+- Database cards add/remove items through a checklist and can create a list. Gold Goblin remembers both workspace splitters and table column widths. The tracker has its own geometry, text and background options, participates in the overlay layout editor, and renders separate rounded cards for visible lists. The loot-list table supports manual progress edits and a per-item tracker checkbox and a live completion color. The overlay wraps separate titled cards within the game client. ROQuestie imports all identifiable materials into a persistent list for the selected quest and enables its tracker card.
+- Quest-loot notifications can show the optional `[Q]` prefix. With Hunting Quests checked, the quest catalog shows only hunts even when Ragnarok+ is also checked.
+
 ## Previous published baseline — RoAura 3.5.0
 
 - [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.

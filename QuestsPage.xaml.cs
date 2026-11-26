@@ -25,6 +25,9 @@ public partial class QuestsPage : UserControl
     private Func<CharacterSessionSnapshot>? _observed;
     private Action? _saveVisuals;
     private bool _updating;
+    private const string RPlusCategory = "rplus-quest";
+    private const string HuntingCategory = "rplus-hunting";
+    private bool IsRPlusServer => _workspace?.Settings.ServerProfile == GameServerProfile.RagnarokPlus;
     private readonly DispatcherTimer _semanticRefresh=new(){Interval=TimeSpan.FromSeconds(2)};
     private readonly DispatcherTimer _searchTimer = new() { Interval = TimeSpan.FromMilliseconds(250) };
     private double _filterLevel = 99;
@@ -66,7 +69,7 @@ public partial class QuestsPage : UserControl
             ProfileChoice.ItemsSource = _workspace.ProfileChoices();
             ProfileChoice.SelectedItem = ((IReadOnlyList<QuestProfileChoice>)ProfileChoice.ItemsSource).FirstOrDefault(p => p.Key == _workspace.ManualProfile);
             CategoryChoice.ItemsSource = new[] { new QuestCategoryChoice(T("QAllCategories"), null) }.Concat(
-                ReadyGuides().Select(q => q.Category).Distinct().OrderBy(x => x)
+                ReadyGuides().Select(q => q.Category).Where(c => c is not (RPlusCategory or HuntingCategory)).Distinct().OrderBy(x => x)
                     .Select(c => new QuestCategoryChoice(T("QCategory" + c), c)) ).ToArray();
             CategoryChoice.SelectedItem = ((IEnumerable<QuestCategoryChoice>)CategoryChoice.ItemsSource).FirstOrDefault(c => c.Key == category)
                 ?? ((IEnumerable<QuestCategoryChoice>)CategoryChoice.ItemsSource).First();
@@ -84,13 +87,57 @@ public partial class QuestsPage : UserControl
         var old = _updating; _updating = true;
         try
         {
-            var rows = new QuestCatalog(ReadyGuides()).Search(SearchInput.Text, (CategoryChoice.SelectedItem as QuestCategoryChoice)?.Key,
-                UseLevel.IsChecked == true ? (int)FilterLevel : null).Select(g => new QuestCatalogListRow(g, _workspace.IsActive(g), _workspace.CanEdit && _workspace.Catalog?.Guides.GetValueOrDefault(g.Key)==g && g.Steps.Count > 0)).ToList();
+            var category = (CategoryChoice.SelectedItem as QuestCategoryChoice)?.Key;
+            var hunting = HuntingOnly.IsChecked == true;
+            CatalogDetails.SetHuntingChoiceVisibility(hunting);
+            var rplus = RPlusOnly.IsChecked == true;
+            CategoryChoice.IsEnabled = !(hunting || rplus);
+            HuntingFilters.Visibility = hunting ? Visibility.Visible : Visibility.Collapsed;
+            var source = RagnarokPlusQuestCatalog.Instance;
+            if (hunting && HuntingFaction.Items.Count == 0)
+            {
+                HuntingFaction.ItemsSource = new[] { T("QAllCategories"), "All Clan" }.Concat(source.Cards.Values
+                    .SelectMany(card => card.Reputation).Select(rep => rep.Faction).Distinct().OrderBy(name => name)).ToArray();
+                HuntingFaction.SelectedIndex = 0;
+            }
+            var faction = hunting && HuntingFaction.SelectedIndex > 0 ? HuntingFaction.SelectedItem as string : null;
+            var choices = new QuestCatalog(ReadyGuides()).Search(SearchInput.Text, HuntingCategory,
+                UseLevel.IsChecked == true ? (int)FilterLevel : null)
+                .Select(guide => source.Cards[guide.Key]).Where(card => MatchesHunting(card, faction, null)).ToArray();
+            if (hunting)
+            {
+                var selected = HuntingReputation.SelectedItem as string;
+                var amounts = choices.SelectMany(card => card.Reputation)
+                    .Where(rep => faction is null or "All Clan" || rep.Faction == faction)
+                    .Select(rep => rep.Value).Distinct().OrderBy(value => value).Select(value => value.ToString());
+                var options = amounts.Prepend(T("QAllCategories")).ToArray();
+                HuntingReputation.ItemsSource = options;
+                HuntingReputation.SelectedItem = options.Contains(selected) ? selected : options[0];
+            }
+            var repValue = hunting && int.TryParse(HuntingReputation.SelectedItem as string, out var amount) ? amount : (int?)null;
+            var rows = new QuestCatalog(ReadyGuides()).Search(SearchInput.Text, hunting || rplus ? null : category,
+                UseLevel.IsChecked == true ? (int)FilterLevel : null)
+                .Where(g => g.Category switch
+                {
+                    HuntingCategory => hunting && MatchesHunting(source.Cards[g.Key], faction, repValue),
+                    RPlusCategory => !hunting,
+                    _ => !rplus && !hunting
+                })
+                .Select(g => new QuestCatalogListRow(g, _workspace.IsActive(g), _workspace.CanEdit &&
+                    _workspace.Catalog?.Guides.GetValueOrDefault(g.Key)==g && g.Steps.Count > 0 &&
+                    (!source.Cards.ContainsKey(g.Key) || IsRPlusServer))).ToList();
             CatalogList.ItemsSource = rows;
             CatalogList.SelectedItem = rows.FirstOrDefault(r => r.Guide.Key == _workspace.SelectedGuide?.Key);
             CatalogEmpty.Visibility = rows.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
         }
         finally { _updating = old; }
+    }
+    internal static bool MatchesHunting(RagnarokPlusQuestCatalog.Card card, string? faction, int? value)
+    {
+        if (faction == "All Clan" && !card.AllClan) return false;
+        return faction is null && value is null ||
+            card.Reputation.Any(rep => (faction is null or "All Clan" || rep.Faction == faction) &&
+                (value is null || rep.Value == value));
     }
     private void Track_Click(object sender, RoutedEventArgs e)
     { if (sender is Button { DataContext: QuestCatalogListRow row }) { _workspace?.ToggleTracking(row.Guide); e.Handled=true; } }
@@ -132,6 +179,19 @@ public partial class QuestsPage : UserControl
     }
     public void ShowGuide(RoAura.Models.QuestGuide? guide)
     { if (_workspace is null) return; CatalogDetails.ResetSemanticChoice(); _workspace.SelectedGuide=guide; QuestTabs.SelectedIndex=3; CatalogDetails.ShowCurrentStep(); }
+    internal Action CaptureReadingPosition()
+    {
+        var guide = _workspace?.SelectedGuide;
+        var tab = QuestTabs.SelectedIndex;
+        var restore = CatalogDetails.CaptureReadingPosition();
+        return () =>
+        {
+            if (_workspace?.SelectedGuide?.Key != guide?.Key) ShowGuide(guide);
+            QuestTabs.SelectedIndex = tab;
+            restore();
+        };
+    }
+
     private void OpenGuide_Click(object sender,RoutedEventArgs e)=>ShowGuide(_workspace?.SelectedGuide);
     private void OpenGuide_DoubleClick(object sender,MouseButtonEventArgs e)=>ShowGuide(_workspace?.SelectedGuide);
     internal ComboBox ReadyQuestChoice=>CatalogDetails.QuestChoice;
@@ -145,10 +205,10 @@ public partial class QuestsPage : UserControl
         _workspace = workspace;
         await CatalogDetails.RefreshDataAsync(true);
         SearchInput.Text="";_searchTimer.Stop();Filter();
-        if(CatalogList.Items.Count!=CatalogDetails.ReadyCatalog?.Quests.Count)throw new InvalidOperationException("Catalog and walkthrough readiness disagree.");
+        if(CatalogList.Items.Count!=ReadyGuides().Count(guide => guide.Category != HuntingCategory))throw new InvalidOperationException("Catalog and walkthrough readiness disagree.");
         SearchInput.Text = "Lost Child"; _searchTimer.Stop(); Filter();
-        if (CatalogList.Items.Count != 1) throw new InvalidOperationException("Quest title search failed.");
-        CatalogList.SelectedIndex = 0;
+        if (!CatalogList.Items.Cast<QuestCatalogListRow>().Any(row => row.Guide.Key == "irowiki-classic:Lost_Child_Quest")) throw new InvalidOperationException("Quest title search failed.");
+        CatalogList.SelectedItem = CatalogList.Items.Cast<QuestCatalogListRow>().First(row => row.Guide.Key == "irowiki-classic:Lost_Child_Quest");
         await CatalogDetails.RefreshDataAsync(true);
         CatalogDetails.Render(workspace);
         if (!CatalogDetails.HasStepCount(13)) throw new InvalidOperationException("Quest details lost source instructions.");

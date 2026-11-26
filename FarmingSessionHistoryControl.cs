@@ -66,6 +66,14 @@ public sealed class FarmingSessionHistoryControl : UserControl
         AddColumn(_sessions, "SessionItems", "ItemCount");
         AddColumn(_sessions, "AccountedLootValue", "LootValue"); AddColumn(_sessions, "CharacterLabel", "CharacterCaption");
         Grid.SetRow(_sessions, 1); root.Children.Add(_sessions);
+        Loaded += AttachTableLayout;
+
+        void AttachTableLayout(object sender, RoutedEventArgs args)
+        {
+            if (Window.GetWindow(this) is not MainWindow owner) return;
+            Loaded -= AttachTableLayout;
+            TableLayout.Attach(_sessions, owner.Settings, "gold-goblin-history", owner.RequestSave);
+        }
         _sessions.SelectionChanged += (_, _) =>
         {
             _open.IsEnabled = delete.IsEnabled = _sessions.SelectedItems.Count == 1;

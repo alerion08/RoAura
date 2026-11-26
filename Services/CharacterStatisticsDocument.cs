@@ -20,6 +20,7 @@ public sealed class CharacterLootCount
     public int ItemId { get; set; }
     public string Name { get; set; } = "";
     public long Count { get; set; }
+    public long StolenCount { get; set; }
     public long ManualUnitCost { get; set; }
     public bool HasManualCost { get; set; }
 }
@@ -98,7 +99,7 @@ public sealed class CharacterStatisticsDocument
             { ItemId = p.Value.ItemId, Name = p.Value.Name, Count = p.Value.Count }),
         GoldGoblinRows = GoldGoblinRows.ToDictionary(p => p.Key, p => new CharacterLootCount
             { ItemId = p.Value.ItemId, Name = p.Value.Name, Count = p.Value.Count,
-                HasManualCost = p.Value.HasManualCost, ManualUnitCost = p.Value.ManualUnitCost })
+                StolenCount = p.Value.StolenCount, HasManualCost = p.Value.HasManualCost, ManualUnitCost = p.Value.ManualUnitCost })
     };
 
     public double SessionActiveHours => TimeSpan.FromTicks(SessionActiveTicks).TotalHours;

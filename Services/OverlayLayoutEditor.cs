@@ -12,7 +12,7 @@ namespace RoAura.Services;
 /// <summary>Only small grip HWNDs accept input. Labels and the ordinary overlay stay click-through.</summary>
 public sealed class OverlayLayoutEditor : IDisposable
 {
-    private sealed record Handle(OverlayLayoutTarget Target, QuestPassiveWindow Label, QuestPassiveWindow Grip, Button Button);
+    private sealed record Handle(OverlayLayoutTarget Target, QuestPassiveWindow Label, QuestPassiveWindow Grip, Button Button, Button Eye, Button Lock);
     private readonly AppSettings _settings;
     private readonly OverlayWindow _overlay;
     private readonly QuestOverlayHost _quests;
@@ -25,6 +25,7 @@ public sealed class OverlayLayoutEditor : IDisposable
     private OverlayLayoutTarget? _selected;
     private readonly List<Button> _alignmentButtons = [];
     private readonly List<Button> _sizeButtons = [];
+    private readonly List<Button> _layerButtons = [];
     private bool _snap;
     private string BannerText => LocalizationService.Get("InterfaceLayoutMode") + " · " +
         (_selected?.Caption ?? (_settings.InterfaceLayoutHotkey + " / " + _settings.FinishMoveHotkey));
@@ -106,6 +107,16 @@ public sealed class OverlayLayoutEditor : IDisposable
                 _alignmentButtons.Add(align);
                 actions.Children.Add(align);
             }
+            foreach (var front in new[] { false, true })
+            {
+                var caption = LocalizationService.Get(front ? "LayoutBringFront" : "LayoutSendBack");
+                var layer = new Button { Content = front ? "⇈" : "⇊", ToolTip = caption, Focusable = false,
+                    IsEnabled = false, MinHeight = 0, Padding = new Thickness(0) };
+                System.Windows.Automation.AutomationProperties.SetName(layer, caption);
+                layer.Click += (_, _) => ChangeLayer(front);
+                _layerButtons.Add(layer);
+                actions.Children.Add(layer);
+            }
             actions.Children.Add(_undoButton);
             _undoWindow = new QuestPassiveWindow(false) { Content = actions };
             AppearanceService.ApplyPalette(_undoWindow, AppearanceService.Resolve(_settings.ApplicationTheme, _settings.GameOverlayTheme, true));
@@ -123,7 +134,7 @@ public sealed class OverlayLayoutEditor : IDisposable
         _handles.Clear(); _banner?.Close(); _banner = null;
         _undoWindow?.Close(); _undoWindow = null; _undoButton = null; _undo.Clear();
         _gridWindow?.Close(); _gridWindow = null;
-        _selected = null; _snap = false; _alignmentButtons.Clear(); _sizeButtons.Clear(); _placedPixels.Clear();
+        _selected = null; _snap = false; _alignmentButtons.Clear(); _sizeButtons.Clear(); _layerButtons.Clear(); _placedPixels.Clear();
         _overlay.SetLayoutPreview(false, []); _quests.SetLayoutEditing(false);
         _overlay.SetOverlaysVisible(_overlaysVisible); _quests.SetGlobalVisible(_questsVisible);
         _activeChanged(false); _save();
@@ -153,26 +164,39 @@ public sealed class OverlayLayoutEditor : IDisposable
         var button = new Button { Content = "⋮⋮", Width = 26, Height = 26, Padding = new Thickness(0),
             MinWidth = 0, MinHeight = 0, Margin = new Thickness(0), FontSize = 16, Focusable = false, Cursor = Cursors.SizeAll,
             ToolTip = target.Caption };
-        var grip = new QuestPassiveWindow(false) { Content = button };
+        var eye = new Button { Width = 26, Height = 26, MinWidth = 0, MinHeight = 0,
+            Margin = new Thickness(0), Padding = new Thickness(0), Focusable = false };
+        var panelLock = new Button { Width = 26, Height = 26, MinWidth = 0, MinHeight = 0,
+            Margin = new Thickness(0), Padding = new Thickness(0), Focusable = false };
+        var buttons = new StackPanel { Orientation = Orientation.Horizontal };
+        buttons.Children.Add(button);
+        buttons.Children.Add(eye);
+        buttons.Children.Add(panelLock);
+        var grip = new QuestPassiveWindow(false) { Content = buttons };
         AppearanceService.ApplyPalette(grip, AppearanceService.Resolve(_settings.ApplicationTheme, _settings.GameOverlayTheme, true));
-        var handle = new Handle(target, label, grip, button); _handles.Add(handle);
+        var handle = new Handle(target, label, grip, button, eye, panelLock); _handles.Add(handle);
+        eye.Click += (_, _) =>
+        {
+            EndDrag();
+            SelectTarget(target);
+            var current = Preference(target);
+            ChangePreference(target, current with { Hidden = !current.Hidden });
+        };
+        panelLock.Click += (_, _) =>
+        {
+            EndDrag();
+            SelectTarget(target);
+            var current = Preference(target);
+            ChangePreference(target, current with { Locked = !current.Locked });
+        };
+        UpdateHandle(handle);
         button.PreviewMouseLeftButtonDown += (_, e) =>
         {
             if (!IsActive) return;
             EndDrag();
-            _selected = target;
-            if (_banner?.Content is Border { Child: TextBlock labelText }) labelText.Text = BannerText;
-            foreach (var align in _alignmentButtons) align.IsEnabled = true;
-            for (var index = 0; index < _sizeButtons.Count; index++)
-            {
-                var button = _sizeButtons[index];
-                button.IsEnabled = target.QuickSizeLabel is not null;
-                if (target.QuickSizeLabel is not { } label) continue;
-                var caption = string.Format(LocalizationService.Get(index == 0 ? "LayoutSizeDown" : "LayoutSizeUp"),
-                    LocalizationService.Get(label));
-                button.ToolTip = caption;
-                System.Windows.Automation.AutomationProperties.SetName(button, caption);
-            }
+            SelectTarget(target);
+            e.Handled = true;
+            if (Preference(target).Locked) return;
             _moving = handle; _cursor = QuestWindowNative.Cursor(); _lastDragCursor = null; _dragMoved = false;
             var rect = QuestWindowNative.Bounds(_game);
             _drag = target.BeginDrag(new Size(rect.Width / _dpi, rect.Height / _dpi));
@@ -181,6 +205,71 @@ public sealed class OverlayLayoutEditor : IDisposable
         button.PreviewMouseMove += (_, e) => { if (_moving == handle) Move(); };
         button.PreviewMouseLeftButtonUp += (_, e) => { if (_moving == handle) { Move(); EndDrag(); e.Handled = true; } };
         button.LostMouseCapture += (_, _) => { if (_moving == handle) EndDrag(); };
+    }
+
+    private OverlayPanelPreference Preference(OverlayLayoutTarget target) =>
+        _settings.OverlayPanels.GetValueOrDefault(target.Key) ?? new();
+
+    private void SelectTarget(OverlayLayoutTarget target)
+    {
+        _selected = target;
+        if (_banner?.Content is Border { Child: TextBlock labelText }) labelText.Text = BannerText;
+        foreach (var align in _alignmentButtons) align.IsEnabled = !Preference(target).Locked;
+        foreach (var layer in _layerButtons) layer.IsEnabled = true;
+        for (var index = 0; index < _sizeButtons.Count; index++)
+        {
+            var button = _sizeButtons[index];
+            button.IsEnabled = target.QuickSizeLabel is not null;
+            if (target.QuickSizeLabel is not { } label) continue;
+            var caption = string.Format(LocalizationService.Get(index == 0 ? "LayoutSizeDown" : "LayoutSizeUp"),
+                LocalizationService.Get(label));
+            button.ToolTip = caption;
+            System.Windows.Automation.AutomationProperties.SetName(button, caption);
+        }
+    }
+
+    private void ChangeLayer(bool front)
+    {
+        if (_selected is not { } target || _moving is not null) return;
+        var ranks = _settings.OverlayPanels.Values.Select(value => value.Layer);
+        var layer = front ? Math.Max(100, ranks.DefaultIfEmpty(0).Max() + 1)
+                          : Math.Min(-100, ranks.DefaultIfEmpty(0).Min() - 1);
+        ChangePreference(target, Preference(target) with { Layer = layer });
+    }
+
+    private void ChangePreference(OverlayLayoutTarget target, OverlayPanelPreference value)
+    {
+        var previous = Preference(target);
+        if (previous == value) return;
+        Remember(() => Apply(previous));
+        Apply(value);
+        _save();
+
+        void Apply(OverlayPanelPreference preference)
+        {
+            _settings.OverlayPanels[target.Key] = preference;
+            UpdateHandle(_handles.First(handle => handle.Target == target));
+            if (_selected == target) SelectTarget(target);
+            _overlay.RefreshPanelLayers();
+            _quests.RefreshNow();
+        }
+    }
+
+    private void UpdateHandle(Handle handle)
+    {
+        var preference = Preference(handle.Target);
+        handle.Button.Cursor = preference.Locked ? Cursors.Arrow : Cursors.SizeAll;
+        handle.Button.Opacity = preference.Locked ? .45 : 1;
+        Configure(handle.Eye, preference.Hidden ? "⊘" : "👁", preference.Hidden ? "LayoutShowPanel" : "LayoutHidePanel");
+        Configure(handle.Lock, preference.Locked ? "🔒" : "🔓", preference.Locked ? "LayoutUnlockPanel" : "LayoutLockPanel");
+
+        static void Configure(Button button, string glyph, string key)
+        {
+            var caption = LocalizationService.Get(key);
+            button.Content = glyph;
+            button.ToolTip = caption;
+            System.Windows.Automation.AutomationProperties.SetName(button, caption);
+        }
     }
 
     private void ChangeSize(int direction)
@@ -213,7 +302,7 @@ public sealed class OverlayLayoutEditor : IDisposable
 
     private void Align(double? x, double? y)
     {
-        if (!IsActive || _moving is not null || _selected is null || _lastClient.IsEmpty) return;
+        if (!IsActive || _moving is not null || _selected is null || Preference(_selected).Locked || _lastClient.IsEmpty) return;
         var drag = _selected.BeginDrag(new Size(_lastClient.Width / _dpi, _lastClient.Height / _dpi));
         drag.Align(x, y);
         if (!drag.HasChanged) return;
@@ -301,8 +390,8 @@ public sealed class OverlayLayoutEditor : IDisposable
                     rect.Y = y;
                 }
             placed.Add(rect);
-            Place(handle.Label, new Rect(rect.X, rect.Y, Math.Max(1, rect.Width - 30), 26), bounds);
-            Place(handle.Grip, new Rect(rect.Right - 26, rect.Y, 26, 26), bounds);
+            Place(handle.Label, new Rect(rect.X, rect.Y, Math.Max(1, rect.Width - 82), 26), bounds);
+            Place(handle.Grip, new Rect(rect.Right - 78, rect.Y, 78, 26), bounds);
         }
         var toolbarWidth = Math.Min(750, viewport.Width);
         var toolbarX = (viewport.Width - toolbarWidth) / 2;

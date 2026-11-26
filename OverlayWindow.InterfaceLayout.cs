@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Controls;
 using RoAura.Services;
 
 namespace RoAura;
@@ -7,9 +8,30 @@ public partial class OverlayWindow
 {
     public bool IsLayoutEditing { get; private set; }
     private bool _layoutTimerPreview;
+    internal void RefreshPanelLayers()
+    {
+        var settings = _settings;
+        foreach (var source in PacketOverlaySurface.Children.OfType<OverlayLayerSource>())
+            source.RefreshLayers(OverlaySurface, settings);
+        ApplyLayer(ExperienceBarsPanel, "experience-bars", RateIndicatorsPanel.Visibility, -3);
+        ApplyLayer(MvpOverlayLayer, "mvp", Visibility.Visible, 0);
+        ApplyLayer(MarketWatchPanel, "market", settings.ServerProfile == RoAura.Models.GameServerProfile.SpringRo
+            ? Visibility.Visible : Visibility.Collapsed, 1);
+
+        void ApplyLayer(UIElement element, string key, Visibility supported, int baseline)
+        {
+            var preference = settings.OverlayPanels.GetValueOrDefault(key);
+            element.Visibility = preference?.Hidden == true ? Visibility.Collapsed : supported;
+            Panel.SetZIndex(element, preference is { Layer: not 0 } ? preference.Layer : baseline);
+        }
+        ApplyLayer(LootListTrackerLayer, "loot-list-tracker", Visibility.Visible, 1);
+        Panel.SetZIndex(EditBanner, int.MaxValue);
+    }
+
     internal void SetLayoutPreview(bool enabled, IReadOnlyList<OverlayLayoutTarget> targets)
     {
         IsLayoutEditing = enabled;
+        RefreshPanelLayers();
         _layoutTimerPreview = enabled && targets.Any(target => target.Key == "mvp");
         var keys = targets.Select(target => target.Key).ToHashSet();
         foreach (var skill in _settings.Skills)
@@ -28,11 +50,13 @@ public partial class OverlayWindow
                 _settings.ActiveNotifications.Add(CreateNotification(effect, true, true));
         foreach (var notification in _settings.ActiveMarketNotifications.Where(row => row.IsPlacementPreview).ToArray())
             _settings.ActiveMarketNotifications.Remove(notification);
+        ReflowNotifications();
         if (enabled && keys.Contains("market"))
             ShowMarketWatchNotification(new RoAura.Models.MarketWatchMatch(730, "1carat Diamond", 5000), preview: true, placement: true);
         TimerPanelPreview.Visibility = _layoutTimerPreview || _timerPanelEditMode ? Visibility.Visible : Visibility.Collapsed;
         if (enabled) HideMvpMap();
         UpdateTimerPanelVisibility(); UpdateTimerPanelPreviewPosition();
+        RefreshLootListTracker();
     }
     internal void RefreshLayoutPreviewPositions()
     {
@@ -43,5 +67,6 @@ public partial class OverlayWindow
             preview.X = effect.NotificationX; preview.Y = effect.NotificationY;
         }
         ReflowNotifications(); UpdateTimerPanelPreviewPosition();
+        UpdateLootListTrackerPosition();
     }
 }

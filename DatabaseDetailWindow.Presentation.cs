@@ -30,7 +30,7 @@ public partial class DatabaseDetailWindow
             }
             var label = new TextBlock { Text = pairs[i].Label, FontWeight = FontWeights.SemiBold, FontSize = 11,
                 Foreground = AppearanceService.Brush(this,"#536A88","Foreground"), TextWrapping = TextWrapping.Wrap, Margin = new Thickness(7,8,5,8), VerticalAlignment = VerticalAlignment.Center };
-            var value = new TextBlock { Text = pairs[i].Value, FontWeight = FontWeights.Normal, FontSize = 12, TextWrapping = TextWrapping.Wrap,
+            var value = new TextBlock { Text = string.IsNullOrWhiteSpace(pairs[i].Value) ? "—" : pairs[i].Value, FontWeight = FontWeights.Normal, FontSize = 12, TextWrapping = TextWrapping.Wrap,
                 Margin = new Thickness(5,8,7,8), VerticalAlignment = VerticalAlignment.Center };
             Grid.SetRow(label, i / 2); Grid.SetColumn(label, i % 2 * 2);
             Grid.SetRow(value, i / 2); Grid.SetColumn(value, i % 2 * 2 + 1);
@@ -54,10 +54,15 @@ public partial class DatabaseDetailWindow
         else
         {
             var stats = m.Stats;
+            if (_database.Version == GameServerProfile.RagnarokPlus && string.IsNullOrWhiteSpace(m.Hp))
+                DetailsPanel.Children.Add(Meta(T("В установленном каталоге нет части боевых характеристик.",
+                    "Some combat stats are missing from the installed catalog.")));
+            var defense = string.IsNullOrWhiteSpace(m.Defense) ? "—" : m.Defense;
+            var magicDefense = string.IsNullOrWhiteSpace(m.MagicDefense) ? "—" : m.MagicDefense;
             DetailsPanel.Children.Add(StatGrid(new (string,string)[] {
                 (T("Уровень", "Level"), m.Level), ("HP", Number(m.Hp)),
                 ("Base EXP", Number(m.BaseExp)), ("Job EXP", Number(m.JobExp)),
-                (T("Атака", "Attack"), m.Attack), ("DEF / MDEF", m.Defense + " / " + m.MagicDefense),
+                (T("Атака", "Attack"), m.Attack), ("DEF / MDEF", defense + " / " + magicDefense),
                 (T("Раса", "Race"), m.Race), (T("Элемент", "Element"), m.Element),
                 (T("Размер", "Size"), m.Size), (T("Класс", "Class"), Value(stats, "class")),
                 ("STR", Value(stats,"str")), ("AGI", Value(stats,"agi")), ("VIT", Value(stats,"vit")), ("INT", Value(stats,"int")),
@@ -65,7 +70,7 @@ public partial class DatabaseDetailWindow
             }));
             var extra = new StackPanel();
             extra.Children.Add(StatGrid(new (string,string)[] {
-                ("MVP EXP", Number(Value(stats,"MVP EXP", "0"))),
+                ("MVP EXP", Number(Value(stats,"MVP EXP"))),
                 (T("Дальность атаки", "Attack range"), Value(stats,"attack_range")),
                 (T("Дальность навыков", "Skill range"), Value(stats,"skill_range")),
                 (T("Дальность погони", "Chase range"), Value(stats,"chase_range")),

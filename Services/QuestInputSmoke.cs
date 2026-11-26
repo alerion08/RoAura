@@ -439,6 +439,18 @@ internal static class QuestInputSmoke
             Click(label.PointToScreen(new Point(20,13)));
             await Until(()=>Read(reportPath)!.Clicks>clicks,"layout labels pass mouse clicks to the game");
             var grip=editor.GripWindows["cooldown:17"];
+            Click(grip.PointToScreen(new Point(39, 13)));
+            await Until(() => settings.OverlayPanels.GetValueOrDefault("cooldown:17")?.Hidden == true,
+                "layout eye hides the selected group");
+            Click(grip.PointToScreen(new Point(39, 13)));
+            await Until(() => settings.OverlayPanels.GetValueOrDefault("cooldown:17")?.Hidden == false,
+                "layout eye shows the hidden group");
+            Click(grip.PointToScreen(new Point(65, 13)));
+            await Until(() => settings.OverlayPanels.GetValueOrDefault("cooldown:17")?.Locked == true,
+                "layout lock is enabled");
+            Click(grip.PointToScreen(new Point(65, 13)));
+            await Until(() => settings.OverlayPanels.GetValueOrDefault("cooldown:17")?.Locked == false,
+                "layout lock is released");
             var cursor=grip.PointToScreen(new Point(13,13));
             SetCursorPos((int)cursor.X,(int)cursor.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});await Pause(80);
             SetCursorPos((int)cursor.X+45,(int)cursor.Y+30);await Pause(200);
@@ -463,6 +475,8 @@ internal static class QuestInputSmoke
         {
             main.StopInterfaceLayout();hook.SetEscapeEnabled(false);settings.InterfaceLayoutHotkey=originalKey;
             settings.PacketCaptureEnabled=originalPackets;
+            settings.OverlayPanels.Remove("cooldown:17");
+            overlay.RefreshPanelLayers();
             settings.Skills.Remove(first);settings.Skills.Remove(second);settings.Skills.Remove(other);
             foreach(var group in settings.CooldownGroups.Where(group=>!groups.Contains(group.GroupNumber)).ToArray())settings.CooldownGroups.Remove(group);
         }
@@ -593,7 +607,7 @@ internal static class QuestInputSmoke
             var panel=(Border)overlay.FindName("MvpTimerPanel");
             await Until(()=>panel.IsVisible && Descendants<TextBlock>(panel).Any(text=>ReferenceEquals(text.DataContext,timer)),"MVP hover row appears");
             var labels=Descendants<TextBlock>(panel).Where(text=>ReferenceEquals(text.DataContext,timer)).ToArray();
-            var name=labels.Single(text=>text.Text==timer.NumberedName);
+            var name=labels.Single(text=>text.Text==timer.Name);
             var icon=labels.Single(text=>text.Tag as string=="MvpMapHover");
             if (icon.Text != timer.LocationCode || icon.Parent is not Border { BorderThickness.Left: > 0 })
                 throw new InvalidOperationException("Timer map code is missing its outlined badge.");
@@ -605,7 +619,29 @@ internal static class QuestInputSmoke
             Hover(name);await Until(()=>overlay.IsMvpMapVisible,"MVP name opens the map");
             Hover(icon);await Pause(250);
             if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("Timer map badge lost the row hover map.");
-            Hover(labels.Single(text=>text.Tag as string=="MvpCountdown"));await Pause(250);
+            var countdown = labels.Single(text=>text.Tag as string=="MvpCountdown");
+            var ordinal = labels.Single(text => text.Tag as string == "MvpOrdinal");
+            if (ordinal.Parent is not StackPanel row || row.Children[0] != ordinal)
+                throw new InvalidOperationException("Timer number must lead the overlay row.");
+            var showName = settings.TimersShowName;
+            var showIcon = settings.TimersShowIcon;
+            var showMap = settings.TimersShowMap;
+            try
+            {
+                settings.TimersShowName = false;
+                settings.TimersShowIcon = false;
+                settings.TimersShowMap = false;
+                await Until(() => !name.IsVisible && !icon.IsVisible && ordinal.IsVisible &&
+                    ordinal.Text == $"{timer.DisplayNumber}." && countdown.Text == timer.OverlayCountdown,
+                    "timer ordinal and countdown are separate when optional fields are hidden");
+            }
+            finally
+            {
+                settings.TimersShowName = showName;
+                settings.TimersShowIcon = showIcon;
+                settings.TimersShowMap = showMap;
+            }
+            Hover(countdown);await Until(()=>overlay.IsMvpMapVisible,"MVP countdown opens the map");
             if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP timer text lost the row hover map.");
             if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("MVP map stole game focus.");
             SaveElement(panel,"timer-map-badge");SaveDesktop(overlay,"timer-map-hover");

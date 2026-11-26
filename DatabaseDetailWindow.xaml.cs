@@ -54,6 +54,9 @@ public partial class DatabaseDetailWindow : Window
         KeyboardStatus.Text = T($"Ввод в поиск активен · {_settings.DatabaseHotkey} — закрыть",
             $"Search input active · {_settings.DatabaseHotkey} — close");
         BackButton.Content = T("Назад", "Back");
+        FavoriteButton.ToolTip = T("Добавить в избранное", "Add to favorites");
+        System.Windows.Automation.AutomationProperties.SetName(FavoriteButton, FavoriteButton.ToolTip.ToString());
+        CreateFavoriteListButton.Content = T("Создать новый +", "Create new +");
         CloseButton.ToolTip = T("Закрыть базу данных", "Close database");
     }
 
@@ -67,7 +70,14 @@ public partial class DatabaseDetailWindow : Window
 
     public void ResetServer() => ResetDetails();
 
-    public void Clear() {_appearanceRedraw=null;DetailsPanel.Children.Clear();}
+    public void Clear()
+    {
+        _appearanceRedraw = null;
+        _favoriteEntry = null;
+        FavoriteMenu.Visibility = Visibility.Collapsed;
+        FavoriteButton.Visibility = Visibility.Collapsed;
+        DetailsPanel.Children.Clear();
+    }
     private void AppearanceChanged()=>_appearanceRedraw?.Invoke();
 
     private readonly Stack<(Action Page, double Offset)> _back = new();
@@ -80,6 +90,22 @@ public partial class DatabaseDetailWindow : Window
         _currentPage = null;
         BackButton.Visibility = Visibility.Collapsed;
         Clear();
+    }
+
+    internal Action CaptureQuestLinkReturn()
+    {
+        var page = _currentPage;
+        var back = _back.Reverse().ToArray();
+        var offset = DetailsScroll.VerticalOffset;
+        return () =>
+        {
+            if (ReferenceEquals(page, _currentPage)) return;
+            ResetDetails();
+            foreach (var previous in back) _back.Push(previous);
+            _currentPage = page;
+            page?.Invoke();
+            RestoreScroll(offset, _detailVersion);
+        };
     }
 
     private void Navigate(Action page)
@@ -171,7 +197,7 @@ public partial class DatabaseDetailWindow : Window
     private void ShowMonster(DatabaseMonster monster)
     {
         _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowMonster(monster);};
-        var header = new StackPanel { Orientation = Orientation.Horizontal };
+        var header = new DockPanel { Margin = new Thickness(0, 0, 42, 0) };
         if (monster.LocalImagePng is { Length: > 0 } sprite)
             header.Children.Add(new Image { Source = DecodeCatalogImage(sprite), Width = 58, Height = 58,
                 Stretch = Stretch.Uniform, Margin = new Thickness(0, 0, 10, 0) });
@@ -180,7 +206,7 @@ public partial class DatabaseDetailWindow : Window
         var title = new StackPanel(); title.Children.Add(Heading(monster.Name, 20));
         title.Children.Add(Meta($"#{monster.Id} · Lv {monster.Level}\n{monster.Race} · {monster.Element} · {monster.Size}"));
         header.Children.Add(title); DetailsPanel.Children.Add(header);
-        AddFavoriteAction(new(DatabaseSearchKind.Monsters, monster.Id.ToString(), monster.Name));
+        SetFavoriteEntry(new(DatabaseSearchKind.Monsters, monster.Id.ToString(), monster.Name));
         ShowMonsterStatistics(monster);
         ShowMonsterSkills(monster.Skills);
         AddLine(T("Средняя стоимость обычного дропа у NPC", "Expected NPC value of regular drops"),
@@ -196,7 +222,7 @@ public partial class DatabaseDetailWindow : Window
     private void ShowItem(DatabaseItem item, SpringRoItemDetails? detail, bool loading)
     {
         _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowItem(item,detail,loading);};
-        var header = new StackPanel { Orientation = Orientation.Horizontal };
+        var header = new DockPanel { Margin = new Thickness(0, 0, 42, 0) };
         var imageUrl = detail?.ImageUrl;
         if (string.IsNullOrWhiteSpace(imageUrl)) imageUrl = item.ImageUrl;
         if (string.IsNullOrWhiteSpace(imageUrl) && _database.Version != GameServerProfile.RagnarokPlus)
@@ -226,28 +252,26 @@ public partial class DatabaseDetailWindow : Window
         }
         DetailsPanel.Children.Add(header);
         AddItemActions(item);
-
-        var server = _settings.ServerProfile;
-        var wanted = new CheckBox
-        {
-            Content = T("Желаемый лут", "Wanted loot"),
-            IsChecked = _settings.WantedLootByServer.TryGetValue(server, out var saved) && saved.Contains(item.Id),
-            Margin = new Thickness(0, 7, 0, 2)
-        };
-        wanted.Click += (_, _) =>
-        {
-            if (!_settings.WantedLootByServer.TryGetValue(server, out var ids))
-                _settings.WantedLootByServer[server] = ids = [];
-            if (wanted.IsChecked == true) ids.Add(item.Id);
-            else ids.Remove(item.Id);
-            (Application.Current as App)?.SaveDatabasePreferences();
-        };
-        DetailsPanel.Children.Add(wanted);
+        AddLootListAction(item);
         AddMarketComparison(item);
-        if (_database.Version == GameServerProfile.RagnarokPlus) ShowCrafting(item);
 
         AddSection(T("Информация", "Information"));
         AddItemWeight(item, detail);
+        if (_database.Version == GameServerProfile.RagnarokPlus)
+        {
+            ShowCrafting(item);
+            var quests = RagnarokPlusQuestCatalog.Instance.RequiredFor(_database.Version, item.Id).ToArray();
+            if (quests.Length > 0)
+            {
+                var links = new StackPanel();
+                AddItemInformationExpander(T($"Нужен для задания ({quests.Length})", $"Needed for quests ({quests.Length})"), links);
+                foreach (var quest in quests)
+                    AddLink(quest.Title, async () =>
+                    {
+                        if (Application.Current is App app) await app.OpenQuestFromDatabaseAsync(quest.Key);
+                    }, links);
+            }
+        }
         if (_database.Version == GameDatabaseVersion.Toc) ShowTocItemInformation(item);
         else if (loading)
             DetailsPanel.Children.Add(Meta(T("Загружаем актуальные данные SpringRO…", "Loading current SpringRO data…")));
@@ -322,9 +346,11 @@ public partial class DatabaseDetailWindow : Window
     {
         _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowMap(map);};
         var density = _database.GetMapExperienceDensity(map);
-        DetailsPanel.Children.Add(Heading(map.Name, 20));
+        var heading = Heading(map.Name, 20);
+        heading.Margin = new Thickness(0, 0, 42, 0);
+        DetailsPanel.Children.Add(heading);
         DetailsPanel.Children.Add(Meta(map.Code));
-        AddFavoriteAction(new(DatabaseSearchKind.Maps, map.Code, map.Name));
+        SetFavoriteEntry(new(DatabaseSearchKind.Maps, map.Code, map.Name));
         if (map.LocalImagePng is { Length: > 0 } minimap)
             DetailsPanel.Children.Add(new Image { Source = DecodeCatalogImage(minimap), MaxWidth = 256,
                 MaxHeight = 256, Stretch = Stretch.Uniform });
@@ -447,7 +473,7 @@ public partial class DatabaseDetailWindow : Window
             Clear();
             RefreshBackButton();
             DetailsScroll.ScrollToTop();
-            AddSection(T("Недавние карточки", "Recent cards"));
+            AddSection(T("Недавно просмотрено", "Recently viewed"));
             if (!_recentCards.TryGetValue(_database.Version, out var recent) || recent.Count == 0)
             {
                 DetailsPanel.Children.Add(Meta(T("Нет открытых карточек.", "No recently opened cards.")));

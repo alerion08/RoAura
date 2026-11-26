@@ -132,7 +132,9 @@ public static class OverlayLayoutTargets
                          group.Effects.Any(effect => effect.Enabled && effect.CharacterScope.IsAllowed)))
                 Single($"buff:{group.GroupNumber}", "LayoutBuffPanel", Item(() => group.X, () => group.Y,
                     x => group.X = x, y => group.Y = y,
-                    () => new(Math.Max(1, group.Effects.Count) * (group.IconSize + group.Gap), group.IconSize),
+                    () => group.Direction == "Vertical"
+                        ? new(group.IconSize, Math.Max(1, group.Effects.Count) * (group.IconSize + group.Gap))
+                        : new(Math.Max(1, group.Effects.Count) * (group.IconSize + group.Gap), group.IconSize),
                     new("IconSize", () => group.IconSize, value => group.IconSize = value)), group.GroupNumber);
         }
         if (Can(AppFeature.Reminders))
@@ -141,10 +143,30 @@ public static class OverlayLayoutTargets
                     () => new(Math.Max(row.IconSize, 220), Math.Max(row.IconSize, row.TextSize * 1.5)),
                     new("TextSize", () => row.TextSize, value => row.TextSize = value)));
         if (Can(AppFeature.Equipment))
-            Groups(settings.Equipment.Where(row => row.CharacterScope.IsAllowed), row => row.GroupNumber, row => row.Enabled,
+        {
+            Groups(settings.Equipment.Where(row => row.CharacterScope.IsAllowed &&
+                    !settings.EquipmentGroupLayouts.ContainsKey(row.GroupNumber)), row => row.GroupNumber, row => row.Enabled,
                 "equipment", "Equipment", row => Item(() => row.X, () => row.Y, x => row.X = x, y => row.Y = y,
                     () => new(Math.Max(row.IconSize, 220), Math.Max(row.IconSize, row.TextSize * 1.5)),
                     new("TextSize", () => row.TextSize, value => row.TextSize = value)));
+            foreach (var group in settings.Equipment.GroupBy(row => row.GroupNumber))
+            {
+                if (!settings.EquipmentGroupLayouts.TryGetValue(group.Key, out var layout)) continue;
+                var visible = group.Where(row => row.Enabled && row.CharacterScope.IsAllowed).ToArray();
+                if (visible.Length == 0) continue;
+                var anchor = group.First();
+                var height = layout.IconSize + visible.Max(row => row.ShowText ? row.TextSize * 1.5 + 4 : 0);
+                var width = Math.Max(layout.IconSize, visible.Max(row => row.ShowText ? row.Text.Length * row.TextSize * .65 : 0));
+                var total = visible.Length - 1;
+                var bounds = new Size(layout.Vertical ? width : width * visible.Length + total * layout.Gap,
+                    layout.Vertical ? height * visible.Length + total * layout.Gap : height);
+                Single($"equipment:{group.Key}", "Equipment", Item(() => anchor.X, () => anchor.Y,
+                    x => anchor.X = x, y => anchor.Y = y, () => bounds,
+                    new("IconSize", () => settings.EquipmentGroupLayouts[group.Key].IconSize,
+                        value => settings.EquipmentGroupLayouts[group.Key] = settings.EquipmentGroupLayouts[group.Key]
+                            with { IconSize = Math.Clamp(value, 20, 180) })), group.Key);
+            }
+        }
         if (Can(AppFeature.Statistics))
         {
             Groups(settings.RateIndicators, row => row.GroupNumber, row => row.Enabled,
@@ -181,6 +203,21 @@ public static class OverlayLayoutTargets
             Single("quest", "Quests", Item(() => quest.X, () => quest.Y,
                 x => quest.X = x, y => quest.Y = y, () => new(quest.Width * quest.Scale, 60 * quest.Scale),
                 new("QScale", () => quest.Scale, value => quest.Scale = value, .05)));
+        }
+        if (settings.LootListTracker.Enabled)
+        {
+            var tracker = settings.LootListTracker;
+            var lists = LootLists.ForServer(settings, settings.ServerProfile)
+                .Select(list => LootLists.TrackerItems(list).Count()).Where(count => count > 0).ToArray();
+            var gap = Math.Clamp(tracker.Gap, 0, 40);
+            var width = Math.Clamp(tracker.Width, 170, 680);
+            var line = Math.Clamp(tracker.TextSize, 10, 32) * 1.4;
+            var heights = lists.Select(count => (count + 1) * line + 19).DefaultIfEmpty(line * 2 + 19).ToArray();
+            Single("loot-list-tracker", "LootListTrackerTitle", Item(() => tracker.X, () => tracker.Y,
+                x => tracker.X = x, y => tracker.Y = y, () => tracker.Horizontal
+                    ? new((width + gap) * heights.Length, heights.Max())
+                    : new(width, heights.Sum() + gap * heights.Length),
+                new("TextSize", () => tracker.TextSize, value => tracker.TextSize = Math.Clamp(value, 10, 32))));
         }
         return result;
     }

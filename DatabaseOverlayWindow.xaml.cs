@@ -85,7 +85,7 @@ public partial class DatabaseOverlayWindow : Window
         foreach (var key in _searchQueries.Keys.ToList()) _searchQueries[key] = "";
         SearchBox.Text = "";
         _kind = DatabaseSearchKind.Monsters;
-        MonstersMode.IsChecked = true;
+        MonstersMode.IsSelected = true;
         RefreshLanguage();
         RefreshResults();
     }
@@ -98,11 +98,11 @@ public partial class DatabaseOverlayWindow : Window
         OverlayTitle.Text = T($"База {_database.Version}", $"{_database.Version} Database");
         MarketMode.IsEnabled = GameServerProfile.SupportsMarket(_settings.ServerProfile);
         MarketMode.Opacity = MarketMode.IsEnabled ? 1 : 0.6;
-        MonstersMode.Content = T("Монстры", "Monsters");
-        ItemsMode.Content = T("Предметы", "Items");
-        MapsMode.Content = T("Карты", "Maps");
-        MarketMode.Content = T("Маркет", "Market");
-        RecentCardsButton.Content = T("Недавние карточки", "Recent cards");
+        MonstersMode.Header = T("Монстры", "Monsters");
+        ItemsMode.Header = T("Предметы", "Items");
+        MapsMode.Header = T("Карты", "Maps");
+        MarketMode.Header = T("Маркет", "Market");
+        RecentCardsButton.Content = T("Недавно просмотрено", "Recently viewed");
         ItemSlotsLabel.Text = T("Слотов от", "Min. slots");
         DropItemLabel.Text = T("Предмет дропа: название или ID", "Drop item name or ID");
         NpcPriceSort.Content = T("Сначала дорогие у NPC", "Highest NPC sell price first");
@@ -168,6 +168,19 @@ public partial class DatabaseOverlayWindow : Window
         SearchBox.Focus();
     }
 
+    internal Action CaptureQuestLinkReturn()
+    {
+        var restore = _details.CaptureQuestLinkReturn();
+        return () => { ShowForGame(); restore(); };
+    }
+
+    internal void ShowQuestCard(object card)
+    {
+        if (!IsDatabaseOpen) ShowForGame();
+        _details.ResetDetails();
+        _details.ShowDetails(card);
+    }
+
     public void HideDatabase()
     {
         _marketSearchCancellation?.Cancel();
@@ -201,7 +214,7 @@ public partial class DatabaseOverlayWindow : Window
         var searchHandle = new WindowInteropHelper(this).Handle;
         var detailHandle = _details.Handle;
         var databaseHasFocus = foreground == searchHandle || foreground == detailHandle ||
-            OwnedWindows.Cast<Window>().Any(w => w.IsActive) || _details.OwnedWindows.Cast<Window>().Any(w => w.IsActive);
+            HasActiveOwnedWindow(this) || HasActiveOwnedWindow(_details);
 
         if (ForegroundProcess.TryGetForegroundAllowedBounds(_settings.AllowedProcesses, out var game))
         {
@@ -230,6 +243,9 @@ public partial class DatabaseOverlayWindow : Window
             if (ForegroundProcess.DoesForegroundWindowCover(_gameBounds)) SetPanelsVisible(false);
         }
     }
+
+    private static bool HasActiveOwnedWindow(Window window) =>
+        window.OwnedWindows.Cast<Window>().Any(owned => owned.IsActive || HasActiveOwnedWindow(owned));
 
     private void PlacePanels(ForegroundProcess.WindowBounds game)
     {
@@ -465,6 +481,7 @@ public partial class DatabaseOverlayWindow : Window
         {
             var type = MarketBuyMode.IsChecked == true ? "BUY" : "SELL";
             IReadOnlyList<MarketListing> listings;
+            IReadOnlyList<MarketListing>? previousListings = null;
             if (ragnarokPlus)
             {
                 DatabaseItem[] candidates;
@@ -504,13 +521,15 @@ public partial class DatabaseOverlayWindow : Window
                 var item = candidates[0];
                 listings = await (_ragnarokPlusMarket ??= new()).SearchAsync(item, type, cancellation.Token);
                 cancellation.Token.ThrowIfCancellationRequested();
+                previousListings = RagnarokPlusData.LoadMarket()?.Listings
+                    .Where(offer => offer.ItemId == item.Id && offer.ShopType == type).ToArray() ?? [];
                 RecordRagnarokPlusOffers(item.Id, listings, type == "BUY");
             }
             else
                 listings = await _market.SearchAsync(query, type, cancellation.Token);
             if (searchVersion != _marketSearchVersion || cancellation.IsCancellationRequested) return;
             ResultsList.ItemsSource = listings.Select(MarketResult).ToList();
-            if (SearchBox.Text.Trim() == query) ShowMarketPriceDepth(listings, buying: type == "BUY");
+            if (SearchBox.Text.Trim() == query) ShowMarketPriceDepth(listings, type == "BUY", previousListings);
             FooterText.Text = ragnarokPlus
                 ? (listings.Count == 0
                     ? T("Нет действующих предложений.", "No active listings.")
@@ -555,13 +574,13 @@ public partial class DatabaseOverlayWindow : Window
         }
     }
 
-    private void Mode_Checked(object sender, RoutedEventArgs e)
+    private void Mode_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (sender is RadioButton { Tag: string tag } && Enum.TryParse(tag, out DatabaseSearchKind kind))
+        if (e.Source is TabControl { SelectedItem: TabItem { Tag: string tag } } && Enum.TryParse(tag, out DatabaseSearchKind kind))
         {
             var previousKind = _kind;
             _kind = kind;
-            // Checked fires while InitializeComponent is still constructing the visual tree.
+            // Selection can change while InitializeComponent constructs the visual tree.
             // No named controls other than the sender are guaranteed to exist at that point.
             if (!IsLoaded) return;
             _searchQueries[previousKind] = SearchBox.Text;

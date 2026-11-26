@@ -62,6 +62,7 @@ public sealed class QuestWorkspace : INotifyPropertyChanged
         try
         {
             var catalog = await _reader.LoadAsync(cancellation.Token);
+            catalog = RagnarokPlusQuestCatalog.Instance.Combine(catalog);
             await _gate.WaitAsync(cancellation.Token);
             try
             {
@@ -157,7 +158,8 @@ public sealed class QuestWorkspace : INotifyPropertyChanged
     public bool HasProgress(QuestGuide? guide) => guide is not null && Rows.Any(q => q.Progress.QuestKey == guide.Key);
     public void ToggleTracking(QuestGuide guide)
     {
-        if (!CanEdit || Catalog?.Guides.GetValueOrDefault(guide.Key) != guide || guide.Steps.Count == 0) return;
+        if (!CanEdit || Catalog?.Guides.GetValueOrDefault(guide.Key) != guide || guide.Steps.Count == 0 ||
+            (guide.Key.StartsWith("ragnarokplus:", StringComparison.Ordinal) && Settings.ServerProfile != GameServerProfile.RagnarokPlus)) return;
         var row = Rows.FirstOrDefault(r => r.Progress.QuestKey == guide.Key);
         if (row is null) { QuestProgress.Add(_session!.Document, guide); MarkDirty(); }
         else

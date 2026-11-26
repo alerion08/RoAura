@@ -322,6 +322,10 @@ public sealed class SettingsStore
         settings.Characters ??= new();
         settings.RemovedCharacterKeys ??= [];
         settings.QuestOverlay ??= new();
+        settings.LootLists ??= [];
+        settings.LootListTracker ??= new();
+        settings.WantedLootByServer ??= [];
+        foreach (var list in settings.LootLists) list.Items ??= [];
         settings.NavigationSections ??= new();
         settings.EnsureNavigationSections();
         foreach (var skill in settings.Skills) { skill.CharacterScope ??= new(); skill.CharacterScope.Characters ??= new(); }

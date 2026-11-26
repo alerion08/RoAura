@@ -69,6 +69,13 @@ public partial class EffectWizardWindow : Window
     private void Back_Click(object sender, RoutedEventArgs e) => ShowFindStep();
     private void Cancel_Click(object sender, RoutedEventArgs e) { DialogResult = false; Close(); }
 
+    private void ChooseCatalogIcon_Click(object sender, RoutedEventArgs e)
+    {
+        if (SkillIconPickerWindow.Pick(this) is not { } icon) return;
+        Draft.TemplateImageBase64 = icon.IconBase64;
+        Draft.TemplateFileName = icon.Name;
+    }
+
     private void Create_Click(object sender, RoutedEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(Draft.Name))

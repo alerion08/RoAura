@@ -154,7 +154,7 @@ On 2026-10-27 the user confirmed that tested build `28fa0d5` works well and acce
 - [ ] Buff Panel active/inactive state and duration update.
 - [ ] Reminder reacts to missing/restored effects.
 - [ ] Equipment learns and displays exact equipped variants.
-- [ ] Equipment survives relog and preset/settings reload.
+- [ ] Equipment survives relog and preset/settings reload. Compare text below and over the icon in the preview and overlay. Set the fill to 0% and 100% and verify the text remains visible at both values.
 - [ ] MVP Timers detect/restart/reset correctly.
 - [ ] Loot notifications aggregate correctly.
 - [ ] Zeny notifications and Zeny/hour update.
@@ -701,7 +701,7 @@ Native screenshot/input receipt verifies the hook's forwarding in an isolated pr
 - [ ] Session list Open/double-click shows a separate loot table without receipt times; Character heading and theme are correct.
 - [ ] Verify chart buckets across minute five, pause/resume, a relog and restart. Chart data persists and a new session starts with an empty chart. Old sessions without intervals show an empty state.
 - [ ] In Gold Goblin history, save expenses for the active and a completed session. Confirm they persist after new loot and restart, and verify a negative net result and a dash for zero active time. Ctrl-select two sessions and compare figures. Open and Delete require one selected session.
-- [ ] Gold Goblin four-button row fits minimum RU/EN layout above dashboard cards; CSV action is absent.
+- [ ] Gold Goblin compact session actions and totals fit minimum RU/EN layout. Drag the left edge of the item editor in both directions and verify the loot table resizes. Check that Add item at the bottom of the editor opens with and without a selected row, and Delete removes the selected row.
 - [ ] Capture arbitrary keyboard keys/chords, release and activate. No immediate invocation, repeat, missing modifiers, duplicate toggle or screenshot/modifier blocking. Existing hotkey strings and presets still work.
 - [ ] Remove a character and reopen the manager/restart/apply a preset: it stays removed, history remains, and a single-character scope never becomes all.
 - [ ] Reminder mode cards remain readable and palette-colored when switching modes/themes.

@@ -648,6 +648,10 @@ public partial class App : Application
         SyncWatchRuleSubscriptions();
     }
 
+    internal string? ResolveLootListItemName(int itemId) => _itemCatalog.GetValueOrDefault(itemId)?.FullName;
+
+    internal void LootListsChanged() => _settingsWindow?.RefreshLootListsFromDatabase();
+
     internal void SaveDatabasePreferences() => _settingsWindow?.SaveSharedSettings();
 
     internal void OpenCatalogSettings()
@@ -677,6 +681,7 @@ public partial class App : Application
         _itemCatalog = ItemCatalogService.Load(gameVersion);
         if (_activeDatabase is not null && GameServerProfile.SupportsDatabaseOverlay(gameVersion) && _activeDatabase.Version != gameVersion)
         {
+            _questLinkBack.Clear();
             CloseDatabaseOverlay();
             _activeDatabase.Reload(gameVersion);
             _databaseOverlay?.RefreshServer();
@@ -1019,6 +1024,9 @@ public partial class App : Application
     {
         if (session is { } captured && !TryUseCharacterSession(captured)) return;
         if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled || !_settingsWindow.Settings.PacketCaptureEnabled) return;
+        var settings = _settingsWindow.Settings;
+        if (LootLists.RecordPickup(settings, settings.ServerProfile, packet.ItemId, packet.Count))
+            _settingsWindow.RequestSave();
         if (CurrentCharacterStatistics()?.SessionPaused == true) return;
         var item = _itemCatalog.GetValueOrDefault(packet.ItemId) ?? new ItemEntry
         {
@@ -1029,9 +1037,10 @@ public partial class App : Application
         if (session.HasValue)
             SafeCharacterStatisticsAction(() => _characterLedger?.AddLoot(packet.ItemId, item.FullName,
                 packet.Count, DateTime.UtcNow));
-        _overlay.ShowLootReward(packet.ItemId, item.Name, item.Type, packet.Count);
+        var stolen = packet.Stolen && _settingsWindow.Settings.TrackSteal;
+        _overlay.ShowLootReward(packet.ItemId, item.Name, item.Type, packet.Count, stolen);
         if (GameServerProfile.SupportsGoldGoblin(_settingsWindow.Settings.ServerProfile))
-            _goldGoblin?.AddLoot(packet.ItemId, item.FullName, packet.Count);
+            _goldGoblin?.AddLoot(packet.ItemId, item.FullName, packet.Count, stolen);
         DebugLog.Write($"PACKET LOOT item={packet.ItemId}; name={item.Name}; type={item.Type}; count={packet.Count}");
         if (session.HasValue) _overlay.RefreshCharacterStatistics();
     }
@@ -1391,6 +1400,60 @@ public partial class App : Application
         });
     }
 
+    private enum QuestLinkWindow { Database, Quest }
+    private readonly Stack<(QuestLinkWindow Destination, Func<Task> Resume)> _questLinkBack = new();
+
+    private bool ReturnFromQuestLink(QuestLinkWindow destination)
+    {
+        if (!_questLinkBack.TryPeek(out var back) || back.Destination != destination) return false;
+        _questLinkBack.Pop();
+        _ = ResumeQuestLinkAsync(back.Resume);
+        return true;
+    }
+
+    private static async Task ResumeQuestLinkAsync(Func<Task> resume)
+    {
+        try { await resume(); }
+        catch (Exception ex) { DebugLog.Write($"Quest link return: {ex.Message}"); }
+    }
+
+    internal void QuestBrowserClosedByUser() => ReturnFromQuestLink(QuestLinkWindow.Quest);
+
+    internal int? ResolveQuestItemId(string name)
+    {
+        if (_activeDatabase is null) return null;
+        var ids = _activeDatabase.Items.Where(item => string.Equals(item.Name.Trim(), name.Trim(), StringComparison.OrdinalIgnoreCase))
+            .Select(item => item.Id).Distinct().Take(2).ToArray();
+        return ids.Length == 1 ? ids[0] : null;
+    }
+
+    internal bool OpenQuestDatabaseCard(DatabaseSearchKind kind, int id)
+    {
+        if (_activeDatabase is null || _databaseOverlay is null ||
+            !GameServerProfile.SupportsDatabaseOverlay(_settingsWindow?.Settings.ServerProfile)) return false;
+        object? card = kind switch
+        {
+            DatabaseSearchKind.Items => _activeDatabase.Item(id),
+            DatabaseSearchKind.Monsters => _activeDatabase.Monster(id),
+            _ => null
+        };
+        if (card is null) return false;
+        if (_settingsWindow?.IsQuestBrowserOpen == true)
+            _questLinkBack.Push((QuestLinkWindow.Database, _settingsWindow.CaptureQuestBrowserReturn()));
+        _settingsWindow?.HideQuestBrowser();
+        _databaseOverlay.ShowQuestCard(card);
+        RefreshKeyboardMode();
+        return true;
+    }
+
+    internal async Task OpenQuestFromDatabaseAsync(string key)
+    {
+        if (_settingsWindow is null) return;
+        var resume = _databaseOverlay?.IsDatabaseOpen == true ? _databaseOverlay.CaptureQuestLinkReturn() : null;
+        if (await _settingsWindow.OpenQuestFromDatabaseAsync(key) && resume is not null)
+            _questLinkBack.Push((QuestLinkWindow.Quest, () => { resume(); RefreshKeyboardMode(); return Task.CompletedTask; }));
+    }
+
     public void ToggleDatabase()
     {
         Dispatcher.BeginInvoke(() =>
@@ -1408,6 +1471,7 @@ public partial class App : Application
             }
             else
             {
+                _questLinkBack.Clear();
                 _settingsWindow?.HideQuestBrowser();
                 _databaseOverlay.ShowForGame();
                 RefreshKeyboardMode();
@@ -1415,10 +1479,13 @@ public partial class App : Application
         });
     }
 
-    private void HideDatabase()
+    private void HideDatabase() => HideDatabase(restoreLink: true);
+
+    private void HideDatabase(bool restoreLink)
     {
         _databaseOverlay?.HideDatabase();
         RefreshKeyboardMode();
+        if (restoreLink && ReturnFromQuestLink(QuestLinkWindow.Database)) return;
         if (ForegroundProcess.TryActivateWindow(
                 _settingsWindow?.Settings.AllowedProcesses ?? [], out _)) { }
     }
@@ -1427,7 +1494,7 @@ public partial class App : Application
 
     public void CloseDatabaseOverlay()
     {
-        if (_databaseOverlay?.IsDatabaseOpen == true) HideDatabase();
+        if (_databaseOverlay?.IsDatabaseOpen == true) HideDatabase(restoreLink: false);
     }
 
     protected override void OnExit(ExitEventArgs e)

@@ -24,6 +24,17 @@ public sealed class FarmingSessionDetailsWindow : Window
             $"{LocalizationService.Get("SessionNetValue")} · {session.NetValue:N0} z";
         RefreshSummary();
         header.Children.Add(summary);
+        var stolen = session.Loot.Sum(row => (decimal)row.StolenRevenue);
+        if (session.Loot.Any(row => row.StolenCount > 0))
+        {
+            var share = session.LootValue > 0
+                ? (stolen / session.LootValue).ToString("P1", CultureInfo.CurrentCulture) : "—";
+            header.Children.Add(new TextBlock
+            {
+                Text = string.Format(LocalizationService.Get("StealRevenueShare"), stolen, session.LootValue, share),
+                TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 0, 0, 6)
+            });
+        }
         var expenseRow = new WrapPanel();
         var input = new TextBox { Text = session.ExpensesZeny.ToString(CultureInfo.CurrentCulture), MinWidth = 110 };
         expenseRow.Children.Add(new Label { Content = LocalizationService.Get("SessionExpenses"), Target = input });
@@ -104,13 +115,34 @@ public sealed class FarmingSessionDetailsWindow : Window
         FarmingSessionHistoryControl.AddColumn(grid,"HistoryUnitPrice","UnitPrice");
         FarmingSessionHistoryControl.AddColumn(grid,"PriceSource","PriceSource");
         FarmingSessionHistoryControl.AddColumn(grid,"Total","Total");
+        if (session.Loot.Any(row => row.StolenCount > 0))
+        {
+            FarmingSessionHistoryControl.AddColumn(grid, "LootStolenCount", nameof(FarmingLootEntry.StolenCount));
+            FarmingSessionHistoryControl.AddColumn(grid, "LootStolenRevenue", nameof(FarmingLootEntry.StolenRevenue));
+            FarmingSessionHistoryControl.AddColumn(grid, "LootRegularCount", nameof(FarmingLootEntry.RegularCount));
+            FarmingSessionHistoryControl.AddColumn(grid, "LootRegularRevenue", nameof(FarmingLootEntry.RegularRevenue));
+        }
         var lootPanel = new DockPanel();
         var hideZero = new CheckBox { Content = LocalizationService.Get("HideZeroValueLoot"), Margin = new Thickness(4, 5, 0, 8) };
-        hideZero.Checked += (_, _) => grid.ItemsSource = session.Loot.Where(row => row.Total != 0).ToArray();
-        hideZero.Unchecked += (_, _) => grid.ItemsSource = session.Loot;
-        DockPanel.SetDock(hideZero, Dock.Top);
-        lootPanel.Children.Add(hideZero);
+        var questOnly = new CheckBox { Content = LocalizationService.Get("QNeededForQuest"), Margin = new Thickness(4, 5, 0, 8),
+            Visibility = GameServerProfile.Normalize(session.Server) == GameServerProfile.RagnarokPlus ? Visibility.Visible : Visibility.Collapsed };
+        void FilterLoot(object sender, RoutedEventArgs e) => grid.ItemsSource = session.Loot.Where(row =>
+            (hideZero.IsChecked != true || row.Total != 0) &&
+            (questOnly.IsChecked != true || RagnarokPlusQuestCatalog.Instance.RequiredFor(session.Server, row.ItemId).Any())).ToArray();
+        hideZero.Click += FilterLoot;
+        questOnly.Click += FilterLoot;
+        var filters = new WrapPanel();
+        filters.Children.Add(hideZero);
+        filters.Children.Add(questOnly);
+        DockPanel.SetDock(filters, Dock.Top);
+        lootPanel.Children.Add(filters);
         lootPanel.Children.Add(grid);
+        Loaded += (_, _) =>
+        {
+            if (Owner is MainWindow owner)
+                TableLayout.Attach(grid, owner.Settings,
+                    grid.Columns.Count > 5 ? "gold-goblin-history-steal" : "gold-goblin-history-loot", owner.RequestSave);
+        };
         tabs.Items.Add(new TabItem { Header = LocalizationService.Get("SessionLootDetails"), Content = lootPanel });
         tabs.Items.Add(changesTab);
         tabs.Items.Add(new TabItem { Header = LocalizationService.Get("HistoryPriceBreakdown"), Content = valuation });

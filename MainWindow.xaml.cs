@@ -40,6 +40,7 @@ public partial class MainWindow : Window
     private ICollectionView? _skillsView;
     private readonly ICollectionView _goldGoblinRowsView;
     private bool _updatingGoldGoblinEditor;
+    private readonly Action _restoreGoldGoblinSplit;
     private bool _goldGoblinRefreshPending;
     private int? _cooldownGroupFilter;
     private readonly DispatcherTimer _connectionDetectionTimer;
@@ -81,6 +82,13 @@ public partial class MainWindow : Window
         InitializeComponent();
         SourceInitialized += MainWindow_SourceInitialized;
         Settings = settings;
+        Settings.Equipment.CollectionChanged += (_, e) =>
+        {
+            if (e.NewItems is null) return;
+            foreach (EquipmentTracker item in e.NewItems)
+                item.SetDatabaseIconResolver(ResolveEquipmentDatabaseIcon);
+        };
+        RefreshEquipmentDatabaseIcons();
         _store = store;
         _overlay = overlay;
         _packetCapture = packetCapture;
@@ -93,6 +101,12 @@ public partial class MainWindow : Window
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
         _packetCapture.EquipmentIdentityMissing += OnLearningEquipmentObserved;
         DataContext = settings;
+        TableLayout.Attach(GoldGoblinLootGrid, settings, "gold-goblin-loot", RequestSave);
+        TableLayout.Attach(GoldGoblinRulesGrid, settings, "gold-goblin-rules", RequestSave,
+            GoldGoblinRuleNameColumn);
+        _restoreGoldGoblinSplit = GoldGoblinSplitLayout.Attach(GoldGoblinItemSplitter, GoldGoblinItemEditorColumn,
+            () => Settings.GoldGoblinEditorRatio, value => Settings.GoldGoblinEditorRatio = value, RequestSave);
+        GoldGoblinLootLists.Initialize(Settings, SaveLootListChanges, id => _items.GetValueOrDefault(id)?.FullName);
         RefreshMvpTimerDetails();
         _effectsView = CollectionViewSource.GetDefaultView(settings.Effects);
         _skillsView = CollectionViewSource.GetDefaultView(settings.Skills);
@@ -259,8 +273,18 @@ public partial class MainWindow : Window
             if (Application.Current is App app) app.ReloadItemCatalog(version);
         }
 
+        RefreshEquipmentDatabaseIcons();
+        if (GoldGoblinQuestOnly is not null)
+        {
+            GoldGoblinQuestOnly.Visibility = profile == GameServerProfile.RagnarokPlus ? Visibility.Visible : Visibility.Collapsed;
+            if (profile != GameServerProfile.RagnarokPlus) GoldGoblinQuestOnly.IsChecked = false;
+            _goldGoblinRowsView.Refresh();
+        }
         if (!supportsOverlayDatabase && Application.Current is App currentApp)
             currentApp.CloseDatabaseOverlay();
+        GoldGoblinLootLists.RefreshLists();
+        _restoreGoldGoblinSplit();
+        GoldGoblinLootLists.RestoreLayout();
         _overlay.RefreshServerProfile();
         if (save) ApplyPacketCaptureIfChanged(force: true);
         if (save) _store.Save(Settings);
@@ -269,10 +293,18 @@ public partial class MainWindow : Window
     private void Settings_RuntimeChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (_applyingPreset) return;
+        if (e.PropertyName == nameof(AppSettings.TrackSteal))
+        {
+            RequestSave();
+            return;
+        }
         if (e.PropertyName is nameof(AppSettings.TimersShowBackground) or nameof(AppSettings.TimersBackgroundColor) or
             nameof(AppSettings.TimersBackgroundOpacityPercent) or nameof(AppSettings.TimersShowBorder) or
-            nameof(AppSettings.TimersBorderColor) or nameof(AppSettings.TimersBorderThickness))
+            nameof(AppSettings.TimersBorderColor) or nameof(AppSettings.TimersBorderThickness) or
+            nameof(AppSettings.TimersShowIcon) or nameof(AppSettings.TimersShowName) or nameof(AppSettings.TimersShowMap) or
+            nameof(AppSettings.TimersPopupIcon) or nameof(AppSettings.TimersPopupName) or nameof(AppSettings.TimersPopupMap))
         {
+            _overlay.RefreshTimerMapAppearance();
             RequestSave();
             return;
         }
@@ -395,12 +427,6 @@ public partial class MainWindow : Window
         else SetStatus(T("Общая сессия начата.", "Shared session started."));
     }
 
-    private void OpenGoldGoblinAdd_Click(object sender, RoutedEventArgs e)
-    {
-        GoldGoblinWorkspaceTabs.SelectedIndex = 0;
-        ShowGoldGoblinAddDialog();
-    }
-
     private void AddGoldGoblinLoot_Click(object sender, RoutedEventArgs e)
     {
         ShowGoldGoblinAddDialog();
@@ -426,6 +452,8 @@ public partial class MainWindow : Window
     {
         if (value is not GoldGoblinLootRow row) return false;
         if (GoldGoblinHideZero?.IsChecked == true && row.Total == 0) return false;
+        if (GoldGoblinQuestOnly?.IsChecked == true &&
+            !RagnarokPlusQuestCatalog.Instance.RequiredFor(Settings.ServerProfile, row.ItemId).Any()) return false;
         var query = GoldGoblinSearchBox?.Text.Trim() ?? "";
         if (query.Length > 0 &&
             !row.Item.Contains(query, StringComparison.CurrentCultureIgnoreCase) &&
@@ -440,6 +468,18 @@ public partial class MainWindow : Window
             "unknown" => !row.PriceKnown,
             _ => true
         };
+    }
+
+    internal void SaveLootListChanges()
+    {
+        _overlay.RefreshLootListTracker();
+        RequestSave();
+    }
+
+    internal void RefreshLootListsFromDatabase()
+    {
+        GoldGoblinLootLists.RefreshLists();
+        SaveLootListChanges();
     }
 
     private void GoldGoblinFilter_Changed(object sender, EventArgs e) => _goldGoblinRowsView.Refresh();
@@ -462,23 +502,39 @@ public partial class MainWindow : Window
         _goldGoblinRowsView.SortDescriptions.Add(new SortDescription(property, direction));
     }
 
-    private void GoldGoblinLootGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void GoldGoblinWorkspaceTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row) return;
+        if (ReferenceEquals(e.Source, GoldGoblinWorkspaceTabs) && GoldGoblinWorkspaceTabs?.SelectedIndex == 0)
+            RefreshGoldGoblinItemEditor();
+    }
+
+    private void GoldGoblinLootGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) =>
+        RefreshGoldGoblinItemEditor();
+
+    private void RefreshGoldGoblinItemEditor()
+    {
+        if (GoldGoblinExcludeItem is null) return;
+        var row = GoldGoblinLootGrid.SelectedItem as GoldGoblinLootRow;
+        var rule = row is null ? null : FindGoldGoblinRule(row);
         _updatingGoldGoblinEditor = true;
-        var rule = Settings.ActiveGoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
-        GoldGoblinPriceSourceBox.SelectedValue = rule is null
+        GoldGoblinPriceSourceBox.SelectedValue = rule is null or { UseNpcPrice: true }
             ? "npc"
             : rule.UseVendingPrice ? "vending" : "manual";
         GoldGoblinManualPriceBox.Text = rule?.ManualPrice.ToString() ?? "0";
+        GoldGoblinExcludeItem.IsChecked = rule?.Exclude == true;
+        GoldGoblinExcludeItem.IsEnabled = row is not null;
         _updatingGoldGoblinEditor = false;
     }
 
+    private GoldGoblinPriceRule? FindGoldGoblinRule(GoldGoblinLootRow row) =>
+        Settings.ActiveGoldGoblinPriceRules.FirstOrDefault(rule => rule.ItemId > 0
+            ? rule.ItemId == row.ItemId
+            : string.Equals(rule.Name, row.Item, StringComparison.CurrentCultureIgnoreCase));
+
     private GoldGoblinPriceRule GetOrCreateGoldGoblinRule(GoldGoblinLootRow row)
     {
-        var rule = Settings.ActiveGoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
-        if (rule is not null) return rule;
-        rule = new GoldGoblinPriceRule { ItemId = row.ItemId, Name = row.Item };
+        if (FindGoldGoblinRule(row) is { } existing) return existing;
+        var rule = new GoldGoblinPriceRule { ItemId = row.ItemId, Name = row.Item, UseNpcPrice = true };
         Settings.ActiveGoldGoblinPriceRules.Add(rule);
         return rule;
     }
@@ -487,17 +543,19 @@ public partial class MainWindow : Window
     {
         if (_updatingGoldGoblinEditor || GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row ||
             GoldGoblinPriceSourceBox.SelectedValue is not string source) return;
-        var existing = Settings.ActiveGoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
-        if (source == "npc")
-        {
-            if (existing is not null) Settings.ActiveGoldGoblinPriceRules.Remove(existing);
-        }
-        else
-        {
-            var rule = GetOrCreateGoldGoblinRule(row);
-            rule.UseVendingPrice = source == "vending";
-        }
+        var rule = source == "npc" ? FindGoldGoblinRule(row) : GetOrCreateGoldGoblinRule(row);
+        if (rule is null) return;
+        rule.UseVendingPrice = source == "vending";
+        rule.UseNpcPrice = source == "npc";
         _goldGoblin.Reprice();
+    }
+
+    private void GoldGoblinExcludeItem_Click(object sender, RoutedEventArgs e)
+    {
+        if (_updatingGoldGoblinEditor || GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row) return;
+        GetOrCreateGoldGoblinRule(row).Exclude = GoldGoblinExcludeItem.IsChecked == true;
+        _goldGoblin.Reprice();
+        SaveSettings(applyPacketCapture: false);
     }
 
     private void GoldGoblinManualPrice_LostFocus(object sender, RoutedEventArgs e)
@@ -506,13 +564,16 @@ public partial class MainWindow : Window
         if (!long.TryParse(GoldGoblinManualPriceBox.Text, out var price) || price < 0)
         {
             SetStatus(T("Цена должна быть целым неотрицательным числом.", "Price must be a non-negative whole number."));
-            GoldGoblinLootGrid_SelectionChanged(GoldGoblinLootGrid,
-                new SelectionChangedEventArgs(Selector.SelectionChangedEvent, Array.Empty<object>(), Array.Empty<object>()));
+            RefreshGoldGoblinItemEditor();
             return;
         }
         var rule = GetOrCreateGoldGoblinRule(row);
         rule.ChangeManualPrice(price);
-        if (GoldGoblinPriceSourceBox.SelectedValue?.ToString() == "manual") rule.UseVendingPrice = false;
+        if (GoldGoblinPriceSourceBox.SelectedValue?.ToString() == "manual")
+        {
+            rule.UseNpcPrice = false;
+            rule.UseVendingPrice = false;
+        }
         _goldGoblin.Reprice();
     }
 
@@ -526,6 +587,7 @@ public partial class MainWindow : Window
             SetStatus(T("Цена должна быть целым неотрицательным числом.", "Price must be a non-negative whole number."));
             return;
         }
+        rule.UseNpcPrice = false;
         rule.ChangeManualPrice(price);
     }
 
@@ -846,7 +908,7 @@ public partial class MainWindow : Window
     /// results, panel membership refreshes). Coalesces bursts into one write
     /// 500 ms after the last request; explicit user actions still save at once.
     /// </summary>
-    private void RequestSave()
+    internal void RequestSave()
     {
         _saveDebounceTimer.Stop();
         _saveDebounceTimer.Start();
@@ -863,6 +925,7 @@ public partial class MainWindow : Window
     {
         if (DataContext is not AppSettings) return;
         _items = ItemCatalogService.Load(Settings.LootDatabaseVersion);
+        RefreshEquipmentDatabaseIcons();
         if (Application.Current is App app) app.ReloadItemCatalog(Settings.LootDatabaseVersion);
         SetStatus(T($"База предметов: {Settings.LootDatabaseVersion} ({_items.Count} записей).",
             $"Item database: {Settings.LootDatabaseVersion} ({_items.Count} entries)."));
@@ -931,6 +994,7 @@ public partial class MainWindow : Window
             // write values back into newly restored rows.
             DataContext = null;
             _store.ApplyProfileTo(name, Settings);
+            _overlay.RefreshPanelLayers();
             EnabledBox.IsChecked = Settings.Enabled;
             ProcessesBox.Text = string.Join(", ", Settings.AllowedProcesses);
             _cooldownGroupFilter = null;
@@ -1279,6 +1343,15 @@ public partial class MainWindow : Window
         SetStatus(T("Расположение группы кулдаунов применено.", "Cooldown group layout applied."));
     }
 
+    private void PickCatalogSkillIcon_Click(object sender, RoutedEventArgs e)
+    {
+        if (SkillsGrid.SelectedItem is not SkillAura skill) { SelectFirst("skill"); return; }
+        if (SkillIconPickerWindow.Pick(this) is not { } icon) return;
+        skill.IconImageBase64 = icon.IconBase64;
+        skill.IconFileName = icon.Name;
+        SaveSettings();
+    }
+
     private void PickIcon_Click(object sender, RoutedEventArgs e)
     {
         if (SkillsGrid.SelectedItem is not SkillAura skill) { SelectFirst("skill"); return; }
@@ -1443,6 +1516,15 @@ public partial class MainWindow : Window
         ShowDurationFill = source.ShowDurationFill
     };
 
+    private void PickEffectCatalogIcon_Click(object sender, RoutedEventArgs e)
+    {
+        if (EffectsGrid.SelectedItem is not TrackedEffect item) { SelectFirst("effect"); return; }
+        if (SkillIconPickerWindow.Pick(this) is not { } icon) return;
+        item.TemplateImageBase64 = icon.IconBase64;
+        item.TemplateFileName = icon.Name;
+        SaveSettings();
+    }
+
     private void PickEffectIcon_Click(object sender, RoutedEventArgs e)
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
@@ -1549,6 +1631,15 @@ public partial class MainWindow : Window
     private void DeleteReminder_Click(object sender, RoutedEventArgs e)
     {
         if (RemindersGrid.SelectedItem is ReminderItem reminder) Settings.Reminders.Remove(reminder);
+    }
+
+    private void PickReminderCatalogIcon_Click(object sender, RoutedEventArgs e)
+    {
+        if (RemindersGrid.SelectedItem is not ReminderItem item) { SelectFirst("reminder"); return; }
+        if (SkillIconPickerWindow.Pick(this) is not { } icon) return;
+        item.IconImageBase64 = icon.IconBase64;
+        item.IconFileName = icon.Name;
+        SaveSettings();
     }
 
     private void PickReminderIcon_Click(object sender, RoutedEventArgs e)
@@ -1846,6 +1937,7 @@ public partial class MainWindow : Window
         {
             GroupNumber = nextNumber, X = source.X + 35, Y = source.Y + 35,
             IconSize = source.IconSize, IconPadding = source.IconPadding, Gap = source.Gap,
+            Direction = source.Direction, NotificationDirection = source.NotificationDirection,
             ActiveOpacityPercent = source.ActiveOpacityPercent, InactiveOpacityPercent = source.InactiveOpacityPercent
         };
         Settings.BuffPanelGroups.Add(copy);
@@ -1970,7 +2062,33 @@ public partial class MainWindow : Window
     {
         if (EquipmentGrid.SelectedItem is not EquipmentTracker item) { SelectFirst("equipment"); return; }
         if (!TryPickImage(out var path)) return;
-        ImportImage(path, value => item.IconImageBase64 = value, value => item.IconFileName = value);
+        ImportImage(path, value =>
+        {
+            item.IconImageBase64 = value;
+            item.UseDatabaseIcon = false;
+        }, value => item.IconFileName = value);
+    }
+
+    private void PickEquipmentCatalogIcon_Click(object sender, RoutedEventArgs e)
+    {
+        if (EquipmentGrid.SelectedItem is not EquipmentTracker item) { SelectFirst("equipment"); return; }
+        if (SkillIconPickerWindow.PickEquipment(this, _items.Values) is not { } icon) return;
+        item.IconImageBase64 = icon.IconBase64;
+        item.IconFileName = icon.Name;
+        item.UseDatabaseIcon = false;
+        SaveSettings(applyPacketCapture: false);
+    }
+
+    private string? ResolveEquipmentDatabaseIcon(int itemId) =>
+        GameServerProfile.SupportsServerDatabases(Settings.ServerProfile) &&
+        _items.TryGetValue(itemId, out var item) && item.LocalImagePng is { Length: > 0 } image
+            ? Convert.ToBase64String(image)
+            : null;
+
+    private void RefreshEquipmentDatabaseIcons()
+    {
+        foreach (var item in Settings.Equipment)
+            item.SetDatabaseIconResolver(ResolveEquipmentDatabaseIcon);
     }
 
     private void LearnEquipment_Click(object sender, RoutedEventArgs e)
@@ -2081,6 +2199,9 @@ public partial class MainWindow : Window
 
     internal void RefreshTimerCatalog()
     {
+        _items = ItemCatalogService.Load(Settings.LootDatabaseVersion);
+        RefreshGoldGoblinItemSuggestions();
+        RefreshEquipmentDatabaseIcons();
         _monsters.Clear();
         foreach (var monster in MonsterCatalogService.LoadForTimers(Settings.MvpDatabaseVersion))
             _monsters.Add(monster);

@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="Themes/TimerPanel.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+            <converters:PercentToOpacityConverter x:Key="EquipmentPercentOpacity"/>
             <converters:ProgressToHeightConverter x:Key="ProgressToHeight" />
             <converters:ScaleValueConverter x:Key="ScaleValue" />
             <converters:Base64ToImageSourceConverter x:Key="Base64Image" />
@@ -90,7 +91,7 @@
     </Window.Resources>
     <Grid x:Name="OverlaySurface" Background="Transparent">
       <Grid x:Name="PacketOverlaySurface" Visibility="{Binding PacketCaptureEnabled, Converter={StaticResource BoolToVisibility}}">
-        <ItemsControl ItemsSource="{Binding Skills}">
+        <local:OverlayLayerSource LayerSource="{Binding Skills}" LayerPrefix="cooldown">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
@@ -201,9 +202,9 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
-        <ItemsControl ItemsSource="{Binding BuffPanelGroups}">
+        <local:OverlayLayerSource LayerSource="{Binding BuffPanelGroups}" LayerPrefix="buff">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
@@ -236,13 +237,23 @@
                         </Border.Style>
                         <ItemsControl ItemsSource="{Binding Effects}" Tag="{Binding}"><ItemsControl.ItemContainerStyle><Style TargetType="ContentPresenter"><Setter Property="Visibility" Value="{Binding CharacterScope.IsAllowed, Converter={StaticResource BoolToVisibility}}"/></Style></ItemsControl.ItemContainerStyle>
                             <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate><StackPanel Orientation="Horizontal" /></ItemsPanelTemplate>
+                                <ItemsPanelTemplate><StackPanel Orientation="{Binding Tag.Direction, RelativeSource={RelativeSource AncestorType=ItemsControl}}" /></ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Width="{Binding Tag.IconSize, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                           Height="{Binding Tag.IconSize, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                          Margin="0,0,4,0">
+                                          >
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="Margin" Value="0,0,4,0"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Tag.Direction, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Value="Vertical">
+                                                        <Setter Property="Margin" Value="{Binding Tag.Gap, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource BottomMargin}}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
                                         <Border Padding="{Binding Tag.IconPadding, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource IconPadding}}"
                                                 BorderThickness="1" BorderBrush="#B8C5CBD4" CornerRadius="3" ClipToBounds="True">
                                             <Border.Opacity>
@@ -312,9 +323,9 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
-        <ItemsControl ItemsSource="{Binding Reminders}">
+        <local:OverlayLayerSource LayerSource="{Binding Reminders}" LayerPrefix="reminder">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
@@ -422,9 +433,9 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
-        <ItemsControl ItemsSource="{Binding Equipment}">
+        <local:OverlayLayerSource LayerSource="{Binding Equipment}" LayerPrefix="equipment">
             <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter"><Setter Property="Visibility" Value="{Binding CharacterScope.IsAllowed, Converter={StaticResource BoolToVisibility}}"/>
@@ -434,7 +445,7 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border Padding="{Binding IconPadding, Converter={StaticResource IconPadding}}" CornerRadius="6" Cursor="SizeAll" Opacity="{Binding Opacity}"
+                    <Border VerticalAlignment="Top" Padding="{Binding IconPadding, Converter={StaticResource IconPadding}}" CornerRadius="6" Cursor="SizeAll" Opacity="{Binding Opacity}"
                             Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}"
                             MouseLeftButtonDown="Equipment_MouseLeftButtonDown" MouseMove="Equipment_MouseMove" MouseLeftButtonUp="Equipment_MouseLeftButtonUp">
                         <Border.Style>
@@ -447,19 +458,28 @@
                             </Style>
                         </Border.Style>
                         <StackPanel HorizontalAlignment="Center">
-                            <Image Source="{Binding IconImageBase64, Converter={StaticResource Base64Image}}" Width="{Binding IconSize}" Height="{Binding IconSize}" Stretch="UniformToFill"/>
+                            <Grid Width="{Binding OverlayIconSize}" Height="{Binding OverlayIconSize}" ClipToBounds="True">
+                                <Image Source="{Binding EffectiveIconImageBase64, Converter={StaticResource Base64Image}}" Stretch="UniformToFill"/>
+                                <Grid Visibility="{Binding ShowTextOverIcon, Converter={StaticResource BoolToVisibility}}">
+                                    <Border Background="Black" Opacity="{Binding TextBackgroundOpacityPercent, Converter={StaticResource EquipmentPercentOpacity}}"/>
+                                    <TextBlock Text="{Binding Text}" FontSize="{Binding TextSize}" FontWeight="Bold"
+                                               Foreground="{Binding TextColor, Converter={StaticResource ColorBrush}}" TextAlignment="Center"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"
+                                               TextTrimming="CharacterEllipsis" Margin="2"/>
+                                </Grid>
+                            </Grid>
                             <TextBlock Text="{Binding Text}" FontSize="{Binding TextSize}" FontWeight="Bold" TextAlignment="Center"
                                        Foreground="{Binding TextColor, Converter={StaticResource ColorBrush}}" Margin="0,4,0,0"
-                                       Visibility="{Binding ShowText, Converter={StaticResource BoolToVisibility}}">
+                                       Visibility="{Binding ShowTextBelowIcon, Converter={StaticResource BoolToVisibility}}">
                                 <TextBlock.Effect><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></TextBlock.Effect>
                             </TextBlock>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
-        <ItemsControl ItemsSource="{Binding ActiveNotifications}">
+        <local:OverlayLayerSource LayerSource="{Binding ActiveNotifications}" LayerPrefix="effect">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
@@ -522,9 +542,9 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
-        <ItemsControl x:Name="RewardGroupsPanel" ItemsSource="{Binding RewardGroups}">
+        <local:OverlayLayerSource x:Name="RewardGroupsPanel" LayerSource="{Binding RewardGroups}" LayerPrefix="reward">
             <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
@@ -574,20 +594,10 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
-        <Canvas x:Name="ExperienceBarsPanel" IsHitTestVisible="False">
-            <StackPanel Canvas.Left="{Binding ExperienceBarsX}" Canvas.Top="{Binding ExperienceBarsY}"
-                        Width="{Binding ExperienceBarWidth}"
-                        Visibility="{Binding ShowExperienceBars, Converter={StaticResource BoolToVisibility}}">
-                <ContentControl x:Name="BaseExperienceBar" HorizontalContentAlignment="Stretch" ContentTemplate="{StaticResource ExperienceBarTemplate}"/>
-                <ContentControl x:Name="JobExperienceBar" Tag="Job" Margin="0,2,0,0" HorizontalContentAlignment="Stretch"
-                                ContentTemplate="{StaticResource ExperienceBarTemplate}"
-                                Visibility="{Binding ShowJobExperienceBar, Converter={StaticResource BoolToVisibility}}"/>
-            </StackPanel>
-        </Canvas>
 
-        <ItemsControl x:Name="RateIndicatorsPanel" ItemsSource="{Binding RateIndicators}">
+        <local:OverlayLayerSource x:Name="RateIndicatorsPanel" LayerSource="{Binding RateIndicators}" LayerPrefix="statistics">
             <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
@@ -624,10 +634,21 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </local:OverlayLayerSource>
 
         </Grid>
-        <Canvas IsHitTestVisible="True">
+        <Canvas x:Name="ExperienceBarsPanel" IsHitTestVisible="False">
+            <StackPanel Canvas.Left="{Binding ExperienceBarsX}" Canvas.Top="{Binding ExperienceBarsY}"
+                        Width="{Binding ExperienceBarWidth}"
+                        Visibility="{Binding ShowExperienceBars, Converter={StaticResource BoolToVisibility}}">
+                <ContentControl x:Name="BaseExperienceBar" HorizontalContentAlignment="Stretch" ContentTemplate="{StaticResource ExperienceBarTemplate}"/>
+                <ContentControl x:Name="JobExperienceBar" Tag="Job" Margin="0,2,0,0" HorizontalContentAlignment="Stretch"
+                                ContentTemplate="{StaticResource ExperienceBarTemplate}"
+                                Visibility="{Binding ShowJobExperienceBar, Converter={StaticResource BoolToVisibility}}"/>
+            </StackPanel>
+        </Canvas>
+
+        <Canvas x:Name="MvpOverlayLayer" IsHitTestVisible="True">
             <Border x:Name="MvpTimerPanel" Canvas.Left="{Binding TimersX}" Canvas.Top="{Binding TimersY}"
                     Style="{StaticResource TimerPanelFrameStyle}"
                     Cursor="SizeAll" Visibility="Collapsed"
@@ -655,19 +676,20 @@
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style></StackPanel.Resources>
+                                <TextBlock Tag="MvpOrdinal" Text="{Binding DisplayNumber, StringFormat={}{0}.}" Margin="0,0,6,0" VerticalAlignment="Center"/>
                                 <Image Width="20" Height="20" Margin="0,0,5,0" Stretch="Uniform">
                                     <Image.Source><Binding Path="TimerImage"><Binding.Converter><converters:TimerImageConverter/></Binding.Converter></Binding></Image.Source>
-                                    <Image.Style><Style TargetType="Image">
+                                    <Image.Style><Style TargetType="Image"><Setter Property="Visibility" Value="{Binding DataContext.TimersShowIcon, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}"/>
                                         <Style.Triggers><Trigger Property="Source" Value="{x:Null}"><Setter Property="Visibility" Value="Collapsed"/></Trigger></Style.Triggers>
                                     </Style></Image.Style>
                                 </Image>
-                                <TextBlock Text="{Binding NumberedName}"/>
+                                <TextBlock Text="{Binding Name}" Visibility="{Binding DataContext.TimersShowName, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}"/>
                                 <TextBlock Text="  ⚠" Visibility="{Binding HasOverlappingRespawn, Converter={StaticResource BoolToVisibility}}"
                                            ToolTip="{DynamicResource TimerRouteOverlap}" Foreground="#FFFFB454"/>
                                 <Border Margin="6,0,0,0" Padding="3,0" BorderThickness="1" CornerRadius="3" VerticalAlignment="Center"
                                         BorderBrush="{Binding DataContext.TimersTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}">
                                     <Border.Style>
-                                        <Style TargetType="Border">
+                                        <Style TargetType="Border"><Setter Property="Visibility" Value="{Binding DataContext.TimersShowMap, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}"/>
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding LocationCode}" Value=""><Setter Property="Visibility" Value="Collapsed"/></DataTrigger>
                                             </Style.Triggers>
@@ -675,13 +697,18 @@
                                     </Border.Style>
                                     <TextBlock Tag="MvpMapHover" Text="{Binding LocationLabel}" FontWeight="Normal"/>
                                 </Border>
-                                <TextBlock Tag="MvpCountdown"><Run Text=" — "/><Run Text="{Binding OverlayCountdown, Mode=OneWay}"/></TextBlock>
+                                <TextBlock Tag="MvpCountdown" Margin="5,0,0,0" Text="{Binding OverlayCountdown}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
                 </StackPanel>
             </Border>
+        </Canvas>
+
+        <Canvas x:Name="LootListTrackerLayer" IsHitTestVisible="False" ClipToBounds="True"
+                SizeChanged="LootListTrackerLayer_SizeChanged">
+            <WrapPanel x:Name="LootListTrackerPanel"/>
         </Canvas>
 
         <Border x:Name="EditBanner" HorizontalAlignment="Left" VerticalAlignment="Top"

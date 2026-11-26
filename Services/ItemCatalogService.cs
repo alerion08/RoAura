@@ -20,12 +20,15 @@ public static class ItemCatalogService
         var version = GameDatabaseVersion.Normalize(gameVersion);
         if (version == GameServerProfile.RagnarokPlus)
             return RagnarokPlusData.LoadCatalog().Items.DistinctBy(item => item.Id).ToDictionary(
-                item => item.Id, item => new ItemEntry { Id = item.Id, Name = item.Name, Type = item.Type });
+                item => item.Id, item => new ItemEntry
+                {
+                    Id = item.Id, Name = item.Name, Type = item.Type, LocalImagePng = item.LocalImagePng
+                });
         if (version == GameDatabaseVersion.Toc)
         {
             try
             {
-                return TocDatabaseService.Database.Items.ToDictionary(i => i.Id, i => new ItemEntry { Id = i.Id, Name = i.Name, Type = i.Type });
+                return TocDatabaseService.Database.Items.ToDictionary(i => i.Id, i => new ItemEntry { Id = i.Id, Name = i.Name, Type = i.Type, LocalImagePng = i.LocalImagePng });
             }
             catch (Exception ex)
             {

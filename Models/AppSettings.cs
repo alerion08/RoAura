@@ -94,6 +94,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     private int _goldGoblinOverchargeLevel;
     private bool _showLootZenyPrice;
     private bool _includeGoldGoblinInZenyPerHour;
+    private volatile bool _trackSteal;
 
     public int SettingsVersion { get; set; }
     public bool OverlayCoordinatesRelativeToGame { get; set; }
@@ -106,6 +107,7 @@ public sealed class AppSettings : INotifyPropertyChanged
             if (_serverProfile != normalized)
             {
                 Set(ref _serverProfile, normalized);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsStealTracking)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarket)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarketWatch)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveMarketWatchRules)));
@@ -115,6 +117,7 @@ public sealed class AppSettings : INotifyPropertyChanged
         }
     }
 
+    [JsonIgnore] public bool SupportsStealTracking => ServerProfile == GameServerProfile.RagnarokPlus;
     [JsonIgnore] public bool SupportsMarket => GameServerProfile.SupportsMarket(ServerProfile);
     [JsonIgnore] public bool SupportsMarketWatch => GameServerProfile.SupportsMarketWatch(ServerProfile);
 
@@ -193,6 +196,20 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string TimersWindowColor { get => _timersWindowColor; set => Set(ref _timersWindowColor, value); }
     public string TimersCompletedColor { get => _timersCompletedColor; set => Set(ref _timersCompletedColor, value); }
     public string TimersTextColor { get => _timersTextColor; set => Set(ref _timersTextColor, value); }
+    public Dictionary<int, EquipmentGroupLayout> EquipmentGroupLayouts { get; set; } = [];
+    private bool _timersShowIcon = true;
+    public bool TimersShowIcon { get => _timersShowIcon; set => Set(ref _timersShowIcon, value); }
+    private bool _timersShowName = true;
+    public bool TimersShowName { get => _timersShowName; set => Set(ref _timersShowName, value); }
+    private bool _timersShowMap = true;
+    public bool TimersShowMap { get => _timersShowMap; set => Set(ref _timersShowMap, value); }
+    private bool _timersPopupIcon;
+    public bool TimersPopupIcon { get => _timersPopupIcon; set => Set(ref _timersPopupIcon, value); }
+    private bool _timersPopupName;
+    public bool TimersPopupName { get => _timersPopupName; set => Set(ref _timersPopupName, value); }
+    private bool _timersPopupMap;
+    public bool TimersPopupMap { get => _timersPopupMap; set => Set(ref _timersPopupMap, value); }
+
     public bool TimersShowBackground { get => _timersShowBackground; set => Set(ref _timersShowBackground, value); }
     public string TimersBackgroundColor { get => _timersBackgroundColor; set => Set(ref _timersBackgroundColor, value); }
     public double TimersBackgroundOpacityPercent { get => _timersBackgroundOpacityPercent; set => Set(ref _timersBackgroundOpacityPercent, Math.Clamp(value, 0, 100)); }
@@ -201,6 +218,20 @@ public sealed class AppSettings : INotifyPropertyChanged
     public double TimersBorderThickness { get => _timersBorderThickness; set => Set(ref _timersBorderThickness, Math.Clamp(value, 0, 10)); }
     public bool RewardsEnabled { get => _rewardsEnabled; set => Set(ref _rewardsEnabled, value); }
     public bool ShowJobExperience { get => _showJobExperience; set => Set(ref _showJobExperience, value); }
+    public Dictionary<string, OverlayPanelPreference> OverlayPanels { get; set; } = [];
+    public Dictionary<string, double[]> TableColumnWidths { get; set; } = [];
+
+    public bool TrackSteal
+    {
+        get => _trackSteal;
+        set
+        {
+            if (_trackSteal == value) return;
+            _trackSteal = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TrackSteal)));
+        }
+    }
+
     public int GoldGoblinOverchargeLevel { get => _goldGoblinOverchargeLevel; set => Set(ref _goldGoblinOverchargeLevel, Math.Clamp(value, 0, 10)); }
     public bool ShowLootZenyPrice { get => _showLootZenyPrice; set => Set(ref _showLootZenyPrice, value); }
     public bool IncludeGoldGoblinInZenyPerHour { get => _includeGoldGoblinInZenyPerHour; set => Set(ref _includeGoldGoblinInZenyPerHour, value); }
@@ -347,6 +378,10 @@ public sealed class AppSettings : INotifyPropertyChanged
     public ObservableCollection<BuffPanelGroup> BuffPanelGroups { get; set; } = [];
     public Dictionary<int, int> RagnarokPlusCraftStock { get; set; } = [];
     public Dictionary<string, List<DatabaseFavoriteList>> DatabaseFavoriteLists { get; set; } = [];
+    public ObservableCollection<LootList> LootLists { get; set; } = [];
+    public LootListTrackerSettings LootListTracker { get; set; } = new();
+    public double GoldGoblinEditorRatio { get; set; }
+    public double GoldGoblinLootListEditorRatio { get; set; }
     public Dictionary<string, HashSet<int>> WantedLootByServer { get; set; } = [];
 
     public ObservableCollection<RewardChannelSettings> RewardChannels { get; set; } =
@@ -420,7 +455,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     public void SyncBuffPanelGroups()
     {
         var groupNumbers = Effects
-            .Where(effect => effect.Enabled && effect.ShowOnBuffPanel && effect.GroupNumber > 0)
+            .Where(effect => effect.GroupNumber > 0)
             .Select(effect => effect.GroupNumber).Distinct().OrderBy(number => number).ToList();
 
         foreach (var number in groupNumbers)

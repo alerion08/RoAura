@@ -10,13 +10,23 @@ public sealed class GoldGoblinPriceRule : INotifyPropertyChanged
     private string _name = "";
     private int _itemId;
     private bool _useVendingPrice;
+    private bool _useNpcPrice;
     private long _manualPrice;
     private bool _exclude;
     public bool Exclude { get => _exclude; set => Set(ref _exclude, value); }
 
     public int ItemId { get => _itemId; set => Set(ref _itemId, Math.Max(0, value)); }
     public string Name { get => _name; set => Set(ref _name, value?.Trim() ?? ""); }
-    public bool UseVendingPrice { get => _useVendingPrice; set => Set(ref _useVendingPrice, value); }
+    public bool UseNpcPrice { get => _useNpcPrice; set => Set(ref _useNpcPrice, value); }
+    public bool UseVendingPrice
+    {
+        get => _useVendingPrice;
+        set
+        {
+            if (value) UseNpcPrice = false;
+            Set(ref _useVendingPrice, value);
+        }
+    }
     public long ManualPrice { get => _manualPrice; set => Set(ref _manualPrice, Math.Max(0, value)); }
 
     public List<ManualPriceChange> ManualPriceHistory { get; set; } = [];
@@ -41,13 +51,32 @@ public sealed class GoldGoblinPriceRule : INotifyPropertyChanged
 public sealed class GoldGoblinLootRow : INotifyPropertyChanged
 {
     private long _count;
+    private long _stolenCount;
     private long _cost;
     private bool _hasManualCost;
     private string _priceSource = "—";
     private bool _priceKnown;
     public int ItemId { get; init; }
     public string Item { get; init; } = "";
-    public long Count { get => _count; set { _count = Math.Max(0, value); Changed(); Changed(nameof(Total)); } }
+    public long Count
+    {
+        get => _count;
+        set
+        {
+            _count = Math.Max(0, value);
+            _stolenCount = Math.Min(_stolenCount, _count);
+            Changed();
+            Changed(nameof(Total));
+        }
+    }
+    public long StolenCount => _stolenCount;
+
+    internal void SetCounts(long count, long stolenCount)
+    {
+        _stolenCount = Math.Max(0, stolenCount);
+        Count = count;
+    }
+
     public long Cost
     {
         get => _cost;

@@ -15,7 +15,23 @@ public partial class QuestDetailsControl : UserControl
 {
  public event Action<QuestGuide?>? GuideRequested;
  public event Action? CatalogChanged;
- internal SemanticCatalog? ReadyCatalog=>_catalog;
+ internal SemanticCatalog? ReadyCatalog
+ {
+  get
+  {
+   if (ReferenceEquals(_cachedClassic, _catalog) && ReferenceEquals(_cachedLegacy, _workspace?.Catalog) && _combined is not null)
+    return _combined;
+   _cachedClassic = _catalog;
+   _cachedLegacy = _workspace?.Catalog;
+   var source = RagnarokPlusQuestCatalog.Instance;
+   var guides = _cachedLegacy ?? source.Combine(new QuestCatalog([]));
+   var quests = (_catalog?.Quests.Values ?? Enumerable.Empty<SemanticQuest>()).Concat(source.Cards.Values.Select(card =>
+    source.CreateSemantic(card, guides.Guides.GetValueOrDefault(card.Key)?.Title ?? card.Title)));
+   return _combined = new SemanticCatalog(quests.ToDictionary(quest => quest.Id), _catalog?.Version ?? "");
+  }
+ }
+ private SemanticCatalog? _combined, _cachedClassic;
+ private QuestCatalog? _cachedLegacy;
  internal ComboBox QuestChoice=>ReadyChoice;
 
  private readonly QuestSemanticService _reader=new();
@@ -25,6 +41,13 @@ public partial class QuestDetailsControl : UserControl
  private string? _selectedId,_semanticChoice,_workspaceKey;private string _language="ru",_fingerprint="";private bool _loading,_rendering;private Task? _loadTask;private FileSystemWatcher? _watcher;
  private readonly Dictionary<string,Border> _cards=new();
  private Border? _answerCard;
+ private bool _showHuntingChoices;
+ internal void SetHuntingChoiceVisibility(bool show)
+ {
+  if (_showHuntingChoices == show) return;
+  _showHuntingChoices = show;
+  if (_workspace is not null) Render(_workspace);
+ }
  private bool Editable=>_workspace?.CanEdit==true && _quest is not null && _workspace.Catalog?.Guides.GetValueOrDefault(_quest.Id)==_workspace.SelectedGuide && SemanticReadiness.MatchesProgress(_quest,_workspace.SelectedGuide);
  public QuestDetailsControl()
  {
@@ -71,8 +94,9 @@ public partial class QuestDetailsControl : UserControl
    _language=LocalizationService.CurrentLanguage=="ru"?"ru":"en";
    var previous=_quest?.Id;var workspaceKey=workspace.SelectedGuide?.Key;
    if(workspaceKey!=_workspaceKey){_semanticChoice=null;_workspaceKey=workspaceKey;}
-   var key=_semanticChoice??workspaceKey;_quest=key is null?null:_catalog?.Quests.GetValueOrDefault(key);
-   ReadyChoice.ItemsSource=_catalog?.Quests.Values.OrderBy(q=>q.Title).ToList();ReadyChoice.SelectedValue=_quest?.Id;
+   var key=_semanticChoice??workspaceKey;var ready=ReadyCatalog;_quest=key is null?null:ready?.Quests.GetValueOrDefault(key);
+   ReadyChoice.ItemsSource=ready?.Quests.Values.Where(q => _showHuntingChoices || q.Id == key ||
+    !q.Id.StartsWith("ragnarokplus:/hunting-db/", StringComparison.Ordinal)).OrderBy(q=>q.Title).ToList();ReadyChoice.SelectedValue=_quest?.Id;
    if(_quest?.Id!=previous)_selectedId=null;
    if(_quest is not null && !_quest.Steps.Any(s=>s.Id==_selectedId))_selectedId=Current()?.Id??_quest.Steps[0].Id;
    RenderChrome();RenderSteps();RenderDetail();RenderFacts();RenderSources();
@@ -91,12 +115,15 @@ public partial class QuestDetailsControl : UserControl
   Metadata.ToolTip=_quest?.Source.Revision;
   Quality.Text=_quest is null?L("Новый экран доступен только для квестов, все этапы которых готовы RU/EN.","The new screen accepts only quests with every step ready in RU/EN."):
    L("Описания: готовы RU/EN · Прохождение на сервере: статус неизвестен","Descriptions: RU/EN ready · Server walkthrough: status unknown");
+  if (_quest?.Source.Kind == "Ragnarok+") Quality.Text = L("Данные Ragnarok+ на языке источника.","Ragnarok+ data in the source language.");
   if(_quest is not null && !Editable)Quality.Text+="\n"+L("Изменение прогресса недоступно: выберите профиль; при несовпадении этапов требуется сверка каталога.","Progress editing unavailable: select a profile; mismatching steps require catalog review.");
   var active=_quest is not null && _workspace?.SelectedGuide?.Key==_quest.Id && _workspace.IsActive(_workspace.SelectedGuide);
   AddButton.Content=active?L("✓ Активен","✓ Active"):L("+ Добавить в активные","+ Add to active");AddButton.IsEnabled=Editable;
   if(active)QuestCopyFeedback.ColorState(AddButton,BB("#298E38"));else{AddButton.ClearValue(Button.TemplateProperty);AddButton.ClearValue(Button.ForegroundProperty);}
-  WantedQuestLootButton.Content = L("Материалы в желаемый лут", "Add materials to wanted loot");
-  WantedQuestLootButton.Visibility = active && Editable ? Visibility.Visible : Visibility.Collapsed;
+  WantedQuestLootButton.Content = LocalizationService.Get("LootListAddAction");
+  WantedQuestLootButton.Visibility = _quest is not null ? Visibility.Visible : Visibility.Collapsed;
+  WantedQuestLootButton.IsEnabled = _quest?.Source.Kind != "Ragnarok+" ||
+      _workspace?.Settings.ServerProfile == GameServerProfile.RagnarokPlus;
   GoCurrentButton.Content=L("К текущему этапу","Go to current step");GoCurrentButton.IsEnabled=Current() is not null;
   WalkTab.Header=L("Прохождение","Walkthrough");FactsTab.Header=L("Требования и награды","Requirements and rewards");SourcesTab.Header=L("Источники","Sources");
   var done=_quest?.Steps.Count(Done)??0;var count=_quest?.Steps.Count??0;
@@ -106,35 +133,31 @@ public partial class QuestDetailsControl : UserControl
  }
  private void WantedQuestLoot_Click(object sender, RoutedEventArgs e)
  {
-  if (!Editable || _workspace?.SelectedGuide is not { } guide || !_workspace.IsActive(guide) ||
-      _quest is not { } quest || Application.Current is not App app || app.MarketWatchDatabase is not { } database)
-   return;
+  if (_workspace is null || _quest is not { } quest || Application.Current is not App app ||
+      Window.GetWindow(this) is not { } owner) return;
 
   var settings = _workspace.Settings;
   var server = settings.ServerProfile;
-  if (!string.Equals(server, database.Version, StringComparison.OrdinalIgnoreCase)) return;
-  var materials = quest.Steps.Where(step => !Done(step)).SelectMany(step => step.Items)
-   .Where(item => item.Required != false && item.Operation is ("collect" or "bring" or "deliver" or "buy" or "use" or "consume"))
-   .Select(item => item.Name.Trim()).Where(name => name.Length > 0).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
-  if (materials.Length == 0)
+  if (quest.Source.Kind == "Ragnarok+" && server != GameServerProfile.RagnarokPlus) return;
+  var materials = QuestFactPresentation.MaterialSummary(quest, _language)
+   .Concat(quest.Steps.SelectMany(QuestFactPresentation.StepMaterials))
+   .Where(fact => fact.Name is not null && (fact.DatabaseItemId.HasValue ||
+       fact.Kind.StartsWith("item", StringComparison.Ordinal) || fact.Kind is "quest_item" or "puzzle_item"))
+   .Select(fact => (Id: fact.DatabaseItemId ?? app.ResolveQuestItemId(fact.Name!) ?? 0,
+       Name: fact.Name!, Target: long.TryParse(fact.Amount, out var amount) && amount > 0 ? amount : 1L))
+   .ToArray();
+  var resolved = materials.Where(item => item.Id > 0).ToArray();
+  if (resolved.Length == 0)
   {
-   Notify(L("В оставшихся этапах нет материалов.", "No materials for the remaining steps."));
+   Notify(L("Нет материалов с однозначным совпадением в базе.", "No materials match the database unambiguously."));
    return;
   }
-
-  var names = database.Items.GroupBy(item => item.Name.Trim(), StringComparer.OrdinalIgnoreCase)
-   .ToDictionary(group => group.Key, group => group.Select(item => item.Id).Distinct().ToArray(), StringComparer.OrdinalIgnoreCase);
-  if (!settings.WantedLootByServer.TryGetValue(server, out var wanted))
-   settings.WantedLootByServer[server] = wanted = [];
-  var added = 0;
-  var unresolved = 0;
-  foreach (var name in materials)
-  {
-   if (!names.TryGetValue(name, out var ids) || ids.Length != 1) { unresolved++; continue; }
-   if (wanted.Add(ids[0])) added++;
-  }
-  if (added > 0) app.SaveDatabasePreferences();
-  Notify(L($"Добавлено: {added}. Без точного совпадения в базе: {unresolved}.",
+  if (!LootListNameDialog.Confirm(owner, L("Добавить предметы в список?", "Add items to the list?"),
+      LocalizationService.Get("LootListAddAction"), centerContent: true)) return;
+  var added = LootLists.ImportQuest(settings, server, quest.Id, quest.Title, resolved);
+  app.LootListsChanged();
+  var unresolved = materials.Where(item => item.Id == 0).Select(item => item.Name).Distinct(StringComparer.OrdinalIgnoreCase).Count();
+  Notify(L($"Добавлено: {added}. Без точного совпадения: {unresolved}.",
            $"Added: {added}. No exact catalog match: {unresolved}."));
  }
  private void RenderSteps()
@@ -213,18 +236,8 @@ public partial class QuestDetailsControl : UserControl
   prose.Children.Add(Text(L("Этап ","Step ")+step.Order+(Done(step)?L(" ✓ Завершено"," ✓ Completed"):""),15,true));prose.Children.Add(Text(L("Полное описание","Full description"),18,true));
   var full=Text("",ActualWidth<1050?13:14);full.LineHeight=full.FontSize*1.67;ApplyText(full,step,true);prose.Children.Add(full);
   var aside=new StackPanel();Grid.SetColumn(aside,1);layout.Children.Add(aside);
-  var imageHost=new Border {Background=BB("#F1F4F8"),BorderBrush=BorderB("#D5E0EC"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),MinHeight=180,Padding=new Thickness(12),Child=Text(L("▧ Для этапа не добавлен скриншот","▧ No screenshot for this step"),11)};
-  var image=step.Images.FirstOrDefault();
-  if(image is not null)
-  {
-   // Only a source image explicitly attached to this stable step; never reuse the prototype illustration.
-   Uri? uri=null;
-   if(image.LocalPath is {} local)
-   {var root=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"Data"))+Path.DirectorySeparatorChar;var path=Path.GetFullPath(Path.Combine(root,local));if(path.StartsWith(root,StringComparison.OrdinalIgnoreCase) && File.Exists(path))uri=new Uri(path);}
-   if(uri is null && Uri.TryCreate(image.Url,UriKind.Absolute,out var remote) && remote.Scheme is "http" or "https")uri=remote;
-   if(uri is not null)try{var bitmap=new BitmapImage();bitmap.BeginInit();bitmap.UriSource=uri;bitmap.DecodePixelWidth=600;bitmap.EndInit();imageHost.Child=new Image{Source=bitmap,Stretch=Stretch.Uniform,ToolTip=image.Caption};}catch(Exception ex){DebugLog.Write("Quest image: "+ex.Message);}
-  }
-  aside.Children.Add(imageHost);aside.Children.Add(Legend());
+  foreach (var image in step.Images.DefaultIfEmpty()) aside.Children.Add(QuestImage(image));
+  aside.Children.Add(Legend());
   var coordinates=new StackPanel();if(SemanticCoordinates.All(step).Count>0)coordinates.Children.Add(Coordinates(step));else coordinates.Children.Add(Text(L("Координаты для этого этапа не указаны в документе","No coordinates specified for this step"),11));
   if(step.Npcs.Count>0){var names=Text("NPC: "+string.Join(", ",step.Npcs),11,true);names.Foreground=B("#075CB9");coordinates.Children.Add(names);}
   aside.Children.Add(Info(L("Координаты","Coordinates"),coordinates));
@@ -232,7 +245,10 @@ public partial class QuestDetailsControl : UserControl
   if(items.Count==0)materials.Children.Add(Text(L("Не требуются по описанию этапа","None specified for this step"),11));
   foreach(var item in items)
   {
-   var line=Text(item.Name+(item.Quantity is {} n?" ×"+n:" ×?")+" · "+Operation(item.Operation),12,true);line.Foreground=B("#087747");materials.Children.Add(line);
+   var label=item.Name+(item.Quantity is {} n?" ×"+n:"")+" · "+Operation(item.Operation);
+   if (ResolveItemLink(item.Name, item.DatabaseItemId) is int id)
+    materials.Children.Add(DatabaseLink(label, id, DatabaseSearchKind.Items));
+   else {var line=Text(label,12,true);line.Foreground=B("#087747");materials.Children.Add(line);}
    if(item.Condition is not null || item.Branch is not null)materials.Children.Add(Text(Comment(item.Condition),11));
   }
   if(step.Answers.Count>0)
@@ -245,10 +261,93 @@ public partial class QuestDetailsControl : UserControl
    }
    _answerCard=Info(L("Варианты ответов","Answer options"),answers);aside.Children.Add(_answerCard);
   }
-  aside.Children.Add(Info(L("Необходимые предметы","Required items"),materials));
+  var exact = _quest?.Source.Kind == "Ragnarok+";
+  aside.Children.Add(Info(exact ? L("Предметы","Items") : L("Необходимые предметы","Required items"),materials));
+  if (step.DatabaseMonsters.Count > 0)
+  {
+   var monsters = new StackPanel();
+   foreach (var monster in step.DatabaseMonsters)
+   {
+    var label = string.Join(" · ", new[] { monster.Name, monster.Count }.Where(v => !string.IsNullOrWhiteSpace(v)));
+    monsters.Children.Add(monster.Id is int id ? DatabaseLink(label, id, DatabaseSearchKind.Monsters) : Text(label));
+   }
+   aside.Children.Add(Info(L("Монстры","Monsters"),monsters));
+  }
   if(ActualWidth<760){layout.ColumnDefinitions[1].Width=new GridLength(0);layout.RowDefinitions.Add(new(){Height=GridLength.Auto});layout.RowDefinitions.Add(new(){Height=GridLength.Auto});Grid.SetColumn(aside,0);Grid.SetRow(aside,1);}
   DetailPanel.Children.Add(layout);
 
+ }
+ private Border QuestImage(SemanticImage? image)
+ {
+  var host = new Border { Background=BB("#F1F4F8"), BorderBrush=BorderB("#D5E0EC"), BorderThickness=new Thickness(1),
+   CornerRadius=new CornerRadius(5), MinHeight=180, Padding=new Thickness(12),
+   Child=Text(L("▧ Для этапа не добавлен скриншот","▧ No screenshot for this step"),11) };
+  if (image is null) return host;
+  Uri? uri = null;
+  if (image.LocalPath is { } local)
+  {
+   var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"Data")) + Path.DirectorySeparatorChar;
+   var path = Path.GetFullPath(Path.Combine(root,local));
+   if (path.StartsWith(root,StringComparison.OrdinalIgnoreCase) && File.Exists(path)) uri = new Uri(path);
+  }
+  if (uri is null && Uri.TryCreate(image.Url,UriKind.Absolute,out var remote) && remote.Scheme is "http" or "https") uri = remote;
+  if (uri is null) return host;
+  try
+  {
+   var bitmap = new BitmapImage();
+   bitmap.BeginInit(); bitmap.UriSource = uri; bitmap.DecodePixelWidth = 600; bitmap.EndInit();
+   var picture = new Image { Source = bitmap, Stretch = Stretch.Uniform, ToolTip = image.Caption };
+   if (image.Pins.Count == 0) { host.Child = picture; return host; }
+   var layout = new Grid { MaxHeight = 320 };
+   var pins = new Canvas { ClipToBounds = true };
+   layout.Children.Add(picture);
+   layout.Children.Add(pins);
+   foreach (var pin in image.Pins)
+    pins.Children.Add(new System.Windows.Shapes.Ellipse { Width = 11, Height = 11, StrokeThickness = 2,
+     Stroke = Brushes.White, Fill = Brushes.Goldenrod, ToolTip = $"{pin.Name} {pin.X},{pin.Y}" });
+   void PositionPins()
+   {
+    if (bitmap.IsDownloading || bitmap.PixelWidth <= 0 || bitmap.PixelHeight <= 0) return;
+    var scale = Math.Min(layout.ActualWidth / bitmap.PixelWidth, layout.ActualHeight / bitmap.PixelHeight);
+    var width = bitmap.PixelWidth * scale;
+    var height = bitmap.PixelHeight * scale;
+    for (var index = 0; index < pins.Children.Count; index++)
+    {
+     var pin = image.Pins[index];
+     Canvas.SetLeft(pins.Children[index], (layout.ActualWidth - width) / 2 + pin.Left * width - 5.5);
+     Canvas.SetTop(pins.Children[index], (layout.ActualHeight - height) / 2 + pin.Top * height - 5.5);
+    }
+   }
+   layout.SizeChanged += (_, _) => PositionPins();
+   if (bitmap.IsDownloading) bitmap.DownloadCompleted += (_, _) => PositionPins();
+   host.Child = layout;
+  }
+  catch (Exception ex) when (ex is IOException or InvalidOperationException or NotSupportedException or ArgumentException)
+  { DebugLog.Write("Quest image: " + ex.Message); }
+  return host;
+ }
+ private int? ResolveItemLink(string name, int? exactId) => exactId ??
+  (Application.Current as App)?.ResolveQuestItemId(name);
+
+ private TextBlock DatabaseLink(string label, int id, DatabaseSearchKind kind)
+ {
+  var text = Text("", 12, true);
+  var link = new Hyperlink(new Run(label))
+  {
+   FontWeight = FontWeights.Bold,
+   TextDecorations = TextDecorations.Underline,
+   Foreground = B(kind == DatabaseSearchKind.Items ? "#087747" : "#075CB9"),
+   ToolTip = L("Открыть в базе данных","Open in database"),
+   IsEnabled = _quest?.Source.Kind != "Ragnarok+" ||
+    _workspace?.Settings.ServerProfile == GameServerProfile.RagnarokPlus
+  };
+  link.Click += (_, _) =>
+  {
+   if ((Application.Current as App)?.OpenQuestDatabaseCard(kind, id) != true)
+    Notify(L("Карточка отсутствует в локальной базе.","Card is missing from the local database."));
+  };
+  text.Inlines.Add(link);
+  return text;
  }
  private Border Info(string title,UIElement content)
  {var stack=new StackPanel();stack.Children.Add(Text(title,12,true));stack.Children.Add(content);return new(){Child=stack,Background=BB("#FAFCFF"),BorderBrush=BorderB("#D6E4F3"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),Padding=new Thickness(10),Margin=new Thickness(0,10,0,0)};}
@@ -261,7 +360,7 @@ public partial class QuestDetailsControl : UserControl
   body.Children.Add(Text(_quest.Title,11));
   var columns=new Grid{Margin=new Thickness(0,12,0,0)};
   columns.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});columns.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});
-  var requirements=FactRows(QuestFactPresentation.Requirements(_quest));
+  var requirements=FactRows(QuestFactPresentation.MaterialSummary(_quest, _language));
   var left=Info(L("Суммарные материалы и требования","Total materials and requirements"),requirements);left.Margin=new Thickness(0,0,7,0);columns.Children.Add(left);
   var rewards=new StackPanel();
   rewards.Children.Add(FactRows(QuestFactPresentation.Rewards(_quest.Rewards)));
@@ -273,7 +372,7 @@ public partial class QuestDetailsControl : UserControl
    if(facts.Count>0)body.Children.Add(Info(L("Материалы и требования — этап ","Materials and requirements — step ")+step.Order,FactRows(facts)));
    else
    {
-    var materials=step.Items.Where(i=>i.Operation is "collect" or "bring" or "deliver" or "buy" or "use" or "consume").Select(i=>new SemanticFact(i.Id,"item",i.Name,i.Quantity?.ToString(),string.Join(" · ",new[]{Operation(i.Operation),Comment(i.Condition)}.Where(v=>!string.IsNullOrWhiteSpace(v))),i.Branch,step.Id)).ToList();
+    var materials = QuestFactPresentation.StepMaterials(step);
     if(materials.Count>0)body.Children.Add(Info(L("Материалы — этап ","Materials — step ")+step.Order,FactRows(materials)));
    }
   }
@@ -287,7 +386,13 @@ public partial class QuestDetailsControl : UserControl
   {
    var row=new DockPanel();
    if(fact.Amount is not null){var amount=Text((fact.Kind.Contains("exp") || fact.Kind.EndsWith("level")?"":"×")+fact.Amount,12,true);amount.Margin=new Thickness(8,2,0,4);DockPanel.SetDock(amount,Dock.Right);row.Children.Add(amount);}
-   var label=Text(fact.Name??FactLabel(fact.Kind),12,true);if(fact.Name is not null && fact.Kind.Contains("item"))label.Foreground=B("#087747");row.Children.Add(label);
+   if (fact.Name is { } name && (fact.DatabaseItemId.HasValue || fact.Kind.Contains("item", StringComparison.Ordinal)) &&
+       ResolveItemLink(name, fact.DatabaseItemId) is int id)
+    row.Children.Add(DatabaseLink(name, id, DatabaseSearchKind.Items));
+   else
+   {
+    var label=Text(fact.Name??FactLabel(fact.Kind),12,true);if(fact.Name is not null && fact.Kind.Contains("item"))label.Foreground=B("#087747");row.Children.Add(label);
+   }
    var content=new StackPanel();content.Children.Add(row);
    if(fact.Condition is not null && fact.Condition!=sharedCondition)content.Children.Add(Text(Comment(fact.Condition),11));
 
@@ -298,7 +403,7 @@ public partial class QuestDetailsControl : UserControl
  }
  private string Comment(string? value)=>QuestFactText.Localize(value,_language);
  private string Operation(string value)=>value switch
- {"collect"=>L("собрать","collect"),"bring"=>L("принести","bring"),"deliver"=>L("передать","deliver"),"buy"=>L("купить","buy"),"use"=>L("использовать","use"),"consume"=>L("расходуется","consumed"),"possess"=>L("иметь при себе","possess"),"show"=>L("показать","show"),_=>value};
+ {"collect"=>L("собрать","collect"),"bring"=>L("принести","bring"),"deliver"=>L("передать","deliver"),"buy"=>L("купить","buy"),"use"=>L("использовать","use"),"consume"=>L("расходуется","consumed"),"possess"=>L("иметь при себе","possess"),"show"=>L("показать","show"),"reward" or "receive"=>L("награда","reward"),"reference"=>L("упоминание","reference"),_=>value};
  private string FactLabel(string value)=>value switch
  {"base_level"=>L("Базовый уровень","Base level"),"job_level"=>L("Уровень профессии","Job level"),"base_exp" or "base_exp_total"=>L("Базовый опыт","Base experience"),"job_exp"=>L("Опыт профессии","Job experience"),"item"=>L("Предмет","Item"),"item_consumed_total"=>L("Суммарные расходуемые материалы","Total consumed materials"),"item_not_consumed"=>L("Нерасходуемый предмет","Retained item"),"conditional_quest_steps"=>L("Этапы предварительного квеста","Prerequisite quest steps"),"quest_completed"=>L("Предварительный квест","Prerequisite quest"),"access"=>L("Доступ к подземелью","Dungeon access"),"service_unlock" or "unlock"=>L("Открываемая возможность","Unlocked feature"),"quest_object" or "quest_item" or "quest_document" or "puzzle_item"=>L("Квестовый предмет","Quest item"),"none"=>L("Нет награды","No reward"),"story_information"=>L("Сведения","Information"),"zeny_per_item"=>L("Зени за предмет","Zeny per item"),"zeny" or "zeny_total"=>L("Зени","Zeny"),"zeny_per_trip"=>L("Зени за поездку","Zeny per trip"),"maximum_trigger_count"=>L("Максимум срабатываний","Maximum triggers"),"door_attempts"=>L("Попытки открытия двери","Door attempts"),"server_donation_count"=>L("Число пожертвований сервера","Server donation count"),"time_limit_seconds"=>L("Лимит времени, секунд","Time limit, seconds"),"approximate_time_limit_minutes"=>L("Примерный лимит времени, минут","Approximate time limit, minutes"),"attempts_per_first_set"=>L("Попытки на первый набор","Attempts per first set"),"search_interval_minutes"=>L("Интервал поиска, минут","Search interval, minutes"),"item_consumed_minimum"=>L("Минимальный расход предмета","Minimum item consumption"),"restart_source_step"=>L("Этап повторного начала","Restart step"),"server_donation_total_zeny"=>L("Общая сумма пожертвований сервера","Server donation total"),"distinct_report_volumes"=>L("Различные тома отчёта","Distinct report volumes"),"concurrent_stage_blocker"=>L("Несовместимый этап","Concurrent stage blocker"),"battle_time_limit"=>L("Ограничение времени боя","Battle time limit"),"room_clear"=>L("Зачистка комнаты","Room clear"),"collection_goal"=>L("Цель сбора","Collection goal"),"completed_source_steps"=>L("Завершённые этапы","Completed steps"),"visit_required"=>L("Обязательное посещение","Required visit"),"repaired_post_total"=>L("Всего отремонтированных опор","Total repaired posts"),"time_limit_minutes"=>L("Лимит времени, минут","Time limit, minutes"),"required_for_prerequisite_use"=>L("Условие для следующего квеста","Required for follow-up quest"),"pry_attempts"=>L("Попытки вскрытия","Pry attempts"),"helper_minimum_source_step"=>L("Минимальный этап помощника","Minimum helper step"),"dialogue_initiators"=>L("Инициаторы диалога","Dialogue initiators"),_=>value.Replace('_',' ')};
  private void RenderSources()
@@ -326,6 +431,25 @@ public partial class QuestDetailsControl : UserControl
  private void Language(string language){if(_workspace is null)return;var offset=WalkScroll.VerticalOffset;_workspace.Settings.Language=language;LocalizationService.ApplyLanguage(language);_workspace.RefreshLanguage();Render(_workspace);WalkScroll.ScrollToVerticalOffset(offset);Notify(L("Язык изменён","Language changed"));}
  private void Add_Click(object sender,RoutedEventArgs e){if(Editable && _workspace?.SelectedGuide is {} guide){_workspace.ToggleTracking(guide);Notify(L("Отслеживание обновлено","Tracking updated"));}}
  private void Current_Click(object sender,RoutedEventArgs e)=>ShowCurrentStep();
+ internal Action CaptureReadingPosition()
+ {
+  var choice = _semanticChoice;
+  var selected = _selectedId;
+  var tab = DetailsTabs.SelectedIndex;
+  var offset = WalkScroll.VerticalOffset;
+  return () =>
+  {
+   if (_workspace is null) return;
+   _semanticChoice = choice;
+   _selectedId = selected;
+   Render(_workspace);
+   _selectedId = selected;
+   DetailsTabs.SelectedIndex = tab;
+   RenderSteps();
+   RenderDetail();
+   Dispatcher.BeginInvoke(() => WalkScroll.ScrollToVerticalOffset(offset), DispatcherPriority.ContextIdle);
+  };
+ }
  public void ShowCurrentStep(){DetailsTabs.SelectedIndex=0;if(Current() is {} step)_selectedId=step.Id;RenderSteps();RenderDetail();Dispatcher.BeginInvoke(ScrollToCurrent,DispatcherPriority.ContextIdle);}
  public void ScrollToCurrent(){if(Current() is {} step && _cards.TryGetValue(step.Id,out var card)){WalkScroll.UpdateLayout();WalkScroll.ScrollToVerticalOffset(card.TranslatePoint(new Point(),StepsPanel).Y);}}
  internal void ShowFacts()=>DetailsTabs.SelectedIndex=1;

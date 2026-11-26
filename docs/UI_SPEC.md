@@ -136,6 +136,8 @@ MuhRO is selectable in the header/server settings and character manager. It enab
 ## Equipment
 
 - Learned equipment is identified from packets using inventory index, Item ID and wear slot.
+- **Use database icon** selects the active local catalog sprite for the configured Item ID when one is available. The list, preview and overlay fall back to the manually selected image. Picking a new image selects it as the icon source.
+- **Text over icon** centers the equipment label on the icon with a black fill. Its opacity is adjustable independently from the label and icon. Leave the option off to show the label below the icon. The appearance preview follows the same placement and fill settings.
 - Exact variants may include refine, grade, cards and random options.
 - UI changes must not discard learned equipment mappings or preset data.
 - A visual redesign must preserve all edit, learn, clear and display actions currently available.
@@ -144,7 +146,7 @@ MuhRO is selectable in the header/server settings and character manager. It enab
 
 - Timers use the searchable catalog for the selected server; ToC uses its compact SQLite snapshot. ToC intervals are not supplied by the source and must be entered manually. ToC timers are saved separately from legacy server timers.
 - Restart/reset behavior, dedicated hotkey and movable list remain available. Manual timers and their overlay are available for all profiles, including MuhRO and Other, independent of packet reading.
-- List/overlay numbers follow the full active collection order, including disabled/stopped rows. Numbers do not shift on completion or hiding; deleting/reordering a row changes subsequent list positions. More than twelve timers remain allowed.
+- The overlay shows the ordinal at the start of each row independently of icon, name and map visibility. List/overlay numbers follow the full active collection order, including disabled/stopped rows. Numbers do not shift on completion or hiding; deleting/reordering a row changes subsequent list positions. More than twelve timers remain allowed.
 - Settings → Hotkeys → MVP Timers includes an expandable set of twelve optional restart shortcuts (None by default). A numbered shortcut opens the existing form prefilled from that timer, with a new exact keypress kill time and no old marker. Place the new marker and confirm Restart to update the same timer; Cancel/repeated shortcut commits nothing. Unassigned/empty slots do nothing; conflicts preserve older shortcuts and disable duplicate indexed bindings.
 - Custom user names must not be replaced by database names after refresh.
 - Empty or unselected rows must be handled safely.
@@ -200,6 +202,8 @@ Settings → General stores a server UTC offset. The timer wizard can interpret 
 
 - Ragnarok+ supports independent watch rules for the same item on both shop sides. Buying rules use a minimum price. The item card has a separate buying watch action, and watch history identifies the shop side. Gold Goblin uses selling offers for Vending Price.
 - Gold Goblin shows session quantity, unit price and total value.
+- Ragnarok+ Steal tracking is under Statistics → Appearance → General settings. The saved-session loot details show stolen and regular quantities and values when the session contains stolen items.
+- The Price History column in Price Rules sizes to its header and button content.
 - NPC price, Overcharge, Vending price and manual rule behavior remain distinct.
 - Overcharge levels are 0–10.
 - Market search should return cached/local results immediately and refresh in the background.

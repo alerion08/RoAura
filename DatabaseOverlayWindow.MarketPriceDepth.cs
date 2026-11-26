@@ -7,13 +7,16 @@ namespace RoAura;
 
 public partial class DatabaseOverlayWindow
 {
+    private readonly Dictionary<(string Server, bool Buying, int ItemId, string Mode, string Refine, string Cards), long>
+        _bestPriceObservations = [];
+
     private void ClearMarketPriceDepth()
     {
         MarketPriceDepthPanel.Visibility = Visibility.Collapsed;
         MarketPriceDepthRows.Children.Clear();
     }
 
-    private void ShowMarketPriceDepth(IReadOnlyList<MarketListing> listings, bool buying)
+    private void ShowMarketPriceDepth(IReadOnlyList<MarketListing> listings, bool buying, IReadOnlyList<MarketListing>? previousListings = null)
     {
         var variants = MarketPriceDepth.Build(listings, buying);
         if (variants.Length == 0) return;
@@ -27,6 +30,8 @@ public partial class DatabaseOverlayWindow
         MarketPriceDepthHeader.Text = variants.Length == 1
             ? BestPrice(variants[0].Levels[0])
             : T("Остатки по ценам", "Quantity by price");
+        var previousVariants = previousListings is null ? null : MarketPriceDepth.Build(previousListings, buying)
+            .GroupBy(variant => variant.Key).ToDictionary(group => group.Key, group => group.First().Levels[0].Price);
         foreach (var variant in variants)
         {
             var label = string.Join(" · ", new[] { variant.ItemName, variant.GameMode, variant.Refine, variant.Cards }
@@ -38,6 +43,23 @@ public partial class DatabaseOverlayWindow
                 TextWrapping = TextWrapping.Wrap,
                 Margin = new Thickness(0, 4, 0, 2)
             });
+            var best = variant.Levels[0].Price;
+            var key = (_settings.ServerProfile, buying, variant.ItemId, variant.GameMode, variant.Refine, variant.Cards);
+            var previous = previousVariants is not null
+                ? previousVariants.GetValueOrDefault(variant.Key)
+                : _bestPriceObservations.GetValueOrDefault(key);
+            _bestPriceObservations[key] = best;
+            if (previous > 0)
+            {
+                var delta = best - previous;
+                MarketPriceDepthRows.Children.Add(new TextBlock
+                {
+                    Text = delta == 0 ? T("Лучшая цена без изменений", "Best price unchanged") :
+                        T($"К прошлому наблюдению: {delta:+#,0;-#,0} z (было {previous:N0} z)",
+                          $"Since previous observation: {delta:+#,0;-#,0} z (was {previous:N0} z)"),
+                    TextWrapping = TextWrapping.Wrap
+                });
+            }
             foreach (var level in variant.Levels)
             {
                 MarketPriceDepthRows.Children.Add(new TextBlock

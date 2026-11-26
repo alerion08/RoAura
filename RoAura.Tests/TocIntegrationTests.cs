@@ -132,6 +132,16 @@ public sealed class TocIntegrationTests
         Assert.Equal(31, service.ResolveUnitPrice(501, "Red Potion"));
         settings.TocGoldGoblinPriceRules.Add(new GoldGoblinPriceRule { ItemId = 501, ManualPrice = 77, UseVendingPrice = true });
         Assert.Equal((77L, "Manual", true), service.ResolvePriceInfo(501, "Red Potion"));
+
+        var rule = Assert.Single(settings.TocGoldGoblinPriceRules);
+        rule.UseVendingPrice = false;
+        rule.UseNpcPrice = true;
+        rule.Exclude = true;
+        Assert.Equal((0L, "Excluded", true), service.ResolvePriceInfo(501, "Red Potion"));
+        rule.Exclude = false;
+        Assert.Equal((31L, "NPC", true), service.ResolvePriceInfo(501, "Red Potion"));
+        rule.UseNpcPrice = false;
+        Assert.Equal((77L, "Manual", true), service.ResolvePriceInfo(501, "Red Potion"));
         service.AddLoot(501, "Red Potion", 3);
         settings.ServerProfile = GameServerProfile.SpringRo;
         Assert.Empty(service.Rows);
