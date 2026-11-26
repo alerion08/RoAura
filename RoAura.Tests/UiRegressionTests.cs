@@ -61,6 +61,33 @@ public sealed class UiRegressionTests
         AssertActionFooter(xaml,"1","4","ToggleButton","Name","BuffPanelMoveModeButton");
     }
 
+    [Fact]
+    public void DatabaseFavoriteMenuStaysInsideTheCardBody()
+    {
+        var document = XDocument.Parse(ReadRepositoryText("DatabaseDetailWindow.xaml"));
+        XNamespace names = "http://schemas.microsoft.com/winfx/2006/xaml";
+        var star = Assert.Single(document.Descendants(), element => (string?)element.Attribute(names + "Name") == "FavoriteButton");
+        var menu = Assert.Single(document.Descendants(), element => (string?)element.Attribute(names + "Name") == "FavoriteMenu");
+        var details = Assert.Single(document.Descendants(), element => (string?)element.Attribute(names + "Name") == "DetailsScroll");
+        Assert.Same(details.Parent, star.Parent);
+        Assert.Same(details.Parent, menu.Parent);
+        Assert.Equal("True", (string?)menu.Parent!.Attribute("ClipToBounds"));
+        Assert.Equal("Right", (string?)star.Attribute("HorizontalAlignment"));
+    }
+
+    [Fact]
+    public void SkillIconJobSearchUsesIndependentTextAndListControls()
+    {
+        var document = XDocument.Parse(ReadRepositoryText("SkillIconPickerWindow.xaml"));
+        XNamespace ui = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
+        XNamespace names = "http://schemas.microsoft.com/winfx/2006/xaml";
+        var field = Assert.Single(document.Descendants(), element => (string?)element.Attribute(names + "Name") == "JobField");
+        Assert.NotNull(field.Attribute("PreviewMouseLeftButtonDown"));
+        Assert.Single(field.Elements(ui + "TextBox"));
+        Assert.Single(field.Descendants(ui + "ListBox"));
+        Assert.Empty(field.Descendants(ui + "ComboBox"));
+    }
+
     private static void AssertActionFooter(string xaml,string row,string columns,string control,string attribute,string value)
     {
         XNamespace ui="http://schemas.microsoft.com/winfx/2006/xaml/presentation";

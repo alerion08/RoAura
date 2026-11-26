@@ -68,15 +68,13 @@ public partial class DatabaseDetailWindow : Window
         Top = game.Top + ((game.Bottom - game.Top) - height) / 2;
     }
 
-    internal bool HasFavoritePopupFocus => FavoritePopup.IsOpen && FavoritePopup.Child is UIElement { IsKeyboardFocusWithin: true };
-
     public void ResetServer() => ResetDetails();
 
     public void Clear()
     {
         _appearanceRedraw = null;
         _favoriteEntry = null;
-        FavoritePopup.IsOpen = false;
+        FavoriteMenu.Visibility = Visibility.Collapsed;
         FavoriteButton.Visibility = Visibility.Collapsed;
         DetailsPanel.Children.Clear();
     }
@@ -183,7 +181,7 @@ public partial class DatabaseDetailWindow : Window
     private void ShowMonster(DatabaseMonster monster)
     {
         _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowMonster(monster);};
-        var header = new StackPanel { Orientation = Orientation.Horizontal };
+        var header = new DockPanel { Margin = new Thickness(0, 0, 42, 0) };
         if (monster.LocalImagePng is { Length: > 0 } sprite)
             header.Children.Add(new Image { Source = DecodeCatalogImage(sprite), Width = 58, Height = 58,
                 Stretch = Stretch.Uniform, Margin = new Thickness(0, 0, 10, 0) });
@@ -208,7 +206,7 @@ public partial class DatabaseDetailWindow : Window
     private void ShowItem(DatabaseItem item, SpringRoItemDetails? detail, bool loading)
     {
         _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowItem(item,detail,loading);};
-        var header = new StackPanel { Orientation = Orientation.Horizontal };
+        var header = new DockPanel { Margin = new Thickness(0, 0, 42, 0) };
         var imageUrl = detail?.ImageUrl;
         if (string.IsNullOrWhiteSpace(imageUrl)) imageUrl = item.ImageUrl;
         if (string.IsNullOrWhiteSpace(imageUrl) && _database.Version != GameServerProfile.RagnarokPlus)
@@ -334,7 +332,9 @@ public partial class DatabaseDetailWindow : Window
     {
         _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowMap(map);};
         var density = _database.GetMapExperienceDensity(map);
-        DetailsPanel.Children.Add(Heading(map.Name, 20));
+        var heading = Heading(map.Name, 20);
+        heading.Margin = new Thickness(0, 0, 42, 0);
+        DetailsPanel.Children.Add(heading);
         DetailsPanel.Children.Add(Meta(map.Code));
         SetFavoriteEntry(new(DatabaseSearchKind.Maps, map.Code, map.Name));
         if (map.LocalImagePng is { Length: > 0 } minimap)

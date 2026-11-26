@@ -11,7 +11,6 @@ public partial class SkillIconPickerWindow : Window
     internal SkillIconCatalog.Skill? SelectedIcon { get; private set; }
 
     private bool _updatingJobs;
-    private TextBox? _jobEditor;
     private SkillIconCatalog.Job? _selectedJob;
     private string AllJobs => LocalizationService.Get("SkillIconAllJobs");
     private bool IncludeRebirth => RebirthBox.IsChecked == true;
@@ -32,68 +31,100 @@ public partial class SkillIconPickerWindow : Window
 
     private void ClosePicker_Click(object sender, RoutedEventArgs e) => DialogResult = false;
 
-    private void JobBox_Loaded(object sender, RoutedEventArgs e)
+    private void Picker_PreviewMouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (_jobEditor is not null) _jobEditor.TextChanged -= JobEditor_TextChanged;
-        JobBox.ApplyTemplate();
-        _jobEditor = JobBox.Template.FindName("PART_EditableTextBox", JobBox) as TextBox;
-        if (_jobEditor is not null) _jobEditor.TextChanged += JobEditor_TextChanged;
+        if (!JobField.IsMouseOver && !JobOptions.IsMouseOver) JobPopup.IsOpen = false;
+    }
+
+    private void Picker_Deactivated(object? sender, EventArgs e) => JobPopup.IsOpen = false;
+
+    private void JobField_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (JobOptions.IsMouseOver || !JobField.IsMouseOver) return;
+        if (!JobPopup.IsOpen) OpenJobs("");
+        if (!JobArrow.IsMouseOver) return;
+        JobEditor.Focus();
+        JobEditor.CaretIndex = JobEditor.Text.Length;
+        e.Handled = true;
     }
 
     private void JobEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (_updatingJobs || _jobEditor is not { IsKeyboardFocused: true } editor ||
-            JobBox.SelectedItem is string selected && selected == editor.Text) return;
-        var text = editor.Text;
-        var caret = editor.CaretIndex;
+        if (_updatingJobs || JobPopup is null) return;
         _selectedJob = null;
-        UpdateJobs(text);
-        _updatingJobs = true;
-        try
+        OpenJobs(JobEditor.Text);
+        RefreshResults();
+    }
+
+    private void JobEditor_PreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Escape && JobPopup.IsOpen)
         {
-            editor.Text = text;
-            editor.CaretIndex = Math.Min(caret, text.Length);
-            JobBox.IsDropDownOpen = JobBox.HasItems;
+            JobPopup.IsOpen = false;
+            e.Handled = true;
         }
-        finally { _updatingJobs = false; }
+        else if (e.Key is Key.Down or Key.Up)
+        {
+            if (!JobPopup.IsOpen) OpenJobs("");
+            if (JobOptions.HasItems)
+            {
+                var index = JobOptions.SelectedIndex + (e.Key == Key.Down ? 1 : -1);
+                JobOptions.SelectedIndex = Math.Clamp(index, 0, JobOptions.Items.Count - 1);
+                JobOptions.ScrollIntoView(JobOptions.SelectedItem);
+            }
+            e.Handled = true;
+        }
+        else if (e.Key == Key.Enter && JobPopup.IsOpen)
+        {
+            if (JobOptions.SelectedItem is string name) SelectJob(name);
+            e.Handled = true;
+        }
     }
 
-    private void JobBox_DropDownOpened(object sender, EventArgs e)
+    private void JobOptions_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
-        if (!_updatingJobs) UpdateJobs();
+        if (e.OriginalSource is DependencyObject source &&
+            ItemsControl.ContainerFromElement(JobOptions, source) is ListBoxItem { Content: string name })
+            SelectJob(name);
     }
 
-    private void JobBox_DropDownClosed(object sender, EventArgs e)
+    private void SelectJob(string name)
     {
-        if (!_updatingJobs) UpdateJobs();
-    }
-
-    private void JobBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (_updatingJobs || JobBox.SelectedItem is not string name) return;
         _selectedJob = _catalog.Jobs.FirstOrDefault(job => job.Name == name);
+        JobPopup.IsOpen = false;
+        SetJobEditorText(_selectedJob?.Name ?? "");
+        JobEditor.Focus();
         RefreshResults();
     }
 
     private void JobEditionChanged(object sender, RoutedEventArgs e) => UpdateJobs();
 
-    private void UpdateJobs(string? query = null)
+    private void UpdateJobs()
     {
-        var jobs = _catalog.FindJobs(query ?? "", IncludeRebirth, IncludeRenewal).ToArray();
+        JobPopup.IsOpen = false;
+        if (_selectedJob is not null && !_catalog.FindJobs("", IncludeRebirth, IncludeRenewal).Contains(_selectedJob))
+            _selectedJob = null;
+        SetJobEditorText(_selectedJob?.Name ?? "");
+        RefreshResults();
+    }
+
+    private void SetJobEditorText(string text)
+    {
         _updatingJobs = true;
         try
         {
-            var names = jobs.Select(job => job.Name);
-            JobBox.ItemsSource = (string.IsNullOrWhiteSpace(query) ? names.Prepend(AllJobs) : names).ToArray();
-            if (query is null)
-            {
-                if (_selectedJob is not null && !jobs.Contains(_selectedJob)) _selectedJob = null;
-                JobBox.SelectedItem = _selectedJob?.Name ?? AllJobs;
-                JobBox.Text = _selectedJob?.Name ?? AllJobs;
-            }
+            JobEditor.Text = text;
+            JobEditor.CaretIndex = text.Length;
         }
         finally { _updatingJobs = false; }
-        RefreshResults();
+    }
+
+    private void OpenJobs(string query)
+    {
+        var names = _catalog.FindJobs(query, IncludeRebirth, IncludeRenewal).Select(job => job.Name);
+        JobOptions.ItemsSource = (string.IsNullOrWhiteSpace(query) ? names.Prepend(AllJobs) : names).ToArray();
+        JobOptions.SelectedIndex = -1;
+        JobPopup.IsOpen = JobOptions.HasItems;
     }
 
     private void FilterChanged(object sender, RoutedEventArgs e) => RefreshResults();

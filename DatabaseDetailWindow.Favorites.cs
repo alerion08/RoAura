@@ -14,7 +14,7 @@ public partial class DatabaseDetailWindow
 
     private void SetFavoriteEntry(DatabaseFavorite entry)
     {
-        if (_favoriteEntry != entry) FavoritePopup.IsOpen = false;
+        if (_favoriteEntry != entry) FavoriteMenu.Visibility = Visibility.Collapsed;
         _favoriteEntry = entry;
         FavoriteButton.Visibility = Visibility.Visible;
         UpdateFavoriteButton(entry);
@@ -33,9 +33,9 @@ public partial class DatabaseDetailWindow
     private void FavoriteButton_Click(object sender, RoutedEventArgs e)
     {
         if (_favoriteEntry is not { } entry) return;
-        if (FavoritePopup.IsOpen)
+        if (FavoriteMenu.Visibility == Visibility.Visible)
         {
-            FavoritePopup.IsOpen = false;
+            FavoriteMenu.Visibility = Visibility.Collapsed;
             return;
         }
 
@@ -44,7 +44,7 @@ public partial class DatabaseDetailWindow
         {
             var label = new StackPanel { Orientation = Orientation.Horizontal };
             label.Children.Add(FavoriteColorMarker(list));
-            label.Children.Add(new TextBlock { Text = list.Name, MaxWidth = 240, TextWrapping = TextWrapping.Wrap });
+            label.Children.Add(new TextBlock { Text = list.Name, MaxWidth = 175, TextWrapping = TextWrapping.Wrap });
             var option = new CheckBox
             {
                 Content = label, IsChecked = list.Entries.Any(row => MatchesFavorite(row, entry)),
@@ -63,14 +63,33 @@ public partial class DatabaseDetailWindow
             FavoritePopupLists.Children.Add(option);
         }
 
-        FavoritePopup.IsOpen = true;
+        FavoriteMenu.Visibility = Visibility.Visible;
         if (FavoritePopupLists.Children.Count == 0) CreateFavoriteListButton.Focus();
+    }
+
+    private void Details_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        if (!FavoriteButton.IsMouseOver && !FavoriteMenu.IsMouseOver)
+            FavoriteMenu.Visibility = Visibility.Collapsed;
+    }
+
+    private void Details_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+    {
+        if (e.Key != System.Windows.Input.Key.Escape || FavoriteMenu.Visibility != Visibility.Visible) return;
+        FavoriteMenu.Visibility = Visibility.Collapsed;
+        e.Handled = true;
+    }
+
+    private void DetailsScroll_ScrollChanged(object sender, ScrollChangedEventArgs e)
+    {
+        if (ReferenceEquals(e.OriginalSource, DetailsScroll) && e.VerticalChange != 0 && FavoriteMenu is not null)
+            FavoriteMenu.Visibility = Visibility.Collapsed;
     }
 
     private void CreateFavoriteList_Click(object sender, RoutedEventArgs e)
     {
         if (_favoriteEntry is not { } entry) return;
-        FavoritePopup.IsOpen = false;
+        FavoriteMenu.Visibility = Visibility.Collapsed;
         var lists = FavoriteLists;
         var list = new DatabaseFavoriteList();
         var name = new TextBox { MaxLength = 80, Margin = new Thickness(0, 4, 0, 8) };

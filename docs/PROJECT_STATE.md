@@ -49,8 +49,8 @@
 ## Gold Goblin and database controls
 
 - Gold Goblin matches Statistics session controls and supports excluding the selected item without replacing its price source.
-- Database search modes use section tabs. The card header star opens a themed, color-coded checklist. Create new opens a themed dialog and bookmarks the current card in the new list. List management remains available from Favorites.
-- The icon picker uses the editable profession selector with the shared dropdown style.
+- Database search modes use section tabs. The star inside the card’s top-right corner opens a themed, color-coded checklist contained in the card window. Create new opens a themed dialog and bookmarks the current card in the new list. List management remains available from Favorites.
+- The icon picker opens profession choices from the whole field and filters them without rewriting the editable query.
 - The published Ragnarok+ archive tagged catalog-ragnarokplus-2026-11-22 has 478 monsters with no HP or attack values. The current collector takes identity and experience from the index and exports drops and spawns from each card, but only uses Combat Stats as a page readiness signal. The UI marks missing combat data. Importing combat stats requires an updated collector and a new catalog snapshot.
 
 ## Previous published baseline — RoAura 3.5.0
