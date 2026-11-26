@@ -1,6 +1,13 @@
 # Project state
 
-## Current published baseline — RoAura 3.7.0
+## Current published baseline — RoAura 3.7.1
+
+- [v3.7.1](https://github.com/alerion08/RoAura/releases/tag/v3.7.1) was published from main commit `59fb53eda45f2961ab02c9156945805be1caaa16` after PR #27. Start subsequent work from current `main`.
+- Ragnarok+ skips post-cast delay status 46 during automatic effect and reminder learning. Existing status IDs continue to be used for live tracking. The owner confirmed the fix in the development build.
+- [Windows publication run](https://github.com/alerion08/RoAura/actions/runs/45878759571) passed 464 tests, startup/input checks, portable and installer builds, and clean installation verification. The release includes the Windows installer, portable archive and checksum manifest.
+- Manual regression checks on the published package include party-member casts on the recipient's client and existing manually configured status IDs.
+
+## Previous published baseline — RoAura 3.7.0
 
 - [v3.7.0](https://github.com/alerion08/RoAura/releases/tag/v3.7.0) was published from main commit `032eda29fe092addb55b5c5d8138d5e67970b71f` after PR #25. Start subsequent work from current `main`.
 - Shipped Gold Goblin loot lists and their tracker, Ragnarok+ quest guides and Hunting Quest filters, the offline skill icon picker, overlay import/export and layout controls, and database favorites changes.
