@@ -67,7 +67,7 @@ public partial class QuestSettingsControl : UserControl
     private void AddPreviewButtons(Panel parent, bool visible)
     {
         if(!visible)return;
-        var buttons=new WrapPanel();
+        var buttons=new WrapPanel { Margin = new Thickness(0, 2, 8, 0) };
         foreach(var text in new[]{"prev","next","more","navi","done"})
             buttons.Children.Add(new Button {Content=text,IsEnabled=false,FontSize=11,Height=22,MinHeight=22,Padding=new Thickness(5,0,5,0)});
         parent.Children.Add(buttons);

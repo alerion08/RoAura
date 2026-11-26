@@ -13,6 +13,13 @@ def card_id(path, kind):
 def clean_label(label):
     return re.sub(r"^\s*\d[\d, ]*\s*[x×]\s*", "", label.split("\n")[0]).strip()
 
+def position_fraction(value):
+    if isinstance(value, str) and value.endswith("%"):
+        result = float(value[:-1]) / 100.0
+        if 0 <= result <= 1:
+            return result
+    return None
+
 def export(source, output):
     with sqlite3.connect(source.resolve().as_uri() + "?mode=ro", uri=True) as db:
         if db.execute("PRAGMA integrity_check").fetchone() != ("ok",) or db.execute("PRAGMA foreign_key_check").fetchone():
@@ -63,8 +70,14 @@ def export(source, output):
                 if kind == "hunting":
                     targets = ", ".join(f'{mob["name"]} {mob["count"] or ""}'.strip() for mob in mobs)
                     text = targets + "\n\n" + text if targets else text
+                map_images = [dict(url=m["image"], code=m["code"],
+                                  pins=[dict(left=x, top=y, name=pin["name"], x=pin["x"], y=pin["y"])
+                                        for pin in m["pins"]
+                                        if (x := position_fraction(pin["left"])) is not None
+                                        and (y := position_fraction(pin["top"])) is not None])
+                              for m in maps if m.get("image")]
                 rows.append(dict(number=ordinal, title=step["title"], text=text,
-                                 npc=step.get("npc"), points=pins, items=items, monsters=mobs, image=image))
+                                 npc=step.get("npc"), points=pins, items=items, monsters=mobs, image=image, mapImages=map_images))
             level = re.search(r"\bLv\. (\d+)\+", data["text"]) if kind == "hunting" else None
             cards.append(dict(path=path, kind=kind, title=title, level=int(level[1]) if level else None,
                               steps=rows, reputation=reputation, requirements=uses.get(0, [])))

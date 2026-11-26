@@ -1412,9 +1412,18 @@ public partial class App : Application
 
     internal void QuestBrowserClosedByUser() => ReturnFromQuestLink(QuestLinkWindow.Quest);
 
+    internal int? ResolveQuestItemId(string name)
+    {
+        if (_activeDatabase is null) return null;
+        var ids = _activeDatabase.Items.Where(item => string.Equals(item.Name.Trim(), name.Trim(), StringComparison.OrdinalIgnoreCase))
+            .Select(item => item.Id).Distinct().Take(2).ToArray();
+        return ids.Length == 1 ? ids[0] : null;
+    }
+
     internal bool OpenQuestDatabaseCard(DatabaseSearchKind kind, int id)
     {
-        if (_activeDatabase?.Version != GameServerProfile.RagnarokPlus || _databaseOverlay is null) return false;
+        if (_activeDatabase is null || _databaseOverlay is null ||
+            !GameServerProfile.SupportsDatabaseOverlay(_settingsWindow?.Settings.ServerProfile)) return false;
         object? card = kind switch
         {
             DatabaseSearchKind.Items => _activeDatabase.Item(id),

@@ -26,45 +26,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="ItemInformationExpanderStyle" TargetType="Expander">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Expander">
-                        <StackPanel>
-                            <ToggleButton IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                                          FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}"
-                                          HorizontalAlignment="Left" MinHeight="26" Margin="0" Padding="0">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <Border Background="Transparent" Padding="0,2">
-                                            <StackPanel Orientation="Horizontal">
-                                                <Border Width="21" Height="21" CornerRadius="11" BorderThickness="1"
-                                                        BorderBrush="{DynamicResource RoBlueBrush}" Margin="0,0,6,0">
-                                                    <Path x:Name="Chevron" Style="{StaticResource RoDropdownChevronStyle}" HorizontalAlignment="Center"/>
-                                                </Border>
-                                                <ContentPresenter VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsChecked" Value="True">
-                                                <Setter TargetName="Chevron" Property="Data" Value="M 0 5 L 5 0 L 10 5"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                                <ContentPresenter ContentSource="Header"/>
-                            </ToggleButton>
-                            <ContentPresenter x:Name="ExpandedContent" ContentSource="Content" Visibility="Collapsed"/>
-                        </StackPanel>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsExpanded" Value="True">
-                                <Setter TargetName="ExpandedContent" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </Window.Resources>
     <Border BorderBrush="{DynamicResource UiBorder_5E86BD}" BorderThickness="2" CornerRadius="9" Background="{DynamicResource UiBackground_F6F9FE}">
         <Grid>

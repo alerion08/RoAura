@@ -8,7 +8,11 @@ public sealed record SemanticItem(string Id,string Name,int? Quantity,string Ope
 public sealed record SemanticFact(string Id,string Kind,string? Name,string? Amount,string? Condition,string? Branch,string? StepId)
 { public int? DatabaseItemId { get; init; } }
 public sealed record SemanticAnswer(string Id,string Text,bool? Correct,string Operation,string? Condition,string? Branch);
-public sealed record SemanticImage(string Url,string? LocalPath,string Purpose,string? Caption,string Rights);
+public sealed record QuestMapPin(double Left, double Top, string Name, int? X, int? Y);
+public sealed record SemanticImage(string Url,string? LocalPath,string Purpose,string? Caption,string Rights)
+{
+ public IReadOnlyList<QuestMapPin> Pins { get; init; } = [];
+}
 public sealed record SemanticSource(string Url,string Revision,string Kind,string? License);
 public sealed record SemanticStep(string Id,string QuestId,int Order,int? SourceNumber,string? Kind,string Original,
  string? ShortRu,string? ShortEn,string? FullRu,string? FullEn,

@@ -592,6 +592,7 @@
     <sys:String x:Key="QLevelFilter">Base Lv. персонажа</sys:String>
     <sys:String x:Key="QHuntingFaction">Фракция</sys:String>
     <sys:String x:Key="QHuntingReputation">Репутация за квест</sys:String>
+    <sys:String x:Key="QuestLootColor">Лут для заданий</sys:String>
     <sys:String x:Key="QNeededForQuest">Нужен для задания</sys:String>
     <sys:String x:Key="QBackgroundOpacity">Непрозрачность фона, %</sys:String>
     <sys:String x:Key="QBackgroundColor">Цвет фона</sys:String>

@@ -241,18 +241,8 @@ public partial class QuestDetailsControl : UserControl
   prose.Children.Add(Text(L("Этап ","Step ")+step.Order+(Done(step)?L(" ✓ Завершено"," ✓ Completed"):""),15,true));prose.Children.Add(Text(L("Полное описание","Full description"),18,true));
   var full=Text("",ActualWidth<1050?13:14);full.LineHeight=full.FontSize*1.67;ApplyText(full,step,true);prose.Children.Add(full);
   var aside=new StackPanel();Grid.SetColumn(aside,1);layout.Children.Add(aside);
-  var imageHost=new Border {Background=BB("#F1F4F8"),BorderBrush=BorderB("#D5E0EC"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),MinHeight=180,Padding=new Thickness(12),Child=Text(L("▧ Для этапа не добавлен скриншот","▧ No screenshot for this step"),11)};
-  var image=step.Images.FirstOrDefault();
-  if(image is not null)
-  {
-   // Only a source image explicitly attached to this stable step; never reuse the prototype illustration.
-   Uri? uri=null;
-   if(image.LocalPath is {} local)
-   {var root=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"Data"))+Path.DirectorySeparatorChar;var path=Path.GetFullPath(Path.Combine(root,local));if(path.StartsWith(root,StringComparison.OrdinalIgnoreCase) && File.Exists(path))uri=new Uri(path);}
-   if(uri is null && Uri.TryCreate(image.Url,UriKind.Absolute,out var remote) && remote.Scheme is "http" or "https")uri=remote;
-   if(uri is not null)try{var bitmap=new BitmapImage();bitmap.BeginInit();bitmap.UriSource=uri;bitmap.DecodePixelWidth=600;bitmap.EndInit();imageHost.Child=new Image{Source=bitmap,Stretch=Stretch.Uniform,ToolTip=image.Caption};}catch(Exception ex){DebugLog.Write("Quest image: "+ex.Message);}
-  }
-  aside.Children.Add(imageHost);aside.Children.Add(Legend());
+  foreach (var image in step.Images.DefaultIfEmpty()) aside.Children.Add(QuestImage(image));
+  aside.Children.Add(Legend());
   var coordinates=new StackPanel();if(SemanticCoordinates.All(step).Count>0)coordinates.Children.Add(Coordinates(step));else coordinates.Children.Add(Text(L("Координаты для этого этапа не указаны в документе","No coordinates specified for this step"),11));
   if(step.Npcs.Count>0){var names=Text("NPC: "+string.Join(", ",step.Npcs),11,true);names.Foreground=B("#075CB9");coordinates.Children.Add(names);}
   aside.Children.Add(Info(L("Координаты","Coordinates"),coordinates));
@@ -261,7 +251,8 @@ public partial class QuestDetailsControl : UserControl
   foreach(var item in items)
   {
    var label=item.Name+(item.Quantity is {} n?" ×"+n:"")+" · "+Operation(item.Operation);
-   if(item.DatabaseItemId is int id) materials.Children.Add(DatabaseLink(label, id, DatabaseSearchKind.Items));
+   if (ResolveItemLink(item.Name, item.DatabaseItemId) is int id)
+    materials.Children.Add(DatabaseLink(label, id, DatabaseSearchKind.Items));
    else {var line=Text(label,12,true);line.Foreground=B("#087747");materials.Children.Add(line);}
    if(item.Condition is not null || item.Branch is not null)materials.Children.Add(Text(Comment(item.Condition),11));
   }
@@ -291,16 +282,77 @@ public partial class QuestDetailsControl : UserControl
   DetailPanel.Children.Add(layout);
 
  }
- private Button DatabaseLink(string label, int id, DatabaseSearchKind kind)
+ private Border QuestImage(SemanticImage? image)
  {
-  var button = new Button { Content = Text(label,12,true), HorizontalContentAlignment = HorizontalAlignment.Left,
-   ToolTip = L("Открыть в базе данных","Open in database"), IsEnabled = _workspace?.Settings.ServerProfile == GameServerProfile.RagnarokPlus };
-  button.Click += (_, _) =>
+  var host = new Border { Background=BB("#F1F4F8"), BorderBrush=BorderB("#D5E0EC"), BorderThickness=new Thickness(1),
+   CornerRadius=new CornerRadius(5), MinHeight=180, Padding=new Thickness(12),
+   Child=Text(L("▧ Для этапа не добавлен скриншот","▧ No screenshot for this step"),11) };
+  if (image is null) return host;
+  Uri? uri = null;
+  if (image.LocalPath is { } local)
+  {
+   var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"Data")) + Path.DirectorySeparatorChar;
+   var path = Path.GetFullPath(Path.Combine(root,local));
+   if (path.StartsWith(root,StringComparison.OrdinalIgnoreCase) && File.Exists(path)) uri = new Uri(path);
+  }
+  if (uri is null && Uri.TryCreate(image.Url,UriKind.Absolute,out var remote) && remote.Scheme is "http" or "https") uri = remote;
+  if (uri is null) return host;
+  try
+  {
+   var bitmap = new BitmapImage();
+   bitmap.BeginInit(); bitmap.UriSource = uri; bitmap.DecodePixelWidth = 600; bitmap.EndInit();
+   var picture = new Image { Source = bitmap, Stretch = Stretch.Uniform, ToolTip = image.Caption };
+   if (image.Pins.Count == 0) { host.Child = picture; return host; }
+   var layout = new Grid { MaxHeight = 320 };
+   var pins = new Canvas { ClipToBounds = true };
+   layout.Children.Add(picture);
+   layout.Children.Add(pins);
+   foreach (var pin in image.Pins)
+    pins.Children.Add(new System.Windows.Shapes.Ellipse { Width = 11, Height = 11, StrokeThickness = 2,
+     Stroke = Brushes.White, Fill = Brushes.Goldenrod, ToolTip = $"{pin.Name} {pin.X},{pin.Y}" });
+   void PositionPins()
+   {
+    if (bitmap.IsDownloading || bitmap.PixelWidth <= 0 || bitmap.PixelHeight <= 0) return;
+    var scale = Math.Min(layout.ActualWidth / bitmap.PixelWidth, layout.ActualHeight / bitmap.PixelHeight);
+    var width = bitmap.PixelWidth * scale;
+    var height = bitmap.PixelHeight * scale;
+    for (var index = 0; index < pins.Children.Count; index++)
+    {
+     var pin = image.Pins[index];
+     Canvas.SetLeft(pins.Children[index], (layout.ActualWidth - width) / 2 + pin.Left * width - 5.5);
+     Canvas.SetTop(pins.Children[index], (layout.ActualHeight - height) / 2 + pin.Top * height - 5.5);
+    }
+   }
+   layout.SizeChanged += (_, _) => PositionPins();
+   if (bitmap.IsDownloading) bitmap.DownloadCompleted += (_, _) => PositionPins();
+   host.Child = layout;
+  }
+  catch (Exception ex) when (ex is IOException or InvalidOperationException or NotSupportedException or ArgumentException)
+  { DebugLog.Write("Quest image: " + ex.Message); }
+  return host;
+ }
+ private int? ResolveItemLink(string name, int? exactId) => exactId ??
+  (Application.Current as App)?.ResolveQuestItemId(name);
+
+ private TextBlock DatabaseLink(string label, int id, DatabaseSearchKind kind)
+ {
+  var text = Text("", 12, true);
+  var link = new Hyperlink(new Run(label))
+  {
+   FontWeight = FontWeights.Bold,
+   TextDecorations = TextDecorations.Underline,
+   Foreground = B(kind == DatabaseSearchKind.Items ? "#087747" : "#075CB9"),
+   ToolTip = L("Открыть в базе данных","Open in database"),
+   IsEnabled = _quest?.Source.Kind != "Ragnarok+" ||
+    _workspace?.Settings.ServerProfile == GameServerProfile.RagnarokPlus
+  };
+  link.Click += (_, _) =>
   {
    if ((Application.Current as App)?.OpenQuestDatabaseCard(kind, id) != true)
     Notify(L("Карточка отсутствует в локальной базе.","Card is missing from the local database."));
   };
-  return button;
+  text.Inlines.Add(link);
+  return text;
  }
  private Border Info(string title,UIElement content)
  {var stack=new StackPanel();stack.Children.Add(Text(title,12,true));stack.Children.Add(content);return new(){Child=stack,Background=BB("#FAFCFF"),BorderBrush=BorderB("#D6E4F3"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),Padding=new Thickness(10),Margin=new Thickness(0,10,0,0)};}
@@ -313,7 +365,7 @@ public partial class QuestDetailsControl : UserControl
   body.Children.Add(Text(_quest.Title,11));
   var columns=new Grid{Margin=new Thickness(0,12,0,0)};
   columns.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});columns.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});
-  var requirements=FactRows(QuestFactPresentation.Requirements(_quest));
+  var requirements=FactRows(QuestFactPresentation.MaterialSummary(_quest, _language));
   var left=Info(L("Суммарные материалы и требования","Total materials and requirements"),requirements);left.Margin=new Thickness(0,0,7,0);columns.Children.Add(left);
   var rewards=new StackPanel();
   rewards.Children.Add(FactRows(QuestFactPresentation.Rewards(_quest.Rewards)));
@@ -325,7 +377,7 @@ public partial class QuestDetailsControl : UserControl
    if(facts.Count>0)body.Children.Add(Info(L("Материалы и требования — этап ","Materials and requirements — step ")+step.Order,FactRows(facts)));
    else
    {
-    var materials=step.Items.Where(i=>i.Operation is "collect" or "bring" or "deliver" or "buy" or "use" or "consume").Select(i=>new SemanticFact(i.Id,"item",i.Name,i.Quantity?.ToString(),string.Join(" · ",new[]{Operation(i.Operation),Comment(i.Condition)}.Where(v=>!string.IsNullOrWhiteSpace(v))),i.Branch,step.Id)).ToList();
+    var materials = QuestFactPresentation.StepMaterials(step);
     if(materials.Count>0)body.Children.Add(Info(L("Материалы — этап ","Materials — step ")+step.Order,FactRows(materials)));
    }
   }
@@ -339,7 +391,9 @@ public partial class QuestDetailsControl : UserControl
   {
    var row=new DockPanel();
    if(fact.Amount is not null){var amount=Text((fact.Kind.Contains("exp") || fact.Kind.EndsWith("level")?"":"×")+fact.Amount,12,true);amount.Margin=new Thickness(8,2,0,4);DockPanel.SetDock(amount,Dock.Right);row.Children.Add(amount);}
-   if (fact.DatabaseItemId is int id) row.Children.Add(DatabaseLink(fact.Name ?? FactLabel(fact.Kind), id, DatabaseSearchKind.Items));
+   if (fact.Name is { } name && (fact.DatabaseItemId.HasValue || fact.Kind.Contains("item", StringComparison.Ordinal)) &&
+       ResolveItemLink(name, fact.DatabaseItemId) is int id)
+    row.Children.Add(DatabaseLink(name, id, DatabaseSearchKind.Items));
    else
    {
     var label=Text(fact.Name??FactLabel(fact.Kind),12,true);if(fact.Name is not null && fact.Kind.Contains("item"))label.Foreground=B("#087747");row.Children.Add(label);

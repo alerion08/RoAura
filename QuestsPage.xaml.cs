@@ -96,12 +96,24 @@ public partial class QuestsPage : UserControl
             var source = RagnarokPlusQuestCatalog.Instance;
             if (hunting && HuntingFaction.Items.Count == 0)
             {
-                var reputation = source.Cards.Values.SelectMany(card => card.Reputation).ToArray();
-                HuntingFaction.ItemsSource = new[] { T("QAllCategories"), "All Clan" }.Concat(reputation.Select(rep => rep.Faction).Distinct().OrderBy(name => name)).ToArray();
-                HuntingReputation.ItemsSource = new[] { T("QAllCategories") }.Concat(reputation.Select(rep => rep.Value).Distinct().OrderBy(value => value).Select(value => value.ToString())).ToArray();
-                HuntingFaction.SelectedIndex = HuntingReputation.SelectedIndex = 0;
+                HuntingFaction.ItemsSource = new[] { T("QAllCategories"), "All Clan" }.Concat(source.Cards.Values
+                    .SelectMany(card => card.Reputation).Select(rep => rep.Faction).Distinct().OrderBy(name => name)).ToArray();
+                HuntingFaction.SelectedIndex = 0;
             }
             var faction = hunting && HuntingFaction.SelectedIndex > 0 ? HuntingFaction.SelectedItem as string : null;
+            var choices = new QuestCatalog(ReadyGuides()).Search(SearchInput.Text, HuntingCategory,
+                UseLevel.IsChecked == true ? (int)FilterLevel : null)
+                .Select(guide => source.Cards[guide.Key]).Where(card => MatchesHunting(card, faction, null)).ToArray();
+            if (hunting)
+            {
+                var selected = HuntingReputation.SelectedItem as string;
+                var amounts = choices.SelectMany(card => card.Reputation)
+                    .Where(rep => faction is null or "All Clan" || rep.Faction == faction)
+                    .Select(rep => rep.Value).Distinct().OrderBy(value => value).Select(value => value.ToString());
+                var options = amounts.Prepend(T("QAllCategories")).ToArray();
+                HuntingReputation.ItemsSource = options;
+                HuntingReputation.SelectedItem = options.Contains(selected) ? selected : options[0];
+            }
             var repValue = hunting && int.TryParse(HuntingReputation.SelectedItem as string, out var amount) ? amount : (int?)null;
             var rows = new QuestCatalog(ReadyGuides()).Search(SearchInput.Text, hunting || rplus ? null : category,
                 UseLevel.IsChecked == true ? (int)FilterLevel : null)

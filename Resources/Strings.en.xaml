@@ -592,6 +592,7 @@
     <sys:String x:Key="QLevelFilter">Character Base Lv.</sys:String>
     <sys:String x:Key="QHuntingFaction">Faction</sys:String>
     <sys:String x:Key="QHuntingReputation">Reputation per quest</sys:String>
+    <sys:String x:Key="QuestLootColor">Quest loot</sys:String>
     <sys:String x:Key="QNeededForQuest">Needed for a quest</sys:String>
     <sys:String x:Key="QBackgroundOpacity">Background opacity, %</sys:String>
     <sys:String x:Key="QBackgroundColor">Background color</sys:String>

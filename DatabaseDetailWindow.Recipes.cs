@@ -11,10 +11,10 @@ public partial class DatabaseDetailWindow
     {
         var expander = new Expander
         {
-            Header = title, Content = content, FontSize = 14, FontWeight = FontWeights.SemiBold,
+            Header = title, Content = content, FontFamily = FontFamily, FontSize = FontSize, FontWeight = FontWeights.Normal,
             Margin = new Thickness(0, 6, 0, 4)
         };
-        expander.SetResourceReference(StyleProperty, "ItemInformationExpanderStyle");
+        expander.SetResourceReference(ForegroundProperty, "RoTextBrush");
         System.Windows.Documents.TextElement.SetFontSize(content, 12);
         System.Windows.Documents.TextElement.SetFontWeight(content, FontWeights.Normal);
         DetailsPanel.Children.Add(expander);
@@ -35,6 +35,7 @@ public partial class DatabaseDetailWindow
             if (recipes.Length > 1)
                 recipesPanel.Children.Add(Meta(T("★ — различие между вариантами", "★ marks a difference between recipes")));
             var tabs = new TabControl { Margin = new Thickness(0, 2, 0, 4) };
+            tabs.SetResourceReference(StyleProperty, "SectionTabControlStyle");
             for (var index = 0; index < recipes.Length; index++)
             {
                 var recipe = recipes[index];

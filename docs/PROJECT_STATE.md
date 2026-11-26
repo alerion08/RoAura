@@ -64,6 +64,13 @@
 - Required-item links use only explicit collector `bring` records. Item and monster links from Ragnarok+ guides use explicit source IDs and resolve against the active Ragnarok+ item and monster databases.
 - The tracker preview and overlay have padded, rounded backgrounds with independent color, opacity and common/per-card mode. Database and quest links preserve the origin view and reading position when returning. The separate weekly snapshot and offline image blobs are outside this package.
 
+## Quest materials, map pins and pickup colors
+
+- ROQuestie shows a quest-wide materials summary that preserves alternatives and known counts by stage. Exact IDs and uniquely matching names link to the database using text links.
+- Ragnarok+ minimaps use the collector's original pin positions. Hunting reputation choices reflect the current faction, title search and level.
+- Statistics assigns quest-required Ragnarok+ pickups a configurable notification color. Manually wanted items keep their higher-priority color.
+- The tracker skips redundant native geometry and clip changes, rebuilds for actual tracker changes, and insets the action buttons.
+
 ## Previous published baseline — RoAura 3.5.0
 
 - [v3.5.0](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) was published on 2026-11-08 from main commit `32af7d606459039ad105bbbd5bcb5c6bd518cf36` through PR #17. The owner accepted combined development commit `ddcf2b56` before authorizing publication.

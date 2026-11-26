@@ -27,6 +27,14 @@ public sealed class QuestOverlayHost : IDisposable
     private readonly List<(QuestPassiveWindow Window,double Y)> _actions=[];
     private readonly List<QuestPassiveWindow> _actionPool=[];
     private int _actionSlot;
+    private readonly Dictionary<Window, (Rect Bounds, bool Topmost, bool PreserveZOrder, IntPtr After)> _trackerPlacement = [];
+    private Rect[] _trackerOcclusion = [];
+    private Rect _trackerClipBounds;
+    private IntPtr _trackerForeground;
+    private TrackerRow[] _renderedRows = [];
+    private string? _renderedLanguage;
+    private sealed record TrackerRow(QuestProgressEntry Entry, QuestGuide? Guide, int Step, bool Collapsed, bool Editable,
+        bool Missing, bool Review);
     private QuestPassiveWindow? _choices;
     private QuestProgressEntry? _choiceEntry;
     private int _choiceStep;
@@ -134,9 +142,22 @@ public sealed class QuestOverlayHost : IDisposable
     {if(_game!=IntPtr.Zero && ForegroundProcess.IsWindowAllowed(_game,_workspace.Settings.AllowedProcesses))QuestWindowNative.SetForegroundWindow(_game);}
     private void Changed()
     {
-        _dirty=true;
+        if (!_dirty && (_renderedLanguage != _workspace.Settings.Language || !_renderedRows.SequenceEqual(TrackerRows())))
+            _dirty = true;
         if(_choices is not null && !_workspace.Active.Any(r=>ReferenceEquals(r.Progress,_choiceEntry) && r.Progress.CurrentStep==_choiceStep))CloseChoices();
     }
+    private TrackerRow[] TrackerRows() => _workspace.Active.Where(row => row.Progress.IsVisibleInOverlay)
+        .Select(row => new TrackerRow(row.Progress, row.Guide, row.Progress.CurrentStep, row.Progress.IsCollapsed,
+            row.Editable, row.Progress.IsMissingFromCatalog, row.Progress.NeedsStepReview)).ToArray();
+
+    private void PlaceTracker(Window window, Rect bounds, bool promote, bool preserveZOrder = false, IntPtr after = default)
+    {
+        var placement = (bounds, promote, preserveZOrder, after);
+        if (_trackerPlacement.TryGetValue(window, out var previous) && previous == placement) return;
+        QuestWindowNative.Place(window, bounds, promote, preserveZOrder, after);
+        _trackerPlacement[window] = placement;
+    }
+
     private void VisualChanged(object? sender,PropertyChangedEventArgs e)
     {
         if(e.PropertyName is not (nameof(QuestOverlaySettings.X) or nameof(QuestOverlaySettings.Y) or nameof(QuestOverlaySettings.BrowserX) or nameof(QuestOverlaySettings.BrowserY) or nameof(QuestOverlaySettings.BrowserWidth) or nameof(QuestOverlaySettings.BrowserHeight)))
@@ -172,6 +193,7 @@ public sealed class QuestOverlayHost : IDisposable
         if(_otherEditing() || (!_trackerRequested && !_layoutEditing) || !Options.Enabled ||
             (!_layoutEditing && _workspace.Active.All(q=>!q.Progress.IsVisibleInOverlay)))
         {HideTracker();return;}
+        if (_trackerForeground != foreground) { _trackerForeground = foreground; _trackerPlacement.Clear(); }
         if(_dirty)Rebuild();
         _canvas.Width=_gamePixels.Width/_dpi;_canvas.Height=_gamePixels.Height/_dpi;
         Canvas.SetLeft(_cardsFrame,Options.X);Canvas.SetTop(_cardsFrame,Options.Y);
@@ -179,13 +201,19 @@ public sealed class QuestOverlayHost : IDisposable
             .Concat(controls.Where(w=>w.Tag as string == "RoAura.GameInterface" || w is DatabaseOverlayWindow or DatabaseDetailWindow).Select(w=>QuestWindowNative.Bounds(new WindowInteropHelper(w).Handle)))
             .Where(r=>!r.IsEmpty).ToArray();
         var trackerVisible = _text.IsVisible;
-        if (!trackerVisible) _text.Show();
+        if (!trackerVisible) { _text.Show(); _trackerPlacement.Remove(_text); }
         var overlay = Application.Current?.Windows.OfType<OverlayWindow>().FirstOrDefault(window => window.IsVisible);
         var behind = _workspace.Settings.OverlayPanels.GetValueOrDefault("quest")?.Layer < 0 && overlay is not null
             ? new WindowInteropHelper(overlay).Handle : IntPtr.Zero;
-        QuestWindowNative.Place(_text, _gamePixels, promote, preserveZOrder: _layoutEditing && trackerVisible && behind == IntPtr.Zero,
-            insertAfter: behind);
-        _canvas.UpdateLayout();_canvas.Clip=QuestWindowNative.ExclusionClip(_canvas,new Size(_canvas.Width,_canvas.Height),excluded);
+        PlaceTracker(_text, _gamePixels, promote, _layoutEditing && trackerVisible && behind == IntPtr.Zero, behind);
+        var clipChanged = _trackerClipBounds != _gamePixels || !_trackerOcclusion.SequenceEqual(excluded);
+        if (clipChanged)
+        {
+            _trackerClipBounds = _gamePixels;
+            _trackerOcclusion = excluded;
+            _canvas.UpdateLayout();
+            _canvas.Clip = QuestWindowNative.ExclusionClip(_canvas, new Size(_canvas.Width, _canvas.Height), excluded);
+        }
         var scale=Options.Scale*_dpi;
         foreach(var (window,y) in _actions)
         {
@@ -194,8 +222,10 @@ public sealed class QuestOverlayHost : IDisposable
             // Clip only the covered pixels. A wide transparent strip can intersect
             // the browser even when all its painted buttons are still to the left.
             if(!inside || !Options.ShowButtons || _layoutEditing) {window.Hide();continue;}
-            if(!window.IsVisible)window.Show();QuestWindowNative.Place(window,rect,promote);
-            if(window.Content is FrameworkElement content)
+            var refreshClip = clipChanged || !_trackerPlacement.TryGetValue(window, out var old) || old.Bounds != rect;
+            if (!window.IsVisible) { window.Show(); _trackerPlacement.Remove(window); refreshClip = true; }
+            PlaceTracker(window, rect, promote);
+            if (refreshClip && window.Content is FrameworkElement content)
             {content.UpdateLayout();content.Clip=QuestWindowNative.ExclusionClip(content,new Size(Options.Width,24),excluded);}
         }
         // Native stacking covers only the actual browser rectangle; no render cutouts.
@@ -233,6 +263,9 @@ public sealed class QuestOverlayHost : IDisposable
     {
         // Do not destroy a captured drag HWND while the mouse is held.
         if(_dragElement is not null)return;
+        _renderedRows = TrackerRows();
+        _renderedLanguage = _workspace.Settings.Language;
+        _trackerPlacement.Clear();
         _actionSlot=0;_actions.Clear();var oldFrame = _cardsFrame; _cards = new StackPanel();
         _cards.Width = Options.Width;
         var background = TrackerBackground(Options);
@@ -268,7 +301,7 @@ public sealed class QuestOverlayHost : IDisposable
             var title=Label(row.Title+" "+row.Position,color,true);title.HorizontalAlignment=HorizontalAlignment.Left;title.Width=Math.Max(40,Options.Width-40);title.MaxHeight=(Options.FontSize+3);title.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(title);
             var foldStrip=ActionSurface();
             var foldButtons=new StackPanel {Orientation=Orientation.Horizontal,LayoutTransform=new ScaleTransform(Options.Scale,Options.Scale)};
-            foldButtons.Children.Add(new Border {Width=Options.Width-30,Height=22});
+            foldButtons.Children.Add(new Border {Width=Options.Width-38,Height=22});
             var fold=ActionButton(row.Progress.IsCollapsed?"▸":"▾",()=>_workspace.ToggleCollapsed(row));fold.Width=24;fold.IsEnabled=row.Editable;
             fold.ToolTip=T(row.Progress.IsCollapsed?"QExpandQuest":"QCollapseQuest");foldButtons.Children.Add(fold);foldStrip.Content=foldButtons;
             _actions.Add((foldStrip,y+4));
@@ -292,6 +325,7 @@ public sealed class QuestOverlayHost : IDisposable
             if(Options.ShowButtons)
             {
                 var strip=ActionSurface();var buttons=new StackPanel {Orientation=Orientation.Horizontal,Background=null,LayoutTransform=new ScaleTransform(Options.Scale,Options.Scale)};
+                buttons.Children.Add(new Border { Width = 8 });
                 var prev=ActionButton("prev",()=>_workspace.Move(row,-1));prev.IsEnabled=row.CanPrev;buttons.Children.Add(prev);
                 var next=ActionButton("next",()=>_workspace.Move(row,1));next.IsEnabled=row.CanNext;buttons.Children.Add(next);
                 buttons.Children.Add(ActionButton("more",async()=>await OpenBrowserAsync(row.Guide)));

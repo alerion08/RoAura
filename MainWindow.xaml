@@ -1653,7 +1653,7 @@
                                         <GroupBox x:Name="LootColorsGroup" Header="{DynamicResource LootTypeColors}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions><ColumnDefinition Width="175"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                                                 <TextBlock Text="{DynamicResource ItemTypeEquip}" Style="{StaticResource FieldLabelStyle}"/><controls:ColorTextBox Grid.Column="1" Text="{Binding EquipColor}" Style="{StaticResource FieldEditorStyle}"/>
                                                 <TextBlock Grid.Row="1" Text="{DynamicResource ItemTypeCard}" Style="{StaticResource FieldLabelStyle}"/><controls:ColorTextBox Grid.Row="1" Grid.Column="1" Text="{Binding CardColor}" Style="{StaticResource FieldEditorStyle}"/>
                                                 <TextBlock Grid.Row="2" Text="{DynamicResource ItemTypeLoot}" Style="{StaticResource FieldLabelStyle}"/><controls:ColorTextBox Grid.Row="2" Grid.Column="1" Text="{Binding LootColor}" Style="{StaticResource FieldEditorStyle}"/>
@@ -1665,6 +1665,8 @@
                                                 </StackPanel>
                                                 <TextBlock Grid.Row="6" Text="{DynamicResource WantedLootColor}" Style="{StaticResource FieldLabelStyle}" TextWrapping="Wrap"/>
                                                 <controls:ColorTextBox Grid.Row="6" Grid.Column="1" Text="{Binding WantedLootColor}" Style="{StaticResource FieldEditorStyle}"/>
+                                                <TextBlock Grid.Row="7" Text="{DynamicResource QuestLootColor}" Style="{StaticResource FieldLabelStyle}" TextWrapping="Wrap"/>
+                                                <controls:ColorTextBox Grid.Row="7" Grid.Column="1" Text="{Binding QuestLootColor}" Style="{StaticResource FieldEditorStyle}"/>
                                             </Grid>
                                         </GroupBox>
                                         <GroupBox Grid.Column="2" Header="{DynamicResource GeneralSettings}" DataContext="{Binding DataContext, ElementName=RootWindow}">

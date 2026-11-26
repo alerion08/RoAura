@@ -80,4 +80,15 @@ public sealed class RagnarokPlusQuestCatalogTests
         Assert.Equal(4, progress.CurrentStep);
         Assert.False(progress.NeedsStepReview);
     }
+    [Fact]
+    public void HuntingMapsUseThePinPositionsFromTheSourceImage()
+    {
+        var source = RagnarokPlusQuestCatalog.Instance;
+        var card = source.Cards["ragnarokplus:/hunting-db/75170"];
+        var image = Assert.Single(Assert.Single(source.CreateSemantic(card, card.Title).Steps).Images);
+        var pin = Assert.Single(image.Pins);
+        Assert.Equal(0.2375, pin.Left, 6);
+        Assert.Equal(0.684375, pin.Top, 6);
+        Assert.Equal((76, 101), (pin.X!.Value, pin.Y!.Value));
+    }
 }

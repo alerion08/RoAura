@@ -539,7 +539,9 @@ public partial class OverlayWindow : Window
             var server = _settings.ServerProfile;
             color = itemId > 0 && _settings.WantedLootByServer.TryGetValue(server, out var wanted) && wanted.Contains(itemId)
                 ? channel.WantedLootColor
-                : channel.ColorForItemType(itemType, server == GameServerProfile.RagnarokPlus &&
+                : itemId > 0 && RagnarokPlusQuestCatalog.Instance.RequiredFor(server, itemId).Any()
+                    ? channel.QuestLootColor
+                    : channel.ColorForItemType(itemType, server == GameServerProfile.RagnarokPlus &&
                     channel.HighlightCraftMaterials && RagnarokPlusCraftMaterials.Contains(itemId));
         }
 

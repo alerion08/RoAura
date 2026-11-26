@@ -12,6 +12,44 @@ public static class QuestFactPresentation
   if(quest.JobLevel is {} job && !facts.Any(f=>f.Kind=="job_level"))facts.Add(new("header:job_level","job_level",null,job.ToString(CultureInfo.InvariantCulture),null,null,null));
   return facts.OrderBy(f=>f.Kind switch{"base_level"=>0,"job_level"=>1,"quest_completed" or "conditional_quest_steps"=>2,_=>3}).ToList();
  }
+ public static IReadOnlyList<SemanticFact> StepMaterials(SemanticStep step) => step.Items
+  .Where(item => item.Required != false && item.Operation is ("collect" or "bring" or "deliver" or "buy" or "use" or "consume" or "possess" or "show"))
+  .Select(item => new SemanticFact(item.Id, "item", item.Name, item.Quantity?.ToString(CultureInfo.InvariantCulture),
+   item.Condition, item.Branch, step.Id) { DatabaseItemId = item.DatabaseItemId }).ToArray();
+
+ public static IReadOnlyList<SemanticFact> MaterialSummary(SemanticQuest quest, string language)
+ {
+  var top = Requirements(quest);
+  var explicitNames = top.Where(fact => IsMaterial(fact) &&
+   (fact.Kind.EndsWith("_total", StringComparison.Ordinal) || fact.Condition is null && fact.Branch is null))
+   .Select(fact => fact.Name!.Trim()).ToHashSet(StringComparer.OrdinalIgnoreCase);
+  var entries = quest.Steps.SelectMany(step =>
+  {
+   var structured = quest.Requirements.Where(fact => fact.StepId == step.Id && IsMaterial(fact)).ToArray();
+   var names = structured.Select(fact => fact.Name!.Trim()).ToHashSet(StringComparer.OrdinalIgnoreCase);
+   return structured.Concat(StepMaterials(step).Where(fact => !names.Contains(fact.Name!.Trim())))
+    .Select(fact => (step.Order, Fact: fact));
+  });
+  var additions = entries.Where(row => IsMaterial(row.Fact) && !explicitNames.Contains(row.Fact.Name!.Trim()))
+   .GroupBy(row => row.Fact.Name!.Trim(), StringComparer.OrdinalIgnoreCase)
+   .OrderBy(group => group.Key, StringComparer.OrdinalIgnoreCase)
+   .Select(group =>
+   {
+    var rows = group.Distinct().ToArray();
+    var first = rows[0].Fact;
+    if (rows.Length == 1) return first;
+    var note = string.Join("\n", rows.Select(row =>
+     $"{(language == "ru" ? "Этап" : "Step")} {row.Order}: {row.Fact.Amount ?? "—"}" +
+     (row.Fact.Condition is null ? "" : " · " + QuestFactText.Localize(row.Fact.Condition, language))));
+    var ids = rows.Select(row => row.Fact.DatabaseItemId).Where(id => id.HasValue).Distinct().ToArray();
+    return first with { Amount = null, Condition = note, DatabaseItemId = ids.Length == 1 ? ids[0] : null };
+   });
+  return top.Concat(additions).ToArray();
+ }
+
+ private static bool IsMaterial(SemanticFact fact) => !string.IsNullOrWhiteSpace(fact.Name) &&
+  (fact.Kind is "quest_item" or "puzzle_item" || fact.Kind.StartsWith("item", StringComparison.Ordinal));
+
  public static IReadOnlyList<SemanticFact> Rewards(IReadOnlyList<SemanticFact> source)
  {
   var result=new List<SemanticFact>();

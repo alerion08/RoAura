@@ -12,8 +12,9 @@ internal sealed class RagnarokPlusQuestCatalog
     internal sealed record Monster(int? Id, string Name, string? Count);
     internal sealed record Point(string Map, int X, int Y, string Name);
     internal sealed record Reputation(string Faction, int Value, string Multiplier, string Mode);
+    internal sealed record MapImage(string Url, string Code, QuestMapPin[] Pins);
     internal sealed record Step(int Number, string Title, string Text, string? Npc, Point[] Points,
-        Material[] Items, Monster[] Monsters, string? Image);
+        Material[] Items, Monster[] Monsters, string? Image, MapImage[]? MapImages);
     internal sealed record Card(string Path, string Kind, string Title, int? Level, Step[] Steps,
         Reputation[] Reputation, Material[] Requirements)
     {
@@ -147,12 +148,14 @@ internal sealed class RagnarokPlusQuestCatalog
                     { DatabaseItemId = item.Id }).ToArray(), [])
             {
                 Npcs = step.Npc is null ? [] : [step.Npc],
-                Images = step.Image is null ? [] : [new SemanticImage(step.Image, null, "source", null, "source")],
+                Images = step.MapImages is { Length: > 0 } maps
+                    ? maps.Select(map => new SemanticImage(map.Url, null, "map", map.Code, "source") { Pins = map.Pins }).ToArray()
+                    : step.Image is null ? [] : [new SemanticImage(step.Image, null, "source", null, "source")],
                 DatabaseMonsters = monsters
             };
         }).ToArray();
         var requirements = card.Requirements.Where(item => item.Role == "bring")
-            .Select(item => new SemanticFact(item.Id.ToString(), "item", item.Name, item.Quantity?.ToString(), null, null, null))
+            .Select(item => new SemanticFact(item.Id.ToString(), "item", item.Name, item.Quantity?.ToString(), item.Condition, null, null) { DatabaseItemId = item.Id })
             .ToArray();
         var rewards = card.Reputation.Select((rep, index) => new SemanticFact(index.ToString(), "reputation", rep.Faction,
             rep.Value + " " + rep.Multiplier, rep.Mode, null, null)).ToList();
