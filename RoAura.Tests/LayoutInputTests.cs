@@ -330,6 +330,32 @@ public sealed class LayoutInputTests
         });
     }
 
+    [Fact]
+    public void StorageTableUsesReadOnlyBindingsForComputedColumns()
+    {
+        RunSta(() =>
+        {
+            var view = new StorageAnalysisControl();
+            var grid = Assert.Single(FindTables(view));
+            Assert.True(grid.IsReadOnly);
+            Assert.Equal(7, grid.Columns.Count);
+            Assert.All(grid.Columns, column =>
+            {
+                var binding = Assert.IsType<System.Windows.Data.Binding>(
+                    Assert.IsAssignableFrom<System.Windows.Controls.DataGridBoundColumn>(column).Binding);
+                Assert.Equal(System.Windows.Data.BindingMode.OneWay, binding.Mode);
+            });
+        });
+
+        static IEnumerable<System.Windows.Controls.DataGrid> FindTables(System.Windows.DependencyObject element)
+        {
+            if (element is System.Windows.Controls.DataGrid grid) { yield return grid; yield break; }
+            foreach (var child in System.Windows.LogicalTreeHelper.GetChildren(element).OfType<System.Windows.DependencyObject>())
+                foreach (var nested in FindTables(child))
+                    yield return nested;
+        }
+    }
+
     private static void RunSta(Action action)
     {
         Exception? failure = null;

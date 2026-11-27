@@ -79,8 +79,8 @@ public sealed class StorageAnalysisControl : UserControl
         AddColumn(T("Хранилища", "Storage"), nameof(Item.Locations), DataGridLength.Auto);
         AddColumn(T("Цена NPC", "NPC price"), nameof(Item.NpcPrice), DataGridLength.Auto);
         AddColumn(T("Цена Vending", "Vending price"), nameof(Item.VendingPrice), DataGridLength.Auto);
-        _items.Columns.Add(new DataGridCheckBoxColumn { Header = T("Крафт", "Craft"), Binding = new System.Windows.Data.Binding(nameof(Item.Craft)) });
-        _items.Columns.Add(new DataGridCheckBoxColumn { Header = T("Задание", "Quest"), Binding = new System.Windows.Data.Binding(nameof(Item.Quest)) });
+        _items.Columns.Add(new DataGridCheckBoxColumn { Header = T("Крафт", "Craft"), Binding = new System.Windows.Data.Binding(nameof(Item.Craft)) { Mode = System.Windows.Data.BindingMode.OneWay } });
+        _items.Columns.Add(new DataGridCheckBoxColumn { Header = T("Задание", "Quest"), Binding = new System.Windows.Data.Binding(nameof(Item.Quest)) { Mode = System.Windows.Data.BindingMode.OneWay } });
         _load.Click += Load_Click;
         _mode.SelectionChanged += (_, _) => Rebuild();
         _search.TextChanged += (_, _) => Filter();
@@ -107,7 +107,7 @@ public sealed class StorageAnalysisControl : UserControl
     }
 
     private void AddColumn(string title, string property, DataGridLength width) =>
-        _items.Columns.Add(new DataGridTextColumn { Header = title, Binding = new System.Windows.Data.Binding(property), Width = width });
+        _items.Columns.Add(new DataGridTextColumn { Header = title, Binding = new System.Windows.Data.Binding(property) { Mode = System.Windows.Data.BindingMode.OneWay }, Width = width });
 
     private async void Load_Click(object sender, RoutedEventArgs e)
     {
