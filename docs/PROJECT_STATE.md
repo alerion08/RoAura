@@ -7,6 +7,12 @@
 - [Windows publication run](https://github.com/alerion08/RoAura/actions/runs/45878759571) passed 464 tests, startup/input checks, portable and installer builds, and clean installation verification. The release includes the Windows installer, portable archive and checksum manifest.
 - Manual regression checks on the published package include party-member casts on the recipient's client and existing manually configured status IDs.
 
+## Database redesign in development
+
+- Branch `integration/database-redesign` uses the 3.7.1 published baseline rooted at main `2a10854` with the tested barter integration `7cf6750` as its implementation parent.
+- Visual reference: the 27 November database HTML prototype with SHA-256 `b92319a2d3476a1a356c3835639e590ed10b12152a9cdc121d3ee74158d45e83`. The redesign stays within the database windows and uses the existing search, market, farming, favorites and barter command paths.
+- Manual acceptance includes the narrow and high-DPI client sizes in the design specification, theme changes with a live card, cross-card and quest return, and live market actions.
+
 ## Loot tracker toggle fixes in development
 
 - Tracker checkboxes immediately refresh the overlay. Inactive loot-list rows stop counting pickups. A pickup is also skipped in session statistics when the item belongs only to inactive rows on the current server.

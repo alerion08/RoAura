@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         PreviewMouseDown="Details_PreviewMouseDown" PreviewKeyDown="Details_PreviewKeyDown"
         WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="False"
-        AllowsTransparency="True" Background="Transparent" Foreground="{DynamicResource UiForeground_17365F}" FontFamily="Trebuchet MS"
+        AllowsTransparency="True" Background="Transparent" Foreground="{DynamicResource DatabaseInk}" FontFamily="Segoe UI" FontSize="13" UseLayoutRounding="True" SnapsToDevicePixels="True"
         Width="390" MinWidth="340" MinHeight="460">
     <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/DatabasePresentation.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
         <Style x:Key="FarmResultButtonStyle" TargetType="Button" BasedOn="{StaticResource RoButtonBaseStyle}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -26,27 +30,28 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        </ResourceDictionary>
     </Window.Resources>
-    <Border BorderBrush="{DynamicResource UiBorder_5E86BD}" BorderThickness="2" CornerRadius="9" Background="{DynamicResource UiBackground_F6F9FE}">
+    <Border BorderBrush="{DynamicResource DatabaseFrame}" BorderThickness="1" CornerRadius="10" Background="{DynamicResource DatabasePanel}">
         <Grid>
-            <Grid.RowDefinitions><RowDefinition Height="42"/><RowDefinition Height="*"/><RowDefinition Height="30"/></Grid.RowDefinitions>
-            <Border Background="{DynamicResource UiBackground_DCEBFA}" BorderBrush="{DynamicResource UiBorder_7DA2D1}" BorderThickness="0,0,0,2" CornerRadius="7,7,0,0">
+            <Grid.RowDefinitions><RowDefinition Height="48"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+            <Border Background="{DynamicResource DatabaseHead}" BorderBrush="{DynamicResource DatabaseLine}" BorderThickness="0,0,0,1" CornerRadius="9,9,0,0">
                 <DockPanel Margin="12,5">
                     <Button x:Name="CloseButton" DockPanel.Dock="Right" Content="&#x2715;" Width="34" Height="30" MinHeight="0"
                             Margin="0" Padding="0" FontSize="15" Click="Close_Click" ToolTip="Закрыть базу данных"/>
                     <Button x:Name="BackButton" DockPanel.Dock="Right" Margin="0,0,6,0"
                             MinHeight="0" Height="30" Padding="9,0" Visibility="Collapsed" Click="Back_Click"/>
-                    <TextBlock x:Name="PanelTitle" Text="Результат" FontFamily="Georgia" FontWeight="Bold" FontSize="17"
-                               Foreground="{DynamicResource UiForeground_174D92}" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="PanelTitle" Text="Карточка" FontWeight="Bold" FontSize="13"
+                               Foreground="{DynamicResource DatabaseBlue}" VerticalAlignment="Center"/>
                 </DockPanel>
             </Border>
-            <Border Grid.Row="1" Margin="9,8" BorderBrush="{DynamicResource UiBorder_A9C0DD}" BorderThickness="1"
-                    Background="{DynamicResource UiBackground_F8FBFF}" CornerRadius="5">
+            <Border Grid.Row="1" BorderThickness="0"
+                    Background="{DynamicResource DatabasePanel}" CornerRadius="5">
                 <Grid ClipToBounds="True">
                     <Grid.RowDefinitions><RowDefinition Height="45"/><RowDefinition Height="*"/></Grid.RowDefinitions>
                     <ScrollViewer x:Name="DetailsScroll" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
                                   ScrollChanged="DetailsScroll_ScrollChanged">
-                        <StackPanel x:Name="DetailsPanel" Margin="13"/>
+                        <StackPanel x:Name="DetailsPanel" Margin="14"/>
                     </ScrollViewer>
                     <Button x:Name="FavoriteButton" HorizontalAlignment="Right" VerticalAlignment="Top" Width="34" Height="30"
                             MinHeight="0" Margin="0,12,23,0" Padding="0" FontSize="18" FontFamily="Segoe UI Symbol"
@@ -63,8 +68,8 @@
                     </Border>
                 </Grid>
             </Border>
-            <Border Grid.Row="2" Background="{DynamicResource UiBackground_E6F0FB}" BorderBrush="{DynamicResource UiBorder_A9C0DD}" BorderThickness="0,1,0,0" CornerRadius="0,0,7,7">
-                <TextBlock x:Name="KeyboardStatus" Margin="9,5" Text="Ввод в поиск активен · F7 — закрыть" FontSize="10" Foreground="{DynamicResource UiForeground_8B4B5A}" TextTrimming="CharacterEllipsis"/>
+            <Border Grid.Row="2" Background="{DynamicResource DatabaseSoft}" BorderBrush="{DynamicResource DatabaseLine}" BorderThickness="0,1,0,0" CornerRadius="0,0,7,7">
+                <TextBlock x:Name="KeyboardStatus" Margin="12,6" Text="Ввод в поиск активен · F7 — закрыть" FontSize="11" Foreground="{DynamicResource DatabaseMuted}" TextTrimming="CharacterEllipsis"/>
             </Border>
         </Grid>
     </Border>

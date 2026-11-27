@@ -166,35 +166,92 @@ public partial class DatabaseDetailWindow
         return marker;
     }
 
-    private void AddItemActions(DatabaseItem item)
+    private System.Windows.Controls.Primitives.Popup? _itemActionsMenu;
+
+    private void AddItemActions(DatabaseItem item, Panel actions)
     {
         SetFavoriteEntry(new(DatabaseSearchKind.Items, item.Id.ToString(), item.Name));
-        var actions = new System.Windows.Controls.Primitives.UniformGrid { Rows = 1 };
-        if (GameServerProfile.SupportsMarketWatch(_database.Version))
-        {
-            actions.Children.Add(NewWatch("SELL", "Sell"));
-            if (_database.Version == GameServerProfile.RagnarokPlus) actions.Children.Add(NewWatch("BUY", "Buy"));
-        }
-        if (actions.Children.Count > 0) DetailsPanel.Children.Add(actions);
+        var server = _database.Version;
+        if (!GameServerProfile.SupportsMarketWatch(server) && server != GameServerProfile.RagnarokPlus) return;
 
-        Controls.MarketWatchStar NewWatch(string side, string label) => new()
+        var more = new Button { Content = "⋯", ToolTip = T("Действия предмета", "Item actions") };
+        System.Windows.Automation.AutomationProperties.SetName(more, more.ToolTip.ToString());
+        var menu = new StackPanel { MinWidth = 190 };
+        var frame = new Border { Child = menu, Padding = new Thickness(5), CornerRadius = new CornerRadius(7),
+            BorderThickness = new Thickness(1) };
+        frame.SetResourceReference(Border.BackgroundProperty, "DatabaseField");
+        frame.SetResourceReference(Border.BorderBrushProperty, "DatabaseLine");
+        var popup = new System.Windows.Controls.Primitives.Popup
         {
-            UseLabeledStyle = true,
-            Item = new MarketListing { ItemId = item.Id, ItemName = item.Name, ShopType = side },
-            Content = ItemActionLabel(label), Width = double.NaN, Height = double.NaN, FontSize = 12,
-            MinHeight = 32, Margin = new Thickness(2), Padding = new Thickness(3)
+            PlacementTarget = more, Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom,
+            StaysOpen = false, AllowsTransparency = true, Child = frame
         };
-    }
-
-    private static TextBlock ItemActionLabel(string caption)
-    {
-        var label = new TextBlock { Text = caption + " ★" };
-        label.SetBinding(TextBlock.ForegroundProperty, new System.Windows.Data.Binding(nameof(Button.Foreground))
+        _itemActionsMenu = popup;
+        var status = new StackPanel();
+        if (GameServerProfile.SupportsMarketWatch(server))
         {
-            RelativeSource = new System.Windows.Data.RelativeSource(
-                System.Windows.Data.RelativeSourceMode.FindAncestor, typeof(Button), 1)
-        });
-        return label;
+            AddWatch("SELL", T("Следить за продажей", "Watch selling"));
+            if (server == GameServerProfile.RagnarokPlus) AddWatch("BUY", T("Следить за скупкой", "Watch buying"));
+        }
+        if (server == GameServerProfile.RagnarokPlus)
+            AddLink(T("Карточка и рынок Ragnarok+", "Ragnarok+ item and market"), () =>
+            {
+                popup.IsOpen = false;
+                try
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(
+                        $"https://ragnarok.plus/item-db/{item.Id}") { UseShellExecute = true });
+                }
+                catch (System.ComponentModel.Win32Exception ex) { DebugLog.Write($"RAGNAROK+ ITEM LINK ERROR: {ex.Message}"); }
+            }, menu);
+        more.Click += (_, _) => popup.IsOpen = !popup.IsOpen;
+        popup.Opened += (_, _) => menu.MoveFocus(new System.Windows.Input.TraversalRequest(System.Windows.Input.FocusNavigationDirection.First));
+        frame.PreviewKeyDown += (_, e) =>
+        {
+            if (e.Key != System.Windows.Input.Key.Escape) return;
+            popup.IsOpen = false;
+            more.Focus();
+            e.Handled = true;
+        };
+        if (actions is System.Windows.Controls.Primitives.UniformGrid equal)
+        {
+            var parent = new DockPanel { Margin = equal.Margin };
+            equal.Margin = new Thickness(0);
+            var index = DetailsPanel.Children.IndexOf(equal);
+            DetailsPanel.Children.Remove(equal);
+            DockPanel.SetDock(more, Dock.Right);
+            parent.Children.Add(more);
+            parent.Children.Add(equal);
+            DetailsPanel.Children.Insert(index, parent);
+            DetailsPanel.Children.Insert(index + 1, status);
+        }
+
+        void AddWatch(string side, string label)
+        {
+            var listing = new MarketListing { ItemId = item.Id, ItemName = item.Name, ShopType = side };
+            AddLink(label, () =>
+            {
+                popup.IsOpen = false;
+                (Application.Current as App)?.ToggleMarketWatch(this, listing);
+                RefreshStatus();
+            }, menu);
+            var button = new Button();
+            button.SetResourceReference(StyleProperty, "DatabaseLinkRow");
+            button.Click += (_, _) =>
+            {
+                (Application.Current as App)?.ToggleMarketWatch(this, listing);
+                RefreshStatus();
+            };
+            status.Children.Add(button);
+            RefreshStatus();
+
+            void RefreshStatus()
+            {
+                var current = _settings.ActiveMarketWatchRules.FirstOrDefault(rule => rule.ItemId == item.Id && rule.Buying == (side == "BUY"));
+                button.Visibility = current is null ? Visibility.Collapsed : Visibility.Visible;
+                button.Content = $"{side} · {(current?.Enabled == true ? T("активно", "active") : T("пауза", "paused"))}";
+            }
+        }
     }
 
     internal void ShowFavoriteLists(string? selectedName = null, bool navigate = true)
@@ -202,9 +259,9 @@ public partial class DatabaseDetailWindow
         if (navigate) Navigate(() => ShowFavoriteLists(selectedName, false));
         ++_detailVersion;
         Clear();
-        _appearanceRedraw = () => ShowFavoriteLists(selectedName, false);
         RefreshBackButton();
         DetailsScroll.ScrollToTop();
+        PanelTitle.Text = T("Избранное", "Favorites");
         AddSection(T("Избранное", "Favorites"));
 
         var lists = FavoriteLists;

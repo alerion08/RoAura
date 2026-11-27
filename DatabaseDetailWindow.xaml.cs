@@ -16,7 +16,6 @@ public partial class DatabaseDetailWindow : Window
     private readonly GameDatabaseService _database;
     private readonly SpringRoItemDetailService _itemDetails = new();
     private int _detailVersion;
-    private Action? _appearanceRedraw;
     internal string ItemSearchText { get; set; } = "";
 
     private TextBlock ItemDescription(string description)
@@ -44,6 +43,7 @@ public partial class DatabaseDetailWindow : Window
         InitializeComponent();
         _settings = settings;
         _database = database;
+        UpdateDatabasePalette();
         RefreshLanguage();
         Loaded+=(_,_)=>{AppearanceService.Changed-=AppearanceChanged;AppearanceService.Changed+=AppearanceChanged;AppearanceChanged();};
         Closed+=(_,_)=>AppearanceService.Changed-=AppearanceChanged;
@@ -51,10 +51,10 @@ public partial class DatabaseDetailWindow : Window
 
     public void RefreshLanguage()
     {
-        PanelTitle.Text = T("Результат", "Result");
+        RefreshPanelTitle();
         KeyboardStatus.Text = T($"Ввод в поиск активен · {_settings.DatabaseHotkey} — закрыть",
             $"Search input active · {_settings.DatabaseHotkey} — close");
-        BackButton.Content = T("Назад", "Back");
+        BackButton.Content = T("‹ Назад", "‹ Back");
         FavoriteButton.ToolTip = T("Добавить в избранное", "Add to favorites");
         System.Windows.Automation.AutomationProperties.SetName(FavoriteButton, FavoriteButton.ToolTip.ToString());
         CreateFavoriteListButton.Content = T("Создать новый +", "Create new +");
@@ -73,15 +73,37 @@ public partial class DatabaseDetailWindow : Window
 
     public void Clear()
     {
-        _appearanceRedraw = null;
+        _displayedEntity = null;
+        _cardLoading = false;
+        RefreshPanelTitle();
         _favoriteEntry = null;
         FavoriteMenu.Visibility = Visibility.Collapsed;
         FavoriteButton.Visibility = Visibility.Collapsed;
+        if (_itemActionsMenu is not null) _itemActionsMenu.IsOpen = false;
+        _itemActionsMenu = null;
         DetailsPanel.Children.Clear();
     }
-    private void AppearanceChanged()=>_appearanceRedraw?.Invoke();
+    private void AppearanceChanged()
+    {
+        UpdateDatabasePalette();
+    }
 
-    private readonly Stack<(Action Page, double Offset)> _back = new();
+    private object? _displayedEntity;
+    private bool _cardLoading;
+    private void RefreshPanelTitle()
+    {
+        PanelTitle.Text = _displayedEntity switch
+        {
+            DatabaseMonster => T("Монстр", "Monster"),
+            DatabaseItem => T("Предмет", "Item"),
+            DatabaseMap => T("Карта", "Map"),
+            MarketListing => T("Предложение", "Listing"),
+            RagnarokPlusBarterCatalog.Offer => T("Обмен", "Exchange"),
+            _ => T("Карточка", "Card")
+        };
+    }
+
+    private readonly Stack<(Action Page, Action Restore, double Offset)> _back = new();
     private Action? _currentPage;
 
     internal void ResetDetails()
@@ -98,13 +120,14 @@ public partial class DatabaseDetailWindow : Window
         var page = _currentPage;
         var back = _back.Reverse().ToArray();
         var offset = DetailsScroll.VerticalOffset;
+        var restore = page is null ? null : CaptureCardView(page);
         return () =>
         {
             if (ReferenceEquals(page, _currentPage)) return;
             ResetDetails();
             foreach (var previous in back) _back.Push(previous);
             _currentPage = page;
-            page?.Invoke();
+            restore?.Invoke();
             RestoreScroll(offset, _detailVersion);
         };
     }
@@ -112,8 +135,33 @@ public partial class DatabaseDetailWindow : Window
     private void Navigate(Action page)
     {
         if (_currentPage is { } previous)
-            _back.Push((previous, DetailsScroll.VerticalOffset));
+            _back.Push((previous, CaptureCardView(previous), DetailsScroll.VerticalOffset));
         _currentPage = page;
+    }
+
+    private Action CaptureCardView(Action rebuild)
+    {
+        // Keep the form, expanded groups, rendered prices and source rows for real cards.
+        // A SpringRO item still awaiting its details should resume the normal load path.
+        if (_displayedEntity is null || _cardLoading) return rebuild;
+        var controls = DetailsPanel.Children.Cast<UIElement>().ToArray();
+        var entity = _displayedEntity;
+        var itemView = _itemCardView;
+        var favorite = _favoriteEntry;
+        var actionsMenu = _itemActionsMenu;
+        return () =>
+        {
+            ++_detailVersion;
+            Clear();
+            _cardLoading = false;
+            _displayedEntity = entity;
+            _itemCardView = itemView;
+            _itemActionsMenu = actionsMenu;
+            foreach (var control in controls) DetailsPanel.Children.Add(control);
+            if (favorite is not null) SetFavoriteEntry(favorite);
+            RefreshPanelTitle();
+            RefreshBackButton();
+        };
     }
 
     private void RestoreScroll(double offset, int version)
@@ -131,7 +179,7 @@ public partial class DatabaseDetailWindow : Window
     {
         if (!_back.TryPop(out var previous)) return;
         _currentPage = previous.Page;
-        previous.Page();
+        previous.Restore();
         RestoreScroll(previous.Offset, _detailVersion);
     }
 
@@ -161,6 +209,8 @@ public partial class DatabaseDetailWindow : Window
         Clear();
         RefreshBackButton();
         DetailsScroll.ScrollToTop();
+        _displayedEntity = value;
+        RefreshPanelTitle();
         switch (value)
         {
             case DatabaseMonster monster: ShowMonster(monster); break;
@@ -170,12 +220,15 @@ public partial class DatabaseDetailWindow : Window
                         !item.RagnarokPlusDetailsCaptured && item.NpcSellPrice == 0 ? "" : item.NpcSellPrice.ToString("N0") }, false);
                 break;
             case DatabaseItem item:
+                _cardLoading = true;
                 ShowItem(item, null, true);
                 try
                 {
                     var detail = await _itemDetails.GetAsync(item.Id);
                     if (version != _detailVersion) return;
                     Clear();
+                    _displayedEntity = item;
+                    RefreshPanelTitle();
                     RefreshBackButton();
                     ShowItem(item, detail, false);
                     if (_returnScroll.Version == version) RestoreScroll(_returnScroll.Offset, version);
@@ -185,6 +238,8 @@ public partial class DatabaseDetailWindow : Window
                     DebugLog.Write($"ITEM DETAILS LOAD ERROR #{item.Id}: {ex.Message}");
                     if (version != _detailVersion) return;
                     Clear();
+                    _displayedEntity = item;
+                    RefreshPanelTitle();
                     RefreshBackButton();
                     ShowItem(item, null, false);
                     if (_returnScroll.Version == version) RestoreScroll(_returnScroll.Offset, version);
@@ -198,32 +253,40 @@ public partial class DatabaseDetailWindow : Window
 
     private void ShowMonster(DatabaseMonster monster)
     {
-        _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowMonster(monster);};
-        var header = new DockPanel { Margin = new Thickness(0, 0, 42, 0) };
-        if (monster.LocalImagePng is { Length: > 0 } sprite)
-            header.Children.Add(new Image { Source = DecodeCatalogImage(sprite), Width = 58, Height = 58,
-                Stretch = Stretch.Uniform, Margin = new Thickness(0, 0, 10, 0) });
-        else if (Uri.TryCreate(monster.ImageUrl, UriKind.Absolute, out var uri))
-            header.Children.Add(new Image { Source = new BitmapImage(uri), Width = 58, Height = 58, Stretch = Stretch.Uniform, Margin = new Thickness(0,0,10,0) });
-        var title = new StackPanel(); title.Children.Add(Heading(monster.Name, 20));
-        title.Children.Add(Meta($"#{monster.Id} · Lv {monster.Level}\n{monster.Race} · {monster.Element} · {monster.Size}"));
-        header.Children.Add(title); DetailsPanel.Children.Add(header);
+        AddEntityHeader(monster.Name, $"#{monster.Id} · Lv {monster.Level}\n{monster.Race} · {monster.Element} · {monster.Size}",
+            monster.LocalImagePng, "♞", monster.ImageUrl);
         SetFavoriteEntry(new(DatabaseSearchKind.Monsters, monster.Id.ToString(), monster.Name));
-        ShowMonsterStatistics(monster);
-        ShowMonsterSkills(monster.Skills);
+        AddMetrics(("HP", DatabasePresentation.Count(monster.Hp)), ("Base EXP", DatabasePresentation.Count(monster.BaseExp)),
+            ("Job EXP", DatabasePresentation.Count(monster.JobExp)));
+        AddSection(T($"Дроп ({monster.Drops.Count})", $"Drops ({monster.Drops.Count})"));
         AddLine(T("Средняя стоимость обычного дропа у NPC", "Expected NPC value of regular drops"),
             $"{_database.TypicalNpcDropValue(monster):N2} z");
-        AddSection(T($"Дроп ({monster.Drops.Count})", $"Drops ({monster.Drops.Count})"));
         foreach (var drop in monster.Drops.OrderByDescending(x => ParseRate(x.Rate)))
-            AddLink($"{drop.Name} — {drop.Rate}{(drop.IsMvp ? " MVP" : "")}{(_database.Version == GameDatabaseVersion.Toc && drop.IsMvp ? T(" · базовый шанс", " · base rate") : "")}", () => OpenItem(drop.ItemId));
+        {
+            var item = _database.Item(drop.ItemId);
+            var mvp = drop.IsMvp ? (_database.Version == GameDatabaseVersion.Toc ? T("MVP · базовый шанс", "MVP · base rate") : "MVP") : "";
+            AddReferenceRow(drop.Name, mvp, drop.Rate, item?.LocalImagePng, "◇", item is null ? null : () => OpenItem(drop.ItemId));
+        }
         AddSection(T($"Локации ({monster.Spawns.Count})", $"Maps ({monster.Spawns.Count})"));
         foreach (var spawn in monster.Spawns.OrderByDescending(x => ParseCount(x.Count)))
-            AddLink(SpawnLabel(_database.Version == GameServerProfile.RagnarokPlus ? spawn.Code : spawn.Name, spawn.Count, spawn.Respawn), () => OpenMap(spawn.Code));
+        {
+            var map = _database.Map(spawn.Code);
+            AddReferenceRow(_database.Version == GameServerProfile.RagnarokPlus ? spawn.Code : spawn.Name,
+                spawn.Respawn, spawn.Count, map?.LocalImagePng, "▧", map is null ? null : () => OpenMap(spawn.Code));
+        }
+        var combat = new StackPanel();
+        ShowMonsterStatistics(monster, combat);
+        CollapsedSection(T("Боевые характеристики", "Combat stats"), combat);
+        if (monster.Skills.Count > 0)
+        {
+            var skills = new StackPanel();
+            ShowMonsterSkills(monster.Skills, skills);
+            CollapsedSection(T("Навыки и дополнительные данные", "Skills and additional data"), skills);
+        }
     }
 
     private void ShowItem(DatabaseItem item, SpringRoItemDetails? detail, bool loading, RagnarokPlusBarterCatalog.Offer? barter = null)
     {
-        _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowItem(item,detail,loading,barter);};
         var header = new DockPanel { Margin = new Thickness(0, 0, 42, 0) };
         var imageUrl = detail?.ImageUrl;
         if (string.IsNullOrWhiteSpace(imageUrl)) imageUrl = item.ImageUrl;
@@ -238,10 +301,11 @@ public partial class DatabaseDetailWindow : Window
         else if (Uri.TryCreate(imageUrl, UriKind.Absolute, out var imageUri))
             imageSource = new BitmapImage(imageUri);
         if (imageSource is not null)
-            header.Children.Add(new Image { Source = imageSource, Width = 56, Height = 56,
+            header.Children.Add(new Image { Source = imageSource, Width = 46, Height = 46,
                 Stretch = Stretch.Uniform, Margin = new Thickness(0, 0, 10, 0) });
+        if (imageSource is null) header.Children.Add(EntityIcon(null, "◇"));
         var title = new StackPanel();
-        var itemHeading = Heading(item.Name, 20); itemHeading.MaxWidth = 180;
+        var itemHeading = Heading(item.Name, 23);
         title.Children.Add(itemHeading);
         title.Children.Add(Meta($"Item ID #{item.Id} · {item.Type}"));
         header.Children.Add(title);
@@ -253,11 +317,11 @@ public partial class DatabaseDetailWindow : Window
             if (tags.Children.Count > 0) title.Children.Add(tags);
         }
         DetailsPanel.Children.Add(header);
-        AddItemActions(item);
         var actions = new UniformGrid { Rows = 1, Margin = new Thickness(0, 5, 0, 0) };
         DetailsPanel.Children.Add(actions);
-        AddLootListAction(item, actions);
         AddMarketComparison(item, actions);
+        AddLootListAction(item, actions);
+        AddItemActions(item, actions);
 
         AddSection(T("Информация", "Information"));
         AddItemWeight(item, detail);
@@ -292,20 +356,6 @@ public partial class DatabaseDetailWindow : Window
         }
         else DetailsPanel.Children.Add(Meta(T("Актуальные данные временно недоступны.", "Current data is temporarily unavailable.")));
         AddEquipmentReferences(item, detail?.Description ?? item.Description);
-        if (_database.Version == GameServerProfile.RagnarokPlus)
-            AddLink(T("Открыть карточку и рынок Ragnarok+", "Open Ragnarok+ item and market"), () =>
-            {
-                try
-                {
-                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(
-                        $"https://ragnarok.plus/item-db/{item.Id}") { UseShellExecute = true });
-                }
-                catch (System.ComponentModel.Win32Exception ex)
-                {
-                    DebugLog.Write($"RAGNAROK+ ITEM LINK ERROR: {ex.Message}");
-                }
-            });
-
         if (_database.Version == GameServerProfile.RagnarokPlus)
         {
             var offers = RagnarokPlusBarterCatalog.ForItem(item.Id);
@@ -350,7 +400,9 @@ public partial class DatabaseDetailWindow : Window
                 var rates = group.Select(x => $"{x.Rate}{(x.IsMvp ? " MVP" : "")}").Distinct();
                 var note = _database.Version == GameDatabaseVersion.Toc && source.IsMvp
                     ? T(" · базовый шанс", " · base rate") : "";
-                AddLink($"{source.Name} — {string.Join(" / ", rates)}{note}", () => OpenMonster(source.MonsterId), sourceRows);
+                var monster = _database.Monster(source.MonsterId);
+                AddReferenceRow(source.Name, note.Trim(' ', '·'), string.Join(" / ", rates), monster?.LocalImagePng, "♞",
+                    monster is null ? null : () => OpenMonster(source.MonsterId), sourceRows);
                 shown++;
             }
             more.Visibility = shown < sources.Count ? Visibility.Visible : Visibility.Collapsed;
@@ -365,60 +417,55 @@ public partial class DatabaseDetailWindow : Window
 
     private void ShowMap(DatabaseMap map)
     {
-        _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowMap(map);};
         var density = _database.GetMapExperienceDensity(map);
-        var heading = Heading(map.Name, 20);
-        heading.Margin = new Thickness(0, 0, 42, 0);
-        DetailsPanel.Children.Add(heading);
-        DetailsPanel.Children.Add(Meta(map.Code));
+        AddEntityHeader(map.Name, map.Code, null, "▧");
         SetFavoriteEntry(new(DatabaseSearchKind.Maps, map.Code, map.Name));
+        AddMetrics((T("Монстров", "Monsters"), $"{density.MonsterCount:N0}"),
+            (T("Средний Base EXP", "Average Base EXP"), $"{density.BaseExperience:N0}"),
+            (T("Средний Job EXP", "Average Job EXP"), $"{density.JobExperience:N0}"));
         if (map.LocalImagePng is { Length: > 0 } minimap)
-            DetailsPanel.Children.Add(new Image { Source = DecodeCatalogImage(minimap), MaxWidth = 256,
-                MaxHeight = 256, Stretch = Stretch.Uniform });
-        AddFarmPlanner(map);
-        AddSection(T("Плотность опыта", "Experience density"));
-        AddLine(T("Монстров на карте", "Monsters on map"), $"{density.MonsterCount:N0}");
-        AddLine(T("Средний Base EXP за моба", "Average Base EXP per mob"), $"{density.BaseExperience:N0}");
-        AddLine(T("Средний Job EXP за моба", "Average Job EXP per mob"), $"{density.JobExperience:N0}");
+            DetailsPanel.Children.Add(new Image { Source = DecodeCatalogImage(minimap), MaxWidth = 230,
+                MaxHeight = 230, Stretch = Stretch.Uniform, HorizontalAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(0, 7, 0, 7) });
         AddSection(T($"Монстры ({map.Monsters.Count})", $"Monsters ({map.Monsters.Count})"));
         foreach (var mob in map.Monsters.OrderByDescending(x => ParseCount(x.Count)))
-            AddLink(SpawnLabel(mob.Name, mob.Count, mob.Respawn), () => OpenMonster(mob.MonsterId));
+        {
+            var monster = _database.Monster(mob.MonsterId);
+            AddReferenceRow(mob.Name, mob.Respawn, mob.Count, monster?.LocalImagePng, "♞",
+                monster is null ? null : () => OpenMonster(mob.MonsterId));
+        }
+        AddFarmPlanner(map);
     }
 
     private void ShowMarketListing(MarketListing listing)
     {
-        _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowMarketListing(listing);};
-        DetailsPanel.Children.Add(Heading(listing.ItemName, 20));
-        DetailsPanel.Children.Add(Meta($"Item ID #{listing.ItemId} · {(listing.ShopType == "BUY" ? T("Покупка", "Buying") : T("Продажа", "Selling"))}"));
-        AddSection(T("Предложение", "Listing"));
-        AddLine(T("Цена", "Price"), listing.Price);
-        AddLine(T("Количество", "Quantity"), listing.Quantity);
+        var item = _database.Item(listing.ItemId);
+        AddEntityHeader(listing.ItemName, $"#{listing.ItemId} · {(listing.ShopType == "BUY" ? T("Скупка", "Buying") : T("Продажа", "Selling"))} · {listing.GameMode}",
+            item?.LocalImagePng, "◇");
+        var price = SpringRoMarketService.ParsePrice(listing.Price);
+        var quantity = SpringRoMarketService.ParsePrice(listing.Quantity);
+        AddMetrics((T("Цена за ед.", "Unit price"), DatabasePresentation.Count(listing.Price)),
+            (T("Количество", "Quantity"), DatabasePresentation.Count(listing.Quantity)),
+            (T("Сумма лота", "Lot total"), price is > 0 and < long.MaxValue && quantity is > 0 and < long.MaxValue
+                ? $"{(System.Numerics.BigInteger)price * quantity:N0}" : "—"));
+        if (item is not null)
+            AddReferenceRow(item.Name, "", $"#{item.Id}", item.LocalImagePng, "◇", () => OpenItem(item.Id));
         AddLine(T("Заточка", "Refine"), listing.Refine);
         AddLine(T("Карты", "Cards"), listing.Cards);
         AddLine(T("Магазин", "Stall"), listing.Stall);
         AddLine(T("Владелец", "Owner"), listing.Owner);
-        AddSection(T("Координаты магазина", "Shop location"));
-        AddLine(T("Локация", "Location"), $"{listing.Map} ({listing.X},{listing.Y})");
-        if (_database.Version != GameServerProfile.RagnarokPlus || listing.MapImagePng is not null)
-            AddMarketMap(listing);
-        var navi = new Button
+        AddSection(T("Местоположение", "Location"));
+        if (!string.IsNullOrWhiteSpace(listing.Map))
         {
-            Content = $"Navi · {listing.NavigationCommand}",
-            HorizontalContentAlignment = HorizontalAlignment.Center,
-            Margin = new Thickness(0, 7, 0, 2), Padding = new Thickness(8, 6, 8, 6)
-        };
-        navi.Click += (_, _) =>
-        {
-            navi.Content = TryCopyToClipboard(listing.NavigationCommand)
-                ? T("Скопировано в буфер обмена", "Copied to clipboard")
-                : T("Не удалось скопировать", "Could not copy");
-        };
-        DetailsPanel.Children.Add(navi);
+            AddNavigationRow(DetailsPanel, $"{listing.Map} ({listing.X}, {listing.Y})", listing.NavigationCommand);
+            if (_database.Version != GameServerProfile.RagnarokPlus || listing.MapImagePng is not null)
+                AddMarketMap(listing);
+        }
     }
 
     private void AddMarketMap(MarketListing listing)
     {
-        const double size = 238;
+        const double size = 200;
         var canvas = new Canvas { Width = size, Height = size, Background = Brushes.Black };
         double? left = null;
         double? top = null;
@@ -448,7 +495,7 @@ public partial class DatabaseDetailWindow : Window
         {
             var ring = new System.Windows.Shapes.Ellipse
             {
-                Width = 15, Height = 15, Fill = Brushes.Red, Stroke = Brushes.White, StrokeThickness = 3
+                Width = 12, Height = 12, Fill = Brushes.Firebrick, Stroke = Brushes.White, StrokeThickness = 2
             };
             Canvas.SetLeft(ring, left.Value - ring.Width / 2);
             Canvas.SetTop(ring, top.Value - ring.Height / 2);
@@ -459,8 +506,8 @@ public partial class DatabaseDetailWindow : Window
         DetailsPanel.Children.Add(new Border
         {
             Child = canvas, BorderBrush = AppearanceService.Brush(this,"#A9C0DD","Border"),
-            BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(4),
-            Padding = new Thickness(3), Margin = new Thickness(0, 7, 0, 5), HorizontalAlignment = HorizontalAlignment.Center
+            BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(6),
+            Padding = new Thickness(3), Margin = new Thickness(0, 7, 0, 5), HorizontalAlignment = HorizontalAlignment.Left
         });
     }
 
@@ -494,6 +541,7 @@ public partial class DatabaseDetailWindow : Window
             Clear();
             RefreshBackButton();
             DetailsScroll.ScrollToTop();
+            PanelTitle.Text = T("Недавно просмотрено", "Recently viewed");
             AddSection(T("Недавно просмотрено", "Recently viewed"));
             if (!_recentCards.TryGetValue(_database.Version, out var recent) || recent.Count == 0)
             {
@@ -501,7 +549,16 @@ public partial class DatabaseDetailWindow : Window
                 return;
             }
             foreach (var card in recent)
-                AddLink($"{card.Name} · {card.Id}", () =>
+            {
+                var itemId = int.TryParse(card.Id, out var parsed) ? parsed : 0;
+                var sprite = card.Kind switch
+                {
+                    DatabaseSearchKind.Items => _database.Item(itemId)?.LocalImagePng,
+                    DatabaseSearchKind.Monsters => _database.Monster(itemId)?.LocalImagePng,
+                    _ => _database.Map(card.Id)?.LocalImagePng
+                };
+                var icon = card.Kind == DatabaseSearchKind.Monsters ? "♞" : card.Kind == DatabaseSearchKind.Items ? "◇" : "▧";
+                AddReferenceRow(card.Name, card.Id, "", sprite, icon, () =>
                 {
                     if (card.Kind == DatabaseSearchKind.Maps) OpenMap(card.Id);
                     else if (int.TryParse(card.Id, out var id))
@@ -510,30 +567,42 @@ public partial class DatabaseDetailWindow : Window
                         else OpenMonster(id);
                     }
                 });
+            }
         }
     }
 
     private void OpenMonster(int id) { var value = _database.Monster(id); if (value is not null) ShowDetails(value); }
     private void OpenItem(int id) { var value = _database.Item(id); if (value is not null) ShowDetails(value); }
     private void OpenMap(string code) { var value = _database.Map(code); if (value is not null) ShowDetails(value); }
-    private void AddSection(string text) => DetailsPanel.Children.Add(new TextBlock { Text = text, FontFamily = new FontFamily("Georgia"), FontWeight = FontWeights.Bold, FontSize = 16, Foreground = AppearanceService.Brush(this,"#174E91","Foreground"), Margin = new Thickness(0,15,0,5) });
+    private void AddSection(string text)
+    {
+        var heading = new TextBlock { Text = text, FontWeight = FontWeights.Bold, FontSize = 13,
+            TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 15, 0, 5) };
+        heading.SetResourceReference(TextBlock.ForegroundProperty, "DatabaseBlue");
+        DetailsPanel.Children.Add(heading);
+    }
     private void AddLine(string name, string value) => DetailsPanel.Children.Add(new TextBlock { Text = $"{name}: {value}", TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0,2,0,2), FontSize = 12 });
     private static string SpawnLabel(string name, string count, string respawn) =>
         string.Join(" · ", new[] { name, count, respawn }.Where(value => !string.IsNullOrWhiteSpace(value)));
 
-    private void AddLink(string text, Action action, Panel? parent = null)
+    private void AddLink(string text, Action action, Panel? parent = null) =>
+        AddReferenceRow(text, "", "", null, "", action, parent);
+
+    private TextBlock Heading(string text, double size)
     {
-        var label = new TextBlock { Text = text, TextWrapping = TextWrapping.Wrap };
-        var button = new Button
-        {
-            Content = label, HorizontalContentAlignment = HorizontalAlignment.Left,
-            Margin = new Thickness(0, 2, 0, 2), Padding = new Thickness(7, 4, 7, 4), FontSize = 11
-        };
-        button.Click += (_, _) => action();
-        (parent ?? DetailsPanel).Children.Add(button);
+        var label = new TextBlock { Text = text, FontFamily = new FontFamily("Georgia"), FontWeight = FontWeights.Bold,
+            FontSize = size, TextWrapping = TextWrapping.Wrap };
+        label.SetResourceReference(TextBlock.ForegroundProperty, "DatabaseBlue");
+        return label;
     }
-    private TextBlock Heading(string text, double size) => new() { Text = text, FontFamily = new FontFamily("Georgia"), FontWeight = FontWeights.Bold, FontSize = size, Foreground = AppearanceService.Brush(this,"#174E91","Foreground"), TextWrapping = TextWrapping.Wrap, MaxWidth = 260 };
-    private TextBlock Meta(string text) => new() { Text = text, Foreground = AppearanceService.Brush(this,"#5B7496","Foreground"), Margin = new Thickness(0,4,0,4), TextWrapping = TextWrapping.Wrap };
+
+    private TextBlock Meta(string text)
+    {
+        var label = new TextBlock { Text = text, FontSize = 11, Margin = new Thickness(0, 3, 0, 3), TextWrapping = TextWrapping.Wrap };
+        label.SetResourceReference(TextBlock.ForegroundProperty, "DatabaseMuted");
+        return label;
+    }
+
     private static double ParseRate(string value) => double.TryParse(value.TrimEnd('%'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var n) ? n : 0;
     private static int ParseCount(string value) => int.TryParse(value, out var n) ? n : 0;
     private string MonsterField(string value)

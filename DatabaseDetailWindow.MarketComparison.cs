@@ -39,7 +39,7 @@ public partial class DatabaseDetailWindow
                 run.Token.ThrowIfCancellationRequested();
                 ShowOfferComparison(result, sells.Concat(buys).ToArray());
             }
-            catch (OperationCanceledException) when (run.IsCancellationRequested) { }
+            catch (OperationCanceledException) when (run.IsCancellationRequested) { result.Children.Clear(); }
             catch (RagnarokPlusSignInRequiredException)
             {
                 result.Children.Clear();

@@ -37,7 +37,7 @@ public partial class DatabaseDetailWindow
         };
         var targets = new Dictionary<int, TextBox>();
         var targetPanel = new StackPanel();
-        var add = new Button { Content = T("Добавить монстра", "Add monster") };
+        var add = new Button { Content = T("Добавить", "Add") };
         var priceMode = new ComboBox
         {
             ItemsSource = new[] { "NPC", T("Скупка (кэш)", "Buy orders (cached)"), T("Продажа (кэш)", "Sell listings (cached)"),
@@ -48,8 +48,11 @@ public partial class DatabaseDetailWindow
         var result = new StackPanel { Margin = new Thickness(0, 6, 0, 0) };
         var attach = new Button { Content = T("Сохранить план в текущей сессии", "Save plan to current session"), IsEnabled = false };
         var status = Meta("");
-        form.Children.Add(monsterPicker);
-        form.Children.Add(add);
+        var pickRow = new DockPanel();
+        DockPanel.SetDock(add, Dock.Right);
+        pickRow.Children.Add(add);
+        pickRow.Children.Add(monsterPicker);
+        form.Children.Add(pickRow);
         form.Children.Add(targetPanel);
         form.Children.Add(Meta(T("Источник оценки", "Price source")));
         form.Children.Add(priceMode);

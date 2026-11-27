@@ -45,6 +45,14 @@ public partial class DatabaseOverlayWindow : Window
         _database = database ?? throw new ArgumentNullException(nameof(database));
         _market = market ?? throw new ArgumentNullException(nameof(market));
         InitializeComponent();
+        UpdateDatabasePalette();
+        Loaded += (_, _) =>
+        {
+            AppearanceService.Changed -= UpdateDatabasePalette;
+            AppearanceService.Changed += UpdateDatabasePalette;
+            UpdateDatabasePalette();
+        };
+        Closed += (_, _) => AppearanceService.Changed -= UpdateDatabasePalette;
         _details = new DatabaseDetailWindow(settings, database);
         _details.GetSpringFarmOffers = _market.ReadCachedOffers;
         _details.LookupMarketSide = async (item, side, cancellation) =>
@@ -102,11 +110,13 @@ public partial class DatabaseOverlayWindow : Window
         ItemsMode.Header = T("Предметы", "Items");
         MapsMode.Header = T("Карты", "Maps");
         MarketMode.Header = T("Маркет", "Market");
-        RecentCardsButton.Content = T("Недавно просмотрено", "Recently viewed");
+        RecentCardsButton.Content = T("Недавние", "Recent");
         ItemSlotsLabel.Text = T("Слотов от", "Min. slots");
         DropItemLabel.Text = T("Предмет дропа: название или ID", "Drop item name or ID");
         NpcPriceSort.Content = T("Сначала дорогие у NPC", "Highest NPC sell price first");
-        FavoriteListsButton.Content = T("Избранное", "Favorites");
+        FavoriteListsButton.Content = T("☆ Избранное", "☆ Favorites");
+        DatabaseHotkeyHint.Text = T($"{_settings.DatabaseHotkey} · закрыть", $"{_settings.DatabaseHotkey} · close");
+        ResetMonsterFiltersButton.Content = T("Сбросить фильтры", "Reset filters");
         MarketSellMode.Content = T("Продажа", "Selling");
         MarketBuyMode.Content = T("Покупка", "Buying");
         SearchButton.Content = T("Найти", "Search");
@@ -266,14 +276,16 @@ public partial class DatabaseOverlayWindow : Window
             (int)Math.Round(bottomRight.X), (int)Math.Round(bottomRight.Y));
 
         var margin = Math.Clamp(gameWidth * .008, 6, 14);
-        var panelWidth = Math.Clamp(gameWidth * .205, 320, 390);
+        var available = Math.Max(660, gameWidth - 2 * margin - 24);
+        var panelWidth = Math.Min(Math.Clamp(gameWidth * .205, 320, 390), available - 340);
+        var detailsWidth = Math.Min(Math.Clamp(gameWidth * .218, 340, 406), available - panelWidth);
         var panelHeightMaximum = Math.Max(460, gameHeight - margin * 2);
         var panelHeight = Math.Clamp(gameHeight * .82, 460, panelHeightMaximum);
         Width = panelWidth;
         Height = Math.Min(panelHeight, gameHeight);
         Left = topLeft.X + margin;
         Top = topLeft.Y + (gameHeight - Height) / 2;
-        _details.PlaceForGame(dipBounds, panelWidth, Height, margin);
+        _details.PlaceForGame(dipBounds, detailsWidth, Height, margin);
         foreach (var dialog in OwnedWindows.Cast<Window>().Concat(_details.OwnedWindows.Cast<Window>()).OfType<MarketWatchDialog>())
             PositionWatchDialog(dialog);
     }
@@ -459,7 +471,7 @@ public partial class DatabaseOverlayWindow : Window
     }
 
     private DatabaseSearchResult MarketResult(MarketListing listing) =>
-        new(DatabaseSearchKind.Market, listing, $"{listing.ItemName} · {MarketPriceCaption(listing.Price)}" +
+        new(DatabaseSearchKind.Market, listing, listing.ItemName +
             (string.IsNullOrWhiteSpace(listing.GameMode) ? "" : $" · {listing.GameMode}"),
             T($"{listing.Quantity} шт.", $"{listing.Quantity} pcs") + MarketLotTotal(listing) +
             $" · {listing.Owner} · {listing.Map} ({listing.X},{listing.Y})");
@@ -671,9 +683,9 @@ public partial class DatabaseOverlayWindow : Window
         _details.ShowDetails(result.Value);
     }
     private void AdvancedFilter_Changed(object sender, RoutedEventArgs e)
-    { if (IsLoaded && _kind == DatabaseSearchKind.Monsters) RefreshResults(); }
+    { if (IsLoaded && !_resettingMonsterFilters && _kind == DatabaseSearchKind.Monsters) RefreshResults(); }
     private void AdvancedFilter_Changed(object sender, TextChangedEventArgs e)
-    { if (IsLoaded && _kind == DatabaseSearchKind.Monsters) RefreshResults(); }
+    { if (IsLoaded && !_resettingMonsterFilters && _kind == DatabaseSearchKind.Monsters) RefreshResults(); }
 
     private void ItemFilters_Changed(object sender, RoutedEventArgs e)
     {

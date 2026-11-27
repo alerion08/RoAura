@@ -3,28 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:RoAura.Controls"
         WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="False"
-        AllowsTransparency="True" Background="Transparent" Foreground="{DynamicResource UiForeground_17365F}" FontFamily="Trebuchet MS"
+        AllowsTransparency="True" Background="Transparent" Foreground="{DynamicResource DatabaseInk}" FontFamily="Segoe UI" FontSize="13" UseLayoutRounding="True" SnapsToDevicePixels="True"
         Width="360" MinWidth="320" MinHeight="460">
-    <Border BorderBrush="{DynamicResource UiBorder_5E86BD}" BorderThickness="2" CornerRadius="9" Background="{DynamicResource UiBackground_F6F9FE}">
+    <Window.Resources>
+        <ResourceDictionary Source="Themes/DatabasePresentation.xaml"/>
+    </Window.Resources>
+    <Border BorderBrush="{DynamicResource DatabaseFrame}" BorderThickness="1" CornerRadius="10" Background="{DynamicResource DatabasePanel}">
         <Grid>
-            <Grid.RowDefinitions><RowDefinition Height="54"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="30"/></Grid.RowDefinitions>
-            <Border Background="{DynamicResource UiBackground_DCEBFA}" BorderBrush="{DynamicResource UiBorder_7DA2D1}" BorderThickness="0,0,0,2" CornerRadius="7,7,0,0">
+            <Grid.RowDefinitions><RowDefinition Height="48"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+            <Border Background="{DynamicResource DatabaseHead}" BorderBrush="{DynamicResource DatabaseLine}" BorderThickness="0,0,0,1" CornerRadius="9,9,0,0">
                 <Grid Margin="12,7"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <StackPanel><TextBlock x:Name="OverlayTitle" Text="База SpringRO" FontFamily="Georgia" FontWeight="Bold" FontSize="19" Foreground="{DynamicResource UiForeground_174D92}"/>
-                        <TextBlock Text="Monsters · Items · Maps · Market" FontSize="10" Foreground="{DynamicResource UiForeground_55739A}"/></StackPanel>
+                    <TextBlock x:Name="OverlayTitle" Text="База SpringRO" FontFamily="Georgia" FontWeight="Bold" FontSize="20" Foreground="{DynamicResource DatabaseBlue}" VerticalAlignment="Center"/>
                     <Button x:Name="CloseButton" Grid.Column="1" Content="&#x2715;" Width="34" Height="30" MinHeight="0"
                             Margin="0" Padding="0" FontSize="15" Click="Close_Click"
                             ToolTip="Закрыть базу данных"/>
                 </Grid>
             </Border>
             <StackPanel Grid.Row="1" Margin="10,9,10,5">
-                <TabControl x:Name="SearchModeTabs" Style="{StaticResource SectionTabControlStyle}" SelectionChanged="Mode_SelectionChanged">
-                    <TabControl.ItemContainerStyle>
-                        <Style TargetType="TabItem" BasedOn="{StaticResource EditorTabItemStyle}">
-                            <Setter Property="Padding" Value="6,8"/>
-                            <Setter Property="FontSize" Value="12"/>
-                        </Style>
-                    </TabControl.ItemContainerStyle>
+                <TabControl x:Name="SearchModeTabs" Style="{StaticResource SectionTabControlStyle}" ItemContainerStyle="{StaticResource DatabaseTabItem}" SelectionChanged="Mode_SelectionChanged">
                     <TabItem x:Name="MonstersMode" Header="Монстры" Tag="Monsters" IsSelected="True"/>
                     <TabItem x:Name="ItemsMode" Header="Предметы" Tag="Items"/>
                     <TabItem x:Name="MapsMode" Header="Карты" Tag="Maps"/>
@@ -46,7 +42,6 @@
                     <RadioButton x:Name="MarketBuyMode" VerticalAlignment="Center" Content="Покупка" Checked="MarketType_Checked"/>
                     <Button x:Name="RagnarokPlusSignInButton" VerticalAlignment="Center" Content="Войти" Margin="12,0,0,0"
                             Visibility="Collapsed" Click="RagnarokPlusSignIn_Click"/>
-                <CheckBox x:Name="CompactMarketPrices" Margin="6,0,0,0" Checked="CompactMarketPrices_Changed" Unchecked="CompactMarketPrices_Changed"/>
                 </WrapPanel>
             </StackPanel>
             <Grid Grid.Row="2" Margin="10,5,10,8"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
@@ -59,12 +54,14 @@
                 <Expander.Header>
                     <TextBlock x:Name="AdvancedHeaderText" Text="Расширенный поиск" FontWeight="Bold" Padding="3,5"/>
                 </Expander.Header>
+                <ScrollViewer MaxHeight="160" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <Grid Margin="0,7,0,2">
                     <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="8"/><ColumnDefinition/></Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0"><TextBlock x:Name="RaceLabel" Text="Раса"/><ComboBox x:Name="RaceFilter" Margin="0,3,0,7" SelectionChanged="AdvancedFilter_Changed"/></StackPanel>
                     <StackPanel Grid.Row="0" Grid.Column="2"><TextBlock x:Name="ElementLabel" Text="Элемент"/><ComboBox x:Name="ElementFilter" Margin="0,3,0,7" SelectionChanged="AdvancedFilter_Changed"/></StackPanel>
@@ -83,7 +80,10 @@
                         <TextBlock x:Name="DropItemLabel"/>
                         <TextBox x:Name="DropItemFilter" TextChanged="AdvancedFilter_Changed"/>
                     </StackPanel>
+                    <Button x:Name="ResetMonsterFiltersButton" Grid.Row="8" Grid.ColumnSpan="3"
+                            Click="ResetMonsterFilters_Click" HorizontalAlignment="Left"/>
                 </Grid>
+                </ScrollViewer>
             </Expander>
             <WrapPanel x:Name="ItemFilters" Grid.Row="3" Margin="10,0,10,7" Visibility="Collapsed">
                 <TextBlock x:Name="ItemSlotsLabel" VerticalAlignment="Center"/>
@@ -105,7 +105,10 @@
                              Margin="0,3,0,0" TextChanged="MapLevelFilter_Changed"/>
                 </StackPanel>
             </Grid>
-            <Expander x:Name="MarketPriceDepthPanel" Grid.Row="3" Margin="10,0,10,7" Visibility="Collapsed">
+            <StackPanel Grid.Row="3">
+                <CheckBox x:Name="CompactMarketPrices" Margin="12,0,12,5" Visibility="{Binding Visibility, ElementName=MarketTypePanel}"
+                          Checked="CompactMarketPrices_Changed" Unchecked="CompactMarketPrices_Changed"/>
+            <Expander x:Name="MarketPriceDepthPanel" Margin="10,0,10,7" Visibility="Collapsed">
                 <Expander.Header>
                     <TextBlock x:Name="MarketPriceDepthHeader" TextWrapping="Wrap"/>
                 </Expander.Header>
@@ -113,17 +116,36 @@
                     <StackPanel x:Name="MarketPriceDepthRows" Margin="4,4,4,2"/>
                 </ScrollViewer>
             </Expander>
-            <Border Grid.Row="4" Margin="10,0,10,8" BorderBrush="{DynamicResource UiBorder_A9C0DD}" BorderThickness="1" Background="{DynamicResource UiBackground_F8FBFF}" CornerRadius="5">
-                <ListBox x:Name="ResultsList" HorizontalContentAlignment="Stretch" BorderThickness="0" Background="Transparent" SelectionChanged="Results_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListBox.ItemTemplate><DataTemplate><Grid Margin="4,3"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition/><RowDefinition/></Grid.RowDefinitions>
-                        <controls:MarketWatchStar Grid.Column="1" Grid.RowSpan="2" Item="{Binding Value}"/>
-                        <TextBlock Text="{Binding Caption}" FontWeight="Bold" FontSize="13" TextTrimming="CharacterEllipsis"/>
-                        <TextBlock Grid.Row="1" Text="{Binding Meta}" FontSize="10" Foreground="{DynamicResource UiForeground_637B9B}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis"/>
-                    </Grid></DataTemplate></ListBox.ItemTemplate>
+            </StackPanel>
+            <Border Grid.Row="4" Margin="8,0,8,4" BorderThickness="0" Background="{DynamicResource DatabasePanel}" CornerRadius="5">
+                <ListBox x:Name="ResultsList" ItemContainerStyle="{StaticResource DatabaseResult}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" HorizontalContentAlignment="Stretch" BorderThickness="0" Background="Transparent" SelectionChanged="Results_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="26"/><ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto" MaxWidth="92"/><ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Tag="{Binding}" Focusable="False" VerticalAlignment="Center"
+                                                HorizontalAlignment="Left" Loaded="ResultDecoration_Loaded" DataContextChanged="ResultDecoration_Changed"/>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{Binding Caption}" FontWeight="SemiBold" FontSize="13" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Meta}" FontSize="11" Foreground="{DynamicResource DatabaseMuted}" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="2" Margin="6,0,0,0" VerticalAlignment="Center"
+                                           FontWeight="SemiBold" TextWrapping="Wrap" TextAlignment="Right" Loaded="ResultMetric_Loaded" DataContextChanged="ResultMetric_Changed"/>
+                                <controls:MarketWatchStar Grid.Column="3" Item="{Binding Value}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </Border>
-            <Border Grid.Row="5" Background="{DynamicResource UiBackground_E6F0FB}" BorderBrush="{DynamicResource UiBorder_A9C0DD}" BorderThickness="0,1,0,0" CornerRadius="0,0,7,7">
-                <TextBlock x:Name="FooterText" Margin="9,5" Text="Введите название или ID" FontSize="10" Foreground="{DynamicResource UiForeground_55739A}" TextTrimming="CharacterEllipsis"/>
+            <Border Grid.Row="5" Background="{DynamicResource DatabaseSoft}" BorderBrush="{DynamicResource DatabaseLine}" BorderThickness="0,1,0,0" CornerRadius="0,0,7,7">
+                <DockPanel Margin="12,6">
+                    <TextBlock x:Name="DatabaseHotkeyHint" DockPanel.Dock="Right" Margin="8,0,0,0" FontSize="11" Foreground="{DynamicResource DatabaseMuted}"/>
+                    <TextBlock x:Name="FooterText" Text="Введите название или ID" FontSize="11"
+                               Foreground="{DynamicResource DatabaseMuted}" TextTrimming="CharacterEllipsis"/>
+                </DockPanel>
             </Border>
         </Grid>
     </Border>

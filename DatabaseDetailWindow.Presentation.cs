@@ -24,42 +24,43 @@ public partial class DatabaseDetailWindow
             if (i % 2 == 0)
             {
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                var background = new Border { Background = AppearanceService.Brush(this,i%4==0?"#F8FBFF":"#EAF2FC","Background"),
-                    BorderBrush = AppearanceService.Brush(this,"#D6E1EE","Border"), BorderThickness = new Thickness(0,0,0,1) };
+                var background = new Border { BorderThickness = new Thickness(0,0,0,1) };
+                background.SetResourceReference(Border.BackgroundProperty, i % 4 == 0 ? "DatabasePanel" : "DatabaseSoft");
+                background.SetResourceReference(Border.BorderBrushProperty, "DatabaseLine");
                 Grid.SetRow(background, i / 2); Grid.SetColumnSpan(background, 4); grid.Children.Add(background);
             }
             var label = new TextBlock { Text = pairs[i].Label, FontWeight = FontWeights.SemiBold, FontSize = 11,
-                Foreground = AppearanceService.Brush(this,"#536A88","Foreground"), TextWrapping = TextWrapping.Wrap, Margin = new Thickness(7,8,5,8), VerticalAlignment = VerticalAlignment.Center };
+                TextWrapping = TextWrapping.Wrap, Margin = new Thickness(7,8,5,8), VerticalAlignment = VerticalAlignment.Center };
             var value = new TextBlock { Text = string.IsNullOrWhiteSpace(pairs[i].Value) ? "—" : pairs[i].Value, FontWeight = FontWeights.Normal, FontSize = 12, TextWrapping = TextWrapping.Wrap,
                 Margin = new Thickness(5,8,7,8), VerticalAlignment = VerticalAlignment.Center };
+            label.SetResourceReference(TextBlock.ForegroundProperty, "DatabaseMuted");
             Grid.SetRow(label, i / 2); Grid.SetColumn(label, i % 2 * 2);
             Grid.SetRow(value, i / 2); Grid.SetColumn(value, i % 2 * 2 + 1);
             grid.Children.Add(label); grid.Children.Add(value);
         }
         return grid;
     }
-    private void CollapsedSection(string title, UIElement content) => DetailsPanel.Children.Add(new Expander
+    private void CollapsedSection(string title, UIElement content, Panel? parent = null) => (parent ?? DetailsPanel).Children.Add(new Expander
     {
         Header = title, IsExpanded = false, Margin = new Thickness(0,8,0,2), FontWeight = FontWeights.SemiBold,
-        Content = new Border { Padding = new Thickness(8), Background = AppearanceService.Brush(this,"#F8FBFF","Background"), Child = content }
+        Content = new Border { Padding = new Thickness(7, 6, 7, 0), Child = content }
     });
 
-    private void ShowMonsterStatistics(DatabaseMonster m)
+    private void ShowMonsterStatistics(DatabaseMonster m, Panel panel)
     {
-        AddSection(T("Характеристики", "Stats"));
         if (_database.Version is not (GameDatabaseVersion.Toc or GameServerProfile.RagnarokPlus))
         {
-            DetailsPanel.Children.Add(StatGrid(m.Stats.Select(p => (MonsterField(p.Key), p.Value))));
+            panel.Children.Add(StatGrid(m.Stats.Select(p => (MonsterField(p.Key), p.Value))), panel);
         }
         else
         {
             var stats = m.Stats;
             if (_database.Version == GameServerProfile.RagnarokPlus && string.IsNullOrWhiteSpace(m.Hp))
-                DetailsPanel.Children.Add(Meta(T("В установленном каталоге нет части боевых характеристик.",
+                panel.Children.Add(Meta(T("В установленном каталоге нет части боевых характеристик.",
                     "Some combat stats are missing from the installed catalog.")));
             var defense = string.IsNullOrWhiteSpace(m.Defense) ? "—" : m.Defense;
             var magicDefense = string.IsNullOrWhiteSpace(m.MagicDefense) ? "—" : m.MagicDefense;
-            DetailsPanel.Children.Add(StatGrid(new (string,string)[] {
+            panel.Children.Add(StatGrid(new (string,string)[] {
                 (T("Уровень", "Level"), m.Level), ("HP", Number(m.Hp)),
                 ("Base EXP", Number(m.BaseExp)), ("Job EXP", Number(m.JobExp)),
                 (T("Атака", "Attack"), m.Attack), ("DEF / MDEF", defense + " / " + magicDefense),
@@ -78,16 +79,15 @@ public partial class DatabaseDetailWindow
                 (T("Задержка атаки, мс", "Attack delay, ms"), Value(stats,"attack_delay"))
             }));
             extra.Children.Add(Body(T("Поведение: ", "Behavior: ") + ArrayText(Value(stats,"ai_modes"))));
-            CollapsedSection(T("Дополнительные характеристики", "More stats"), extra);
+            CollapsedSection(T("Дополнительные характеристики", "More stats"), extra, panel);
         }
-        if (m.ElementDamage.Count > 0) CollapsedSection(T("Урон стихий", "Element damage"), StatGrid(m.ElementDamage.Select(p => (MonsterField(p.Key),p.Value))));
-        if (m.Behavior.Count > 0) CollapsedSection(T("Поведение", "Behavior"), StatGrid(m.Behavior.Select(p => (MonsterField(p.Key),MonsterValue(p.Value)))));
+        if (m.ElementDamage.Count > 0) CollapsedSection(T("Урон стихий", "Element damage"), StatGrid(m.ElementDamage.Select(p => (MonsterField(p.Key),p.Value))), panel);
+        if (m.Behavior.Count > 0) CollapsedSection(T("Поведение", "Behavior"), StatGrid(m.Behavior.Select(p => (MonsterField(p.Key),MonsterValue(p.Value)))), panel);
     }
-    private void ShowMonsterSkills(IEnumerable<DatabaseMonsterSkill> skills)
+    private void ShowMonsterSkills(IEnumerable<DatabaseMonsterSkill> skills, Panel panel)
     {
         var list = skills.ToList();
         if (list.Count == 0) return;
-        AddSection(T($"Навыки ({list.Count})", $"Skills ({list.Count})"));
         foreach (var skill in list)
         {
             var body = new StackPanel();
@@ -106,7 +106,7 @@ public partial class DatabaseDetailWindow
                     }
             }
             catch (JsonException) { if (skill.Type.Length > 0) body.Children.Add(Body(skill.Type)); }
-            CollapsedSection(skill.Name + (skill.Level.Length > 0 ? " · Lv " + skill.Level : ""), body);
+            CollapsedSection(skill.Name + (skill.Level.Length > 0 ? " · Lv " + skill.Level : ""), body, panel);
         }
     }
     private void ShowTocItemInformation(DatabaseItem item)

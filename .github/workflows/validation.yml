@@ -41,7 +41,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Prepare pinned ROQuestie consumer for reader tests
-        if: (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev' || (github.ref_name == 'integration/ragnarokplus-loot-diagnostics' || github.ref_name == 'integration/overlay-workspace-polish' || github.ref_name == 'integration/loot-tracker-toggle' || github.ref_name == 'integration/ragnarokplus-barter'))
+        if: (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev' || (github.ref_name == 'integration/ragnarokplus-loot-diagnostics' || github.ref_name == 'integration/overlay-workspace-polish' || github.ref_name == 'integration/loot-tracker-toggle' || github.ref_name == 'integration/ragnarokplus-barter' || github.ref_name == 'integration/database-redesign'))
         shell: python
         run: |
           import hashlib, os, pathlib, subprocess
@@ -61,8 +61,8 @@ jobs:
 
       - name: Run logic and UI regression tests
         env:
-          ROAURA_QUEST_SEMANTIC_TEST_PATH: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev' || (github.ref_name == 'integration/ragnarokplus-loot-diagnostics' || github.ref_name == 'integration/overlay-workspace-polish' || github.ref_name == 'integration/loot-tracker-toggle' || github.ref_name == 'integration/ragnarokplus-barter')) && format('{0}/Data/quest_semantic.sqlite', github.workspace) || '' }}
-          ROAURA_QUEST_CATALOG_TEST_PATH: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev' || (github.ref_name == 'integration/ragnarokplus-loot-diagnostics' || github.ref_name == 'integration/overlay-workspace-polish' || github.ref_name == 'integration/loot-tracker-toggle' || github.ref_name == 'integration/ragnarokplus-barter')) && format('{0}/questie_catalog.sqlite', runner.temp) || '' }}
+          ROAURA_QUEST_SEMANTIC_TEST_PATH: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev' || (github.ref_name == 'integration/ragnarokplus-loot-diagnostics' || github.ref_name == 'integration/overlay-workspace-polish' || github.ref_name == 'integration/loot-tracker-toggle' || github.ref_name == 'integration/ragnarokplus-barter' || github.ref_name == 'integration/database-redesign')) && format('{0}/Data/quest_semantic.sqlite', github.workspace) || '' }}
+          ROAURA_QUEST_CATALOG_TEST_PATH: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev' || (github.ref_name == 'integration/ragnarokplus-loot-diagnostics' || github.ref_name == 'integration/overlay-workspace-polish' || github.ref_name == 'integration/loot-tracker-toggle' || github.ref_name == 'integration/ragnarokplus-barter' || github.ref_name == 'integration/database-redesign')) && format('{0}/questie_catalog.sqlite', runner.temp) || '' }}
         shell: pwsh
         run: dotnet test .\RoAura.Tests\RoAura.Tests.csproj -c Release --logger "trx;LogFileName=regression.trx"
 
@@ -83,10 +83,10 @@ jobs:
 
       - name: Build development portable package
         env:
-          ROAURA_QUEST_UI_SNAPSHOTS: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev' || (github.ref_name == 'integration/ragnarokplus-loot-diagnostics' || github.ref_name == 'integration/overlay-workspace-polish' || github.ref_name == 'integration/loot-tracker-toggle' || github.ref_name == 'integration/ragnarokplus-barter')) && format('{0}/artifacts/roquestie-ui', github.workspace) || '' }}
+          ROAURA_QUEST_UI_SNAPSHOTS: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools' || github.ref_name == 'feature/muhro-packet-support' || github.ref_name == 'integration/effects-video-guides' || github.ref_name == 'integration/current-dev' || (github.ref_name == 'integration/ragnarokplus-loot-diagnostics' || github.ref_name == 'integration/overlay-workspace-polish' || github.ref_name == 'integration/loot-tracker-toggle' || github.ref_name == 'integration/ragnarokplus-barter' || github.ref_name == 'integration/database-redesign')) && format('{0}/artifacts/roquestie-ui', github.workspace) || '' }}
         shell: pwsh
         run: |
-          if ('${{ github.ref_name }}' -in @('feature/muhro-packet-support', 'integration/effects-video-guides', 'integration/current-dev', 'integration/ragnarokplus-loot-diagnostics', 'integration/overlay-workspace-polish', 'integration/loot-tracker-toggle', 'integration/ragnarokplus-barter')) {
+          if ('${{ github.ref_name }}' -in @('feature/muhro-packet-support', 'integration/effects-video-guides', 'integration/current-dev', 'integration/ragnarokplus-loot-diagnostics', 'integration/overlay-workspace-polish', 'integration/loot-tracker-toggle', 'integration/ragnarokplus-barter', 'integration/database-redesign')) {
             .\build-development.ps1
           } else {
             .\build-release.ps1
@@ -98,7 +98,7 @@ jobs:
           [xml]$project = Get-Content -Raw .\RoAura.csproj
           $version = [string]$project.Project.PropertyGroup.Version
           $archive = ".\artifacts\RoAura-$version-portable.zip"
-          if ('${{ github.ref_name }}' -in @('feature/muhro-packet-support', 'integration/effects-video-guides', 'integration/current-dev', 'integration/ragnarokplus-loot-diagnostics', 'integration/overlay-workspace-polish', 'integration/loot-tracker-toggle', 'integration/ragnarokplus-barter')) {
+          if ('${{ github.ref_name }}' -in @('feature/muhro-packet-support', 'integration/effects-video-guides', 'integration/current-dev', 'integration/ragnarokplus-loot-diagnostics', 'integration/overlay-workspace-polish', 'integration/loot-tracker-toggle', 'integration/ragnarokplus-barter', 'integration/database-redesign')) {
             $archives = @(Get-ChildItem .\artifacts\dev\RoAura-Dev-*-portable.zip)
             if ($archives.Count -ne 1) { throw 'Expected one isolated development portable.' }
             $archive = $archives[0].FullName
