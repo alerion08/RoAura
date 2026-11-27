@@ -74,7 +74,7 @@ public sealed class StorageAnalysisControl : UserControl
         sections.Items.Add(new TabItem { Header = T("Анализ хранилища", "Storage analysis"), Content = analysis });
         sections.Items.Add(new TabItem { Header = T("Мастер крафта", "Crafting assistant"), Content = Split(_craft, _craftDetails) });
 
-        AddColumn(T("Предмет", "Item"), nameof(Item.Name), new DataGridLength(2, DataGridUnitType.Star));
+        AddColumn(T("Предмет", "Item"), nameof(Item.Name), new DataGridLength(2, DataGridLengthUnitType.Star));
         AddColumn(T("Количество", "Count"), nameof(Item.Count), DataGridLength.Auto);
         AddColumn(T("Хранилища", "Storage"), nameof(Item.Locations), DataGridLength.Auto);
         AddColumn(T("Цена NPC", "NPC price"), nameof(Item.NpcPrice), DataGridLength.Auto);
