@@ -36,7 +36,19 @@ internal static class RagnarokPlusBarterCatalog
         ["inccubushorn"] = "incubushorn",
         ["sahkkat"] = "sakkat",
         ["wizardryhat"] = "wizardhat",
-        ["lipofancientfish"] = "ancientlips"
+        ["lipofancientfish"] = "ancientlips",
+        ["needlepouch"] = "needlepacket",
+        ["blackbearsskin"] = "blackbearskin",
+        ["santashat"] = "santahat",
+        ["stripeband"] = "stripedhairband",
+        ["tigerfootskin"] = "tigersfootskin",
+        ["softsilkcloth"] = "softsilk",
+        ["diversgoggles"] = "divergoggles",
+        ["granpabeard"] = "grampabeard",
+        ["jackadandy"] = "jackbedandy",
+        ["blinker"] = "blinkers",
+        ["machomanglasses"] = "machomansglasses",
+        ["emptypotion"] = "emptypotionbottle"
     };
 
     internal static DatabaseItem? MatchItemName(IEnumerable<DatabaseItem> items, string name)
@@ -54,7 +66,7 @@ internal static class RagnarokPlusBarterCatalog
         if (candidates.Length > 0) return candidates.Length == 1 ? candidates[0] : null;
         var alternate = NameAliases.GetValueOrDefault(key);
         candidates = items.Where(item => Key(item.Name) == key || Key(item.AegisName) == key ||
-                (alternate is not null && Key(item.Name) == alternate))
+                (alternate is not null && (Key(item.Name) == alternate || Key(item.AegisName) == alternate)))
             .DistinctBy(item => item.Id).Take(2).ToArray();
         return candidates.Length == 1 ? candidates[0] : null;
     }
