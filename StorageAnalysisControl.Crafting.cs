@@ -89,6 +89,11 @@ public sealed partial class StorageAnalysisControl
     private readonly TextBox _craftSearch = new() { MinWidth = 145, Margin = new Thickness(4) };
     private readonly TextBlock _craftCount = new() { Margin = new Thickness(6) };
 
+    private sealed record CraftDisplayRow(string Title, string Readiness, string Units, string Output, string Cost,
+        StorageAnalysis.Craft? Plan, string? Group = null);
+    private readonly Dictionary<string, bool> _expandedCraftResults = [];
+    private readonly ComboBox _craftCostumes = new();
+
     private DockPanel CraftWorkspace()
     {
         var dock = new DockPanel();
@@ -101,19 +106,42 @@ public sealed partial class StorageAnalysisControl
         tools.Children.Add(_craftSearch);
         _craftSearch.TextChanged += (_, _) => RefreshCrafts();
         tools.Children.Add(_craftGroup);
-        tools.Children.Add(new TextBlock { Text = T("Готовность от, %", "Minimum readiness, %"), Margin = new Thickness(8), VerticalAlignment = VerticalAlignment.Center });
+        tools.Children.Add(new TextBlock { Text = T("Собрано ингредиентов, %", "Ingredients collected, %"), Margin = new Thickness(8), VerticalAlignment = VerticalAlignment.Center });
         tools.Children.Add(_threshold);
-        AlignFields(_craftSearch, _craftGroup, _threshold);
+        _craftCostumes.ItemsSource = new[] { T("Все предметы", "All items"), T("Только костюмы", "Only costumes"),
+            T("Без костюмов", "Exclude costumes") };
+        _craftCostumes.SelectedIndex = 0;
+        _craftCostumes.SelectionChanged += (_, _) => RefreshCrafts();
+        tools.Children.Add(_craftCostumes);
+        AlignFields(_craftSearch, _craftGroup, _threshold, _craftCostumes);
         var list = new DockPanel();
         DockTop(list, tools);
-        var headings = CraftColumns(T("Результат", "Result"), T("Можно сделать, шт.", "Craftable, units"),
-            T("Выход / оп.", "Output / op."), T("Стоимость", "Cost"), true);
-        headings.Margin = new Thickness(20, 0, 18, 3);
-        DockTop(list, headings);
+        ConfigureCompactTable(_craft);
+        _craft.Columns.Add(PaddedColumn(T("Результат", "Result"), nameof(CraftDisplayRow.Title),
+            new DataGridLength(1, DataGridLengthUnitType.Star)));
+        _craft.Columns.Add(PaddedColumn(T("Собрано ингр-в", "Ingredients collected"), nameof(CraftDisplayRow.Readiness), DataGridLength.Auto));
+        _craft.Columns.Add(PaddedColumn(T("Можно изготовить, шт.", "Craftable, units"), nameof(CraftDisplayRow.Units), DataGridLength.Auto));
+        _craft.Columns.Add(PaddedColumn(T("Выход / оп.", "Output / op."), nameof(CraftDisplayRow.Output), DataGridLength.Auto));
+        _craft.Columns.Add(PaddedColumn(T("Стоимость", "Cost"), nameof(CraftDisplayRow.Cost), DataGridLength.Auto));
+        _craft.PreviewMouseLeftButtonUp += (_, e) =>
+        {
+            if (e.OriginalSource is DependencyObject origin &&
+                ItemsControl.ContainerFromElement(_craft, origin) is DataGridRow { Item: CraftDisplayRow { Group: { } group } })
+                ToggleCraftGroup(group);
+        };
+        _craft.PreviewKeyDown += (_, e) =>
+        {
+            if ((e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Space) &&
+                _craft.SelectedItem is CraftDisplayRow { Group: { } group })
+            {
+                ToggleCraftGroup(group);
+                e.Handled = true;
+            }
+        };
         DockPanel.SetDock(_craftCount, Dock.Bottom);
         list.Children.Add(_craftCount);
         list.Children.Add(_craft);
-        dock.Children.Add(Split(list, _craftDetails));
+        dock.Children.Add(Split(list, _craftDetails, _craft));
         _craftGroup.SelectionChanged += (_, _) => RefreshCrafts();
         _threshold.TextChanged += (_, _) =>
         {
@@ -128,95 +156,71 @@ public sealed partial class StorageAnalysisControl
     {
         if (_resolveCost is null) return;
         var threshold = int.TryParse(_threshold.Text, out var value) ? Math.Clamp(value, 0, 100) : 60;
-        var selected = (_craft.SelectedItem as TreeViewItem)?.Tag as StorageAnalysis.Craft;
-        var expanded = _craft.Items.OfType<TreeViewItem>().Where(item => item.IsExpanded && item.Tag is string)
-            .Select(item => (string)item.Tag).ToHashSet();
+        var selected = (_craft.SelectedItem as CraftDisplayRow)?.Plan;
+        var selectedGroup = (_craft.SelectedItem as CraftDisplayRow)?.Group;
         var query = _craftSearch.Text.Trim();
+        var storedCostumes = _entries.Where(entry => string.Equals(entry.Type, "Costume", StringComparison.OrdinalIgnoreCase))
+            .Select(entry => entry.ItemId).ToHashSet();
         var plans = StorageAnalysis.Plans(_summary.ToDictionary(item => item.Id, item => item.Count), _resolveCost, threshold)
             .Where(craft => (_craftGroup.SelectedIndex <= 0 || _craftGroup.SelectedIndex == CraftGroup(craft)) &&
+                (_craftCostumes.SelectedIndex switch { 1 => IsCostume(craft, storedCostumes), 2 => !IsCostume(craft, storedCostumes), _ => true }) &&
                 (craft.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
                  craft.Materials.Any(material => material.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))))
             .ToArray();
         var results = plans.GroupBy(craft => craft.ResultId is { } id ? $"#{id}" : craft.Name).ToArray();
-        _craft.Items.Clear();
+        var rows = new List<CraftDisplayRow>();
         foreach (var group in results)
         {
             var variants = group.ToArray();
             if (variants.Length == 1)
             {
-                _craft.Items.Add(CraftRow(variants[0], false, selected));
+                rows.Add(CraftRow(variants[0], false));
                 continue;
             }
-            var groupNode = new TreeViewItem
-            {
-                Header = CraftColumns(T($"{variants[0].Name} · {variants.Length} вариантов", $"{variants[0].Name} · {variants.Length} variants"),
-                    "", "", "", false, 0),
-                Tag = group.Key,
-                IsExpanded = expanded.Contains(group.Key) || query.Length > 0
-            };
-            _craft.Items.Add(groupNode);
-            foreach (var variant in variants) groupNode.Items.Add(CraftRow(variant, true, selected));
+            var expanded = _expandedCraftResults.GetValueOrDefault(group.Key, query.Length > 0);
+            var arrow = expanded ? "▾" : "▸";
+            rows.Add(new CraftDisplayRow(T($"{arrow} {variants[0].Name} · {variants.Length} вариантов",
+                $"{arrow} {variants[0].Name} · {variants.Length} variants"), $"{variants.Max(craft => craft.Percent)}%", "—", "—", "—", null, group.Key));
+            if (expanded) rows.AddRange(variants.Select(variant => CraftRow(variant, true)));
         }
+        _craft.ItemsSource = rows;
+        _craft.SelectedItem = rows.FirstOrDefault(row => selectedGroup is not null
+            ? row.Group == selectedGroup
+            : selected is not null && row.Plan is { } plan && Equals(plan.Target, selected.Target) && plan.RecipeId == selected.RecipeId);
         _craftCount.Text = plans.Length == 0
             ? T("Нет рецептов по этим условиям.", "No recipes match these filters.")
             : T($"Результатов: {results.Length:N0} · рецептов: {plans.Length:N0}", $"Results: {results.Length:N0} · recipes: {plans.Length:N0}");
     }
 
-    private TreeViewItem CraftRow(StorageAnalysis.Craft craft, bool variant, StorageAnalysis.Craft? selected)
+    private void ToggleCraftGroup(string group)
     {
-        var title = variant ? string.Join(" + ", craft.Materials.Select(part => $"{part.Name} ×{part.Required:N0}")) : craft.Name;
+        _expandedCraftResults[group] = !_expandedCraftResults.GetValueOrDefault(group, _craftSearch.Text.Trim().Length > 0);
+        RefreshCrafts();
+        if (_craft.SelectedItem is { } selected) _craft.ScrollIntoView(selected);
+    }
+
+    private bool IsCostume(StorageAnalysis.Craft craft, HashSet<int> storedCostumes)
+    {
+        if (craft.Name.StartsWith("Costume ", StringComparison.OrdinalIgnoreCase)) return true;
+        if (craft.ResultId is not { } id) return false;
+        if (storedCostumes.Contains(id)) return true;
+        if (_database?.Item(id) is not { } item) return false;
+        return item.Type.Contains("costume", StringComparison.OrdinalIgnoreCase) ||
+               item.AegisName.StartsWith("C_", StringComparison.OrdinalIgnoreCase) ||
+               item.Stats.Any(stat => stat.Key.StartsWith("Costume_", StringComparison.OrdinalIgnoreCase) ||
+                                      stat.Value.Contains("costume", StringComparison.OrdinalIgnoreCase));
+    }
+
+    private CraftDisplayRow CraftRow(StorageAnalysis.Craft craft, bool variant)
+    {
+        var title = variant ? "    " + string.Join(" + ", craft.Materials.Select(part => $"{part.Name} ×{part.Required:N0}")) : craft.Name;
         var fee = craft.Target is RagnarokPlusBarterCatalog.Offer offer ? BarterFee(offer) : 0m;
         var cost = craft.Target is RagnarokPlusBarterCatalog.Offer barter &&
             barter.Costs.Any(part => part.Kind != "item" && (part.Kind != "zeny" || part.Quantity is null))
             ? null : SumCosts(craft.Materials.Select(part => PurchaseCost(part.ItemId, part.Required)), fee);
         var units = craft.Output is > 0 ? Scaled(craft.Output.Value, craft.Repeats) : (long?)null;
-        var panel = CraftColumns(title, units is { } count ? $"{count:N0}" : "—",
-            craft.Output is > 0 ? $"{craft.Output:N0}" : "—", cost.HasValue ? Money(cost) : "—", false, variant ? 19 : 0);
-        panel.ToolTip = craft.Repeats > 0
-            ? T($"Готовность {craft.Percent}% · {craft.Repeats:N0} операций", $"Readiness {craft.Percent}% · {craft.Repeats:N0} operations")
-            : T($"Не хватает материалов · {craft.Percent}%", $"Missing materials · {craft.Percent}%");
-        return new TreeViewItem
-        {
-            Header = panel,
-            Tag = craft,
-            IsSelected = selected is not null && Equals(craft.Target, selected.Target) && craft.RecipeId == selected.RecipeId
-        };
-    }
-
-    private Grid CraftColumns(string title, string result, string output, string cost, bool header, int indent = 0)
-    {
-        var row = new Grid { Margin = new Thickness(0, 2, 0, 2), MinHeight = 24 };
-        if (!header)
-            row.SetBinding(WidthProperty, new System.Windows.Data.Binding(nameof(ActualWidth))
-            {
-                Source = _craft, Converter = new CraftWidthConverter(), ConverterParameter = indent
-            });
-        row.ColumnDefinitions.Add(new ColumnDefinition());
-        foreach (var width in new[] { 95, 69, 90 })
-            row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(width) });
-        string[] values = [title, result, output, cost];
-        for (var index = 0; index < values.Length; index++)
-        {
-            var cell = new TextBlock
-            {
-                Text = values[index], TextAlignment = index == 0 ? TextAlignment.Left : TextAlignment.Center,
-                FontWeight = header || index == 0 ? FontWeights.SemiBold : FontWeights.Normal,
-                FontSize = header ? 11 : 12, VerticalAlignment = VerticalAlignment.Center,
-                TextTrimming = TextTrimming.CharacterEllipsis, Margin = new Thickness(3, 0, 3, 0)
-            };
-            Grid.SetColumn(cell, index);
-            row.Children.Add(cell);
-        }
-        return row;
-    }
-
-    private sealed class CraftWidthConverter : System.Windows.Data.IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) =>
-            Math.Max(0, (double)value - 38 - (int)parameter);
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) =>
-            throw new NotSupportedException();
+        return new CraftDisplayRow(title, $"{craft.Percent}%", units is { } count ? $"{count:N0}" : "—",
+            craft.Output is > 0 ? $"{craft.Output:N0}" : "—", cost.HasValue ? Money(cost) : "—", craft);
     }
 
     private int CraftGroup(StorageAnalysis.Craft craft)
@@ -260,23 +264,20 @@ public sealed partial class StorageAnalysisControl
         }
 
         if (Preferences is not { } settings || !craft.Materials.Any(part => part.Missing > 0)) return;
-        var lists = LootLists.ForServer(settings, GameServerProfile.RagnarokPlus).ToArray();
-        if (lists.Length == 0) return;
-        var choice = new ComboBox { ItemsSource = lists, SelectedIndex = 0 };
-        _craftDetails.Children.Add(choice);
         var status = new TextBlock { TextWrapping = TextWrapping.Wrap };
-        _craftDetails.Children.Add(Action(T("Добавить дефицит в список добычи", "Add shortages to loot list"), () =>
+        _craftDetails.Children.Add(Action(T("Добавить в список добычи", "Add to loot list"), () =>
         {
-            if (choice.SelectedItem is not LootList list) return;
+            var lists = LootLists.ForServer(settings, GameServerProfile.RagnarokPlus);
+            var name = craft.Name;
+            for (var suffix = 2; lists.Any(list => string.Equals(list.Name, name, StringComparison.OrdinalIgnoreCase)); suffix++)
+                name = $"{craft.Name} ({suffix})";
+            var list = new LootList { Name = name, Server = GameServerProfile.RagnarokPlus };
             foreach (var part in craft.Materials.Where(part => part.Missing > 0))
-            {
-                LootLists.AddItem(list, part.ItemId, part.Name);
-                var item = list.Items.First(item => item.ItemId == part.ItemId);
-                item.Target = Math.Max(item.Target, (long)Math.Min(int.MaxValue, item.Acquired + (decimal)part.Missing));
-            }
+                list.Items.Add(new LootListItem { ItemId = part.ItemId, Name = part.Name, Target = part.Missing });
+            settings.LootLists.Add(list);
             SavePreferences();
             (Application.Current as App)?.LootListsChanged();
-            status.Text = T("Дефицит добавлен", "Shortages added");
+            status.Text = T($"Создан список «{name}».", $"Created “{name}”.");
         }));
         _craftDetails.Children.Add(status);
     }

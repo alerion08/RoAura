@@ -336,7 +336,13 @@ public sealed class LayoutInputTests
         RunSta(() =>
         {
             var view = new StorageAnalysisControl();
-            var grid = Assert.Single(FindTables(view));
+            var tables = FindTables(view).ToArray();
+            Assert.Equal(2, tables.Length);
+            var craft = Assert.Single(tables.Where(table => !table.CanUserSortColumns));
+            Assert.True(craft.IsReadOnly);
+            Assert.Equal(5, craft.Columns.Count);
+            Assert.Equal(24d, craft.RowHeight);
+            var grid = Assert.Single(tables.Where(table => table.CanUserSortColumns));
             Assert.True(grid.IsReadOnly);
             Assert.Equal(5, grid.Columns.Count);
             Assert.Equal(5, grid.Columns.Count(column => column.Visibility == System.Windows.Visibility.Visible));

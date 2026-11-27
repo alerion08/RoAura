@@ -30,7 +30,11 @@ public sealed partial class StorageAnalysisControl : UserControl
     private readonly System.Windows.Controls.Primitives.UniformGrid _metrics = new() { Rows = 1 };
     private readonly TextBlock _status = new() { TextWrapping = TextWrapping.Wrap, Margin = new Thickness(4) };
     private readonly DataGrid _items = new() { AutoGenerateColumns = false, IsReadOnly = true, CanUserAddRows = false, SelectionMode = DataGridSelectionMode.Extended };
-    private readonly TreeView _craft = new();
+    private readonly DataGrid _craft = new()
+    {
+        AutoGenerateColumns = false, IsReadOnly = true, CanUserAddRows = false,
+        CanUserSortColumns = false, SelectionMode = DataGridSelectionMode.Single
+    };
     private readonly Button _load = new();
     private StorageAnalysis.Entry[] _entries = [];
     private Item[] _summary = [];
@@ -98,7 +102,7 @@ public sealed partial class StorageAnalysisControl : UserControl
         _filter.SelectionChanged += (_, _) => Filter();
         _types.SelectionChanged += (_, _) => Filter();
         _items.SelectionChanged += (_, _) => ShowItem(_items.SelectedItem as Item);
-        _craft.SelectedItemChanged += (_, _) => ShowCraft((_craft.SelectedItem as TreeViewItem)?.Tag as StorageAnalysis.Craft);
+        _craft.SelectionChanged += (_, _) => ShowCraft((_craft.SelectedItem as CraftDisplayRow)?.Plan);
         Loaded += (_, _) => LoadPreferences();
         Unloaded += (_, _) => _request?.Cancel();
     }
@@ -106,8 +110,11 @@ public sealed partial class StorageAnalysisControl : UserControl
     private string T(string ru, string en) => (DataContext as AppSettings)?.Language == "en" ||
         System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "en" ? en : ru;
 
-    private void AddColumn(string title, string property, DataGridLength width) =>
-        _items.Columns.Add(new DataGridTextColumn { Header = title, Binding = new System.Windows.Data.Binding(property) { Mode = System.Windows.Data.BindingMode.OneWay }, Width = width, SortMemberPath = property switch { nameof(Item.StockValue) => nameof(Item.Total), nameof(Item.UnitPrice) => nameof(Item.UnitValue), _ => property } });
+    private void AddColumn(string title, string property, DataGridLength width)
+    {
+        var sort = property switch { nameof(Item.StockValue) => nameof(Item.Total), nameof(Item.UnitPrice) => nameof(Item.UnitValue), _ => property };
+        _items.Columns.Add(PaddedColumn(title, property, width, sort));
+    }
 
     private async void Load_Click(object sender, RoutedEventArgs e)
     {

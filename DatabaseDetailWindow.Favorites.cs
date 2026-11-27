@@ -313,7 +313,7 @@ public partial class DatabaseDetailWindow
         DetailsPanel.Children.Add(createRow);
 
         var rename = new Button { Content = T("Переименовать", "Rename") };
-        var delete = new Button { Content = T("Удалить список", "Delete list"), HorizontalAlignment = HorizontalAlignment.Right };
+        var delete = new Button { Content = T("Удалить список", "Delete list"), HorizontalAlignment = HorizontalAlignment.Stretch };
         DatabasePresentation.SetActionStyle(delete, danger: true);
         DetailsPanel.Children.Add(delete);
         var listActions = new DockPanel { Margin = new Thickness(0, 3, 0, 5) };

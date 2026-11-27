@@ -163,6 +163,7 @@ public sealed partial class StorageAnalysisControl
     private void AddItemColumn()
     {
         var row = new FrameworkElementFactory(typeof(DockPanel));
+        row.SetValue(FrameworkElement.MarginProperty, new Thickness(8, 0, 8, 0));
         var icon = new FrameworkElementFactory(typeof(Image));
         icon.SetValue(FrameworkElement.WidthProperty, 18d);
         icon.SetValue(FrameworkElement.HeightProperty, 18d);
@@ -230,9 +231,7 @@ public sealed partial class StorageAnalysisControl
 
     private void ConfigureGrid()
     {
-        _items.RowHeight = 24;
-        _items.EnableRowVirtualization = true;
-        _items.EnableColumnVirtualization = true;
+        ConfigureCompactTable(_items);
         _items.Sorting += (_, e) =>
         {
             e.Handled = true;
@@ -252,6 +251,27 @@ public sealed partial class StorageAnalysisControl
         };
         _items.ToolTip = T("Shift + щелчок по заголовку добавляет поле сортировки", "Shift + click a header to add a sort field");
         _items.HeadersVisibility = DataGridHeadersVisibility.Column;
+    }
+
+    private static void ConfigureCompactTable(DataGrid grid)
+    {
+        grid.RowHeight = 24;
+        grid.EnableRowVirtualization = true;
+        grid.EnableColumnVirtualization = true;
+        grid.HeadersVisibility = DataGridHeadersVisibility.Column;
+    }
+
+    private static DataGridTextColumn PaddedColumn(string title, string property, DataGridLength width, string? sort = null)
+    {
+        var style = new Style(typeof(TextBlock));
+        style.Setters.Add(new Setter(FrameworkElement.MarginProperty, new Thickness(8, 0, 8, 0)));
+        style.Setters.Add(new Setter(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center));
+        style.Setters.Add(new Setter(TextBlock.TextTrimmingProperty, TextTrimming.CharacterEllipsis));
+        return new DataGridTextColumn
+        {
+            Header = title, Width = width, SortMemberPath = sort ?? property, ElementStyle = style,
+            Binding = new Binding(property) { Mode = BindingMode.OneWay }
+        };
     }
 
     private static void AlignFields(params Control[] fields)
@@ -353,25 +373,12 @@ public sealed partial class StorageAnalysisControl
             selector.PreviewMouseLeftButtonUp += (_, e) =>
             {
                 if (e.OriginalSource is DependencyObject origin &&
-                    ItemsControl.ContainerFromElement(selector, origin) is DataGridRow) Open();
+                    ItemsControl.ContainerFromElement(selector, origin) is DataGridRow row &&
+                    row.Item is not CraftDisplayRow { Plan: null }) Open();
             };
             selector.PreviewKeyDown += (_, e) =>
             {
-                if (e.Key == System.Windows.Input.Key.Enter && selector.SelectedItem is not null) { Open(); e.Handled = true; }
-            };
-        }
-        else if (left is DockPanel && right == _craftDetails)
-        {
-            _craft.SelectedItemChanged += (_, e) => { if (e.NewValue is TreeViewItem { Tag: StorageAnalysis.Craft }) scroll.ScrollToTop(); };
-            _craft.PreviewMouseLeftButtonUp += (_, e) =>
-            {
-                if (e.OriginalSource is DependencyObject origin &&
-                    ItemsControl.ContainerFromElement(null, origin) is TreeViewItem { Tag: StorageAnalysis.Craft }) Open();
-            };
-            _craft.PreviewKeyDown += (_, e) =>
-            {
-                if (e.Key == System.Windows.Input.Key.Enter && _craft.SelectedItem is TreeViewItem { Tag: StorageAnalysis.Craft })
-                { Open(); e.Handled = true; }
+                if (e.Key == System.Windows.Input.Key.Enter && selector.SelectedItem is not null and not CraftDisplayRow { Plan: null }) { Open(); e.Handled = true; }
             };
         }
         grid.Loaded += (_, _) => Layout();
