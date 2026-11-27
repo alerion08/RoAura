@@ -3,7 +3,7 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
+using Polyline = System.Windows.Shapes.Polyline;
 using RoAura.Models;
 using RoAura.Services;
 
@@ -74,7 +74,7 @@ public sealed partial class StorageAnalysisControl
             Points = new PointCollection(samples.Select(point =>
                 new Point((point.At - samples[0].At).TotalSeconds / range, 1 - (double)point.Count / max)))
         };
-        line.SetResourceReference(Shape.StrokeProperty, "RoBlueBrush");
+        line.SetResourceReference(Polyline.StrokeProperty, "RoBlueBrush");
         var min = samples.Min(point => point.Count);
         if (min == samples.Max(point => point.Count))
         {

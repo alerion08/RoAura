@@ -29,16 +29,26 @@ internal sealed partial class RagnarokPlusMarketWindow
                         window.__roAuraStorageProgress = {Done: 0, Total: 0};
                         const data = await response.json();
                         const keys = ['sc', 'sc2', 'sc3', 'hc', 'hc2', 'hc3'];
-                        const ids = [...new Set(keys.flatMap(key => Array.isArray(data[key])
-                            ? data[key].map(row => Number(row.nameid)).filter(id => Number.isSafeInteger(id) && id > 0) : []))];
                         const meta = {};
-                        for (let index = 0; index < ids.length; index += 150) {
-                            const chunk = ids.slice(index, index + 150).join(',');
-                            try {
-                                const response = await fetch('/api/items/meta?ids=' + chunk, {credentials: 'same-origin'});
-                                if (response.ok) Object.assign(meta, await response.json());
-                                window.__roAuraStorageProgress = {Done: Math.min(index + 150, ids.length), Total: ids.length};
-                            } catch { /* Local catalog fills absent metadata. */ }
+                        const loaded = new Set();
+                        for (const key of keys) {
+                            if (!Array.isArray(data[key])) continue;
+                            const rows = data[key];
+                            const group = key.slice(0, 2).toUpperCase() + ' · ' + (key[2] || '1');
+                            const ids = [...new Set(rows.map(row => Number(row.nameid))
+                                .filter(id => Number.isSafeInteger(id) && id > 0 && !loaded.has(id)))];
+                            window.__roAuraStorageProgress = {Group: group, Done: 0, Total: ids.length};
+                            for (let index = 0; index < ids.length; index += 150) {
+                                const chunk = ids.slice(index, index + 150);
+                                try {
+                                    const response = await fetch('/api/items/meta?ids=' + chunk.join(','), {credentials: 'same-origin'});
+                                    if (response.ok) {
+                                        Object.assign(meta, await response.json());
+                                        for (const id of chunk) loaded.add(id);
+                                    }
+                                } catch { /* Local catalog fills absent metadata. */ }
+                                window.__roAuraStorageProgress = {Group: group, Done: Math.min(index + 150, ids.length), Total: ids.length};
+                            }
                         }
                         window.__roAuraStorage = {Status: response.status, Data: data, Meta: meta};
                     }).catch(() => { window.__roAuraStorage = {Status: 0}; });
@@ -74,7 +84,8 @@ internal sealed partial class RagnarokPlusMarketWindow
                 {
                     previousProgress = current;
                     using var state = JsonDocument.Parse(current);
-                    progress?.Report($"Ragnarok+ · {state.RootElement.GetProperty("Done").GetInt32()}/{state.RootElement.GetProperty("Total").GetInt32()}");
+                    var group = state.RootElement.TryGetProperty("Group", out var storage) ? storage.GetString() : "Ragnarok+";
+                    progress?.Report($"{group} · {state.RootElement.GetProperty("Done").GetInt32()}/{state.RootElement.GetProperty("Total").GetInt32()}");
                 }
                 await Task.Delay(200, token);
             }

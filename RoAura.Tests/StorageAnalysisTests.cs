@@ -29,6 +29,9 @@ public sealed class StorageAnalysisTests
         var craft = new StorageAnalysis.Craft("Fixture", 1,
             [new(1, "A", 10, 100), new(2, "B", 10, 2)]);
         Assert.Equal(60, craft.Percent);
+        Assert.Equal(0L, craft.Repeats);
+        var ready = craft with { Materials = [new(1, "A", 10, 100), new(2, "B", 10, 23)] };
+        Assert.Equal(2L, ready.Repeats);
         Assert.Equal(0L, craft.Materials[0].Missing);
         Assert.Equal(8L, craft.Materials[1].Missing);
     }
