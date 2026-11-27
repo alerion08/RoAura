@@ -27,6 +27,33 @@ public sealed class LootListsTests
     }
 
     [Fact]
+    public void InactiveLootPausesStatisticsUntilAnyMatchingRowIsActive()
+    {
+        var server = GameServerProfile.RagnarokPlus;
+        var item = new LootListItem { ItemId = 501, Active = false };
+        var other = new LootListItem { ItemId = 501 };
+        var settings = new AppSettings
+        {
+            LootLists =
+            [
+                new LootList { Server = server, Items = [item] },
+                new LootList { Server = GameServerProfile.SpringRo, Items = [other] }
+            ]
+        };
+
+        Assert.False(LootLists.IsPickupPaused(settings, server, 502));
+        Assert.True(LootLists.IsPickupPaused(settings, server, 501));
+        Assert.False(LootLists.RecordPickup(settings, server, 501, 3));
+        item.Active = true;
+        Assert.False(LootLists.IsPickupPaused(settings, server, 501));
+        Assert.True(LootLists.RecordPickup(settings, server, 501, 2));
+        Assert.Equal(2, item.Acquired);
+        item.Active = false;
+        settings.LootLists.Add(new LootList { Server = server, Items = [new LootListItem { ItemId = 501 }] });
+        Assert.False(LootLists.IsPickupPaused(settings, server, 501));
+    }
+
+    [Fact]
     public void TrackerVisibilityIsPerItemAndCompletionUpdatesWithProgress()
     {
         var list = new LootList { ShowInTracker = true };

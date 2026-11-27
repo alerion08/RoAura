@@ -7,6 +7,10 @@
 - [Windows publication run](https://github.com/alerion08/RoAura/actions/runs/45878759571) passed 464 tests, startup/input checks, portable and installer builds, and clean installation verification. The release includes the Windows installer, portable archive and checksum manifest.
 - Manual regression checks on the published package include party-member casts on the recipient's client and existing manually configured status IDs.
 
+## Loot tracker toggle fixes in development
+
+- Tracker checkboxes immediately refresh the overlay. Inactive loot-list rows stop counting pickups. A pickup is also skipped in session statistics when the item belongs only to inactive rows on the current server.
+
 ## Previous published baseline — RoAura 3.7.0
 
 - [v3.7.0](https://github.com/alerion08/RoAura/releases/tag/v3.7.0) was published from main commit `032eda29fe092addb55b5c5d8138d5e67970b71f` after PR #25. Start subsequent work from current `main`.

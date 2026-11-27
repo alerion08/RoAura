@@ -1027,6 +1027,7 @@ public partial class App : Application
         var settings = _settingsWindow.Settings;
         if (LootLists.RecordPickup(settings, settings.ServerProfile, packet.ItemId, packet.Count))
             _settingsWindow.RequestSave();
+        else if (LootLists.IsPickupPaused(settings, settings.ServerProfile, packet.ItemId)) return;
         if (CurrentCharacterStatistics()?.SessionPaused == true) return;
         var item = _itemCatalog.GetValueOrDefault(packet.ItemId) ?? new ItemEntry
         {

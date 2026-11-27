@@ -11,11 +11,7 @@ public partial class LootListsControl : UserControl
 {
     public sealed record Row(LootList List, LootListItem? Item, IReadOnlyList<LootList> Lists, string Name)
     {
-        public bool ShowInTracker
-        {
-            get => Item is not null && LootLists.IsShownInTracker(List, Item);
-            set { if (Item is not null) Item.ShowInTracker = value; }
-        }
+        public bool ShowInTracker => Item is not null && LootLists.IsShownInTracker(List, Item);
 
         public Visibility ItemVisibility => Item is null ? Visibility.Collapsed : Visibility.Visible;
         public Visibility EmptyListVisibility => Item is null ? Visibility.Visible : Visibility.Collapsed;
@@ -138,6 +134,19 @@ public partial class LootListsControl : UserControl
         if (LootListNameDialog.Create(owner, _settings, _settings.ServerProfile) is null) return;
         _save?.Invoke();
         RefreshLists();
+    }
+
+    private void ItemActive_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is CheckBox { DataContext: Row { Item: { } item } } box)
+            item.Active = box.IsChecked == true;
+    }
+
+    private void ItemTracker_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not CheckBox { DataContext: Row { Item: { } item } } box) return;
+        item.ShowInTracker = box.IsChecked == true;
+        _save?.Invoke();
     }
 
     private void TrackerOptions_Changed(object sender, DataTransferEventArgs e) => _save?.Invoke();

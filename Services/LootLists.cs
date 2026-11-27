@@ -47,6 +47,18 @@ internal static class LootLists
         return changed;
     }
 
+    internal static bool IsPickupPaused(AppSettings settings, string server, int itemId)
+    {
+        var foundInactive = false;
+        foreach (var item in ForServer(settings, server).SelectMany(list => list.Items))
+        {
+            if (item.ItemId != itemId) continue;
+            if (item.Active) return false;
+            foundInactive = true;
+        }
+        return foundInactive;
+    }
+
     internal static bool ContainsActiveItem(AppSettings settings, string server, int itemId) =>
         ForServer(settings, server).Any(list => list.Items.Any(item => item.Active && item.ItemId == itemId));
 

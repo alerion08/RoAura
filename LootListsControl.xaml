@@ -68,7 +68,7 @@
                                             ElementStyle="{StaticResource LootListCellText}" IsReadOnly="True" Width="85"/>
                         <DataGridTemplateColumn Header="{DynamicResource LootListActive}" Width="70">
                             <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate><CheckBox IsChecked="{Binding Item.Active, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ItemVisibility}"/></DataTemplate>
+                                <DataTemplate><CheckBox IsChecked="{Binding Item.Active, Mode=OneWay}" Click="ItemActive_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ItemVisibility}"/></DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="{DynamicResource LootListTitle}" Width="1.5*">
@@ -86,7 +86,7 @@
                         <DataGridTemplateColumn Header="{DynamicResource LootListTrackerColumn}" Width="66">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding ShowInTracker, Mode=TwoWay, NotifyOnSourceUpdated=True}"
+                                    <CheckBox IsChecked="{Binding ShowInTracker, Mode=OneWay}" Click="ItemTracker_Click"
                                               Visibility="{Binding ItemVisibility}"
                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </DataTemplate>
