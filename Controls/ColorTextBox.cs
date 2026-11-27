@@ -9,7 +9,7 @@ namespace RoAura.Controls;
 public sealed class ColorTextBox : TextBox
 {
     private static readonly DependencyPropertyKey PreviewBrushPropertyKey = DependencyProperty.RegisterAttachedReadOnly(
-        nameof(PreviewBrush), typeof(Brush), typeof(ColorTextBox), new PropertyMetadata(null));
+        "PreviewBrush", typeof(Brush), typeof(ColorTextBox), new PropertyMetadata(null));
 
     public static readonly DependencyProperty PreviewBrushProperty = PreviewBrushPropertyKey.DependencyProperty;
 
