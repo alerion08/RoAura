@@ -523,6 +523,9 @@ public partial class App : Application
             LocalizationService.ApplyLanguage("ru");
             _databaseOverlay.RefreshLanguage();
             _settingsWindow.ValidateServerNavigationSmoke();
+            if (Environment.GetEnvironmentVariable("ROAURA_QUEST_UI_SNAPSHOTS") is { Length: > 0 } snapshots &&
+                File.Exists(Path.Combine(AppContext.BaseDirectory, "Data", "ragnarokplus-barter.zip")))
+                _databaseOverlay.SaveDatabaseSmokeSnapshots(snapshots);
             DebugLog.Write("SMOKE TEST: startup completed successfully");
             Dispatcher.BeginInvoke(new Action(async () =>
             {

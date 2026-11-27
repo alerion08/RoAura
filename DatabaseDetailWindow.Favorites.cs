@@ -229,17 +229,18 @@ public partial class DatabaseDetailWindow
         void AddWatch(string side, string label)
         {
             var listing = new MarketListing { ItemId = item.Id, ItemName = item.Name, ShopType = side };
+            var button = new Button();
             AddLink(label, () =>
             {
                 popup.IsOpen = false;
                 (Application.Current as App)?.ToggleMarketWatch(this, listing);
                 RefreshStatus();
             }, menu);
-            var button = new Button();
             button.SetResourceReference(StyleProperty, "DatabaseLinkRow");
             button.Click += (_, _) =>
             {
-                (Application.Current as App)?.ToggleMarketWatch(this, listing);
+                var rule = _settings.ActiveMarketWatchRules.FirstOrDefault(rule => rule.ItemId == item.Id && rule.Buying == (side == "BUY"));
+                if (rule is not null) (Application.Current as App)?.EditMarketWatch(this, rule);
                 RefreshStatus();
             };
             status.Children.Add(button);

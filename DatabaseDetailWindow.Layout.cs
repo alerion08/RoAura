@@ -9,6 +9,8 @@ namespace RoAura;
 
 public partial class DatabaseDetailWindow
 {
+    internal void RefreshSmokePalette() => UpdateDatabasePalette();
+
     private void UpdateDatabasePalette() =>
         DatabasePresentation.ApplyPalette(this, AppearanceService.Resolve(_settings.ApplicationTheme, _settings.GameOverlayTheme, true) == "Dark");
 
