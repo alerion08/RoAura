@@ -37,6 +37,16 @@ internal static class LootListNameDialog
         var frame = new Border { Child = body, CornerRadius = new CornerRadius(9), BorderThickness = new Thickness(1) };
         frame.SetResourceReference(Border.BackgroundProperty, "RoWindowBrush");
         frame.SetResourceReference(Border.BorderBrushProperty, "RoBorderBrush");
+        if (owner is DatabaseDetailWindow)
+        {
+            DatabasePresentation.AddDialogStyles(dialog);
+            DatabasePresentation.SetActionStyle(create);
+            frame.CornerRadius = new CornerRadius(10);
+            frame.SetResourceReference(Border.BackgroundProperty, "DatabasePanel");
+            frame.SetResourceReference(Border.BorderBrushProperty, "DatabaseFrame");
+            title.SetResourceReference(TextBlock.ForegroundProperty, "DatabaseBlue");
+            title.FontSize = 20;
+        }
         dialog.Content = frame;
         dialog.Loaded += (_, _) => name.Focus();
         create.Click += (_, _) =>

@@ -12,6 +12,8 @@ public partial class MarketWatchDialog : Window
     {
         InitializeComponent();
         Editor.Initialize(database, item, rule, buying: buying);
+        Editor.HideEmbeddedTitle();
+        if (rule is not null) SetResourceReference(TitleProperty, "EditItem");
         Loaded += (_, _) => { Recenter(); Editor.FocusEditor(); };
         SizeChanged += (_, _) => Recenter();
     }

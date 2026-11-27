@@ -47,6 +47,7 @@ public partial class DatabaseDetailWindow
         };
         var result = new StackPanel { Margin = new Thickness(0, 6, 0, 0) };
         var attach = new Button { Content = T("Сохранить план в текущей сессии", "Save plan to current session"), IsEnabled = false };
+        DatabasePresentation.SetActionStyle(attach);
         var status = Meta("");
         var pickRow = new DockPanel();
         DockPanel.SetDock(add, Dock.Right);
@@ -141,7 +142,10 @@ public partial class DatabaseDetailWindow
             var planDrops = new List<FarmingPlanDrop>();
             var source = priceMode.SelectedIndex switch { 1 => "BUY", 2 => "SELL", 3 => "AUTO", _ => "NPC" };
             var summary = Meta("");
-            result.Children.Add(summary);
+            var summaryBox = new Border { Child = summary, CornerRadius = new CornerRadius(6),
+                Padding = new Thickness(8, 5, 8, 5), Margin = new Thickness(0, 5, 0, 6) };
+            summaryBox.SetResourceReference(Border.BackgroundProperty, "DatabaseSoft");
+            result.Children.Add(summaryBox);
             foreach (var (drop, expected) in drops)
             {
                 var item = _database.Item(drop.ItemId);
@@ -152,47 +156,10 @@ public partial class DatabaseDetailWindow
                 if (price > 0) total += (decimal)expected * price;
                 else if (expected > 0) missingPrices++;
                 planDrops.Add(new(drop.ItemId, item?.Name ?? drop.Name, expected, Math.Max(0, price)));
-                var material = _database.Version == GameServerProfile.RagnarokPlus &&
-                    RagnarokPlusRecipes.UsingItem(drop.ItemId).Any();
-                var craftable = _database.Version == GameServerProfile.RagnarokPlus &&
-                    RagnarokPlusRecipes.ForItem(drop.ItemId).Any();
-                var name = item?.Name ?? drop.Name;
-                var details = $"×{expected:N0}" + (price > 0 ? $"  ·  {price:N0} z" : "");
-                var lines = new StackPanel { Margin = new Thickness(8, 0, 8, 0) };
-                var title = new DockPanel();
-                if (material) AddTag("mats");
-                if (craftable) AddTag("craftable");
-                title.Children.Add(new TextBlock { Text = name, TextTrimming = TextTrimming.CharacterEllipsis });
-                lines.Children.Add(title);
-
-                var valuationRow = new DockPanel();
-                var badge = new ContentControl
-                {
-                    Content = new { PriceKnown = price > 0, PriceSource = useNpc ? "NPC" : side == "BUY" ? "Buy" : "Vending" },
-                    ContentTemplate = (DataTemplate)FindResource("GoldGoblinPriceBadgeTemplate"),
-                    FontSize = 10
-                };
-                DockPanel.SetDock(badge, Dock.Right);
-                valuationRow.Children.Add(badge);
-                valuationRow.Children.Add(new TextBlock { Text = details, FontSize = 10, VerticalAlignment = VerticalAlignment.Center,
-                    FontWeight = FontWeights.Normal, TextTrimming = TextTrimming.CharacterEllipsis });
-                lines.Children.Add(valuationRow);
-
-                void AddTag(string label)
-                {
-                    var tag = CraftTag(label);
-                    DockPanel.SetDock(tag, Dock.Right);
-                    title.Children.Add(tag);
-                }
-                var link = new Button
-                {
-                    Content = lines, ToolTip = name + "\n" + details,
-                    Height = 52, Margin = new Thickness(0, 0, 0, 4), Padding = new Thickness(0),
-                    IsEnabled = item is not null, HorizontalAlignment = HorizontalAlignment.Stretch,
-                    Style = (Style)FindResource("FarmResultButtonStyle")
-                };
-                link.Click += (_, _) => OpenItem(drop.ItemId);
-                result.Children.Add(link);
+                var sourceName = useNpc ? "NPC" : side == "BUY" ? T("Скупка", "Buy orders") : T("Продажа", "Sell listings");
+                var estimate = price > 0 ? $"{expected * (decimal)price:N0} z" : "—";
+                AddReferenceRow(item?.Name ?? drop.Name, $"×{expected:N0} · {sourceName}", estimate,
+                    item?.LocalImagePng, "◇", item is null ? null : () => OpenItem(drop.ItemId), result);
             }
             currentPlan = new FarmingPlan(map.Code, map.Name, source, planTargets.ToArray(), planDrops.ToArray());
             attach.IsEnabled = true;

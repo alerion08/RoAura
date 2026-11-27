@@ -23,6 +23,8 @@ public partial class MarketWatchEditor : UserControl
         IsVisibleChanged += (_, _) => { if (!IsVisible) SuggestionsPopup.IsOpen = false; };
     }
 
+    internal void HideEmbeddedTitle() => EditorTitle.Visibility = Visibility.Collapsed;
+
     public void Initialize(GameDatabaseService database, DatabaseItem? item = null, MarketWatchRule? rule = null, bool allowItemChange = false, bool buying = false)
     {
         _database = database;

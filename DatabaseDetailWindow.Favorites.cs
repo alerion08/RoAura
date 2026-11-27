@@ -136,25 +136,28 @@ public partial class DatabaseDetailWindow
             WindowStartupLocation = WindowStartupLocation.CenterOwner, Topmost = true
         };
         dialog.Background = Brushes.Transparent;
-        dialog.SetResourceReference(ForegroundProperty, "RoTextBrush");
+        DatabasePresentation.AddDialogStyles(dialog);
         var layout = new DockPanel();
-        var header = new Border { Padding = new Thickness(14,9,14,9), CornerRadius = new CornerRadius(8,8,0,0), Child = Heading(title, 17) };
-        header.SetResourceReference(Border.BackgroundProperty, "RoTitleBrush");
+        var header = new Border { Padding = new Thickness(14,9,14,9), CornerRadius = new CornerRadius(8,8,0,0), Child = Heading(title, 20) };
+        header.SetResourceReference(Border.BackgroundProperty, "DatabaseHead");
         DockPanel.SetDock(header, Dock.Top);
         layout.Children.Add(header);
         var actions = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(12,0,12,10) };
         var cancel = new Button { Content = T("Отмена", "Cancel"), IsCancel = true };
         var confirm = new Button { Content = action, IsDefault = !danger };
-        confirm.SetResourceReference(StyleProperty, danger ? "DangerButtonStyle" : "PrimaryButtonStyle");
+        DatabasePresentation.SetActionStyle(confirm, danger);
         confirm.Click += (_, _) => { if (accept()) dialog.DialogResult = true; };
+        cancel.Height = confirm.Height = 32;
+        cancel.Margin = new Thickness(0, 0, 6, 0);
+        confirm.Margin = new Thickness(0);
         actions.Children.Add(cancel);
         actions.Children.Add(confirm);
         DockPanel.SetDock(actions, Dock.Bottom);
         layout.Children.Add(actions);
         layout.Children.Add(new Border { Padding = new Thickness(14,8,14,8), Child = body });
-        var frame = new Border { BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(9), Child = layout };
-        frame.SetResourceReference(Border.BackgroundProperty, "RoWindowBrush");
-        frame.SetResourceReference(Border.BorderBrushProperty, "RoBorderBrush");
+        var frame = new Border { BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(10), Child = layout };
+        frame.SetResourceReference(Border.BackgroundProperty, "DatabasePanel");
+        frame.SetResourceReference(Border.BorderBrushProperty, "DatabaseLine");
         dialog.Content = frame;
         return dialog;
     }
@@ -251,7 +254,13 @@ public partial class DatabaseDetailWindow
             {
                 var current = _settings.ActiveMarketWatchRules.FirstOrDefault(rule => rule.ItemId == item.Id && rule.Buying == (side == "BUY"));
                 button.Visibility = current is null ? Visibility.Collapsed : Visibility.Visible;
-                button.Content = $"{side} · {(current?.Enabled == true ? T("активно", "active") : T("пауза", "paused"))}";
+                button.Content = (side == "BUY", current?.Enabled == true) switch
+                {
+                    (true, true) => T("Скупка отслеживается", "Buy orders are tracked"),
+                    (false, true) => T("Продажи отслеживаются", "Sales are tracked"),
+                    (true, false) => T("Отслеживание скупки на паузе", "Buy order tracking paused"),
+                    _ => T("Отслеживание продаж на паузе", "Sales tracking paused")
+                };
             }
         }
     }
@@ -298,22 +307,18 @@ public partial class DatabaseDetailWindow
             preview.Children.Add(new TextBlock { Text = T("Цвет нового списка", "New list color") });
             createColor.Content = preview;
         };
-        createRow.Children.Add(createColor);
+        var create = (Button)createRow.Children[0];
+        DatabasePresentation.SetActionStyle(create);
+        createRow.Children.Insert(0, createColor);
         DetailsPanel.Children.Add(createRow);
-        var management = new System.Windows.Controls.Primitives.UniformGrid { Rows = 1 };
+
         var rename = new Button { Content = T("Переименовать", "Rename") };
-        var delete = new Button { Content = T("Удалить список", "Delete list") };
-        management.Children.Add(rename);
-        management.Children.Add(delete);
-        DetailsPanel.Children.Add(management);
+        var delete = new Button { Content = T("Удалить список", "Delete list"), HorizontalAlignment = HorizontalAlignment.Right };
+        DatabasePresentation.SetActionStyle(delete, danger: true);
+        DetailsPanel.Children.Add(delete);
         var listActions = new DockPanel { Margin = new Thickness(0, 3, 0, 5) };
-        var create = (UIElement)createRow.Children[0];
-        createRow.Children.Remove(create);
-        management.Children.Remove(rename);
         DockPanel.SetDock(rename, Dock.Right);
-        DockPanel.SetDock(create, Dock.Right);
         listActions.Children.Add(rename);
-        listActions.Children.Add(create);
         listActions.Children.Add(chooser);
         DetailsPanel.Children.Insert(1, listActions);
         rename.Click += (_, _) =>

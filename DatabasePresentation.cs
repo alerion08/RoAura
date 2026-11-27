@@ -41,6 +41,24 @@ internal static class DatabasePresentation
         return grid;
     }
 
+    internal static void SetActionStyle(Button button, bool danger = false)
+    {
+        button.SetResourceReference(FrameworkElement.StyleProperty, danger ? "DatabaseDangerButton" : "DatabasePrimaryButton");
+        if (button.Content is string caption)
+            button.Content = new TextBlock { Text = caption, Foreground = Brushes.White };
+    }
+
+    internal static void AddDialogStyles(Window dialog)
+    {
+        dialog.FontFamily = new FontFamily("Segoe UI");
+        dialog.FontSize = 13;
+        dialog.SetResourceReference(Control.ForegroundProperty, "DatabaseInk");
+        dialog.Resources.MergedDictionaries.Add(new ResourceDictionary
+        {
+            Source = new Uri("/RoAura;component/Themes/DatabasePresentation.xaml", UriKind.Relative)
+        });
+    }
+
     internal static string Count(string value) => decimal.TryParse(value.Replace(",", "").Replace(" ", ""),
         NumberStyles.Number, CultureInfo.InvariantCulture, out var n) ? n.ToString("N0") :
         string.IsNullOrWhiteSpace(value) ? "—" : value;

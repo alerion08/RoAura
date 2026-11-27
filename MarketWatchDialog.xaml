@@ -1,12 +1,25 @@
 <Window x:Class="RoAura.MarketWatchDialog"
  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:RoAura"
  Title="{DynamicResource WatchAddTitle}" Width="400" SizeToContent="Height" MinWidth="360" MinHeight="240" MaxHeight="660"
- WindowStartupLocation="CenterOwner" ShowInTaskbar="False" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent" Foreground="{DynamicResource UiForeground_17365F}">
- <Border Background="{DynamicResource UiBackground_F6F9FE}" BorderBrush="{DynamicResource UiBorder_5E86BD}" BorderThickness="1" CornerRadius="8"><Grid Margin="16"><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-  <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><local:MarketWatchEditor x:Name="Editor"/></ScrollViewer>
-  <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
-   <Button Content="{DynamicResource Cancel}" IsCancel="True" Margin="0,0,10,0"/>
-   <Button x:Name="AddButton" Content="{DynamicResource Add}" Click="Add_Click"/>
-  </StackPanel>
- </Grid></Border>
+ WindowStartupLocation="CenterOwner" ShowInTaskbar="False" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
+ Background="Transparent" Foreground="{DynamicResource DatabaseInk}" FontFamily="Segoe UI" FontSize="13" UseLayoutRounding="True">
+ <Window.Resources><ResourceDictionary Source="Themes/DatabasePresentation.xaml"/></Window.Resources>
+ <Border Background="{DynamicResource DatabasePanel}" BorderBrush="{DynamicResource DatabaseFrame}" BorderThickness="1" CornerRadius="10">
+  <Grid>
+   <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+   <Border Background="{DynamicResource DatabaseHead}" BorderBrush="{DynamicResource DatabaseLine}" BorderThickness="0,0,0,1" CornerRadius="9,9,0,0">
+    <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" FontFamily="Georgia" FontSize="20" FontWeight="Bold"
+               Foreground="{DynamicResource DatabaseBlue}" Margin="14,10" TextWrapping="Wrap"/>
+   </Border>
+   <ScrollViewer Grid.Row="1" Margin="14,11" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+    <local:MarketWatchEditor x:Name="Editor"/>
+   </ScrollViewer>
+   <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="14,3,14,12">
+    <Button Content="{DynamicResource Cancel}" IsCancel="True" Height="32" MinHeight="0" Margin="0,0,6,0"/>
+    <Button x:Name="AddButton" Height="32" MinHeight="0" Margin="0" Click="Add_Click" Style="{StaticResource DatabasePrimaryButton}">
+     <TextBlock x:Name="AddCaption" Text="{DynamicResource Add}" Foreground="White"/>
+    </Button>
+   </StackPanel>
+  </Grid>
+ </Border>
 </Window>
