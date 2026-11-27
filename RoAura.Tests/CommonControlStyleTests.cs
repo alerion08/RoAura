@@ -98,6 +98,11 @@ public sealed class CommonControlStyleTests
                 {
                     var host = (ScrollViewer)editor.Template.FindName("PART_ContentHost", editor);
                     Assert.Equal(new Thickness(0), host.Margin);
+                    var swatch = (Border)editor.Template.FindName("ColorPreview", editor);
+                    Assert.Equal(editor is ColorTextBox ? Visibility.Visible : Visibility.Collapsed, swatch.Visibility);
+                    if (editor is ColorTextBox)
+                        Assert.Equal(Color.FromArgb(255, 111, 216, 255),
+                            Assert.IsType<SolidColorBrush>(((Border)swatch.Child).Background).Color);
                     Assert.True(editor.ViewportHeight >= editor.ExtentHeight - 0.5,
                         $"Text '{editor.Text}' at {scale}: viewport {editor.ViewportHeight}, extent {editor.ExtentHeight}");
                     var first = editor.GetRectFromCharacterIndex(0);

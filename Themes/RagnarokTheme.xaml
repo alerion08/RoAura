@@ -263,7 +263,32 @@
         <Setter Property="BorderBrush" Value="{DynamicResource RoSoftBorderBrush}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="Padding" Value="8,4"/>
         <Setter Property="CaretBrush" Value="{DynamicResource RoDeepBlueBrush}"/><Setter Property="SelectionBrush" Value="{DynamicResource RoSelectionBrush}"/>
         <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TextBox">
-            <Border x:Name="TextBorder" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"><!-- TextBoxBase forwards Padding to this ScrollViewer; adding it as Margin clips the text. --><ScrollViewer x:Name="PART_ContentHost"/></Border>
+            <Border x:Name="TextBorder" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                <DockPanel>
+                    <Border x:Name="ColorPreview" DockPanel.Dock="Right" Width="20" Height="16" Margin="4,0,6,0"
+                            CornerRadius="3" VerticalAlignment="Center" BorderThickness="1"
+                            BorderBrush="{DynamicResource RoBorderBrush}"
+                            DataContext="{Binding Path=(controls:ColorTextBox.PreviewBrush), RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}">
+                        <Border.Style><Style TargetType="Border">
+                            <Setter Property="Background"><Setter.Value>
+                                <DrawingBrush TileMode="Tile" Viewport="0,0,8,8" ViewportUnits="Absolute"
+                                              Viewbox="0,0,8,8" ViewboxUnits="Absolute">
+                                    <DrawingBrush.Drawing><DrawingGroup>
+                                        <GeometryDrawing Brush="White" Geometry="M0,0 H8 V8 H0 Z"/>
+                                        <GeometryDrawing Brush="#CDD5DF" Geometry="M0,0 H4 V4 H0 Z M4,4 H8 V8 H4 Z"/>
+                                    </DrawingGroup></DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Setter.Value></Setter>
+                            <Style.Triggers><DataTrigger Binding="{Binding}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger></Style.Triggers>
+                        </Style></Border.Style>
+                        <Border Background="{Binding}" CornerRadius="2"/>
+                    </Border>
+                    <!-- TextBoxBase forwards Padding to this ScrollViewer. -->
+                    <ScrollViewer x:Name="PART_ContentHost"/>
+                </DockPanel>
+            </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="TextBorder" Property="BorderBrush" Value="{DynamicResource UiBorder_477FC9}"/><Setter TargetName="TextBorder" Property="BorderThickness" Value="1"/></Trigger>
                 <Trigger Property="IsReadOnly" Value="True"><Setter TargetName="TextBorder" Property="Background" Value="{DynamicResource UiBackground_EDF3F9}"/></Trigger>
