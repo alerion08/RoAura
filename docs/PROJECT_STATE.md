@@ -1,5 +1,9 @@
 # Project state
 
+## Storage analysis development
+
+The `integration/storage-analysis` branch contains the selected storage workspace and crafting assistant improvements. Review on Windows with a real Ragnarok+ account, current market cache, both game modes and the installed item, quest and barter catalogs. Verify narrow layout and both themes before considering publication.
+
 ## Current published baseline — RoAura 3.7.1
 
 - [v3.7.1](https://github.com/alerion08/RoAura/releases/tag/v3.7.1) was published from main commit `59fb53eda45f2961ab02c9156945805be1caaa16` after PR #27. Start subsequent work from current `main`.

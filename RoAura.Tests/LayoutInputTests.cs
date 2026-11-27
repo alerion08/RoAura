@@ -338,7 +338,7 @@ public sealed class LayoutInputTests
             var view = new StorageAnalysisControl();
             var grid = Assert.Single(FindTables(view));
             Assert.True(grid.IsReadOnly);
-            Assert.Equal(7, grid.Columns.Count);
+            Assert.Equal(9, grid.Columns.Count);
             Assert.All(grid.Columns, column =>
             {
                 var binding = Assert.IsType<System.Windows.Data.Binding>(

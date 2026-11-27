@@ -11,11 +11,12 @@ internal static class StorageAnalysis
     }
     internal sealed record Craft(string Name, object Target, Material[] Materials)
     {
+        public long Repeats => Materials.Min(material => material.Available / material.Required);
         public int Percent => (int)Math.Floor(Materials.Average(material =>
             Math.Min(1m, (decimal)material.Available / material.Required)) * 100m);
     }
 
-    internal static Entry[] Parse(JsonElement data, JsonElement metadata = default)
+    internal static Entry[] Parse(JsonElement data, JsonElement metadata = default, Action<string, int, string>? progress = null)
     {
         if (data.ValueKind != JsonValueKind.Object) throw new InvalidDataException("Invalid storage response.");
         var entries = new List<Entry>();
@@ -28,6 +29,7 @@ internal static class StorageAnalysis
             recognized = true;
             if (rows.ValueKind == JsonValueKind.Null) continue;
             if (rows.ValueKind != JsonValueKind.Array) throw new InvalidDataException("Invalid storage group.");
+            var types = new HashSet<string>();
             foreach (var row in rows.EnumerateArray())
             {
                 if (!row.TryGetProperty("nameid", out var rawId) || !int.TryParse(rawId.ToString(), out var id) || id <= 0 ||
@@ -45,6 +47,7 @@ internal static class StorageAnalysis
                         (location.Value.ValueKind == JsonValueKind.True || location.Value.ToString() == "1")))))
                     type = "Costume";
                 entries.Add(new Entry(id, amount, mode.ToUpperInvariant(), slot, name, type));
+                if (types.Add(type ?? "—")) progress?.Invoke(mode.ToUpperInvariant(), slot, type ?? "—");
             }
         }
         if (!recognized) throw new InvalidDataException("No storage groups in the response.");
@@ -56,7 +59,7 @@ internal static class StorageAnalysis
             ? child.GetString() : null;
 
     internal static Craft[] Plans(IReadOnlyDictionary<int, long> stock,
-        Func<RagnarokPlusBarterCatalog.Cost, int?> resolveCost)
+        Func<RagnarokPlusBarterCatalog.Cost, int?> resolveCost, int threshold = 60)
     {
         var options = RagnarokPlusRecipes.All.Select(r => (r.Name, Target: (object)r.ItemId, Parts:
                 r.Materials.Where(p => !p.IsGuide).Select(p => (Id: (int?)p.ItemId, p.Name, Count: (long?)p.Amount))))
@@ -69,7 +72,7 @@ internal static class StorageAnalysis
             var materials = parts.GroupBy(p => p.Id!.Value).Select(group =>
                 new Material(group.Key, group.First().Name, group.Sum(p => p.Count!.Value), stock.GetValueOrDefault(group.Key))).ToArray();
             return new Craft(option.Name, option.Target, materials);
-        }).OfType<Craft>().Where(c => c.Percent >= 60)
+        }).OfType<Craft>().Where(c => c.Percent >= Math.Clamp(threshold, 0, 100))
           .OrderByDescending(c => c.Percent).ThenBy(c => c.Name).ToArray();
     }
 }
