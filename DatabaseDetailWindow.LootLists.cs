@@ -10,7 +10,7 @@ public partial class DatabaseDetailWindow
     private void AddLootListAction(DatabaseItem item, Panel actions)
     {
         var button = new Button { Content = LocalizationService.Get("LootListAddAction"),
-            HorizontalAlignment = HorizontalAlignment.Stretch, Padding = new Thickness(4, 2) };
+            HorizontalAlignment = HorizontalAlignment.Stretch, Padding = new Thickness(4, 2, 4, 2) };
         var options = new StackPanel { Margin = new Thickness(8, 4, 8, 4) };
         var panel = new Border { Child = options, Visibility = Visibility.Collapsed,
             CornerRadius = new CornerRadius(7), BorderThickness = new Thickness(1) };

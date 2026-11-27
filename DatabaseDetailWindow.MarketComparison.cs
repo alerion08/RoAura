@@ -16,7 +16,7 @@ public partial class DatabaseDetailWindow
 
         var panel = new StackPanel { Margin = new Thickness(0, 5, 0, 0) };
         var refresh = new Button { Content = T("Проверить цены", "Check prices"),
-            HorizontalAlignment = HorizontalAlignment.Stretch, Padding = new Thickness(4, 2) };
+            HorizontalAlignment = HorizontalAlignment.Stretch, Padding = new Thickness(4, 2, 4, 2) };
         var result = new StackPanel();
         actions.Children.Add(refresh);
         panel.Children.Add(result);
