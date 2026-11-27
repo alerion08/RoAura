@@ -7,10 +7,10 @@ namespace RoAura;
 
 public partial class DatabaseDetailWindow
 {
-    private void AddLootListAction(DatabaseItem item)
+    private void AddLootListAction(DatabaseItem item, Panel actions)
     {
         var button = new Button { Content = LocalizationService.Get("LootListAddAction"),
-            HorizontalAlignment = HorizontalAlignment.Left, Margin = new Thickness(0, 7, 0, 2) };
+            HorizontalAlignment = HorizontalAlignment.Stretch, Padding = new Thickness(4, 2) };
         var options = new StackPanel { Margin = new Thickness(8, 4, 8, 4) };
         var panel = new Border { Child = options, Visibility = Visibility.Collapsed,
             CornerRadius = new CornerRadius(7), BorderThickness = new Thickness(1) };
@@ -19,8 +19,15 @@ public partial class DatabaseDetailWindow
         void UpdateButton()
         {
             if (LootLists.ForServer(_settings, _database.Version).Any(list => list.Items.Any(row => row.ItemId == item.Id)))
+            {
                 button.SetResourceReference(StyleProperty, "ActiveItemCardButtonStyle");
-            else button.ClearValue(StyleProperty);
+                button.Foreground = System.Windows.Media.Brushes.White;
+            }
+            else
+            {
+                button.ClearValue(StyleProperty);
+                button.ClearValue(Control.ForegroundProperty);
+            }
         }
 
         void UpdateOptions()
@@ -59,7 +66,7 @@ public partial class DatabaseDetailWindow
             panel.Visibility = Visibility.Visible;
         };
         UpdateButton();
-        DetailsPanel.Children.Add(button);
+        actions.Children.Add(button);
         DetailsPanel.Children.Add(panel);
     }
 }

@@ -9,16 +9,16 @@ public partial class DatabaseDetailWindow
 {
     internal Func<DatabaseItem, string, CancellationToken, Task<IReadOnlyList<MarketListing>>>? LookupMarketSide { get; set; }
 
-    private void AddMarketComparison(DatabaseItem item)
+    private void AddMarketComparison(DatabaseItem item, Panel actions)
     {
         if (LookupMarketSide is not { } lookup || !GameServerProfile.SupportsMarket(_settings.ServerProfile))
             return;
 
         var panel = new StackPanel { Margin = new Thickness(0, 5, 0, 0) };
         var refresh = new Button { Content = T("Проверить цены", "Check prices"),
-            HorizontalAlignment = HorizontalAlignment.Stretch };
+            HorizontalAlignment = HorizontalAlignment.Stretch, Padding = new Thickness(4, 2) };
         var result = new StackPanel();
-        panel.Children.Add(refresh);
+        actions.Children.Add(refresh);
         panel.Children.Add(result);
         DetailsPanel.Children.Add(panel);
 

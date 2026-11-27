@@ -1,3 +1,4 @@
+using System.Windows.Controls.Primitives;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -220,9 +221,9 @@ public partial class DatabaseDetailWindow : Window
             AddLink(SpawnLabel(_database.Version == GameServerProfile.RagnarokPlus ? spawn.Code : spawn.Name, spawn.Count, spawn.Respawn), () => OpenMap(spawn.Code));
     }
 
-    private void ShowItem(DatabaseItem item, SpringRoItemDetails? detail, bool loading)
+    private void ShowItem(DatabaseItem item, SpringRoItemDetails? detail, bool loading, RagnarokPlusBarterCatalog.Offer? barter = null)
     {
-        _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowItem(item,detail,loading);};
+        _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowItem(item,detail,loading,barter);};
         var header = new DockPanel { Margin = new Thickness(0, 0, 42, 0) };
         var imageUrl = detail?.ImageUrl;
         if (string.IsNullOrWhiteSpace(imageUrl)) imageUrl = item.ImageUrl;
@@ -253,8 +254,10 @@ public partial class DatabaseDetailWindow : Window
         }
         DetailsPanel.Children.Add(header);
         AddItemActions(item);
-        AddLootListAction(item);
-        AddMarketComparison(item);
+        var actions = new UniformGrid { Rows = 1, Margin = new Thickness(0, 5, 0, 0) };
+        DetailsPanel.Children.Add(actions);
+        AddLootListAction(item, actions);
+        AddMarketComparison(item, actions);
 
         AddSection(T("Информация", "Information"));
         AddItemWeight(item, detail);
@@ -303,6 +306,23 @@ public partial class DatabaseDetailWindow : Window
                 }
             });
 
+        if (_database.Version == GameServerProfile.RagnarokPlus)
+        {
+            var offers = RagnarokPlusBarterCatalog.ForItem(item.Id);
+            if (barter is not null) AddBarterSection(barter, DetailsPanel);
+            foreach (var offer in offers.Where(offer => offer != barter))
+            {
+                var expand = new Expander { Header = $"{T("Бартер", "Barter")} · {offer.Npc}" };
+                expand.Expanded += (_, _) =>
+                {
+                    if (expand.Content is not null) return;
+                    var panel = new StackPanel();
+                    AddBarterSection(offer, panel);
+                    expand.Content = panel;
+                };
+                DetailsPanel.Children.Add(expand);
+            }
+        }
         var sources = item.DroppedBy.OrderByDescending(x => ParseRate(x.Rate))
             .GroupBy(x => (x.MonsterId, SeparateMvp: _database.Version != GameServerProfile.RagnarokPlus && x.IsMvp))
             .ToList();

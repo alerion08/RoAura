@@ -19,6 +19,12 @@
             </Border>
             <StackPanel Grid.Row="1" Margin="10,9,10,5">
                 <TabControl x:Name="SearchModeTabs" Style="{StaticResource SectionTabControlStyle}" SelectionChanged="Mode_SelectionChanged">
+                    <TabControl.ItemContainerStyle>
+                        <Style TargetType="TabItem" BasedOn="{StaticResource EditorTabItemStyle}">
+                            <Setter Property="Padding" Value="6,8"/>
+                            <Setter Property="FontSize" Value="12"/>
+                        </Style>
+                    </TabControl.ItemContainerStyle>
                     <TabItem x:Name="MonstersMode" Header="Монстры" Tag="Monsters" IsSelected="True"/>
                     <TabItem x:Name="ItemsMode" Header="Предметы" Tag="Items"/>
                     <TabItem x:Name="MapsMode" Header="Карты" Tag="Maps"/>
