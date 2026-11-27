@@ -178,7 +178,7 @@ public partial class MainWindow : Window
     private void OpenSettings_Click(object sender, RoutedEventArgs e)
     {
         foreach (var button in new[] { HomeNavButton, CooldownNavButton, EffectsNavButton, RemindersNavButton,
-            EquipmentNavButton, MvpNavButton, LootNavButton, GoldGoblinNavButton, DatabaseNavButton, QuestsNavButton })
+            EquipmentNavButton, MvpNavButton, LootNavButton, GoldGoblinNavButton, DatabaseNavButton, QuestsNavButton, StorageNavButton })
             button.IsChecked = false;
         MainTabs.SelectedIndex = 9;
     }
@@ -332,6 +332,8 @@ public partial class MainWindow : Window
             (EquipmentNavButton, AppFeature.Equipment, 4), (MvpNavButton, AppFeature.MvpTimers, 5),
             (LootNavButton, AppFeature.Statistics, 6), (GoldGoblinNavButton, AppFeature.GoldGoblin, 7),
             (DatabaseNavButton, AppFeature.Database, 8), (QuestsNavButton, AppFeature.Quests, 10) ];
+        StorageNavButton.Visibility = Settings.ServerProfile == GameServerProfile.RagnarokPlus ? Visibility.Visible : Visibility.Collapsed;
+        if (StorageNavButton.Visibility == Visibility.Collapsed && MainTabs.SelectedIndex == 11) HomeNavButton.IsChecked = true;
         ServicesNavHeading.Visibility = Visibility.Visible;
         foreach (var (button, feature, i) in destinations)
         {

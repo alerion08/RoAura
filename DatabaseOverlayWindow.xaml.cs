@@ -420,6 +420,8 @@ public partial class DatabaseOverlayWindow : Window
         }
     }
 
+    internal RagnarokPlusMarketWindow StorageBrowser => _ragnarokPlusMarket ??= new();
+
     private async void RagnarokPlusSignIn_Click(object sender, RoutedEventArgs e)
     {
         if (_settings.ServerProfile != GameServerProfile.RagnarokPlus) return;

@@ -1431,6 +1431,15 @@ public partial class App : Application
         return ids.Length == 1 ? ids[0] : null;
     }
 
+    internal RagnarokPlusMarketWindow? StorageBrowser => _databaseOverlay?.StorageBrowser;
+
+    internal void OpenStorageDatabaseCard(object target)
+    {
+        if (_databaseOverlay is null || _settingsWindow?.Settings.ServerProfile != GameServerProfile.RagnarokPlus) return;
+        if (target is int id) OpenQuestDatabaseCard(DatabaseSearchKind.Items, id);
+        else { _databaseOverlay.ShowQuestCard(target); RefreshKeyboardMode(); }
+    }
+
     internal bool OpenQuestDatabaseCard(DatabaseSearchKind kind, int id)
     {
         if (_activeDatabase is null || _databaseOverlay is null ||

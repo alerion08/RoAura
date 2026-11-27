@@ -932,4 +932,5 @@
     <sys:String x:Key="HistoryCardBestRevenue">Highest revenue</sys:String>
     <sys:String x:Key="HistoryCardItemQuantity">Matching items</sys:String>
     <sys:String x:Key="ReminderCountdownTenths">Show tenths below 10 seconds</sys:String>
+    <sys:String x:Key="StorageAnalysisTitle">Storage analysis</sys:String>
 </ResourceDictionary>

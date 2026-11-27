@@ -12,6 +12,7 @@ internal static class RagnarokPlusRecipes
         .SelectMany(recipe => recipe.Materials.Where(part => !part.IsGuide).Select(part => part.ItemId)
             .Distinct().Select(id => (id, recipe))).ToLookup(entry => entry.id, entry => entry.recipe));
 
+    internal static IEnumerable<Recipe> All => Recipes.Value;
     internal static IEnumerable<Recipe> ForItem(int id) => ByProduct.Value[id];
     internal static IEnumerable<Recipe> UsingItem(int id) => ByMaterial.Value[id];
 

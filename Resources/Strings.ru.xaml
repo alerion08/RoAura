@@ -932,4 +932,5 @@
     <sys:String x:Key="HistoryCardBestRevenue">Лучшая по выручке</sys:String>
     <sys:String x:Key="HistoryCardItemQuantity">Найдено предметов</sys:String>
     <sys:String x:Key="ReminderCountdownTenths">Десятые доли при остатке меньше 10 сек.</sys:String>
+    <sys:String x:Key="StorageAnalysisTitle">Анализ хранилища</sys:String>
 </ResourceDictionary>

@@ -247,6 +247,9 @@
                             <RadioButton x:Name="DatabaseNavButton" Tag="8" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/09_database.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource Database}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
+                            <RadioButton x:Name="StorageNavButton" Tag="11" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                                <TextBlock Text="{DynamicResource StorageAnalysisTitle}" TextWrapping="Wrap"/>
+                            </RadioButton>
                             <RadioButton x:Name="QuestsNavButton" Tag="10" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="Assets/Menu/10_quests.png" Style="{StaticResource NavIconStyle}"/>
@@ -1922,6 +1925,7 @@
                 </TabItem>
                     <TabItem x:Name="SettingsTab" Header="{DynamicResource SettingsTitle}"><local:SettingsPage x:Name="SettingsContent"/></TabItem>
                     <TabItem x:Name="QuestsTab" Header="{DynamicResource Quests}"><local:QuestSettingsControl x:Name="QuestPage"/></TabItem>
+                    <TabItem Header="{DynamicResource StorageAnalysisTitle}"><local:StorageAnalysisControl/></TabItem>
                     </TabControl>
                 </Grid>
             </Grid>

@@ -18,6 +18,7 @@ internal static class RagnarokPlusBarterCatalog
 
     internal static bool IsMaterial(int id) => id > 0 && Materials.Value.Contains(id);
 
+    internal static IEnumerable<Offer> All => Catalog.Value;
     internal static IEnumerable<Offer> ForItem(int id) => Catalog.Value.Where(offer => offer.ItemId == id);
 
     internal static IEnumerable<DatabaseSearchResult> Search(string query)

@@ -7,6 +7,12 @@
 - [Windows publication run](https://github.com/alerion08/RoAura/actions/runs/45878759571) passed 464 tests, startup/input checks, portable and installer builds, and clean installation verification. The release includes the Windows installer, portable archive and checksum manifest.
 - Manual regression checks on the published package include party-member casts on the recipient's client and existing manually configured status IDs.
 
+## Ragnarok+ storage analysis in development
+
+- The storage section reads `/storage` on demand in the existing signed-in Ragnarok+ WebView2 session. Inventory is kept in memory. Softcore and Hardcore are analyzed separately across their three slots.
+- Vending prices use cached listings per mode. Value is the higher of NPC unit price and lowest cached sell listing times quantity. Crafting readiness measures material quantities, excludes recipes under 60%, and shows barter Zeny fees separately.
+- Live authentication and a full account inventory have not been verified in Windows.
+
 ## Database redesign in development
 
 - Branch `integration/database-redesign` uses the 3.7.1 published baseline rooted at main `2a10854` with the tested barter integration `7cf6750` as its implementation parent.
