@@ -1,15 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style TargetType="Button" BasedOn="{StaticResource RoButtonBaseStyle}">
-        <Setter Property="Foreground" Value="{DynamicResource DatabaseInk}"/>
-        <Setter Property="Background" Value="{DynamicResource DatabaseField}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource DatabaseLine}"/>
-        <Setter Property="MinHeight" Value="29"/>
-        <Setter Property="Padding" Value="9,5"/>
-        <Setter Property="FontFamily" Value="Segoe UI"/>
-        <Setter Property="FontWeight" Value="Normal"/>
-    </Style>
-    <Style x:Key="DatabaseActionButton" TargetType="Button" BasedOn="{StaticResource RoButtonBaseStyle}">
+    <Style x:Key="DatabaseActionButton" TargetType="Button">
+        <Setter Property="Margin" Value="3"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontFamily" Value="Segoe UI"/>
         <Setter Property="MinHeight" Value="29"/>
@@ -30,6 +24,15 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    <Style TargetType="Button" BasedOn="{StaticResource DatabaseActionButton}">
+        <Setter Property="Foreground" Value="{DynamicResource DatabaseInk}"/>
+        <Setter Property="Background" Value="{DynamicResource DatabaseField}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource DatabaseLine}"/>
+        <Setter Property="MinHeight" Value="29"/>
+        <Setter Property="Padding" Value="9,5"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontWeight" Value="Normal"/>
     </Style>
     <Style x:Key="DatabasePrimaryButton" TargetType="Button" BasedOn="{StaticResource DatabaseActionButton}">
         <Setter Property="Background" Value="#2B61A0"/>
