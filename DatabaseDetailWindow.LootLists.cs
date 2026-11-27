@@ -9,7 +9,8 @@ public partial class DatabaseDetailWindow
 {
     private void AddLootListAction(DatabaseItem item, Panel actions)
     {
-        var button = new Button { Content = LocalizationService.Get("LootListAddAction"),
+        var caption = new TextBlock { Text = LocalizationService.Get("LootListAddAction") };
+        var button = new Button { Content = caption,
             HorizontalAlignment = HorizontalAlignment.Stretch, Padding = new Thickness(4, 2, 4, 2) };
         var options = new StackPanel { Margin = new Thickness(8, 4, 8, 4) };
         var panel = new Border { Child = options, Visibility = Visibility.Collapsed,
@@ -21,12 +22,12 @@ public partial class DatabaseDetailWindow
             if (LootLists.ForServer(_settings, _database.Version).Any(list => list.Items.Any(row => row.ItemId == item.Id)))
             {
                 button.SetResourceReference(StyleProperty, "ActiveItemCardButtonStyle");
-                button.Foreground = System.Windows.Media.Brushes.White;
+                caption.Foreground = System.Windows.Media.Brushes.White;
             }
             else
             {
                 button.ClearValue(StyleProperty);
-                button.ClearValue(Control.ForegroundProperty);
+                caption.ClearValue(TextBlock.ForegroundProperty);
             }
         }
 

@@ -27,41 +27,60 @@ public partial class DatabaseDetailWindow
 
     private void AddBarterSection(RagnarokPlusBarterCatalog.Offer offer, Panel panel)
     {
-        panel.Children.Add(Heading(T("Бартер", "Barter"), 16));
+        var title = Heading(T("Бартер", "Barter"), 16);
+        title.HorizontalAlignment = HorizontalAlignment.Left;
+        title.Margin = new Thickness(0, 12, 0, 5);
+        panel.Children.Add(title);
         if (offer.Quantity > 1) panel.Children.Add(Meta(T($"За обмен: {offer.Quantity:N0}", $"Per exchange: {offer.Quantity:N0}")));
         AddBarterLine(panel, offer.Npc, offer.NpcIcon, 16);
         foreach (var location in offer.Maps)
         {
-            panel.Children.Add(Meta(location.Code));
+            var mapLabel = Meta(location.Code);
+            mapLabel.Margin = new Thickness(0, 5, 0, 2);
+            panel.Children.Add(mapLabel);
             foreach (var pin in location.Pins)
             {
-                panel.Children.Add(Meta(pin));
+                var row = new DockPanel { Margin = new Thickness(0, 2, 0, 2) };
+                panel.Children.Add(row);
+                var name = Meta(pin);
+                name.VerticalAlignment = VerticalAlignment.Center;
                 var coordinates = Regex.Match(pin, @"(\d+)\s*,\s*(\d+)\s*$");
-                if (!coordinates.Success || string.IsNullOrWhiteSpace(location.Code)) continue;
+                if (!coordinates.Success || string.IsNullOrWhiteSpace(location.Code))
+                {
+                    row.Children.Add(name);
+                    continue;
+                }
                 var command = $"/navi {location.Code} {coordinates.Groups[1].Value}/{coordinates.Groups[2].Value}";
-                var navi = new Button { Content = "Navi", ToolTip = command, HorizontalAlignment = HorizontalAlignment.Left };
-                navi.Click += (_, _) => navi.Content = TryCopyToClipboard(command)
+                var navi = new Button { Content = "Navi", ToolTip = command, Width = 45, Height = 24, MinHeight = 0, Padding = new Thickness(2),
+                    Margin = new Thickness(6, 0, 0, 0) };
+                navi.Click += (_, _) => navi.ToolTip = TryCopyToClipboard(command)
                     ? T("Скопировано", "Copied") : T("Не удалось скопировать", "Copy failed");
-                panel.Children.Add(navi);
+                DockPanel.SetDock(navi, Dock.Right);
+                row.Children.Add(navi);
+                row.Children.Add(name);
             }
             if (RagnarokPlusBarterCatalog.ReadImage(location.Image) is { } mapImage)
                 panel.Children.Add(new Image { Source = DecodeCatalogImage(mapImage), MaxWidth = 320, MaxHeight = 320,
-                    Stretch = Stretch.Uniform, HorizontalAlignment = HorizontalAlignment.Left });
+                    Stretch = Stretch.Uniform, HorizontalAlignment = HorizontalAlignment.Left, Margin = new Thickness(0, 5, 0, 8) });
         }
 
-        panel.Children.Add(Heading(T("Стоимость обмена", "Exchange cost"), 16));
-        foreach (var cost in offer.Costs)
+        var costHeading = Heading(T("Стоимость обмена", "Exchange cost"), 16);
+        costHeading.HorizontalAlignment = HorizontalAlignment.Left;
+        costHeading.Margin = new Thickness(0, 6, 0, 4);
+        panel.Children.Add(costHeading);
+        var costs = offer.Costs.Select(cost => (Cost: cost, Item: cost.Kind == "item" ? FindBarterItem(cost.ItemId, cost.Name) : null)).ToArray();
+        foreach (var (cost, item) in costs)
         {
-            var item = cost.Kind == "item" ? FindBarterItem(cost.ItemId, cost.Name) : null;
             var label = cost.Kind == "zeny" ? $"{cost.Quantity:N0} Zeny" :
                 $"{cost.Name} ×{(cost.Quantity?.ToString("N0") ?? "?")}";
-            AddBarterLine(panel, label, cost.Icon, 0, cost.ItemId ?? item?.Id);
+            AddBarterLine(panel, label, cost.Icon, 0, item?.Id ?? cost.ItemId);
         }
 
-        var materials = offer.Costs.Where(cost => cost.Kind == "item").Select(cost =>
-            (Id: cost.ItemId ?? FindBarterItem(null, cost.Name)?.Id ?? 0, cost.Name, Target: cost.Quantity ?? 0)).ToArray();
+        var materials = costs.Where(row => row.Cost.Kind == "item").Select(row =>
+            (Id: row.Item?.Id ?? row.Cost.ItemId ?? 0, row.Cost.Name, Target: row.Cost.Quantity ?? 0)).ToArray();
         var canImport = materials.Length > 0 && materials.All(cost => cost.Id > 0 && cost.Target > 0);
-        var add = new Button { Content = T("Добавить в список добычи", "Add to loot list"), IsEnabled = canImport };
+        var add = new Button { Content = T("Добавить в список добычи", "Add to loot list"), IsEnabled = canImport,
+            Margin = new Thickness(0, 8, 0, 4) };
         var notice = Meta(canImport ? "" : T("Для списка добычи нужны ID и количество каждого материала.", "Loot lists require an ID and quantity for every material."));
         add.Click += (_, _) =>
         {
@@ -70,27 +89,26 @@ public partial class DatabaseDetailWindow
             LootLists.ImportQuest(_settings, GameServerProfile.RagnarokPlus, $"barter:{offer.ShopId}:{offer.Ordinal}",
                 offer.Name, targets, reuseUnlinkedList: false);
             (Application.Current as App)?.LootListsChanged();
+            notice.Visibility = Visibility.Visible;
             notice.Text = T("Материалы добавлены в список добычи.", "Materials added to the loot list.");
         };
         panel.Children.Add(add);
+        notice.Visibility = canImport ? Visibility.Collapsed : Visibility.Visible;
         panel.Children.Add(notice);
     }
 
     private DatabaseItem? FindBarterItem(int? id, string name)
     {
-        if (id is int known) return _database.Item(known);
-        if (string.IsNullOrWhiteSpace(name)) return null;
-        var matches = _database.Search(DatabaseSearchKind.Items, name).Select(result => result.Value)
-            .OfType<DatabaseItem>().Where(item => string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase))
-            .Take(2).ToArray();
-        return matches.Length == 1 ? matches[0] : null;
+        if (id is int known && _database.Item(known) is { } exact) return exact;
+        return RagnarokPlusBarterCatalog.MatchItemName(_database.Items, name);
     }
 
     private void AddBarterLine(Panel panel, string label, string? icon, double headingSize, int? itemId = null)
     {
         var line = new DockPanel { Margin = new Thickness(0, 2, 0, 2) };
         if (RagnarokPlusBarterCatalog.ReadImage(icon) is { } image)
-            line.Children.Add(new Image { Source = DecodeCatalogImage(image), Width = 32, Height = 32,
+            line.Children.Add(new Image { Source = DecodeCatalogImage(image), Width = headingSize > 0 ? 20 : 16, Height = headingSize > 0 ? 20 : 16,
+                VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 6, 0), Stretch = Stretch.Uniform });
         if (itemId is int id && _database.Item(id) is not null)
         {
@@ -98,10 +116,19 @@ public partial class DatabaseDetailWindow
             link.SetResourceReference(TextElement.ForegroundProperty, "RoDeepBlueBrush");
             link.Click += (_, _) => OpenItem(id);
             var text = Meta("");
+            text.Margin = new Thickness(0);
+            text.VerticalAlignment = VerticalAlignment.Center;
             text.Inlines.Add(link);
             line.Children.Add(text);
         }
-        else line.Children.Add(headingSize > 0 ? Heading(label, headingSize) : Meta(label));
+        else
+        {
+            var text = headingSize > 0 ? Heading(label, headingSize) : Meta(label);
+            text.HorizontalAlignment = HorizontalAlignment.Left;
+            text.VerticalAlignment = VerticalAlignment.Center;
+            text.Margin = new Thickness(0);
+            line.Children.Add(text);
+        }
         panel.Children.Add(line);
     }
 }

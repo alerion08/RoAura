@@ -30,6 +30,35 @@ internal static class RagnarokPlusBarterCatalog
                 $"{offer.Npc}{(offer.ItemId is int id ? $" · #{id}" : "")}"));
     }
 
+    private static readonly IReadOnlyDictionary<string, string> NameAliases = new Dictionary<string, string>
+    {
+        ["elderwilowcard"] = "elderwillowcard",
+        ["inccubushorn"] = "incubushorn",
+        ["sahkkat"] = "sakkat",
+        ["wizardryhat"] = "wizardhat",
+        ["lipofancientfish"] = "ancientlips"
+    };
+
+    internal static DatabaseItem? MatchItemName(IEnumerable<DatabaseItem> items, string name)
+    {
+        static string Key(string value)
+        {
+            value = System.Text.RegularExpressions.Regex.Replace(value.Trim(), @"\[\s*\d+\s*\]$", "");
+            return string.Concat(value.Where(char.IsLetterOrDigit)).ToLowerInvariant();
+        }
+
+        var key = Key(name);
+        if (key.Length == 0) return null;
+        var candidates = items.Where(item => string.Equals(item.Name.Trim(), name.Trim(), StringComparison.OrdinalIgnoreCase))
+            .DistinctBy(item => item.Id).Take(2).ToArray();
+        if (candidates.Length > 0) return candidates.Length == 1 ? candidates[0] : null;
+        var alternate = NameAliases.GetValueOrDefault(key);
+        candidates = items.Where(item => Key(item.Name) == key || Key(item.AegisName) == key ||
+                (alternate is not null && Key(item.Name) == alternate))
+            .DistinctBy(item => item.Id).Take(2).ToArray();
+        return candidates.Length == 1 ? candidates[0] : null;
+    }
+
     internal static byte[]? ReadImage(string? key)
     {
         if (string.IsNullOrEmpty(key)) return null;
