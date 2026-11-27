@@ -104,7 +104,7 @@ public sealed class DatabaseMapMonster
     public string Respawn { get; set; } = "";
 }
 
-public enum DatabaseSearchKind { Monsters, Items, Maps, Market }
+public enum DatabaseSearchKind { Monsters, Items, Maps, Market, Barter }
 
 public sealed class MarketListing
 {

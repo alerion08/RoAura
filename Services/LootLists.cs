@@ -63,13 +63,13 @@ internal static class LootLists
         ForServer(settings, server).Any(list => list.Items.Any(item => item.Active && item.ItemId == itemId));
 
     internal static int ImportQuest(AppSettings settings, string server, string questKey, string name,
-        IEnumerable<(int Id, string Name, long Target)> materials)
+        IEnumerable<(int Id, string Name, long Target)> materials, bool reuseUnlinkedList = true)
     {
         var rows = materials.Where(item => item.Id > 0).GroupBy(item => item.Id).ToArray();
         if (rows.Length == 0) return 0;
         var lists = ForServer(settings, server).ToArray();
         var list = lists.FirstOrDefault(item => item.SourceQuestKey == questKey) ??
-            lists.FirstOrDefault(item => item.SourceQuestKey is null &&
+            lists.FirstOrDefault(item => reuseUnlinkedList && item.SourceQuestKey is null &&
                 string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
         if (list is null)
         {

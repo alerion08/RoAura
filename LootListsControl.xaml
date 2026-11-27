@@ -31,7 +31,7 @@
                     </WrapPanel>
                 </StackPanel>
                 <DataGrid x:Name="ItemsGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
-                          BorderThickness="0" Binding.SourceUpdated="TrackerOptions_Changed">
+                          BorderThickness="0" SelectionMode="Single" PreviewKeyDown="ItemsGrid_PreviewKeyDown" Binding.SourceUpdated="TrackerOptions_Changed">
                     <DataGrid.Resources>
                         <Style x:Key="LootListCellText" TargetType="TextBlock">
                             <Setter Property="Margin" Value="9,0,4,0"/>
@@ -89,6 +89,17 @@
                                     <CheckBox IsChecked="{Binding ShowInTracker, Mode=OneWay}" Click="ItemTracker_Click"
                                               Visibility="{Binding ItemVisibility}"
                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="45" CanUserReorder="False" CanUserSort="False" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="&#xE74D;" FontFamily="Segoe MDL2 Assets" Width="28" Height="26"
+                                            MinWidth="0" MinHeight="0" Padding="0" Margin="0"
+                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                            ToolTip="{DynamicResource Delete}" AutomationProperties.Name="{DynamicResource Delete}"
+                                            Visibility="{Binding ItemVisibility}" Click="RemoveItem_Click"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

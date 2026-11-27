@@ -888,6 +888,8 @@ public partial class OverlayWindow : Window
     private string FormatRewardText(RewardNotification notification) => notification.Kind switch
     {
         RewardKind.Loot => QuestLootPrefix(notification.ItemId) +
+            (_settings.ServerProfile == GameServerProfile.RagnarokPlus &&
+                RagnarokPlusCraftMaterials.Contains(notification.ItemId) ? "[C] " : "") +
             (notification.AggregationKey.StartsWith("stolen:", StringComparison.Ordinal) ? "[S] " : "") +
             $"{notification.ItemName} x{notification.Amount:N0}" +
             (GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile) && _settings.ShowLootZenyPrice

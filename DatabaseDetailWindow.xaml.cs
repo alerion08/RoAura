@@ -189,6 +189,7 @@ public partial class DatabaseDetailWindow : Window
                     if (_returnScroll.Version == version) RestoreScroll(_returnScroll.Offset, version);
                 }
                 break;
+            case RagnarokPlusBarterCatalog.Offer offer: ShowBarter(offer); break;
             case DatabaseMap map: ShowMap(map); break;
             case MarketListing listing: ShowMarketListing(listing); break;
         }

@@ -101,7 +101,7 @@ public partial class MainWindow : Window
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
         _packetCapture.EquipmentIdentityMissing += OnLearningEquipmentObserved;
         DataContext = settings;
-        TableLayout.Attach(GoldGoblinLootGrid, settings, "gold-goblin-loot", RequestSave);
+        TableLayout.Attach(GoldGoblinLootGrid, settings, "gold-goblin-loot", RequestSave, fitToViewport: true);
         TableLayout.Attach(GoldGoblinRulesGrid, settings, "gold-goblin-rules", RequestSave,
             GoldGoblinRuleNameColumn);
         _restoreGoldGoblinSplit = GoldGoblinSplitLayout.Attach(GoldGoblinItemSplitter, GoldGoblinItemEditorColumn,

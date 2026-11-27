@@ -11,6 +11,11 @@
 
 - Tracker checkboxes immediately refresh the overlay. Inactive loot-list rows stop counting pickups. A pickup is also skipped in session statistics when the item belongs only to inactive rows on the current server.
 
+## Ragnarok+ barter catalog in development
+
+- The offline Barter tab uses the supplied collector snapshot with 541 exchange offers across 88 shops. Keep exchange variants separate so their material quantities are preserved. Missing item IDs may resolve by an exact unique name in the installed item catalog.
+- Barter materials with known IDs join the craft material index used by loot statistics and the [C] notification prefix. The loot-list table supports removing an item by its trash button or Delete key.
+
 ## Previous published baseline — RoAura 3.7.0
 
 - [v3.7.0](https://github.com/alerion08/RoAura/releases/tag/v3.7.0) was published from main commit `032eda29fe092addb55b5c5d8138d5e67970b71f` after PR #25. Start subsequent work from current `main`.

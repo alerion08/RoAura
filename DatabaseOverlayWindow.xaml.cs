@@ -114,6 +114,8 @@ public partial class DatabaseOverlayWindow : Window
         CompactMarketPrices.Content = T("Цены в млн", "Prices in millions");
         MarketTypeLabel.Text = T("Тип магазина:", "Shop type:");
         var ragnarokPlus = _settings.ServerProfile == GameServerProfile.RagnarokPlus;
+        BarterMode.Header = T("Бартер", "Barter");
+        BarterMode.Visibility = ragnarokPlus ? Visibility.Visible : Visibility.Collapsed;
         RagnarokPlusSignInButton.Content = T("Войти", "Sign in");
         RagnarokPlusSignInButton.Visibility = ragnarokPlus ? Visibility.Visible : Visibility.Collapsed;
         AdvancedHeaderText.Text = T("Расширенный поиск", "Advanced search");
@@ -360,6 +362,15 @@ public partial class DatabaseOverlayWindow : Window
     private void RefreshResults()
     {
         RefreshCatalogDownloadButton();
+        if (_kind == DatabaseSearchKind.Barter)
+        {
+            var offers = RagnarokPlusBarterCatalog.Search(SearchBox.Text).ToArray();
+            ResultsList.ItemsSource = offers;
+            FooterText.Text = T($"Обменов: {offers.Length}", $"Offers: {offers.Length}");
+            if (offers.Length > 0) ResultsList.SelectedIndex = 0;
+            else _details.ResetDetails();
+            return;
+        }
         if (CatalogRequired && _kind != DatabaseSearchKind.Market)
         {
             ResultsList.ItemsSource = null;
@@ -735,7 +746,7 @@ public partial class DatabaseOverlayWindow : Window
 
     private void RefreshCatalogDownloadButton()
     {
-        CatalogDownloadPanel.Visibility = CatalogRequired ? Visibility.Visible : Visibility.Collapsed;
+        CatalogDownloadPanel.Visibility = CatalogRequired && _kind != DatabaseSearchKind.Barter ? Visibility.Visible : Visibility.Collapsed;
         CatalogDownloadButton.Content = T("Открыть настройки", "Open settings");
         CatalogDownloadStatus.Text = T("Загрузите базу для этого сервера.", "Download the database for this server.");
     }

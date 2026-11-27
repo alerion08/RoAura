@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using RoAura.Models;
 using RoAura.Services;
 
@@ -147,6 +148,26 @@ public partial class LootListsControl : UserControl
         if (sender is not CheckBox { DataContext: Row { Item: { } item } } box) return;
         item.ShowInTracker = box.IsChecked == true;
         _save?.Invoke();
+    }
+
+    private void RemoveItem_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button { DataContext: Row row }) RemoveItem(row);
+    }
+
+    private void ItemsGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key != Key.Delete || e.OriginalSource is System.Windows.Controls.Primitives.TextBoxBase ||
+            ItemsGrid.SelectedItem is not Row row) return;
+        e.Handled = RemoveItem(row);
+    }
+
+    private bool RemoveItem(Row row)
+    {
+        if (row.Item is null || !row.List.Items.Remove(row.Item)) return false;
+        _save?.Invoke();
+        RefreshLists();
+        return true;
     }
 
     private void TrackerOptions_Changed(object sender, DataTransferEventArgs e) => _save?.Invoke();

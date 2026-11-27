@@ -6,7 +6,7 @@ internal static class RagnarokPlusCraftMaterials
 {
     private static readonly Lazy<HashSet<int>> Materials = new(Load);
 
-    internal static bool Contains(int id) => id > 0 && Materials.Value.Contains(id);
+    internal static bool Contains(int id) => id > 0 && (Materials.Value.Contains(id) || RagnarokPlusBarterCatalog.IsMaterial(id));
 
     private static HashSet<int> Load()
     {

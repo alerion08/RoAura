@@ -8,7 +8,7 @@ namespace RoAura.Services;
 internal static class TableLayout
 {
     internal static void Attach(DataGrid grid, AppSettings settings, string key, Action save,
-        DataGridColumn? frozen = null)
+        DataGridColumn? frozen = null, bool fitToViewport = false)
     {
         if (frozen is not null) frozen.DisplayIndex = 0;
         grid.FrozenColumnCount = 1;
@@ -21,7 +21,8 @@ internal static class TableLayout
             {
                 var width = widths?.Length == defaults.Length ? widths[index] : 0;
                 grid.Columns[index].Width = double.IsFinite(width) && width is >= 16 and <= 4096
-                    ? new DataGridLength(width) : defaults[index];
+                    ? new DataGridLength(width, fitToViewport ? DataGridLengthUnitType.Star : DataGridLengthUnitType.Pixel)
+                    : defaults[index];
             }
         }
 

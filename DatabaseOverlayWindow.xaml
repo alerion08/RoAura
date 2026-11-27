@@ -23,6 +23,7 @@
                     <TabItem x:Name="ItemsMode" Header="Предметы" Tag="Items"/>
                     <TabItem x:Name="MapsMode" Header="Карты" Tag="Maps"/>
                     <TabItem x:Name="MarketMode" Header="Маркет" Tag="Market"/>
+                    <TabItem x:Name="BarterMode" Header="Бартер" Tag="Barter" Visibility="Collapsed"/>
                 </TabControl>
                 <WrapPanel Margin="0,9,0,0">
                     <Button x:Name="FavoriteListsButton" Margin="0" HorizontalAlignment="Left" Click="OpenFavoriteLists_Click"/>

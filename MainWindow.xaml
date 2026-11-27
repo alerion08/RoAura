@@ -1790,14 +1790,14 @@
                                                         </DataTemplate>
                                                     </DataGridTemplateColumn.CellTemplate>
                                                 </DataGridTemplateColumn>
-                                                <DataGridTemplateColumn Header="{DynamicResource Count}" Width="110">
+                                                <DataGridTemplateColumn Header="{DynamicResource Count}" Width="*">
                                                     <DataGridTemplateColumn.CellTemplate><DataTemplate><TextBox Style="{StaticResource RoTextBoxStyle}" Text="{Binding Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="GoldGoblinCount_LostFocus" Margin="5,2" Padding="4,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate>
                                                 </DataGridTemplateColumn>
-                                                <DataGridTemplateColumn Header="{DynamicResource UnitPrice}" IsReadOnly="True" Width="125">
+                                                <DataGridTemplateColumn Header="{DynamicResource UnitPrice}" IsReadOnly="True" Width="1.1*">
                                                     <DataGridTemplateColumn.CellTemplate><DataTemplate><TextBlock Text="{Binding Cost, StringFormat=N0}" Margin="9,0,4,0" VerticalAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate>
                                                 </DataGridTemplateColumn>
-                                                <DataGridTemplateColumn Header="{DynamicResource PriceSource}" IsReadOnly="True" Width="135" CellTemplate="{StaticResource GoldGoblinPriceBadgeTemplate}"/>
-                                                <DataGridTemplateColumn Header="{DynamicResource Total}" IsReadOnly="True" Width="140">
+                                                <DataGridTemplateColumn Header="{DynamicResource PriceSource}" IsReadOnly="True" Width="1.2*" CellTemplate="{StaticResource GoldGoblinPriceBadgeTemplate}"/>
+                                                <DataGridTemplateColumn Header="{DynamicResource Total}" IsReadOnly="True" Width="1.15*">
                                                     <DataGridTemplateColumn.CellTemplate>
                                                         <DataTemplate>
                                                             <TextBlock Text="{Binding Total, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N0}" Margin="9,0,4,0" VerticalAlignment="Center"/>
