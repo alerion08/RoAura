@@ -74,7 +74,7 @@ public sealed class StorageAnalysisControl : UserControl
         sections.Items.Add(new TabItem { Header = T("Анализ хранилища", "Storage analysis"), Content = analysis });
         sections.Items.Add(new TabItem { Header = T("Мастер крафта", "Crafting assistant"), Content = Split(_craft, _craftDetails) });
 
-        AddColumn(T("Предмет", "Item"), nameof(Item.Name), new DataGridLength(2, DataGridLengthUnitType.Star));
+        AddColumn(T("Предмет", "Item"), nameof(Item.Name), new DataGridLength(2, DataGridUnitType.Star));
         AddColumn(T("Количество", "Count"), nameof(Item.Count), DataGridLength.Auto);
         AddColumn(T("Хранилища", "Storage"), nameof(Item.Locations), DataGridLength.Auto);
         AddColumn(T("Цена NPC", "NPC price"), nameof(Item.NpcPrice), DataGridLength.Auto);
@@ -97,7 +97,7 @@ public sealed class StorageAnalysisControl : UserControl
     private static Grid Split(UIElement left, StackPanel right)
     {
         var grid = new Grid();
-        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridLengthUnitType.Star) });
+        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridUnitType.Star) });
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(220), MinWidth = 170 });
         grid.Children.Add(left);
         var scroll = new ScrollViewer { Content = right, VerticalScrollBarVisibility = ScrollBarVisibility.Auto, Margin = new Thickness(12, 0, 0, 0) };
