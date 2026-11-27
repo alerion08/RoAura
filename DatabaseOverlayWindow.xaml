@@ -13,7 +13,7 @@
             <Grid.RowDefinitions><RowDefinition Height="48"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
             <Border Background="{DynamicResource DatabaseHead}" BorderBrush="{DynamicResource DatabaseLine}" BorderThickness="0,0,0,1" CornerRadius="9,9,0,0">
                 <Grid Margin="12,7"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBlock x:Name="OverlayTitle" Text="База SpringRO" FontFamily="Georgia" FontWeight="Bold" FontSize="20" Foreground="{DynamicResource DatabaseBlue}" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="OverlayTitle" Text="База SpringRO" Style="{StaticResource DatabasePanelTitle}"/>
                     <Button x:Name="CloseButton" Grid.Column="1" Content="&#x2715;" Width="34" Height="30" MinHeight="0"
                             Margin="0" Padding="0" FontSize="15" Click="Close_Click"
                             ToolTip="Закрыть базу данных"/>
