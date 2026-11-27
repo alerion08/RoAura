@@ -276,4 +276,15 @@
  <LinearGradientBrush x:Key="RoPrimaryButtonBrush" StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#7FAAE2" Offset="0.0"/><GradientStop Color="#477FC9" Offset="0.5"/><GradientStop Color="#2D64AD" Offset="1.0"/></LinearGradientBrush>
  <LinearGradientBrush x:Key="RoGoldButtonBrush" StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#FFF7D7" Offset="0.0"/><GradientStop Color="#F0D38B" Offset="0.5"/><GradientStop Color="#D7A84E" Offset="1.0"/></LinearGradientBrush>
  <SolidColorBrush x:Key="UiForeground_0F3066" Color="#0F3066"/>
+ <SolidColorBrush x:Key="DatabaseInk" Color="#153352"/>
+ <SolidColorBrush x:Key="DatabaseBlue" Color="#174E89"/>
+ <SolidColorBrush x:Key="DatabaseMuted" Color="#506884"/>
+ <SolidColorBrush x:Key="DatabasePanel" Color="#F7FAFF"/>
+ <SolidColorBrush x:Key="DatabaseSoft" Color="#EAF2FC"/>
+ <SolidColorBrush x:Key="DatabaseHead" Color="#DCEAFA"/>
+ <SolidColorBrush x:Key="DatabaseLine" Color="#CBD9E9"/>
+ <SolidColorBrush x:Key="DatabaseAccent" Color="#2B61A0"/>
+ <SolidColorBrush x:Key="DatabaseRow" Color="#E3EEFB"/>
+ <SolidColorBrush x:Key="DatabaseField" Color="#FFFFFF"/>
+ <SolidColorBrush x:Key="DatabaseFrame" Color="#87A7CE"/>
 </ResourceDictionary>

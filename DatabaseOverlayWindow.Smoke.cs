@@ -36,8 +36,6 @@ public partial class DatabaseOverlayWindow
             foreach (var dark in new[] { false, true })
             {
                 var mode = dark ? "dark" : "light";
-                DatabasePresentation.ApplyPalette(this, dark);
-                DatabasePresentation.ApplyPalette(_details, dark);
                 AppearanceService.ApplyPalette(this, dark ? "Dark" : "Light");
                 AppearanceService.ApplyPalette(_details, dark ? "Dark" : "Light");
                 foreach (var (tab, name, kind, value, caption) in cases)

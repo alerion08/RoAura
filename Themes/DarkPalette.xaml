@@ -276,4 +276,15 @@
  <SolidColorBrush x:Key="RoPrimaryButtonBrush" Color="#315F96"/>
  <SolidColorBrush x:Key="RoGoldButtonBrush" Color="#614D2C"/>
  <SolidColorBrush x:Key="UiForeground_0F3066" Color="#82BBFF"/>
+ <SolidColorBrush x:Key="DatabaseInk" Color="#DBE8FA"/>
+ <SolidColorBrush x:Key="DatabaseBlue" Color="#B5D6FF"/>
+ <SolidColorBrush x:Key="DatabaseMuted" Color="#A8BDD7"/>
+ <SolidColorBrush x:Key="DatabasePanel" Color="#1B2B40"/>
+ <SolidColorBrush x:Key="DatabaseSoft" Color="#243951"/>
+ <SolidColorBrush x:Key="DatabaseHead" Color="#263E5A"/>
+ <SolidColorBrush x:Key="DatabaseLine" Color="#415975"/>
+ <SolidColorBrush x:Key="DatabaseAccent" Color="#80B5F5"/>
+ <SolidColorBrush x:Key="DatabaseRow" Color="#304C69"/>
+ <SolidColorBrush x:Key="DatabaseField" Color="#172437"/>
+ <SolidColorBrush x:Key="DatabaseFrame" Color="#415975"/>
 </ResourceDictionary>

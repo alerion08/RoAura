@@ -12,7 +12,7 @@ public partial class DatabaseDetailWindow
     internal void RefreshSmokePalette() => UpdateDatabasePalette();
 
     private void UpdateDatabasePalette() =>
-        DatabasePresentation.ApplyPalette(this, AppearanceService.Resolve(_settings.ApplicationTheme, _settings.GameOverlayTheme, true) == "Dark");
+        AppearanceService.ApplyPalette(this, AppearanceService.Resolve(_settings.ApplicationTheme, _settings.GameOverlayTheme, true));
 
     private FrameworkElement EntityIcon(byte[]? sprite, string glyph, string? imageUrl = null)
     {

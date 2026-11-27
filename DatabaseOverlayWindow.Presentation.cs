@@ -8,7 +8,7 @@ namespace RoAura;
 public partial class DatabaseOverlayWindow
 {
     private void UpdateDatabasePalette() =>
-        DatabasePresentation.ApplyPalette(this, AppearanceService.Resolve(_settings.ApplicationTheme, _settings.GameOverlayTheme, true) == "Dark");
+        AppearanceService.ApplyPalette(this, AppearanceService.Resolve(_settings.ApplicationTheme, _settings.GameOverlayTheme, true));
 
     private bool _resettingMonsterFilters;
 
