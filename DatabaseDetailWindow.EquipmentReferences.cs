@@ -9,21 +9,23 @@ public partial class DatabaseDetailWindow
 {
     private void AddExpandableDescription(string description)
     {
+        var body = new StackPanel();
         var text = ItemDescription(description);
-        DetailsPanel.Children.Add(text);
-        if (description.Length <= 350 && description.Count(c => c == '\n') <= 5) return;
-
-        text.MaxHeight = 108;
-        text.ClipToBounds = true;
-        var toggle = new Button { Content = T("Показать полностью", "Show full description") };
-        toggle.Click += (_, _) =>
+        body.Children.Add(text);
+        if (description.Length > 350 || description.Count(c => c == '\n') > 5)
         {
-            var expand = !double.IsPositiveInfinity(text.MaxHeight);
-            text.MaxHeight = expand ? double.PositiveInfinity : 108;
-            toggle.Content = expand ? T("Свернуть описание", "Collapse description") :
-                T("Показать полностью", "Show full description");
-        };
-        DetailsPanel.Children.Add(toggle);
+            text.MaxHeight = 108;
+            text.ClipToBounds = true;
+            var toggle = new Button { Content = T("Показать полностью", "Show full description") };
+            toggle.Click += (_, _) =>
+            {
+                var expand = !double.IsPositiveInfinity(text.MaxHeight);
+                text.MaxHeight = expand ? double.PositiveInfinity : 108;
+                toggle.Content = expand ? T("Свернуть описание", "Collapse description") : T("Показать полностью", "Show full description");
+            };
+            body.Children.Add(toggle);
+        }
+        CollapsedSection(T("Описание и эффекты", "Description & effects"), body);
     }
 
     private void AddEquipmentReferences(DatabaseItem item, string description)

@@ -350,7 +350,6 @@ public partial class DatabaseDetailWindow : Window
                 AddLine(T("Количество на сервере", "Copies on server"), detail.ServerCopies.Length > 0 ? detail.ServerCopies : "—");
             if (!string.IsNullOrWhiteSpace(detail.Description))
             {
-                AddSection(T("Описание и эффекты", "Description & effects"));
                 AddExpandableDescription(detail.Description);
             }
         }

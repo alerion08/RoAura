@@ -126,7 +126,7 @@ public partial class DatabaseDetailWindow
         DetailsPanel.Children.Add(StatGrid(fields));
         var jobs = ArrayText(Value(data,"job_names"));
         if (jobs != "—") DetailsPanel.Children.Add(Body(T("Профессии: ", "Jobs: ") + jobs));
-        if (item.Description.Length > 0) { AddSection(T("Описание и эффекты", "Description & effects")); AddExpandableDescription(item.Description); }
+        if (item.Description.Length > 0) AddExpandableDescription(item.Description);
         var scripts = new StackPanel();
         foreach (var key in new[] { "script", "equip_script", "unequip_script" })
             if (Value(data,key, "").Length > 0) scripts.Children.Add(new TextBlock { Text = key + ":\n" + data[key], FontFamily = new FontFamily("Consolas"), FontSize = 11, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0,4,0,8) });

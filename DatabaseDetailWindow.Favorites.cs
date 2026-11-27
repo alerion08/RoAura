@@ -268,14 +268,14 @@ public partial class DatabaseDetailWindow
 
         var lists = FavoriteLists;
         var chooser = new ComboBox { ItemsSource = lists.Select(list => list.Name).ToArray(), Margin = new Thickness(0, 4, 0, 4) };
-        DetailsPanel.Children.Add(chooser);
+
         var name = new TextBox { MaxLength = 80, Margin = new Thickness(0, 3, 0, 2) };
         DetailsPanel.Children.Add(Meta(T("Название списка", "List name")));
         DetailsPanel.Children.Add(name);
         var error = Meta("");
         var createRow = new System.Windows.Controls.Primitives.UniformGrid { Rows = 1 };
         var newColor = new DatabaseFavoriteList();
-        AddFavoriteButton(createRow, T("Создать список", "Create list"), () =>
+        AddFavoriteButton(createRow, T("Создать", "Create"), () =>
         {
             var title = name.Text.Trim();
             if (title.Length == 0 || lists.Any(list => string.Equals(list.Name, title, StringComparison.OrdinalIgnoreCase)))
@@ -306,6 +306,16 @@ public partial class DatabaseDetailWindow
         management.Children.Add(rename);
         management.Children.Add(delete);
         DetailsPanel.Children.Add(management);
+        var listActions = new DockPanel { Margin = new Thickness(0, 3, 0, 5) };
+        var create = (UIElement)createRow.Children[0];
+        createRow.Children.Remove(create);
+        management.Children.Remove(rename);
+        DockPanel.SetDock(rename, Dock.Right);
+        DockPanel.SetDock(create, Dock.Right);
+        listActions.Children.Add(rename);
+        listActions.Children.Add(create);
+        listActions.Children.Add(chooser);
+        DetailsPanel.Children.Insert(1, listActions);
         rename.Click += (_, _) =>
         {
             if (chooser.SelectedIndex < 0) return;
@@ -380,8 +390,18 @@ public partial class DatabaseDetailWindow
                     DatabaseSearchKind.Monsters => T("Монстр", "Monster"),
                     _ => T("Карта", "Map")
                 };
-                AddFavoriteButton(row, $"{favorite.Name} · {type}", () => OpenFavorite(favorite),
-                    ResolveFavorite(favorite) is not null);
+                var target = ResolveFavorite(favorite);
+                var (icon, markerGlyph) = target switch
+                {
+                    DatabaseItem item => (item.LocalImagePng, "◇"),
+                    DatabaseMonster monster => (monster.LocalImagePng, "♞"),
+                    DatabaseMap map => (map.LocalImagePng, "▧"),
+                    _ => (null, "◇")
+                };
+                var entry = new StackPanel();
+                AddReferenceRow(favorite.Name, $"{type} · {favorite.Key}", "", icon, markerGlyph,
+                    target is null ? null : () => OpenFavorite(favorite), entry);
+                row.Children.Add(entry);
                 contents.Children.Add(row);
                 AddFavoriteNote(contents, favorite);
             }

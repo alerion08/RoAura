@@ -19,11 +19,11 @@ public partial class DatabaseDetailWindow
         }
 
         var view = _itemCardView;
-        var label = Meta(T("Количество для расчёта веса", "Quantity for weight calculation"));
+        var label = Meta(T($"Вес за ед. {weight:0.##} · Кол-во", $"Unit weight {weight:0.##} · Qty"));
         var quantity = new TextBox
         {
             Text = view?.WeightQuantity ?? "1",
-            Width = 90,
+            Width = 74,
             HorizontalAlignment = HorizontalAlignment.Left
         };
         System.Windows.Automation.AutomationProperties.SetLabeledBy(quantity, label);
@@ -35,9 +35,14 @@ public partial class DatabaseDetailWindow
         };
         UpdateTotal();
 
-        DetailsPanel.Children.Add(label);
-        DetailsPanel.Children.Add(quantity);
-        DetailsPanel.Children.Add(total);
+        var row = new DockPanel { Margin = new Thickness(0, 4, 0, 4) };
+        label.VerticalAlignment = VerticalAlignment.Center;
+        total.VerticalAlignment = VerticalAlignment.Center;
+        total.Margin = new Thickness(7, 0, 0, 0);
+        row.Children.Add(label);
+        row.Children.Add(quantity);
+        row.Children.Add(total);
+        DetailsPanel.Children.Add(row);
 
         void UpdateTotal()
         {
