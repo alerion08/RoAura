@@ -84,8 +84,8 @@
             <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="Margin" Value="7,2" />
-            <Setter Property="Height" Value="44" />
+            <Setter Property="Margin" Value="7,1" />
+            <Setter Property="Height" Value="37" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -221,7 +221,7 @@
                             <RadioButton x:Name="HomeNavButton" Tag="0" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/00_home.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource Home}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
-                            <TextBlock Text="{DynamicResource NavigationOverlays}" FontWeight="SemiBold" Foreground="{DynamicResource RoMutedBrush}" Margin="16,12,8,3"/>
+                            <TextBlock Text="{DynamicResource NavigationOverlays}" FontWeight="SemiBold" Foreground="{DynamicResource RoMutedBrush}" Margin="16,8,8,2"/>
                             <RadioButton x:Name="CooldownNavButton" Tag="1" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/01_cooldowns.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource Cooldowns}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
@@ -234,7 +234,7 @@
                             <RadioButton x:Name="EquipmentNavButton" Tag="4" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/04_equipment.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource Equipment}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
-                            <TextBlock x:Name="ServicesNavHeading" Text="{DynamicResource NavigationServices}" FontWeight="SemiBold" Foreground="{DynamicResource RoMutedBrush}" Margin="16,12,8,3"/>
+                            <TextBlock x:Name="ServicesNavHeading" Text="{DynamicResource NavigationServices}" FontWeight="SemiBold" Foreground="{DynamicResource RoMutedBrush}" Margin="16,8,8,2"/>
                             <RadioButton x:Name="MvpNavButton" Tag="5" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/05_mvp_timers.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource MvpTimers}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
@@ -248,7 +248,13 @@
                                 <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/09_database.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource Database}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                             <RadioButton x:Name="StorageNavButton" Tag="11" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <TextBlock Text="{DynamicResource StorageAnalysisTitle}" TextWrapping="Wrap"/>
+                                <DockPanel>
+                                    <Image Source="Assets/Menu/11_storage.png" Style="{StaticResource NavIconStyle}" DockPanel.Dock="Left"/>
+                                    <Border Style="{StaticResource QuestBetaBadgeStyle}" DockPanel.Dock="Right">
+                                        <TextBlock Text="BETA" FontSize="10" FontWeight="SemiBold" Foreground="{DynamicResource RoBlueBrush}"/>
+                                    </Border>
+                                    <TextBlock Text="{DynamicResource StorageAnalysisTitle}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                                </DockPanel>
                             </RadioButton>
                             <RadioButton x:Name="QuestsNavButton" Tag="10" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal">

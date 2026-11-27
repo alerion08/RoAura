@@ -12,6 +12,7 @@ public sealed partial class StorageAnalysisControl : UserControl
         RagnarokPlusBarterCatalog.Offer[] Barters, RagnarokPlusQuestCatalog.Card[] Quests)
     {
         public decimal Total { get; init; }
+        public string UnitPrice => Count > 0 && (Npc.HasValue || Vending.HasValue || Bids.Length > 0) ? UnitValue.ToString("#,0.##") : "—";
         public string StockValue => Total.ToString("N0");
         public decimal UnitValue => Count == 0 ? 0 : Total / Count;
         public bool Craft => Recipes.Length + Barters.Length > 0;
@@ -38,10 +39,25 @@ public sealed partial class StorageAnalysisControl : UserControl
 
     public StorageAnalysisControl()
     {
-        var root = new DockPanel { Margin = new Thickness(12) };
+        Resources.MergedDictionaries.Add(new ResourceDictionary
+        {
+            Source = new Uri("pack://application:,,,/RoAura;component/Themes/DatabasePresentation.xaml", UriKind.Absolute)
+        });
+        var root = new DockPanel { Margin = new Thickness(8, 4, 8, 8) };
         Content = root;
         var header = new DockPanel();
-        var title = new TextBlock { FontFamily = new System.Windows.Media.FontFamily("Georgia"), FontSize = 20, FontWeight = FontWeights.SemiBold, Text = T("Анализ хранилища", "Storage analysis") };
+        var title = new TextBlock();
+        title.SetResourceReference(TextBlock.TextProperty, "StorageAnalysisTitle");
+        title.SetResourceReference(StyleProperty, "RoSectionTitleStyle");
+        var description = new TextBlock
+        {
+            Text = T("Остатки, цены и доступные рецепты Ragnarok+.", "Ragnarok+ stock, prices, and available recipes."),
+            TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 2, 0, 0)
+        };
+        description.SetResourceReference(StyleProperty, "RoCaptionTextStyle");
+        var heading = new StackPanel();
+        heading.Children.Add(title);
+        heading.Children.Add(description);
         var toolbar = new WrapPanel { HorizontalAlignment = HorizontalAlignment.Right };
         _load.Content = T("Обновить", "Refresh");
         _search.ToolTip = T("Поиск по названию или ID", "Search by name or ID");
@@ -52,9 +68,10 @@ public sealed partial class StorageAnalysisControl : UserControl
         toolbar.Children.Add(_load);
         DockPanel.SetDock(toolbar, Dock.Right);
         header.Children.Add(toolbar);
-        title.VerticalAlignment = VerticalAlignment.Center;
-        header.Children.Add(title);
-        DockTop(root, Surface(header, "RoTitleBrush", 10));
+        header.Children.Add(heading);
+        var sectionHeader = new Border { Child = header };
+        sectionHeader.SetResourceReference(StyleProperty, "SectionHeaderCardStyle");
+        DockTop(root, sectionHeader);
         DockTop(root, _status);
         _status.Visibility = Visibility.Collapsed;
 
@@ -71,10 +88,9 @@ public sealed partial class StorageAnalysisControl : UserControl
 
         AddItemColumn();
         AddColumn(T("Кол-во", "Count"), nameof(Item.Count), DataGridLength.Auto);
-        AddColumn(T("Склады", "Storage"), nameof(Item.Locations), DataGridLength.Auto);
+        AddColumn(T("Цена за шт.", "Unit price"), nameof(Item.UnitPrice), DataGridLength.Auto);
+        AddColumn(T("Склад", "Storage"), nameof(Item.Locations), DataGridLength.Auto);
         AddColumn(T("Весь запас", "Stock value"), nameof(Item.StockValue), DataGridLength.Auto);
-        AddColumn(T("NPC / шт.", "NPC / unit"), nameof(Item.NpcPrice), DataGridLength.Auto);
-        AddColumn(T("Vending / шт.", "Vending / unit"), nameof(Item.VendingPrice), DataGridLength.Auto);
         ConfigureGrid();
         _load.Click += Load_Click;
         _mode.SelectionChanged += (_, _) => Rebuild();
@@ -91,7 +107,7 @@ public sealed partial class StorageAnalysisControl : UserControl
         System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "en" ? en : ru;
 
     private void AddColumn(string title, string property, DataGridLength width) =>
-        _items.Columns.Add(new DataGridTextColumn { Header = title, Binding = new System.Windows.Data.Binding(property) { Mode = System.Windows.Data.BindingMode.OneWay }, Width = width, SortMemberPath = property switch { nameof(Item.StockValue) => nameof(Item.Total), nameof(Item.NpcPrice) => nameof(Item.Npc), nameof(Item.VendingPrice) => nameof(Item.Vending), _ => property } });
+        _items.Columns.Add(new DataGridTextColumn { Header = title, Binding = new System.Windows.Data.Binding(property) { Mode = System.Windows.Data.BindingMode.OneWay }, Width = width, SortMemberPath = property switch { nameof(Item.StockValue) => nameof(Item.Total), nameof(Item.UnitPrice) => nameof(Item.UnitValue), _ => property } });
 
     private async void Load_Click(object sender, RoutedEventArgs e)
     {
@@ -225,7 +241,7 @@ public sealed partial class StorageAnalysisControl : UserControl
         if (item.Quest) Section(_details, T("Задания", "Quests"));
         foreach (var quest in item.Quests)
         {
-            var button = new Button { Content = quest.Title };
+            var button = ReferenceRow(quest.Title, "", "", null);
             button.Click += async (_, _) => { if (Application.Current is App app) await app.OpenQuestFromDatabaseAsync(quest.Key); };
             _details.Children.Add(button);
         }
@@ -257,9 +273,9 @@ public sealed partial class StorageAnalysisControl : UserControl
         Section(_craftDetails, T("Материалы на одну операцию", "Materials per operation"));
         foreach (var part in craft.Materials)
         {
-            Link(_craftDetails, part.Name, part.ItemId);
-            Text(_craftDetails, T($"Нужно {part.Required:N0} · Есть {part.Available:N0} · Не хватает {part.Missing:N0}",
-                $"Required {part.Required:N0} · In storage {part.Available:N0} · Missing {part.Missing:N0}"));
+            Link(_craftDetails, part.Name, part.ItemId, $"{part.Required:N0}",
+                T($"Есть {part.Available:N0} · Не хватает {part.Missing:N0}",
+                    $"In storage {part.Available:N0} · Missing {part.Missing:N0}"));
             ShowWithdrawals(part);
         }
         Section(_craftDetails, T("Стоимость", "Cost"));
@@ -271,10 +287,42 @@ public sealed partial class StorageAnalysisControl : UserControl
         panel.Children.Add(new TextBlock { Text = value, TextWrapping = TextWrapping.Wrap,
             FontWeight = bold ? FontWeights.SemiBold : FontWeights.Normal, Margin = new Thickness(0, 4, 0, 4) });
 
-    private static void Link(Panel panel, string caption, object target)
+    private void Link(Panel panel, string caption, object target, string value = "", string detail = "")
     {
-        var button = new Button { Content = new TextBlock { Text = caption, TextWrapping = TextWrapping.Wrap } };
+        var id = target switch { int itemId => itemId, RagnarokPlusBarterCatalog.Offer offer => offer.ItemId, _ => null };
+        var subtitle = id is null ? detail : $"#{id}" + (detail.Length > 0 ? " · " + detail : "");
+        var button = ReferenceRow(caption, subtitle, value, id);
         button.Click += (_, _) => (Application.Current as App)?.OpenStorageDatabaseCard(target);
         panel.Children.Add(button);
+    }
+
+    private Button ReferenceRow(string caption, string subtitle, string value, int? itemId)
+    {
+        var row = new DockPanel { LastChildFill = true };
+        if (value.Length > 0)
+        {
+            var amount = new TextBlock { Text = value, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(8, 0, 0, 0) };
+            DockPanel.SetDock(amount, Dock.Right);
+            row.Children.Add(amount);
+        }
+        if (itemId is { } id)
+        {
+            var icon = DatabasePresentation.Icon(_database?.Item(id)?.LocalImagePng, "◇", 18);
+            icon.Margin = new Thickness(0, 0, 8, 0);
+            row.Children.Add(icon);
+        }
+        var labels = new StackPanel { VerticalAlignment = VerticalAlignment.Center };
+        labels.Children.Add(new TextBlock { Text = caption, FontWeight = FontWeights.SemiBold, TextWrapping = TextWrapping.Wrap });
+        if (subtitle.Length > 0)
+        {
+            var meta = new TextBlock { Text = subtitle, FontSize = 11, TextWrapping = TextWrapping.Wrap };
+            meta.SetResourceReference(TextBlock.ForegroundProperty, "RoMutedBrush");
+            labels.Children.Add(meta);
+        }
+        row.Children.Add(labels);
+        var button = new Button { Content = row };
+        button.SetResourceReference(StyleProperty, "DatabaseLinkRow");
+        System.Windows.Automation.AutomationProperties.SetName(button, caption);
+        return button;
     }
 }

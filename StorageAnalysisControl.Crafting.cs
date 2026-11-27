@@ -92,7 +92,7 @@ public sealed partial class StorageAnalysisControl
     private DockPanel CraftWorkspace()
     {
         var dock = new DockPanel();
-        var tools = new WrapPanel();
+        var tools = new WrapPanel { Margin = new Thickness(0, 2, 0, 7) };
         _craftGroup.ItemsSource = new[] { T("Все рецепты", "All recipes"), T("Экипировка", "Equipment"),
             T("Расходники", "Usable"), T("Обмены", "Barter"), T("Прочее", "Other") };
         _craftGroup.SelectedIndex = 0;
@@ -103,8 +103,13 @@ public sealed partial class StorageAnalysisControl
         tools.Children.Add(_craftGroup);
         tools.Children.Add(new TextBlock { Text = T("Готовность от, %", "Minimum readiness, %"), Margin = new Thickness(8), VerticalAlignment = VerticalAlignment.Center });
         tools.Children.Add(_threshold);
+        AlignFields(_craftSearch, _craftGroup, _threshold);
         var list = new DockPanel();
         DockTop(list, tools);
+        var headings = CraftColumns(T("Результат", "Result"), T("Можно сделать, шт.", "Craftable, units"),
+            T("Выход / оп.", "Output / op."), T("Стоимость", "Cost"), true);
+        headings.Margin = new Thickness(20, 0, 18, 3);
+        DockTop(list, headings);
         DockPanel.SetDock(_craftCount, Dock.Bottom);
         list.Children.Add(_craftCount);
         list.Children.Add(_craft);
@@ -144,7 +149,8 @@ public sealed partial class StorageAnalysisControl
             }
             var groupNode = new TreeViewItem
             {
-                Header = T($"{variants[0].Name} · {variants.Length} вариантов", $"{variants[0].Name} · {variants.Length} variants"),
+                Header = CraftColumns(T($"{variants[0].Name} · {variants.Length} вариантов", $"{variants[0].Name} · {variants.Length} variants"),
+                    "", "", "", false, 0),
                 Tag = group.Key,
                 IsExpanded = expanded.Contains(group.Key) || query.Length > 0
             };
@@ -159,18 +165,58 @@ public sealed partial class StorageAnalysisControl
     private TreeViewItem CraftRow(StorageAnalysis.Craft craft, bool variant, StorageAnalysis.Craft? selected)
     {
         var title = variant ? string.Join(" + ", craft.Materials.Select(part => $"{part.Name} ×{part.Required:N0}")) : craft.Name;
-        if (variant && craft.Output is { } output) title += $" → {output:N0}";
-        var panel = new StackPanel { Margin = new Thickness(3, 1, 3, 2) };
-        Text(panel, title, true);
-        Text(panel, craft.Repeats > 0
-            ? T($"Можно изготовить · {craft.Repeats:N0} оп.", $"Ready · {craft.Repeats:N0} operations")
-            : T($"Не хватает материалов · {craft.Percent}%", $"Missing materials · {craft.Percent}%"));
+        var fee = craft.Target is RagnarokPlusBarterCatalog.Offer offer ? BarterFee(offer) : 0m;
+        var cost = craft.Target is RagnarokPlusBarterCatalog.Offer barter &&
+            barter.Costs.Any(part => part.Kind != "item" && (part.Kind != "zeny" || part.Quantity is null))
+            ? null : SumCosts(craft.Materials.Select(part => PurchaseCost(part.ItemId, part.Required)), fee);
+        var units = craft.Output is > 0 ? Scaled(craft.Output.Value, craft.Repeats) : (long?)null;
+        var panel = CraftColumns(title, units is { } count ? $"{count:N0}" : "—",
+            craft.Output is > 0 ? $"{craft.Output:N0}" : "—", cost.HasValue ? Money(cost) : "—", false, variant ? 19 : 0);
+        panel.ToolTip = craft.Repeats > 0
+            ? T($"Готовность {craft.Percent}% · {craft.Repeats:N0} операций", $"Readiness {craft.Percent}% · {craft.Repeats:N0} operations")
+            : T($"Не хватает материалов · {craft.Percent}%", $"Missing materials · {craft.Percent}%");
         return new TreeViewItem
         {
             Header = panel,
             Tag = craft,
             IsSelected = selected is not null && Equals(craft.Target, selected.Target) && craft.RecipeId == selected.RecipeId
         };
+    }
+
+    private Grid CraftColumns(string title, string result, string output, string cost, bool header, int indent = 0)
+    {
+        var row = new Grid { Margin = new Thickness(0, 2, 0, 2), MinHeight = 24 };
+        if (!header)
+            row.SetBinding(WidthProperty, new System.Windows.Data.Binding(nameof(ActualWidth))
+            {
+                Source = _craft, Converter = new CraftWidthConverter(), ConverterParameter = indent
+            });
+        row.ColumnDefinitions.Add(new ColumnDefinition());
+        foreach (var width in new[] { 95, 69, 90 })
+            row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(width) });
+        string[] values = [title, result, output, cost];
+        for (var index = 0; index < values.Length; index++)
+        {
+            var cell = new TextBlock
+            {
+                Text = values[index], TextAlignment = index == 0 ? TextAlignment.Left : TextAlignment.Center,
+                FontWeight = header || index == 0 ? FontWeights.SemiBold : FontWeights.Normal,
+                FontSize = header ? 11 : 12, VerticalAlignment = VerticalAlignment.Center,
+                TextTrimming = TextTrimming.CharacterEllipsis, Margin = new Thickness(3, 0, 3, 0)
+            };
+            Grid.SetColumn(cell, index);
+            row.Children.Add(cell);
+        }
+        return row;
+    }
+
+    private sealed class CraftWidthConverter : System.Windows.Data.IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) =>
+            Math.Max(0, (double)value - 38 - (int)parameter);
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) =>
+            throw new NotSupportedException();
     }
 
     private int CraftGroup(StorageAnalysis.Craft craft)

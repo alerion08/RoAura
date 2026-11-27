@@ -14,7 +14,6 @@ public sealed partial class StorageAnalysisControl
     private sealed record StorageBid(long Price, long Quantity);
     private Button _login = null!;
     private readonly TextBlock _overview = new() { VerticalAlignment = VerticalAlignment.Center, TextWrapping = TextWrapping.Wrap };
-    private Button _editTags = null!;
     private readonly TextBlock _session = new();
     private readonly TextBlock _lastImport = new();
     private readonly TextBlock _filteredTotals = new() { TextWrapping = TextWrapping.Wrap };
@@ -26,8 +25,6 @@ public sealed partial class StorageAnalysisControl
     private readonly ComboBox _craftGroup = new();
     private readonly TextBox _threshold = new() { Width = 50, Text = "60" };
     private readonly CheckBox _pinnedOnly = new();
-    private readonly CheckBox _compact = new();
-    private readonly TextBox _tag = new() { Width = 125 };
     private readonly List<(string Property, ListSortDirection Direction)> _sort = [];
     private readonly System.Windows.Threading.DispatcherTimer _ageTimer = new() { Interval = TimeSpan.FromMinutes(1) };
     private Func<RagnarokPlusBarterCatalog.Cost, int?>? _resolveCost;
@@ -40,7 +37,6 @@ public sealed partial class StorageAnalysisControl
     {
         if (Preferences is { } preferences)
         {
-            _compact.IsChecked = preferences.StorageCompact;
             _threshold.Text = preferences.StorageCraftThreshold.ToString(CultureInfo.InvariantCulture);
             _overcharge.SelectedIndex = Math.Clamp(preferences.StorageOvercharge, 0, 10);
         }
@@ -92,10 +88,8 @@ public sealed partial class StorageAnalysisControl
         _minimum.ToolTip = T("Минимальная стоимость", "Minimum value");
         _maximum.ToolTip = T("Максимальная стоимость", "Maximum value");
         _pinnedOnly.Content = T("Закреплённые", "Pinned");
-        _compact.Content = T("Компактно", "Compact");
-        foreach (var control in new Control[] { _priceBasis, _minimum, _maximum, _valuation, _overcharge, _pinnedOnly, _compact, _tag })
+        foreach (var control in new Control[] { _priceBasis, _minimum, _maximum, _valuation, _overcharge, _pinnedOnly })
             control.Margin = new Thickness(4);
-        _tag.ToolTip = T("Тег для выделенных строк", "Tag for selected rows");
         var overview = new DockPanel();
         var expand = Action(T("Подробнее ▾", "Summary ▾"), () =>
             _overviewDetails.Visibility = _overviewDetails.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible);
@@ -119,43 +113,22 @@ public sealed partial class StorageAnalysisControl
         amount.Children.Add(new TextBlock { Text = T("До", "To"), VerticalAlignment = VerticalAlignment.Center });
         amount.Children.Add(_maximum);
         filters.Children.Add(amount);
-        var view = new StackPanel();
-        view.Children.Add(_compact);
-        var prices = new CheckBox { Content = T("Цены за штуку", "Unit prices"), Margin = new Thickness(4) };
-        prices.Checked += (_, _) => SetPrices(true);
-        prices.Unchecked += (_, _) => SetPrices(false);
-        view.Children.Add(prices);
-        var tools = new DockPanel();
+        var tools = new DockPanel { Margin = new Thickness(0, 2, 0, 7) };
         var actions = new WrapPanel();
         actions.Children.Add(_types);
         actions.Children.Add(PopupAction(T("Фильтры ▾", "Filters ▾"), filters));
         actions.Children.Add(_pinnedOnly);
-        actions.Children.Add(PopupAction("⋯", view, T("Вид таблицы", "Table view")));
         DockPanel.SetDock(actions, Dock.Right);
         tools.Children.Add(actions);
         tools.Children.Add(_search);
+        AlignFields(_search, _types, _pinnedOnly);
+        foreach (var button in actions.Children.OfType<Button>()) AlignFields(button);
         DockTop(analysis, tools);
         DockTop(analysis, _chips);
 
-        var tagging = new StackPanel();
-        tagging.Children.Add(_tag);
-        tagging.Children.Add(Action(T("Добавить тег", "Add tag"), () => ApplyTag(true)));
-        tagging.Children.Add(Action(T("Снять тег", "Remove tag"), () => ApplyTag(false)));
-        _editTags = PopupAction(T("Теги…", "Tags…"), tagging);
-        _editTags.Visibility = Visibility.Collapsed;
-        var footer = new DockPanel();
-        DockPanel.SetDock(_editTags, Dock.Right);
-        footer.Children.Add(_editTags);
-        footer.Children.Add(_filteredTotals);
-        var status = Surface(footer, "RoTitleBrush", 6);
+        var status = Surface(_filteredTotals, "RoTitleBrush", 6);
         DockPanel.SetDock(status, Dock.Bottom);
         analysis.Children.Add(status);
-        _items.SelectionChanged += (_, _) =>
-        {
-            var count = _items.SelectedItems.Count;
-            _editTags.Visibility = count > 0 ? Visibility.Visible : Visibility.Collapsed;
-            _editTags.Content = T($"Теги… ({count})", $"Tags… ({count})");
-        };
         _types.Items.Add(new ComboBoxItem { Content = T("Все типы", "All types") });
         _types.SelectedIndex = 0;
         _overview.Text = T("Обновите хранилище, чтобы увидеть остатки.", "Refresh storage to see your stock.");
@@ -171,8 +144,6 @@ public sealed partial class StorageAnalysisControl
         };
         _pinnedOnly.Checked += (_, _) => Filter();
         _pinnedOnly.Unchecked += (_, _) => Filter();
-        _compact.Checked += (_, _) => SetCompact(true);
-        _compact.Unchecked += (_, _) => SetCompact(false);
     }
 
     private readonly StackPanel _overviewDetails = new() { Visibility = Visibility.Collapsed };
@@ -189,12 +160,6 @@ public sealed partial class StorageAnalysisControl
         return button;
     }
 
-    private void SetPrices(bool visible)
-    {
-        foreach (var column in _items.Columns.Where(col => col.SortMemberPath is nameof(Item.Npc) or nameof(Item.Vending)))
-            column.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
-    }
-
     private void AddItemColumn()
     {
         var row = new FrameworkElementFactory(typeof(DockPanel));
@@ -206,11 +171,15 @@ public sealed partial class StorageAnalysisControl
         icon.SetValue(DockPanel.DockProperty, Dock.Left);
         row.AppendChild(icon);
         var box = new FrameworkElementFactory(typeof(TextBlock));
-        var binding = new MultiBinding { Converter = new ItemCaption(this), Mode = BindingMode.OneWay };
-        binding.Bindings.Add(new Binding(".") { Mode = BindingMode.OneWay });
-        box.SetBinding(TextBlock.TextProperty, binding);
+        box.SetBinding(TextBlock.TextProperty, new Binding(nameof(Item.Name)) { Mode = BindingMode.OneWay });
         box.SetValue(TextBlock.TextTrimmingProperty, TextTrimming.CharacterEllipsis);
         box.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
+        var badges = new FrameworkElementFactory(typeof(StackPanel));
+        badges.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+        badges.SetValue(DockPanel.DockProperty, Dock.Right);
+        badges.AppendChild(ItemBadge("craft", nameof(Item.Craft), "#A65310"));
+        badges.AppendChild(ItemBadge("quest", nameof(Item.Quest), "#257449"));
+        row.AppendChild(badges);
         row.AppendChild(box);
         _items.Columns.Add(new DataGridTemplateColumn
         {
@@ -240,30 +209,28 @@ public sealed partial class StorageAnalysisControl
             throw new NotSupportedException();
     }
 
-    private sealed class ItemCaption(StorageAnalysisControl owner) : IMultiValueConverter
+    private static FrameworkElementFactory ItemBadge(string label, string property, string color)
     {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (values[0] is not Item item) return "";
-            var tags = owner.Preferences?.StorageItemTags.GetValueOrDefault(item.Id) ?? [];
-            return string.Join("  ·  ", new[] { item.Name }
-                .Concat(item.Craft ? [owner.T("Крафт", "Craft")] : Array.Empty<string>())
-                .Concat(item.Quest ? [owner.T("Квест", "Quest")] : Array.Empty<string>()).Concat(tags));
-        }
-
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) =>
-            throw new NotSupportedException();
-    }
-
-    private void SetCompact(bool compact)
-    {
-        _items.RowHeight = compact ? 23 : 32;
-        if (Preferences is { } settings) { settings.StorageCompact = compact; SavePreferences(); }
+        var badge = new FrameworkElementFactory(typeof(Border));
+        badge.SetValue(Border.BackgroundProperty, new SolidColorBrush((Color)ColorConverter.ConvertFromString(color)));
+        badge.SetValue(Border.BorderBrushProperty, Brushes.White);
+        badge.SetValue(Border.BorderThicknessProperty, new Thickness(.5));
+        badge.SetValue(Border.CornerRadiusProperty, new CornerRadius(3));
+        badge.SetValue(Border.PaddingProperty, new Thickness(3, 0, 3, 0));
+        badge.SetValue(FrameworkElement.MarginProperty, new Thickness(2, 0, 0, 0));
+        badge.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
+        badge.SetBinding(VisibilityProperty, new Binding(property) { Mode = BindingMode.OneWay, Converter = new BooleanToVisibilityConverter() });
+        var text = new FrameworkElementFactory(typeof(TextBlock));
+        text.SetValue(TextBlock.TextProperty, label);
+        text.SetValue(TextBlock.FontSizeProperty, 10d);
+        text.SetValue(TextBlock.ForegroundProperty, Brushes.White);
+        badge.AppendChild(text);
+        return badge;
     }
 
     private void ConfigureGrid()
     {
-        SetCompact(false);
+        _items.RowHeight = 24;
         _items.EnableRowVirtualization = true;
         _items.EnableColumnVirtualization = true;
         _items.Sorting += (_, e) =>
@@ -284,8 +251,17 @@ public sealed partial class StorageAnalysisControl
             Filter();
         };
         _items.ToolTip = T("Shift + щелчок по заголовку добавляет поле сортировки", "Shift + click a header to add a sort field");
-        SetPrices(false);
         _items.HeadersVisibility = DataGridHeadersVisibility.Column;
+    }
+
+    private static void AlignFields(params Control[] fields)
+    {
+        foreach (var field in fields)
+        {
+            field.Height = 30;
+            field.Margin = new Thickness(3, 0, 3, 0);
+            field.VerticalContentAlignment = VerticalAlignment.Center;
+        }
     }
 
     private static void DockTop(DockPanel panel, UIElement element)
@@ -333,6 +309,7 @@ public sealed partial class StorageAnalysisControl
         var grid = new Grid { UseLayoutRounding = true };
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(7) });
+        grid.ColumnDefinitions[0].MinWidth = 0;
         var detail = new ColumnDefinition { Width = new GridLength(330) };
         grid.ColumnDefinitions.Add(detail);
         var main = Surface(left, "RoPanelBrush", 10);
@@ -342,7 +319,7 @@ public sealed partial class StorageAnalysisControl
         var scroll = new ScrollViewer { Content = right, VerticalScrollBarVisibility = ScrollBarVisibility.Auto, Padding = new Thickness(6) };
         details.Children.Add(scroll);
         var card = Surface(details, "RoPanelBrush", 10);
-        var splitter = new GridSplitter { Width = 7, HorizontalAlignment = HorizontalAlignment.Stretch, ResizeDirection = GridResizeDirection.Columns };
+        var splitter = new GridSplitter { Width = 7, ResizeBehavior = GridResizeBehavior.PreviousAndNext, HorizontalAlignment = HorizontalAlignment.Stretch, ResizeDirection = GridResizeDirection.Columns };
         splitter.SetResourceReference(BackgroundProperty, "RoSoftBorderBrush");
         Grid.SetColumn(splitter, 1);
         grid.Children.Add(main);
@@ -359,8 +336,10 @@ public sealed partial class StorageAnalysisControl
             back.Visibility = narrow ? Visibility.Visible : Visibility.Collapsed;
             Grid.SetColumn(card, narrow ? 0 : 2);
             grid.ColumnDefinitions[1].Width = new GridLength(narrow ? 0 : 7);
-            detail.Width = new GridLength(narrow ? 0 : Math.Clamp(Preferences?.StorageDetailWidth ?? preferredWidth, 250,
-                Math.Max(250, grid.ActualWidth - 420)));
+            grid.ColumnDefinitions[0].MinWidth = narrow ? 0 : 400;
+            detail.MinWidth = narrow ? 0 : 300;
+            detail.Width = new GridLength(narrow ? 0 : Math.Clamp(Preferences?.StorageDetailWidth ?? preferredWidth, 300,
+                Math.Max(300, grid.ActualWidth - 407)));
         }
         void Open()
         {
@@ -445,8 +424,7 @@ public sealed partial class StorageAnalysisControl
         {
             var value = _priceBasis.SelectedIndex == 1 ? item.UnitValue : item.Total;
             return (int.TryParse(query.TrimStart('#'), out var id) ? item.Id == id :
-                item.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-                Preferences?.StorageItemTags.GetValueOrDefault(item.Id)?.Any(tag => tag.Contains(query, StringComparison.CurrentCultureIgnoreCase)) == true) &&
+                item.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)) &&
                 (_pinnedOnly.IsChecked != true || Preferences?.StoragePinnedItems.Contains(item.Id) == true) &&
                 (_storageSlot is null || item.Entries.Any(entry => entry.Slot == _storageSlot)) &&
                 (min is null || value >= min) && (max is null || value <= max) &&
@@ -497,8 +475,8 @@ public sealed partial class StorageAnalysisControl
         var units = rows.Sum(item => item.Count);
         _overview.Text = T($"{rows.Length:N0} позиций  ·  {units:N0} единиц  ·  {total:N0} z",
             $"{rows.Length:N0} positions  ·  {units:N0} units  ·  {total:N0} z");
-        Metric(T("Многочисленный", "Most numerous"), most is null ? "—" : $"{most.Name} · {most.Count:N0}", nameof(Item.Count), most);
-        Metric(T("Дорогой", "Highest value"), richest is null ? "—" : $"{richest.Name} · {richest.Total:N0} z", nameof(Item.Total), richest);
+        Metric(T("Больше всего, шт.", "Most units"), most is null ? "—" : $"{most.Name} · {most.Count:N0}", nameof(Item.Count), most);
+        Metric(T("Наибольшая стоимость", "Highest value"), richest is null ? "—" : $"{richest.Name} · {richest.Total:N0} z", nameof(Item.Total), richest);
         Metric(T("Доля топ-10", "Top 10 share"), total > 0 ? $"{top / total:P1}" : "—", nameof(Item.Total));
         var slots = new decimal[3];
         foreach (var item in rows)
@@ -520,7 +498,7 @@ public sealed partial class StorageAnalysisControl
 
     private void Metric(string title, string value, string property, Item? target = null, Action? beforeSort = null)
     {
-        var button = Action($"{title}\n{value}", () =>
+        var button = Action(title, () =>
         {
             beforeSort?.Invoke();
             _sort.Clear();
@@ -530,25 +508,14 @@ public sealed partial class StorageAnalysisControl
                 _items.Items.Cast<Item>().FirstOrDefault(item => item.Id == target.Id);
             if (_items.SelectedItem is { } selection) _items.ScrollIntoView(selection);
         });
-        button.HorizontalContentAlignment = HorizontalAlignment.Left;
+        var content = new StackPanel();
+        content.Children.Add(new TextBlock { Text = title, FontSize = 13, FontWeight = FontWeights.SemiBold, TextAlignment = TextAlignment.Center, TextWrapping = TextWrapping.Wrap });
+        content.Children.Add(new TextBlock { Text = value, FontSize = 12, TextAlignment = TextAlignment.Center, TextWrapping = TextWrapping.Wrap });
+        button.Content = content;
+        button.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+        button.VerticalContentAlignment = VerticalAlignment.Center;
         button.SetResourceReference(BackgroundProperty, "RoTitleBrush");
         _metrics.Children.Add(button);
-    }
-
-    private void ApplyTag(bool add)
-    {
-        if (Preferences is not { } settings || _tag.Text.Trim() is not { Length: > 0 } label) return;
-        foreach (var item in _items.SelectedItems.OfType<Item>())
-        {
-            var tags = new HashSet<string>(settings.StorageItemTags.GetValueOrDefault(item.Id) ?? [], StringComparer.CurrentCultureIgnoreCase);
-            if (add) tags.Add(label);
-            else tags.Remove(label);
-            if (tags.Count == 0) settings.StorageItemTags.Remove(item.Id);
-            else settings.StorageItemTags[item.Id] = tags.Order().ToArray();
-        }
-        SavePreferences();
-        Filter();
-        ShowItem(_items.SelectedItem as Item);
     }
 
     private void ShowItemExtras(Item item)
@@ -565,6 +532,9 @@ public sealed partial class StorageAnalysisControl
             Filter();
             ShowItem(_items.SelectedItem as Item);
         });
+        pin.Width = pin.Height = 30;
+        pin.Padding = new Thickness(0);
+        pin.VerticalAlignment = VerticalAlignment.Top;
         pin.ToolTip = pinned ? T("Открепить", "Unpin") : T("Закрепить", "Pin");
         DockPanel.SetDock(pin, Dock.Right);
         header.Children.Add(pin);
@@ -577,8 +547,6 @@ public sealed partial class StorageAnalysisControl
         Tiles(_details, (T("Остаток", "Stock"), $"{item.Count:N0}"),
             (T("Оценка запаса", "Stock value"), $"{item.Total:N0} z"),
             (T("За единицу", "Per unit"), $"{item.UnitValue:N0} z"));
-        if (Preferences?.StorageItemTags.GetValueOrDefault(item.Id) is { Length: > 0 } tags)
-            Text(_details, string.Join(" · ", tags));
     }
 
     private void AddCardIcon(DockPanel header, int id)
