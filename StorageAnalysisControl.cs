@@ -23,13 +23,13 @@ public sealed partial class StorageAnalysisControl : UserControl
     private readonly TextBox _search = new() { MinWidth = 160, Margin = new Thickness(4) };
     private readonly ComboBox _filter = new() { SelectedIndex = 0, Margin = new Thickness(4) };
     private readonly ComboBox _mode = new() { ItemsSource = new[] { "Softcore", "Hardcore" }, SelectedIndex = 0, Margin = new Thickness(4) };
-    private readonly TabControl _types = new();
+    private readonly ComboBox _types = new() { MinWidth = 112 };
     private readonly StackPanel _details = new();
     private readonly StackPanel _craftDetails = new();
     private readonly System.Windows.Controls.Primitives.UniformGrid _metrics = new() { Rows = 1 };
     private readonly TextBlock _status = new() { TextWrapping = TextWrapping.Wrap, Margin = new Thickness(4) };
     private readonly DataGrid _items = new() { AutoGenerateColumns = false, IsReadOnly = true, CanUserAddRows = false, SelectionMode = DataGridSelectionMode.Extended };
-    private readonly ListBox _craft = new() { DisplayMemberPath = "Name" };
+    private readonly TreeView _craft = new();
     private readonly Button _load = new();
     private StorageAnalysis.Entry[] _entries = [];
     private Item[] _summary = [];
@@ -42,50 +42,39 @@ public sealed partial class StorageAnalysisControl : UserControl
         Content = root;
         var header = new DockPanel();
         var title = new TextBlock { FontFamily = new System.Windows.Media.FontFamily("Georgia"), FontSize = 20, FontWeight = FontWeights.SemiBold, Text = T("Анализ хранилища", "Storage analysis") };
-        header.Children.Add(title);
-        DockPanel.SetDock(header, Dock.Top);
-        root.Children.Add(Surface(header, "RoTitleBrush", 10));
-        DockPanel.SetDock(root.Children[^1], Dock.Top);
-        var toolbar = new WrapPanel();
-        _load.Content = T("Собрать данные", "Read storage");
+        var toolbar = new WrapPanel { HorizontalAlignment = HorizontalAlignment.Right };
+        _load.Content = T("Обновить", "Refresh");
         _search.ToolTip = T("Поиск по названию или ID", "Search by name or ID");
         _filter.ItemsSource = new[] { T("Все предметы", "All items"), T("Можно продать", "Can sell"),
             T("Используется в крафте", "Used in crafting"), T("Используется в задании", "Used in quests") };
-        toolbar.Children.Add(_load);
-        toolbar.Children.Add(_mode);
         ConfigureToolbar(toolbar);
-        DockPanel.SetDock(toolbar, Dock.Top);
-        root.Children.Add(toolbar);
-        DockPanel.SetDock(_status, Dock.Top);
-        root.Children.Add(_status);
-        DockPanel.SetDock(_metrics, Dock.Top);
-        root.Children.Add(_metrics);
+        toolbar.Children.Add(_mode);
+        toolbar.Children.Add(_load);
+        DockPanel.SetDock(toolbar, Dock.Right);
+        header.Children.Add(toolbar);
+        title.VerticalAlignment = VerticalAlignment.Center;
+        header.Children.Add(title);
+        DockTop(root, Surface(header, "RoTitleBrush", 10));
+        DockTop(root, _status);
+        _status.Visibility = Visibility.Collapsed;
 
         var sections = new TabControl();
         sections.SetResourceReference(StyleProperty, "SectionTabControlStyle");
         root.Children.Add(sections);
         var analysis = new DockPanel();
-        var filters = new WrapPanel();
-        filters.Children.Add(new TextBlock { Text = T("Поиск", "Search"), VerticalAlignment = VerticalAlignment.Center });
-        filters.Children.Add(_search);
-        filters.Children.Add(_filter);
-        DockPanel.SetDock(filters, Dock.Top);
-        analysis.Children.Add(filters);
-        ConfigureFilters(analysis, filters);
-        _types.SetResourceReference(StyleProperty, "SectionTabControlStyle");
-        DockPanel.SetDock(_types, Dock.Top);
-        analysis.Children.Add(_types);
-        analysis.Children.Add(Split(_items, _details));
-        sections.Items.Add(new TabItem { Header = T("Анализ хранилища", "Storage analysis"), Content = analysis });
+        var inventory = new DockPanel();
+        ConfigureFilters(inventory);
+        inventory.Children.Add(_items);
+        analysis.Children.Add(Split(inventory, _details, _items));
+        sections.Items.Add(new TabItem { Header = T("Хранилище", "Storage"), Content = analysis });
         sections.Items.Add(new TabItem { Header = T("Мастер крафта", "Crafting assistant"), Content = CraftWorkspace() });
 
-        AddColumn(T("Предмет", "Item"), nameof(Item.Name), new DataGridLength(2, DataGridLengthUnitType.Star));
-        AddColumn(T("Количество", "Count"), nameof(Item.Count), DataGridLength.Auto);
-        AddColumn(T("Хранилища", "Storage"), nameof(Item.Locations), DataGridLength.Auto);
+        AddItemColumn();
+        AddColumn(T("Кол-во", "Count"), nameof(Item.Count), DataGridLength.Auto);
+        AddColumn(T("Склады", "Storage"), nameof(Item.Locations), DataGridLength.Auto);
+        AddColumn(T("Весь запас", "Stock value"), nameof(Item.StockValue), DataGridLength.Auto);
         AddColumn(T("NPC / шт.", "NPC / unit"), nameof(Item.NpcPrice), DataGridLength.Auto);
         AddColumn(T("Vending / шт.", "Vending / unit"), nameof(Item.VendingPrice), DataGridLength.Auto);
-        _items.Columns.Add(new DataGridCheckBoxColumn { Header = T("Крафт", "Craft"), Binding = new System.Windows.Data.Binding(nameof(Item.Craft)) { Mode = System.Windows.Data.BindingMode.OneWay } });
-        _items.Columns.Add(new DataGridCheckBoxColumn { Header = T("Задание", "Quest"), Binding = new System.Windows.Data.Binding(nameof(Item.Quest)) { Mode = System.Windows.Data.BindingMode.OneWay } });
         ConfigureGrid();
         _load.Click += Load_Click;
         _mode.SelectionChanged += (_, _) => Rebuild();
@@ -93,7 +82,7 @@ public sealed partial class StorageAnalysisControl : UserControl
         _filter.SelectionChanged += (_, _) => Filter();
         _types.SelectionChanged += (_, _) => Filter();
         _items.SelectionChanged += (_, _) => ShowItem(_items.SelectedItem as Item);
-        _craft.SelectionChanged += (_, _) => ShowCraft(_craft.SelectedItem as StorageAnalysis.Craft);
+        _craft.SelectedItemChanged += (_, _) => ShowCraft((_craft.SelectedItem as TreeViewItem)?.Tag as StorageAnalysis.Craft);
         Loaded += (_, _) => LoadPreferences();
         Unloaded += (_, _) => _request?.Cancel();
     }
@@ -110,6 +99,7 @@ public sealed partial class StorageAnalysisControl : UserControl
         using var request = new CancellationTokenSource();
         _request = request;
         _load.IsEnabled = false;
+        _status.Visibility = Visibility.Visible;
         _status.Text = T("Читаем хранилища Ragnarok+…", "Reading Ragnarok+ storage…");
         try
         {
@@ -120,21 +110,25 @@ public sealed partial class StorageAnalysisControl : UserControl
                 _status.Text = T($"Читаем данные · {message}", $"Reading data · {message}");
             }));
             request.Token.ThrowIfCancellationRequested();
+            _itemIcons.Clear();
             _database = new GameDatabaseService(GameServerProfile.RagnarokPlus);
             _entries = entries;
             RecordSnapshot(entries);
             _session.Text = T("Сессия подтверждена", "Session confirmed");
+            _login.Visibility = Visibility.Collapsed;
             Rebuild();
             var snapshot = RagnarokPlusData.LoadMarket();
-            _status.Text = snapshot is null
+            _lastImport.ToolTip = snapshot is null
                 ? T("Данные собраны. Цены Vending отсутствуют в кеше.", "Storage loaded. Vending price cache is empty.")
                 : T($"Данные собраны. Цены Vending из кеша от {snapshot.CapturedUtc.ToLocalTime():g}.",
                     $"Storage loaded. Vending prices cached at {snapshot.CapturedUtc.ToLocalTime():g}.");
+            _status.Visibility = Visibility.Collapsed;
         }
         catch (RagnarokPlusSignInRequiredException)
         {
+            _login.Visibility = Visibility.Visible;
             _session.Text = T("Требуется вход", "Sign-in required");
-            _status.Text = T("Войдите в Ragnarok+ и снова нажмите «Собрать данные».", "Sign in to Ragnarok+ and click Read storage again.");
+            _status.Text = T("Войдите в Ragnarok+ и снова нажмите «Обновить».", "Sign in to Ragnarok+ and click Refresh again.");
         }
         catch (OperationCanceledException) when (request.IsCancellationRequested) { }
         catch (Exception ex)
@@ -184,13 +178,13 @@ public sealed partial class StorageAnalysisControl : UserControl
                 RagnarokPlusQuestCatalog.Instance.RequiredFor(GameServerProfile.RagnarokPlus, group.Key).ToArray());
             return item with { Total = Value(item, item.Count) };
         }).OrderBy(item => item.Name).ToArray();
-        var selectedType = (_types.SelectedItem as TabItem)?.Tag as string;
+        var selectedType = (_types.SelectedItem as ComboBoxItem)?.Tag as string;
         var types = _summary.Select(item => item.Type).Distinct().Order().ToArray();
         _updatingTypes = true;
         _types.Items.Clear();
-        _types.Items.Add(new TabItem { Header = T("Все типы", "All types") });
+        _types.Items.Add(new ComboBoxItem { Content = T("Все типы", "All types") });
         foreach (var type in types)
-            _types.Items.Add(new TabItem { Header = type, Tag = type });
+            _types.Items.Add(new ComboBoxItem { Content = type, Tag = type });
         _types.SelectedIndex = Array.IndexOf(types, selectedType) + 1;
         _updatingTypes = false;
         RefreshCrafts();
@@ -212,45 +206,65 @@ public sealed partial class StorageAnalysisControl : UserControl
     private void ShowItem(Item? item)
     {
         _details.Children.Clear();
-        if (item is null) return;
-        Heading(_details, item.Name);
+        if (item is null) { Text(_details, T("Выберите предмет в списке.", "Select a storage item.")); return; }
         ShowItemExtras(item);
-        Link(_details, T("Открыть карточку предмета", "Open item card"), item.Id);
-        Text(_details, _database?.Item(item.Id)?.Description ?? "");
+        Section(_details, T("По складам", "By storage"));
         foreach (var slot in item.Entries.GroupBy(entry => entry.Slot).OrderBy(group => group.Key))
         {
             var count = slot.Sum(entry => entry.Amount);
             Text(_details, T($"Хранилище {slot.Key} · {count:N0} · {(decimal)count / item.Count:P0}",
                 $"Storage {slot.Key} · {count:N0} · {(decimal)count / item.Count:P0}"));
         }
+        Section(_details, T("Источники цены", "Price sources"));
+        Text(_details, $"NPC · {item.NpcPrice}    Vending · {item.VendingPrice}");
+        if (_valuation.SelectedIndex == 1 && item.Bids.Length != 0)
+            Text(_details, T($"Скупка · до {item.Bids.Max(bid => bid.Price):N0} z / шт.", $"Buy orders · up to {item.Bids.Max(bid => bid.Price):N0} z / unit"));
+        if (item.Craft) Section(_details, T("Рецепты и обмены", "Recipes and barter"));
         foreach (var recipe in item.Recipes.DistinctBy(r => r.ItemId)) Link(_details, recipe.Name, recipe.ItemId);
         foreach (var barter in item.Barters) Link(_details, $"{barter.Name} · {barter.Npc}", barter);
+        if (item.Quest) Section(_details, T("Задания", "Quests"));
         foreach (var quest in item.Quests)
         {
             var button = new Button { Content = quest.Title };
             button.Click += async (_, _) => { if (Application.Current is App app) await app.OpenQuestFromDatabaseAsync(quest.Key); };
             _details.Children.Add(button);
         }
+        if (_database?.Item(item.Id)?.Description is { Length: > 0 } description)
+        {
+            var body = new StackPanel();
+            Text(body, description);
+            _details.Children.Add(new Expander { Header = T("Описание", "Description"), Content = body });
+        }
+        var history = new StackPanel();
+        ShowHistory(item, history);
+        if (history.Children.Count > 0)
+            _details.Children.Add(new Expander { Header = T("История остатка", "Stock history"), Content = history });
     }
 
     private void ShowCraft(StorageAnalysis.Craft? craft)
     {
         _craftDetails.Children.Clear();
-        if (craft is null) return;
-        Heading(_craftDetails, craft.Name);
-        Text(_craftDetails, T($"Готовность {craft.Percent}% · доступно операций {craft.Repeats:N0}", $"Ready {craft.Percent}% · available operations {craft.Repeats:N0}"), true);
-        ShowCraftEconomics(craft);
-        if (craft.Target is RagnarokPlusBarterCatalog.Offer offer)
-            foreach (var fee in offer.Costs.Where(cost => cost.Kind == "zeny"))
-                Text(_craftDetails, $"{fee.Quantity:N0} Zeny");
-        Link(_craftDetails, T("Открыть рецепт или обмен", "Open recipe or barter"), craft.Target);
+        if (craft is null) { Text(_craftDetails, T("Выберите рецепт в списке.", "Select a recipe.")); return; }
+        var header = new DockPanel();
+        AddCardIcon(header, craft.ResultId ?? 0);
+        var title = new StackPanel();
+        Heading(title, craft.Name);
+        header.Children.Add(title);
+        _craftDetails.Children.Add(header);
+        Tiles(_craftDetails, (T("Готовность", "Readiness"), $"{craft.Percent}%"),
+            (T("Можно выполнить", "Operations"), $"{craft.Repeats:N0}"),
+            (T("Выход за операцию", "Output per operation"), craft.Output is { } output ? $"{output:N0}" : "—"));
+        Section(_craftDetails, T("Материалы на одну операцию", "Materials per operation"));
         foreach (var part in craft.Materials)
         {
             Link(_craftDetails, part.Name, part.ItemId);
-            ShowWithdrawals(part);
             Text(_craftDetails, T($"Нужно {part.Required:N0} · Есть {part.Available:N0} · Не хватает {part.Missing:N0}",
                 $"Required {part.Required:N0} · In storage {part.Available:N0} · Missing {part.Missing:N0}"));
+            ShowWithdrawals(part);
         }
+        Section(_craftDetails, T("Стоимость", "Cost"));
+        ShowCraftEconomics(craft);
+        Link(_craftDetails, T("Открыть рецепт или обмен ↗", "Open recipe or barter ↗"), craft.Target);
     }
 
     private static void Text(Panel panel, string value, bool bold = false) =>

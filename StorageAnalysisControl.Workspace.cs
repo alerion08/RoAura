@@ -12,6 +12,9 @@ namespace RoAura;
 public sealed partial class StorageAnalysisControl
 {
     private sealed record StorageBid(long Price, long Quantity);
+    private Button _login = null!;
+    private readonly TextBlock _overview = new() { VerticalAlignment = VerticalAlignment.Center, TextWrapping = TextWrapping.Wrap };
+    private Button _editTags = null!;
     private readonly TextBlock _session = new();
     private readonly TextBlock _lastImport = new();
     private readonly TextBlock _filteredTotals = new() { TextWrapping = TextWrapping.Wrap };
@@ -55,7 +58,7 @@ public sealed partial class StorageAnalysisControl
         _lastImport.Margin = new Thickness(6);
         _ageTimer.Tick += (_, _) => UpdateAge();
         Unloaded += (_, _) => _ageTimer.Stop();
-        var login = Action(T("Войти в Ragnarok+", "Sign in to Ragnarok+"), async () =>
+        _login = Action(T("Войти в Ragnarok+", "Sign in to Ragnarok+"), async () =>
         {
             if (Application.Current is App app && app.StorageBrowser is { } browser)
             {
@@ -71,14 +74,14 @@ public sealed partial class StorageAnalysisControl
                 }
             }
         });
-        toolbar.Children.Add(login);
-        toolbar.Children.Add(_session);
+        _login.Visibility = Visibility.Collapsed;
+        toolbar.Children.Add(_login);
         toolbar.Children.Add(_lastImport);
-        _load.SetResourceReference(BackgroundProperty, "RoDeepBlueBrush");
+        _load.SetResourceReference(StyleProperty, "PrimaryButtonStyle");
         _load.Foreground = Brushes.White;
     }
 
-    private void ConfigureFilters(DockPanel analysis, Panel filters)
+    private void ConfigureFilters(DockPanel analysis)
     {
         _priceBasis.ItemsSource = new[] { T("Стоимость запаса", "Stock value"), T("Цена за штуку", "Value per unit") };
         _priceBasis.SelectedIndex = 0;
@@ -93,19 +96,69 @@ public sealed partial class StorageAnalysisControl
         foreach (var control in new Control[] { _priceBasis, _minimum, _maximum, _valuation, _overcharge, _pinnedOnly, _compact, _tag })
             control.Margin = new Thickness(4);
         _tag.ToolTip = T("Тег для выделенных строк", "Tag for selected rows");
-        var tools = new WrapPanel();
-        foreach (var element in new UIElement[] { _priceBasis, _minimum, _maximum, _valuation, _overcharge, _pinnedOnly, _compact })
-            tools.Children.Add(element);
-        var tagging = new WrapPanel();
+        var overview = new DockPanel();
+        var expand = Action(T("Подробнее ▾", "Summary ▾"), () =>
+            _overviewDetails.Visibility = _overviewDetails.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible);
+        DockPanel.SetDock(expand, Dock.Right);
+        overview.Children.Add(expand);
+        overview.Children.Add(_overview);
+        DockTop(analysis, Surface(overview, "RoTitleBrush", 6));
+        _overviewDetails.Children.Add(_metrics);
+        var pricing = new WrapPanel();
+        pricing.Children.Add(_valuation);
+        pricing.Children.Add(_overcharge);
+        _overviewDetails.Children.Add(pricing);
+        DockTop(analysis, _overviewDetails);
+
+        var filters = new StackPanel { Width = 260 };
+        filters.Children.Add(_filter);
+        filters.Children.Add(_priceBasis);
+        var amount = new WrapPanel();
+        amount.Children.Add(new TextBlock { Text = T("От", "From"), VerticalAlignment = VerticalAlignment.Center });
+        amount.Children.Add(_minimum);
+        amount.Children.Add(new TextBlock { Text = T("До", "To"), VerticalAlignment = VerticalAlignment.Center });
+        amount.Children.Add(_maximum);
+        filters.Children.Add(amount);
+        var view = new StackPanel();
+        view.Children.Add(_compact);
+        var prices = new CheckBox { Content = T("Цены за штуку", "Unit prices"), Margin = new Thickness(4) };
+        prices.Checked += (_, _) => SetPrices(true);
+        prices.Unchecked += (_, _) => SetPrices(false);
+        view.Children.Add(prices);
+        var tools = new DockPanel();
+        var actions = new WrapPanel();
+        actions.Children.Add(_types);
+        actions.Children.Add(PopupAction(T("Фильтры ▾", "Filters ▾"), filters));
+        actions.Children.Add(_pinnedOnly);
+        actions.Children.Add(PopupAction("⋯", view, T("Вид таблицы", "Table view")));
+        DockPanel.SetDock(actions, Dock.Right);
+        tools.Children.Add(actions);
+        tools.Children.Add(_search);
+        DockTop(analysis, tools);
+        DockTop(analysis, _chips);
+
+        var tagging = new StackPanel();
         tagging.Children.Add(_tag);
         tagging.Children.Add(Action(T("Добавить тег", "Add tag"), () => ApplyTag(true)));
         tagging.Children.Add(Action(T("Снять тег", "Remove tag"), () => ApplyTag(false)));
-        DockTop(analysis, tools);
-        DockTop(analysis, tagging);
-        DockTop(analysis, _chips);
-        DockPanel.SetDock(_filteredTotals, Dock.Bottom);
-        analysis.Children.Add(Surface(_filteredTotals, "RoTitleBrush", 6));
-        DockPanel.SetDock(analysis.Children[^1], Dock.Bottom);
+        _editTags = PopupAction(T("Теги…", "Tags…"), tagging);
+        _editTags.Visibility = Visibility.Collapsed;
+        var footer = new DockPanel();
+        DockPanel.SetDock(_editTags, Dock.Right);
+        footer.Children.Add(_editTags);
+        footer.Children.Add(_filteredTotals);
+        var status = Surface(footer, "RoTitleBrush", 6);
+        DockPanel.SetDock(status, Dock.Bottom);
+        analysis.Children.Add(status);
+        _items.SelectionChanged += (_, _) =>
+        {
+            var count = _items.SelectedItems.Count;
+            _editTags.Visibility = count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            _editTags.Content = T($"Теги… ({count})", $"Tags… ({count})");
+        };
+        _types.Items.Add(new ComboBoxItem { Content = T("Все типы", "All types") });
+        _types.SelectedIndex = 0;
+        _overview.Text = T("Обновите хранилище, чтобы увидеть остатки.", "Refresh storage to see your stock.");
         _minimum.TextChanged += (_, _) => Filter();
         _maximum.TextChanged += (_, _) => Filter();
         _priceBasis.SelectionChanged += (_, _) => Filter();
@@ -120,6 +173,86 @@ public sealed partial class StorageAnalysisControl
         _pinnedOnly.Unchecked += (_, _) => Filter();
         _compact.Checked += (_, _) => SetCompact(true);
         _compact.Unchecked += (_, _) => SetCompact(false);
+    }
+
+    private readonly StackPanel _overviewDetails = new() { Visibility = Visibility.Collapsed };
+
+    private static Button PopupAction(string caption, UIElement body, string? hint = null)
+    {
+        var button = new Button { Content = caption, ToolTip = hint, Margin = new Thickness(3) };
+        var popup = new System.Windows.Controls.Primitives.Popup
+        {
+            PlacementTarget = button, Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom,
+            StaysOpen = false, AllowsTransparency = true, Child = Surface(body, "RoPanelBrush", 8)
+        };
+        button.Click += (_, _) => popup.IsOpen = !popup.IsOpen;
+        return button;
+    }
+
+    private void SetPrices(bool visible)
+    {
+        foreach (var column in _items.Columns.Where(col => col.SortMemberPath is nameof(Item.Npc) or nameof(Item.Vending)))
+            column.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private void AddItemColumn()
+    {
+        var row = new FrameworkElementFactory(typeof(DockPanel));
+        var icon = new FrameworkElementFactory(typeof(Image));
+        icon.SetValue(FrameworkElement.WidthProperty, 18d);
+        icon.SetValue(FrameworkElement.HeightProperty, 18d);
+        icon.SetValue(FrameworkElement.MarginProperty, new Thickness(0, 0, 6, 0));
+        icon.SetBinding(Image.SourceProperty, new Binding(nameof(Item.Id)) { Mode = BindingMode.OneWay, Converter = new ItemIcon(this) });
+        icon.SetValue(DockPanel.DockProperty, Dock.Left);
+        row.AppendChild(icon);
+        var box = new FrameworkElementFactory(typeof(TextBlock));
+        var binding = new MultiBinding { Converter = new ItemCaption(this), Mode = BindingMode.OneWay };
+        binding.Bindings.Add(new Binding(".") { Mode = BindingMode.OneWay });
+        box.SetBinding(TextBlock.TextProperty, binding);
+        box.SetValue(TextBlock.TextTrimmingProperty, TextTrimming.CharacterEllipsis);
+        box.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
+        row.AppendChild(box);
+        _items.Columns.Add(new DataGridTemplateColumn
+        {
+            Header = T("Предмет", "Item"), SortMemberPath = nameof(Item.Name),
+            Width = new DataGridLength(1, DataGridLengthUnitType.Star),
+            CellTemplate = new DataTemplate { VisualTree = row }
+        });
+    }
+
+    private readonly Dictionary<int, ImageSource?> _itemIcons = [];
+
+    private ImageSource? GetItemIcon(int id)
+    {
+        if (_itemIcons.TryGetValue(id, out var source)) return source;
+        if (_database?.Item(id)?.LocalImagePng is not { Length: > 0 } bytes) return null;
+        source = new RoAura.Converters.TimerImageConverter().Convert(bytes, typeof(ImageSource), "", CultureInfo.InvariantCulture) as ImageSource;
+        if (source?.CanFreeze == true) source.Freeze();
+        return _itemIcons[id] = source;
+    }
+
+    private sealed class ItemIcon(StorageAnalysisControl owner) : IValueConverter
+    {
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
+            value is int id ? owner.GetItemIcon(id) : null;
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+            throw new NotSupportedException();
+    }
+
+    private sealed class ItemCaption(StorageAnalysisControl owner) : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values[0] is not Item item) return "";
+            var tags = owner.Preferences?.StorageItemTags.GetValueOrDefault(item.Id) ?? [];
+            return string.Join("  ·  ", new[] { item.Name }
+                .Concat(item.Craft ? [owner.T("Крафт", "Craft")] : Array.Empty<string>())
+                .Concat(item.Quest ? [owner.T("Квест", "Quest")] : Array.Empty<string>()).Concat(tags));
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) =>
+            throw new NotSupportedException();
     }
 
     private void SetCompact(bool compact)
@@ -151,8 +284,8 @@ public sealed partial class StorageAnalysisControl
             Filter();
         };
         _items.ToolTip = T("Shift + щелчок по заголовку добавляет поле сортировки", "Shift + click a header to add a sort field");
-        AddColumn(T("Весь запас", "Stock value"), nameof(Item.StockValue), DataGridLength.Auto);
-        AddColumn(T("Тип", "Type"), nameof(Item.Type), DataGridLength.Auto);
+        SetPrices(false);
+        _items.HeadersVisibility = DataGridHeadersVisibility.Column;
     }
 
     private static void DockTop(DockPanel panel, UIElement element)
@@ -195,61 +328,79 @@ public sealed partial class StorageAnalysisControl
         panel.Children.Add(title);
     }
 
-    private Grid Split(UIElement left, StackPanel right)
+    private Grid Split(UIElement left, StackPanel right, System.Windows.Controls.Primitives.Selector? selector = null)
     {
         var grid = new Grid { UseLayoutRounding = true };
-        var leftColumn = new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) };
-        var gap = new ColumnDefinition { Width = new GridLength(7) };
-        var detail = new ColumnDefinition { Width = new GridLength(300), MinWidth = 180 };
-        grid.ColumnDefinitions.Add(leftColumn);
-        grid.ColumnDefinitions.Add(gap);
+        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(7) });
+        var detail = new ColumnDefinition { Width = new GridLength(330) };
         grid.ColumnDefinitions.Add(detail);
         var main = Surface(left, "RoPanelBrush", 10);
-        var card = Surface(new ScrollViewer { Content = right, VerticalScrollBarVisibility = ScrollBarVisibility.Auto }, "RoPanelBrush", 10);
+        var details = new DockPanel();
+        var back = new Button { Content = T("‹ К списку", "‹ Back to list"), HorizontalAlignment = HorizontalAlignment.Left };
+        DockTop(details, back);
+        var scroll = new ScrollViewer { Content = right, VerticalScrollBarVisibility = ScrollBarVisibility.Auto, Padding = new Thickness(6) };
+        details.Children.Add(scroll);
+        var card = Surface(details, "RoPanelBrush", 10);
         var splitter = new GridSplitter { Width = 7, HorizontalAlignment = HorizontalAlignment.Stretch, ResizeDirection = GridResizeDirection.Columns };
         splitter.SetResourceReference(BackgroundProperty, "RoSoftBorderBrush");
         Grid.SetColumn(splitter, 1);
-        Grid.SetColumn(card, 2);
-        var narrow = new TabControl { Visibility = Visibility.Collapsed };
-        narrow.SetResourceReference(StyleProperty, "SectionTabControlStyle");
-        var tableTab = new TabItem { Header = T("Список", "List") };
-        var detailTab = new TabItem { Header = T("Карточка", "Details") };
-        narrow.Items.Add(tableTab);
-        narrow.Items.Add(detailTab);
-        Grid.SetColumnSpan(narrow, 3);
-        grid.Children.Add(narrow);
         grid.Children.Add(main);
         grid.Children.Add(splitter);
         grid.Children.Add(card);
+        bool selected = false;
+        double preferredWidth = 330;
         void Layout()
         {
-            var stacked = grid.ActualWidth is > 0 and < 680;
-            if (stacked && narrow.Visibility != Visibility.Visible)
+            var narrow = grid.ActualWidth is > 0 and < 760;
+            main.Visibility = narrow && selected ? Visibility.Hidden : Visibility.Visible;
+            card.Visibility = narrow && !selected ? Visibility.Collapsed : Visibility.Visible;
+            splitter.Visibility = narrow ? Visibility.Collapsed : Visibility.Visible;
+            back.Visibility = narrow ? Visibility.Visible : Visibility.Collapsed;
+            Grid.SetColumn(card, narrow ? 0 : 2);
+            grid.ColumnDefinitions[1].Width = new GridLength(narrow ? 0 : 7);
+            detail.Width = new GridLength(narrow ? 0 : Math.Clamp(Preferences?.StorageDetailWidth ?? preferredWidth, 250,
+                Math.Max(250, grid.ActualWidth - 420)));
+        }
+        void Open()
+        {
+            selected = true;
+            scroll.ScrollToTop();
+            Layout();
+        }
+        back.Click += (_, _) => { selected = false; Layout(); left.Focus(); };
+        if (selector is not null)
+        {
+            selector.PreviewMouseLeftButtonUp += (_, e) =>
             {
-                grid.Children.Remove(main);
-                grid.Children.Remove(card);
-                tableTab.Content = main;
-                detailTab.Content = card;
-            }
-            else if (!stacked && !grid.Children.Contains(main))
+                if (e.OriginalSource is DependencyObject origin &&
+                    ItemsControl.ContainerFromElement(selector, origin) is DataGridRow) Open();
+            };
+            selector.PreviewKeyDown += (_, e) =>
             {
-                tableTab.Content = null;
-                detailTab.Content = null;
-                grid.Children.Add(main);
-                grid.Children.Add(card);
-            }
-            narrow.Visibility = stacked ? Visibility.Visible : Visibility.Collapsed;
-            splitter.Visibility = stacked ? Visibility.Collapsed : Visibility.Visible;
-            gap.Width = new GridLength(stacked ? 0 : 7);
-            detail.MinWidth = stacked ? 0 : 180;
-            detail.Width = new GridLength(stacked ? 0 : Math.Clamp(Preferences?.StorageDetailWidth ?? 300, 180,
-                Math.Max(180, grid.ActualWidth - 300)));
+                if (e.Key == System.Windows.Input.Key.Enter && selector.SelectedItem is not null) { Open(); e.Handled = true; }
+            };
+        }
+        else if (left is DockPanel && right == _craftDetails)
+        {
+            _craft.SelectedItemChanged += (_, e) => { if (e.NewValue is TreeViewItem { Tag: StorageAnalysis.Craft }) scroll.ScrollToTop(); };
+            _craft.PreviewMouseLeftButtonUp += (_, e) =>
+            {
+                if (e.OriginalSource is DependencyObject origin &&
+                    ItemsControl.ContainerFromElement(null, origin) is TreeViewItem { Tag: StorageAnalysis.Craft }) Open();
+            };
+            _craft.PreviewKeyDown += (_, e) =>
+            {
+                if (e.Key == System.Windows.Input.Key.Enter && _craft.SelectedItem is TreeViewItem { Tag: StorageAnalysis.Craft })
+                { Open(); e.Handled = true; }
+            };
         }
         grid.Loaded += (_, _) => Layout();
         grid.SizeChanged += (_, _) => Layout();
         splitter.DragCompleted += (_, _) =>
         {
-            if (Preferences is { } settings) { settings.StorageDetailWidth = detail.ActualWidth; SavePreferences(); }
+            preferredWidth = detail.ActualWidth;
+            if (Preferences is { } settings) { settings.StorageDetailWidth = preferredWidth; SavePreferences(); }
         };
         return grid;
     }
@@ -287,7 +438,7 @@ public sealed partial class StorageAnalysisControl
     {
         if (_updatingTypes) return;
         var query = _search.Text.Trim();
-        var type = (_types.SelectedItem as TabItem)?.Tag as string;
+        var type = (_types.SelectedItem as ComboBoxItem)?.Tag as string;
         decimal? min = decimal.TryParse(_minimum.Text, out var low) && low >= 0 ? low : null;
         decimal? max = decimal.TryParse(_maximum.Text, out var high) && high >= 0 ? high : null;
         var candidates = _summary.Where(item =>
@@ -301,10 +452,10 @@ public sealed partial class StorageAnalysisControl
                 (min is null || value >= min) && (max is null || value <= max) &&
                 (_filter.SelectedIndex switch { 1 => !item.Craft && !item.Quest, 2 => item.Craft, 3 => item.Quest, _ => true });
         }).ToArray();
-        foreach (var tab in _types.Items.OfType<TabItem>())
+        foreach (var tab in _types.Items.OfType<ComboBoxItem>())
         {
             var category = tab.Tag as string;
-            tab.Header = $"{category ?? T("Все типы", "All types")} ({candidates.Count(item => category is null || item.Type == category)})";
+            tab.Content = $"{category ?? T("Все типы", "All types")} ({candidates.Count(item => category is null || item.Type == category)})";
         }
         var rows = candidates.Where(item => type is null || item.Type == type).ToArray();
         var previous = (_items.SelectedItem as Item)?.Id;
@@ -321,7 +472,7 @@ public sealed partial class StorageAnalysisControl
         _items.SelectedItem = rows.FirstOrDefault(item => item.Id == previous);
         _filteredTotals.Text = T($"Выборка · позиций {rows.Length:N0} · единиц {rows.Sum(item => item.Count):N0} · {rows.Sum(item => item.Total):N0} z",
             $"Filtered · {rows.Length:N0} positions · {rows.Sum(item => item.Count):N0} units · {rows.Sum(item => item.Total):N0} z");
-        RenderMetrics(rows);
+        RenderMetrics(_summary.Where(item => type is null || item.Type == type).ToArray());
         _chips.Children.Clear();
         if (query.Length > 0) Chip(query, () => _search.Clear());
         if (type is not null) Chip(type, () => _types.SelectedIndex = 0);
@@ -338,14 +489,15 @@ public sealed partial class StorageAnalysisControl
     {
         _metrics.Children.Clear();
         _metrics.Rows = 2;
+        _metrics.Columns = 3;
         var total = rows.Sum(item => item.Total);
         var top = rows.OrderByDescending(item => item.Total).Take(10).Sum(item => item.Total);
         var most = rows.MaxBy(item => item.Count);
         var richest = rows.Where(item => item.Total > 0).MaxBy(item => item.Total);
-        Metric(T("Позиции", "Positions"), $"{rows.Length:N0}", nameof(Item.Name));
-        Metric(T("Единицы", "Units"), $"{rows.Sum(item => item.Count):N0}", nameof(Item.Count));
+        var units = rows.Sum(item => item.Count);
+        _overview.Text = T($"{rows.Length:N0} позиций  ·  {units:N0} единиц  ·  {total:N0} z",
+            $"{rows.Length:N0} positions  ·  {units:N0} units  ·  {total:N0} z");
         Metric(T("Многочисленный", "Most numerous"), most is null ? "—" : $"{most.Name} · {most.Count:N0}", nameof(Item.Count), most);
-        Metric(T("Стоимость", "Value"), $"{total:N0} z", nameof(Item.Total));
         Metric(T("Дорогой", "Highest value"), richest is null ? "—" : $"{richest.Name} · {richest.Total:N0} z", nameof(Item.Total), richest);
         Metric(T("Доля топ-10", "Top 10 share"), total > 0 ? $"{top / total:P1}" : "—", nameof(Item.Total));
         var slots = new decimal[3];
@@ -401,24 +553,64 @@ public sealed partial class StorageAnalysisControl
 
     private void ShowItemExtras(Item item)
     {
-        Text(_details, $"#{item.Id} · {item.Type}");
-        if (Preferences is { } settings)
+        var header = new DockPanel();
+        AddCardIcon(header, item.Id);
+        var pinned = Preferences?.StoragePinnedItems.Contains(item.Id) == true;
+        var pin = Action(pinned ? "★" : "☆", () =>
         {
-            var pinned = settings.StoragePinnedItems.Contains(item.Id);
-            _details.Children.Add(Action(pinned ? T("Открепить", "Unpin") : T("Закрепить", "Pin"), () =>
-            {
-                if (pinned) settings.StoragePinnedItems.Remove(item.Id);
-                else settings.StoragePinnedItems.Add(item.Id);
-                SavePreferences();
-                Filter();
-                ShowItem(_items.SelectedItem as Item);
-            }));
-            if (settings.StorageItemTags.GetValueOrDefault(item.Id) is { Length: > 0 } tags)
-                Text(_details, string.Join(" · ", tags));
+            if (Preferences is not { } settings) return;
+            if (pinned) settings.StoragePinnedItems.Remove(item.Id);
+            else settings.StoragePinnedItems.Add(item.Id);
+            SavePreferences();
+            Filter();
+            ShowItem(_items.SelectedItem as Item);
+        });
+        pin.ToolTip = pinned ? T("Открепить", "Unpin") : T("Закрепить", "Pin");
+        DockPanel.SetDock(pin, Dock.Right);
+        header.Children.Add(pin);
+        var title = new StackPanel();
+        Heading(title, item.Name);
+        Text(title, $"#{item.Id} · {item.Type}");
+        header.Children.Add(title);
+        _details.Children.Add(header);
+        Link(_details, T("Открыть в базе ↗", "Open in database ↗"), item.Id);
+        Tiles(_details, (T("Остаток", "Stock"), $"{item.Count:N0}"),
+            (T("Оценка запаса", "Stock value"), $"{item.Total:N0} z"),
+            (T("За единицу", "Per unit"), $"{item.UnitValue:N0} z"));
+        if (Preferences?.StorageItemTags.GetValueOrDefault(item.Id) is { Length: > 0 } tags)
+            Text(_details, string.Join(" · ", tags));
+    }
+
+    private void AddCardIcon(DockPanel header, int id)
+    {
+        var source = GetItemIcon(id);
+        UIElement icon = source is null ? new TextBlock { Text = "◇", FontSize = 24, TextAlignment = TextAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center } : new Image { Source = source, Stretch = Stretch.Uniform };
+        var frame = Surface(icon, "RoTitleBrush", 4);
+        frame.Width = frame.Height = 46;
+        frame.VerticalAlignment = VerticalAlignment.Top;
+        DockPanel.SetDock(frame, Dock.Left);
+        header.Children.Add(frame);
+    }
+
+    private static void Section(Panel panel, string label)
+    {
+        var border = new Border { BorderThickness = new Thickness(0, 1, 0, 0), Margin = new Thickness(0, 12, 0, 0) };
+        border.SetResourceReference(Border.BorderBrushProperty, "RoSoftBorderBrush");
+        panel.Children.Add(border);
+        Text(panel, label, true);
+    }
+
+    private static void Tiles(Panel panel, params (string Caption, string Value)[] metrics)
+    {
+        var tiles = new System.Windows.Controls.Primitives.UniformGrid { Rows = 1 };
+        foreach (var (caption, value) in metrics)
+        {
+            var tile = new StackPanel();
+            Text(tile, caption);
+            Text(tile, value, true);
+            tiles.Children.Add(Surface(tile, "RoTitleBrush", 6));
         }
-        Text(_details, T($"Оценка запаса · {item.Total:N0} z", $"Stock value · {item.Total:N0} z"), true);
-        Text(_details, item.Craft ? T("Крафт: используется", "Craft: used") : T("Крафт: связей нет", "Craft: no links"));
-        Text(_details, item.Quest ? T("Задания: используется", "Quests: used") : T("Задания: связей нет", "Quests: no links"));
-        ShowHistory(item);
+        panel.Children.Add(tiles);
     }
 }

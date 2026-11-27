@@ -60,12 +60,12 @@ public sealed partial class StorageAnalysisControl
             $"Updated {point.At.ToLocalTime():g} · {Math.Max(0, age.TotalMinutes):N0} min ago");
     }
 
-    private void ShowHistory(Item item)
+    private void ShowHistory(Item item, Panel history)
     {
         var mode = _mode.SelectedIndex == 1 ? "HC" : "SC";
         var samples = _history.Select(point => (point.At, Count: point.Counts.GetValueOrDefault(mode)?.GetValueOrDefault(item.Id) ?? 0)).ToArray();
         if (samples.Length < 2) return;
-        Text(_details, T("История запаса", "Stock history"), true);
+
         var max = Math.Max(1, samples.Max(point => point.Count));
         var range = Math.Max(1, (samples[^1].At - samples[0].At).TotalSeconds);
         var line = new Polyline
@@ -80,11 +80,14 @@ public sealed partial class StorageAnalysisControl
         {
             var flat = new Border { Height = 2, Margin = new Thickness(0, 20, 0, 20) };
             flat.SetResourceReference(Border.BackgroundProperty, "RoBlueBrush");
-            _details.Children.Add(flat);
+            history.Children.Add(flat);
         }
-        else _details.Children.Add(line);
-        Text(_details, $"{samples[0].At.ToLocalTime():d} — {samples[^1].At.ToLocalTime():d} · {min:N0}–{max:N0}");
+        else history.Children.Add(line);
+        Text(history, $"{samples[0].At.ToLocalTime():d} — {samples[^1].At.ToLocalTime():d} · {min:N0}–{max:N0}");
     }
+
+    private readonly TextBox _craftSearch = new() { MinWidth = 145, Margin = new Thickness(4) };
+    private readonly TextBlock _craftCount = new() { Margin = new Thickness(6) };
 
     private DockPanel CraftWorkspace()
     {
@@ -94,11 +97,18 @@ public sealed partial class StorageAnalysisControl
             T("Расходники", "Usable"), T("Обмены", "Barter"), T("Прочее", "Other") };
         _craftGroup.SelectedIndex = 0;
         _threshold.ToolTip = T("Минимальная готовность в процентах", "Minimum readiness percentage");
+        _craftSearch.ToolTip = T("Поиск по результату или материалу", "Search by result or material");
+        tools.Children.Add(_craftSearch);
+        _craftSearch.TextChanged += (_, _) => RefreshCrafts();
         tools.Children.Add(_craftGroup);
         tools.Children.Add(new TextBlock { Text = T("Готовность от, %", "Minimum readiness, %"), Margin = new Thickness(8), VerticalAlignment = VerticalAlignment.Center });
         tools.Children.Add(_threshold);
-        DockTop(dock, tools);
-        dock.Children.Add(Split(_craft, _craftDetails));
+        var list = new DockPanel();
+        DockTop(list, tools);
+        DockPanel.SetDock(_craftCount, Dock.Bottom);
+        list.Children.Add(_craftCount);
+        list.Children.Add(_craft);
+        dock.Children.Add(Split(list, _craftDetails));
         _craftGroup.SelectionChanged += (_, _) => RefreshCrafts();
         _threshold.TextChanged += (_, _) =>
         {
@@ -113,10 +123,54 @@ public sealed partial class StorageAnalysisControl
     {
         if (_resolveCost is null) return;
         var threshold = int.TryParse(_threshold.Text, out var value) ? Math.Clamp(value, 0, 100) : 60;
-        var selected = (_craft.SelectedItem as StorageAnalysis.Craft)?.Target;
-        _craft.ItemsSource = StorageAnalysis.Plans(_summary.ToDictionary(item => item.Id, item => item.Count), _resolveCost, threshold)
-            .Where(craft => _craftGroup.SelectedIndex <= 0 || _craftGroup.SelectedIndex == CraftGroup(craft)).ToArray();
-        _craft.SelectedItem = _craft.Items.OfType<StorageAnalysis.Craft>().FirstOrDefault(craft => Equals(craft.Target, selected));
+        var selected = (_craft.SelectedItem as TreeViewItem)?.Tag as StorageAnalysis.Craft;
+        var expanded = _craft.Items.OfType<TreeViewItem>().Where(item => item.IsExpanded && item.Tag is string)
+            .Select(item => (string)item.Tag).ToHashSet();
+        var query = _craftSearch.Text.Trim();
+        var plans = StorageAnalysis.Plans(_summary.ToDictionary(item => item.Id, item => item.Count), _resolveCost, threshold)
+            .Where(craft => (_craftGroup.SelectedIndex <= 0 || _craftGroup.SelectedIndex == CraftGroup(craft)) &&
+                (craft.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                 craft.Materials.Any(material => material.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))))
+            .ToArray();
+        var results = plans.GroupBy(craft => craft.ResultId is { } id ? $"#{id}" : craft.Name).ToArray();
+        _craft.Items.Clear();
+        foreach (var group in results)
+        {
+            var variants = group.ToArray();
+            if (variants.Length == 1)
+            {
+                _craft.Items.Add(CraftRow(variants[0], false, selected));
+                continue;
+            }
+            var groupNode = new TreeViewItem
+            {
+                Header = T($"{variants[0].Name} · {variants.Length} вариантов", $"{variants[0].Name} · {variants.Length} variants"),
+                Tag = group.Key,
+                IsExpanded = expanded.Contains(group.Key) || query.Length > 0
+            };
+            _craft.Items.Add(groupNode);
+            foreach (var variant in variants) groupNode.Items.Add(CraftRow(variant, true, selected));
+        }
+        _craftCount.Text = plans.Length == 0
+            ? T("Нет рецептов по этим условиям.", "No recipes match these filters.")
+            : T($"Результатов: {results.Length:N0} · рецептов: {plans.Length:N0}", $"Results: {results.Length:N0} · recipes: {plans.Length:N0}");
+    }
+
+    private TreeViewItem CraftRow(StorageAnalysis.Craft craft, bool variant, StorageAnalysis.Craft? selected)
+    {
+        var title = variant ? string.Join(" + ", craft.Materials.Select(part => $"{part.Name} ×{part.Required:N0}")) : craft.Name;
+        if (variant && craft.Output is { } output) title += $" → {output:N0}";
+        var panel = new StackPanel { Margin = new Thickness(3, 1, 3, 2) };
+        Text(panel, title, true);
+        Text(panel, craft.Repeats > 0
+            ? T($"Можно изготовить · {craft.Repeats:N0} оп.", $"Ready · {craft.Repeats:N0} operations")
+            : T($"Не хватает материалов · {craft.Percent}%", $"Missing materials · {craft.Percent}%"));
+        return new TreeViewItem
+        {
+            Header = panel,
+            Tag = craft,
+            IsSelected = selected is not null && Equals(craft.Target, selected.Target) && craft.RecipeId == selected.RecipeId
+        };
     }
 
     private int CraftGroup(StorageAnalysis.Craft craft)
@@ -149,6 +203,7 @@ public sealed partial class StorageAnalysisControl
         var missing = SumCosts(craft.Materials.Select(part => PurchaseCost(part.ItemId, part.Missing)), 0);
         Text(_craftDetails, T($"Себестоимость · {Money(full)}", $"Production cost · {Money(full)}"));
         Text(_craftDetails, T($"Докупка остатка · {Money(missing)}", $"Buy remaining materials · {Money(missing)}"));
+        if (fee > 0) Text(_craftDetails, T($"Плата NPC · {Money(fee)}", $"NPC fee · {Money(fee)}"));
         foreach (var part in craft.Materials.Where(part => part.Missing > 0))
         {
             var buy = PurchaseCost(part.ItemId, part.Missing);

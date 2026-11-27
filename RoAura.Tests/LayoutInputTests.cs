@@ -338,8 +338,10 @@ public sealed class LayoutInputTests
             var view = new StorageAnalysisControl();
             var grid = Assert.Single(FindTables(view));
             Assert.True(grid.IsReadOnly);
-            Assert.Equal(9, grid.Columns.Count);
-            Assert.All(grid.Columns, column =>
+            Assert.Equal(6, grid.Columns.Count);
+            Assert.Equal(4, grid.Columns.Count(column => column.Visibility == System.Windows.Visibility.Visible));
+            Assert.IsType<System.Windows.Controls.DataGridTemplateColumn>(grid.Columns[0]);
+            Assert.All(grid.Columns.Skip(1), column =>
             {
                 var binding = Assert.IsType<System.Windows.Data.Binding>(
                     Assert.IsAssignableFrom<System.Windows.Controls.DataGridBoundColumn>(column).Binding);

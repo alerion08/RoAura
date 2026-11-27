@@ -2,6 +2,8 @@
 
 ## Storage analysis development
 
+The approved storage prototype is implemented in the native Storage and Crafting workspaces. The compact overview, filters and item/card layouts use the existing theme and live catalog data.
+
 The `integration/storage-analysis` branch contains the selected storage workspace and crafting assistant improvements. Review on Windows with a real Ragnarok+ account, current market cache, both game modes and the installed item, quest and barter catalogs. Verify narrow layout and both themes before considering publication.
 
 ## Current published baseline — RoAura 3.7.1

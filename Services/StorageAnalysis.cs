@@ -9,7 +9,7 @@ internal static class StorageAnalysis
     {
         public long Missing => Math.Max(0, Required - Available);
     }
-    internal sealed record Craft(string Name, object Target, Material[] Materials)
+    internal sealed record Craft(string Name, object Target, Material[] Materials, long? Output = null, int? ResultId = null, int? RecipeId = null)
     {
         public long Repeats => Materials.Min(material => material.Available / material.Required);
         public int Percent => (int)Math.Floor(Materials.Average(material =>
@@ -61,9 +61,9 @@ internal static class StorageAnalysis
     internal static Craft[] Plans(IReadOnlyDictionary<int, long> stock,
         Func<RagnarokPlusBarterCatalog.Cost, int?> resolveCost, int threshold = 60)
     {
-        var options = RagnarokPlusRecipes.All.Select(r => (r.Name, Target: (object)r.ItemId, Parts:
+        var options = RagnarokPlusRecipes.All.Select(r => (r.Name, Target: (object)r.ItemId, Output: (long?)r.Amount, ResultId: (int?)r.ItemId, RecipeId: (int?)r.Id, Parts:
                 r.Materials.Where(p => !p.IsGuide).Select(p => (Id: (int?)p.ItemId, p.Name, Count: (long?)p.Amount))))
-            .Concat(RagnarokPlusBarterCatalog.All.Select(o => (o.Name, Target: (object)o, Parts:
+            .Concat(RagnarokPlusBarterCatalog.All.Select(o => (o.Name, Target: (object)o, Output: o.Quantity, ResultId: o.ItemId, RecipeId: (int?)null, Parts:
                 o.Costs.Where(p => p.Kind == "item").Select(p => (Id: resolveCost(p), p.Name, Count: p.Quantity)))));
         return options.Select(option =>
         {
@@ -71,7 +71,7 @@ internal static class StorageAnalysis
             if (parts.Length == 0 || parts.Any(p => p.Id is not > 0 || p.Count is not > 0)) return null;
             var materials = parts.GroupBy(p => p.Id!.Value).Select(group =>
                 new Material(group.Key, group.First().Name, group.Sum(p => p.Count!.Value), stock.GetValueOrDefault(group.Key))).ToArray();
-            return new Craft(option.Name, option.Target, materials);
+            return new Craft(option.Name, option.Target, materials, option.Output, option.ResultId, option.RecipeId);
         }).OfType<Craft>().Where(c => c.Percent >= Math.Clamp(threshold, 0, 100))
           .OrderByDescending(c => c.Percent).ThenBy(c => c.Name).ToArray();
     }
