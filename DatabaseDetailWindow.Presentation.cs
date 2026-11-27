@@ -50,7 +50,7 @@ public partial class DatabaseDetailWindow
     {
         if (_database.Version is not (GameDatabaseVersion.Toc or GameServerProfile.RagnarokPlus))
         {
-            panel.Children.Add(StatGrid(m.Stats.Select(p => (MonsterField(p.Key), p.Value))), panel);
+            panel.Children.Add(StatGrid(m.Stats.Select(p => (MonsterField(p.Key), p.Value))));
         }
         else
         {
