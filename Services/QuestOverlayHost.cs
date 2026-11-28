@@ -177,7 +177,7 @@ public sealed class QuestOverlayHost : IDisposable
         var gameActive=foreground==_game;
         var browserActive=Browser.IsActive || Browser.OwnedWindows.Cast<Window>().Any(w=>w.IsActive) ||
             QuestWindowNative.IsOwnedBy(foreground,new WindowInteropHelper(Browser).Handle);
-        var controls=Application.Current.Windows.OfType<Window>().Where(w=>w is not QuestPassiveWindow && w is not OverlayWindow &&
+        var controls=Application.Current.Windows.OfType<Window>().Where(w=>w is not QuestPassiveWindow && w is not OverlayWindow && !OverlayWindow.IsOverlayCompanion(w) &&
             w.IsVisible && w.WindowState!=WindowState.Minimized).ToArray();
         var controlsActive=controls.Any(w=>new WindowInteropHelper(w).Handle==foreground);
         var occludedByOther=!gameActive && !controlsActive && ForegroundProcess.DoesForegroundWindowCover(

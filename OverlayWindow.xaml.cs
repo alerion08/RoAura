@@ -1621,7 +1621,7 @@ public partial class OverlayWindow : Window
             var gameIsForeground = ForegroundProcess.IsForegroundAllowed(_settings.AllowedProcesses);
             var controlWindows = Application.Current?.Windows.OfType<Window>()
                 .Where(window => window != this && (window is not QuestPassiveWindow || window is QuestPassiveWindow {IsTargetChooser:true}) &&
-                    window.IsVisible && window.WindowState != WindowState.Minimized).ToArray() ?? [];
+                    !IsOverlayCompanion(window) && window.IsVisible && window.WindowState != WindowState.Minimized).ToArray() ?? [];
             var settingsIsForeground = controlWindows.Any(window =>
                 ForegroundProcess.IsForegroundWindow(new WindowInteropHelper(window).Handle));
             UpdateSettingsOcclusion((settingsIsForeground ? controlWindows : controlWindows.Where(w=>w.Tag as string == "RoAura.GameInterface" || w is DatabaseOverlayWindow or DatabaseDetailWindow || w is QuestPassiveWindow {IsTargetChooser:true})).Where(w=>w is not QuestBrowserWindow));
@@ -1660,9 +1660,14 @@ public partial class OverlayWindow : Window
         }
     }
 
+    internal const string PassiveOverlayCompanionTag = "RoAura.PassiveOverlayCompanion";
+    internal static bool IsOverlayCompanion(Window window) => Equals(window.Tag, PassiveOverlayCompanionTag);
+
+    private Rect[] _controlScreenBounds = [];
     private void UpdateSettingsOcclusion(IEnumerable<Window> windows)
     {
         var rectangles = new List<Rect>();
+        var screenBounds = new List<Rect>();
         var handle = new WindowInteropHelper(this).Handle;
         if (handle != IntPtr.Zero)
         {
@@ -1673,10 +1678,14 @@ public partial class OverlayWindow : Window
                 var hwnd = new WindowInteropHelper(window).Handle;
                 if (hwnd != IntPtr.Zero && GetWindowRect(hwnd, out var bounds) &&
                     bounds.Right > bounds.Left && bounds.Bottom > bounds.Top)
-                    rectangles.Add(OverlayOcclusion.ToLocalRect(new Rect(bounds.Left, bounds.Top,
-                        bounds.Right - bounds.Left, bounds.Bottom - bounds.Top), origin, fromDevice));
+                {
+                    var rectangle = new Rect(bounds.Left, bounds.Top, bounds.Right - bounds.Left, bounds.Bottom - bounds.Top);
+                    screenBounds.Add(rectangle);
+                    rectangles.Add(OverlayOcclusion.ToLocalRect(rectangle, origin, fromDevice));
+                }
             }
         }
+        _controlScreenBounds = screenBounds.ToArray();
         var size = new Size(Math.Max(0, Width), Math.Max(0, Height));
         if (size == _settingsClipSize && _settingsOcclusion.SequenceEqual(rectangles)) return;
         _settingsClipSize = size;

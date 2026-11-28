@@ -51,7 +51,7 @@ public partial class OverlayWindow
             content.Children.Add(map);
             _mvpPopupHeight = header is null ? 305 : 353;
             _mvpMapPopup = new Window { WindowStyle = WindowStyle.None, AllowsTransparency = true,
-                Tag = "RoAura.GameInterface", Background = Brushes.Transparent, ShowActivated = false, ShowInTaskbar = false,
+                Tag = PassiveOverlayCompanionTag, Background = Brushes.Transparent, ShowActivated = false, ShowInTaskbar = false,
                 ResizeMode = ResizeMode.NoResize, Width = 280, Height = _mvpPopupHeight,
                 Content = new Border { Child = content, CornerRadius = new CornerRadius(6),
                     Background = (Brush)FindResource("RoWindowBrush") } };
@@ -59,16 +59,17 @@ public partial class OverlayWindow
                 AppearanceService.Resolve(_settings.ApplicationTheme, _settings.GameOverlayTheme, true));
             ((Border)_mvpMapPopup.Content).SetResourceReference(Border.BackgroundProperty, "RoWindowBrush");
             _mvpMapPopup.SourceInitialized += (_, _) => QuestWindowNative.Configure(_mvpMapPopup, true, true);
-            _mvpMapPopup.Show();
+
         }
-        var dpi = QuestWindowNative.Scale(new System.Windows.Interop.WindowInteropHelper(_mvpMapPopup).Handle);
+        var dpi = QuestWindowNative.Scale(new System.Windows.Interop.WindowInteropHelper(_mvpMapPopup).EnsureHandle());
         var width = 280*dpi; var height = _mvpPopupHeight*dpi;
         var panel = new Rect(MvpTimerPanel.PointToScreen(new Point()),
             MvpTimerPanel.PointToScreen(new Point(MvpTimerPanel.ActualWidth, MvpTimerPanel.ActualHeight)));
         var placement = MvpMapPlacement.Find(panel, new Size(width,height),
             new Rect(game.Left,game.Top,game.Right-game.Left,game.Bottom-game.Top),8*dpi);
-        if (placement.IsEmpty) { HideMvpMap(); return; }
+        if (placement.IsEmpty || _controlScreenBounds.Any(rect => rect.IntersectsWith(placement))) { HideMvpMap(); return; }
         QuestWindowNative.Place(_mvpMapPopup, placement);
+        if (!_mvpMapPopup.IsVisible) _mvpMapPopup.Show();
     }
     private FrameworkElement? CreateMvpMapHeader(MvpTimer timer)
     {

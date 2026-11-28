@@ -46,7 +46,7 @@ public partial class OverlayWindow
                 },
                 Background = Brushes.Transparent, AllowsTransparency = true, WindowStyle = WindowStyle.None,
                 ResizeMode = ResizeMode.NoResize, ShowActivated = false, ShowInTaskbar = false, IsHitTestVisible = false,
-                Tag = "RoAura.GameInterface"
+                Tag = PassiveOverlayCompanionTag
             };
             _overlayCursor.SourceInitialized += (_, _) => QuestWindowNative.Configure(_overlayCursor, true, true);
         }
@@ -59,7 +59,10 @@ public partial class OverlayWindow
     {
         if (VisualTreeHelper.HitTest(this, PointFromScreen(pointer))?.VisualHit is FrameworkElement hit &&
             hit != this && hit != Content && hit is not System.Windows.Controls.Canvas) return true;
-        foreach (var popup in new[] { _timerHeader, _mvpMapPopup })
+        if (_timerHeader?.IsVisible == true && _timerActions is { } actions &&
+            QuestWindowNative.Bounds(new WindowInteropHelper(_timerHeader).Handle).Contains(pointer) &&
+            VisualTreeHelper.HitTest(actions, actions.PointFromScreen(pointer)) is not null) return true;
+        foreach (var popup in new[] { _mvpMapPopup })
             if (popup?.IsVisible == true && QuestWindowNative.Bounds(new WindowInteropHelper(popup).Handle).Contains(pointer))
                 return true;
         return false;
