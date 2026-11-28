@@ -340,7 +340,7 @@ public sealed class LayoutInputTests
             Assert.Equal(2, tables.Length);
             var craft = Assert.Single(tables.Where(table => !table.CanUserSortColumns));
             Assert.True(craft.IsReadOnly);
-            Assert.Equal(5, craft.Columns.Count);
+            Assert.Equal(6, craft.Columns.Count);
             Assert.Equal(24d, craft.RowHeight);
             var grid = Assert.Single(tables.Where(table => table.CanUserSortColumns));
             Assert.True(grid.IsReadOnly);

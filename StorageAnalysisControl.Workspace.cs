@@ -253,6 +253,28 @@ public sealed partial class StorageAnalysisControl
         _items.HeadersVisibility = DataGridHeadersVisibility.Column;
     }
 
+    private static void EnableNameCopy(DataGrid grid, Func<object, string?> getName)
+    {
+        string? NameAt(System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if ((System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Shift) == 0) return null;
+            for (var element = e.OriginalSource as DependencyObject; element is Visual; element = VisualTreeHelper.GetParent(element))
+                if (element is DataGridCell cell)
+                    return cell.Column == grid.Columns[0] && cell.DataContext is { } item ? getName(item) : null;
+            return null;
+        }
+        grid.PreviewMouseLeftButtonDown += (_, e) =>
+        {
+            if (NameAt(e) is not null) e.Handled = true;
+        };
+        grid.PreviewMouseLeftButtonUp += (_, e) =>
+        {
+            if (NameAt(e) is not { } name) return;
+            ClipboardService.TryCopy(name);
+            e.Handled = true;
+        };
+    }
+
     private static void ConfigureCompactTable(DataGrid grid)
     {
         grid.RowHeight = 24;
@@ -391,10 +413,12 @@ public sealed partial class StorageAnalysisControl
         return grid;
     }
 
-    private long NpcWithOvercharge(long price)
+    private long NpcWithOvercharge(long price) => NpcWithOvercharge(price, _overcharge.SelectedIndex);
+
+    private static long NpcWithOvercharge(long price, int level)
     {
         int[] rates = [0, 7, 9, 11, 13, 15, 17, 19, 21, 23, 24];
-        return (long)Math.Min(long.MaxValue, Math.Floor(price * (100m + rates[Math.Clamp(_overcharge.SelectedIndex, 0, 10)]) / 100m));
+        return (long)Math.Min(long.MaxValue, Math.Floor(price * (100m + rates[Math.Clamp(level, 0, 10)]) / 100m));
     }
 
     private static ILookup<int, StorageBid> BuildBids(IEnumerable<MarketListing> listings) =>

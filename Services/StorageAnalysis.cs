@@ -4,13 +4,6 @@ namespace RoAura.Services;
 
 internal static class StorageAnalysis
 {
-    internal static bool HasCostumePrefix(string? name)
-    {
-        var trimmed = name?.TrimStart();
-        return trimmed?.StartsWith("C ", StringComparison.OrdinalIgnoreCase) == true ||
-               trimmed?.StartsWith("Costume ", StringComparison.OrdinalIgnoreCase) == true;
-    }
-
     internal sealed record Entry(int ItemId, long Amount, string Mode, int Slot, string? Name = null, string? Type = null);
     internal sealed record Material(int ItemId, string Name, long Required, long Available)
     {

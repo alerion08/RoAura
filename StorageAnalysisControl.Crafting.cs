@@ -89,7 +89,7 @@ public sealed partial class StorageAnalysisControl
     private readonly TextBox _craftSearch = new() { MinWidth = 145, Margin = new Thickness(4) };
     private readonly TextBlock _craftCount = new() { Margin = new Thickness(6) };
 
-    private sealed record CraftDisplayRow(string Title, string Readiness, string Units, string Output, string Cost,
+    private sealed record CraftDisplayRow(string Title, string Readiness, string Units, string Output, string UnitCost, string Cost, string ItemName,
         StorageAnalysis.Craft? Plan, string? Group = null);
     private readonly Dictionary<string, bool> _expandedCraftResults = [];
     private readonly ComboBox _craftCostumes = new();
@@ -122,7 +122,9 @@ public sealed partial class StorageAnalysisControl
         _craft.Columns.Add(PaddedColumn(T("Собрано ингр-в", "Ingredients collected"), nameof(CraftDisplayRow.Readiness), DataGridLength.Auto));
         _craft.Columns.Add(PaddedColumn(T("Можно изготовить, шт.", "Craftable, units"), nameof(CraftDisplayRow.Units), DataGridLength.Auto));
         _craft.Columns.Add(PaddedColumn(T("Выход / оп.", "Output / op."), nameof(CraftDisplayRow.Output), DataGridLength.Auto));
+        _craft.Columns.Add(PaddedColumn(T("Стоимость, шт.", "Cost per unit"), nameof(CraftDisplayRow.UnitCost), DataGridLength.Auto));
         _craft.Columns.Add(PaddedColumn(T("Стоимость", "Cost"), nameof(CraftDisplayRow.Cost), DataGridLength.Auto));
+        EnableNameCopy(_craft, row => (row as CraftDisplayRow)?.ItemName);
         _craft.PreviewMouseLeftButtonUp += (_, e) =>
         {
             if (e.OriginalSource is DependencyObject origin &&
@@ -180,7 +182,7 @@ public sealed partial class StorageAnalysisControl
             var expanded = _expandedCraftResults.GetValueOrDefault(group.Key, query.Length > 0);
             var arrow = expanded ? "▾" : "▸";
             rows.Add(new CraftDisplayRow(T($"{arrow} {variants[0].Name} · {variants.Length} вариантов",
-                $"{arrow} {variants[0].Name} · {variants.Length} variants"), $"{variants.Max(craft => craft.Percent)}%", "—", "—", "—", null, group.Key));
+                $"{arrow} {variants[0].Name} · {variants.Length} variants"), $"{variants.Max(craft => craft.Percent)}%", "—", "—", "—", "—", variants[0].Name, null, group.Key));
             if (expanded) rows.AddRange(variants.Select(variant => CraftRow(variant, true)));
         }
         _craft.ItemsSource = rows;
@@ -201,11 +203,11 @@ public sealed partial class StorageAnalysisControl
 
     private bool IsCostume(StorageAnalysis.Craft craft, HashSet<int> storedCostumes)
     {
-        if (StorageAnalysis.HasCostumePrefix(craft.Name)) return true;
+        if (craft.Name.StartsWith("Costume ", StringComparison.OrdinalIgnoreCase)) return true;
         if (craft.ResultId is not { } id) return false;
         if (storedCostumes.Contains(id)) return true;
         if (_database?.Item(id) is not { } item) return false;
-        return StorageAnalysis.HasCostumePrefix(item.Name) || item.Type.Contains("costume", StringComparison.OrdinalIgnoreCase) ||
+        return item.Type.Contains("costume", StringComparison.OrdinalIgnoreCase) ||
                item.AegisName.StartsWith("C_", StringComparison.OrdinalIgnoreCase) ||
                item.Stats.Any(stat => stat.Key.StartsWith("Costume_", StringComparison.OrdinalIgnoreCase) ||
                                       stat.Value.Contains("costume", StringComparison.OrdinalIgnoreCase));
@@ -218,9 +220,18 @@ public sealed partial class StorageAnalysisControl
         var cost = craft.Target is RagnarokPlusBarterCatalog.Offer barter &&
             barter.Costs.Any(part => part.Kind != "item" && (part.Kind != "zeny" || part.Quantity is null))
             ? null : SumCosts(craft.Materials.Select(part => PurchaseCost(part.ItemId, part.Required)), fee);
+        if (craft.ResultId is not { } resultId || !_marketAsks.ContainsKey(resultId))
+            cost = SumCosts(craft.Materials.Select(part =>
+            {
+                var item = _database?.Item(part.ItemId);
+                return item is null || (!item.RagnarokPlusDetailsCaptured && item.NpcSellPrice == 0)
+                    ? (decimal?)null : part.Required * (decimal)NpcWithOvercharge(item.NpcSellPrice, 10);
+            }), 0);
         var units = craft.Output is > 0 ? Scaled(craft.Output.Value, craft.Repeats) : (long?)null;
         return new CraftDisplayRow(title, $"{craft.Percent}%", units is { } count ? $"{count:N0}" : "—",
-            craft.Output is > 0 ? $"{craft.Output:N0}" : "—", cost.HasValue ? Money(cost) : "—", craft);
+            craft.Output is > 0 ? $"{craft.Output:N0}" : "—",
+            cost is { } total && craft.Output is > 0 ? $"{total / craft.Output.Value:#,0.##} z" : "—",
+            cost.HasValue ? Money(cost) : "—", craft.Name, craft);
     }
 
     private int CraftGroup(StorageAnalysis.Craft craft)

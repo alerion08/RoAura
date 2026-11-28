@@ -86,6 +86,7 @@ public sealed partial class StorageAnalysisControl : UserControl
         var inventory = new DockPanel();
         ConfigureFilters(inventory);
         inventory.Children.Add(_items);
+        EnableNameCopy(_items, item => (item as Item)?.Name);
         analysis.Children.Add(Split(inventory, _details, _items));
         sections.Items.Add(new TabItem { Header = T("Хранилище", "Storage"), Content = analysis });
         sections.Items.Add(new TabItem { Header = T("Мастер крафта", "Crafting assistant"), Content = CraftWorkspace() });
@@ -193,10 +194,7 @@ public sealed partial class StorageAnalysisControl : UserControl
         {
             var card = _database.Item(group.Key);
             var entry = group.First();
-            var name = card?.Name ?? entry.Name ?? $"#{group.Key}";
-            var type = StorageAnalysis.HasCostumePrefix(name) || StorageAnalysis.HasCostumePrefix(entry.Name)
-                ? "Costume" : entry.Type ?? card?.Type;
-            var item = new Item(group.Key, name, Category(type),
+            var item = new Item(group.Key, card?.Name ?? entry.Name ?? $"#{group.Key}", Category(entry.Type ?? card?.Type),
                 group.Sum(entry => entry.Amount), string.Join(", ", group.Select(entry => entry.Slot).Distinct().Order()),
                 card is null || (!card.RagnarokPlusDetailsCaptured && card.NpcSellPrice == 0) ? null : NpcWithOvercharge(card.NpcSellPrice),
                 vending.TryGetValue(group.Key, out var price) ? price : null, bids[group.Key].ToArray(), group.ToArray(),
