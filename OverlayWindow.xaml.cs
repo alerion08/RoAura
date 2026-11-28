@@ -1510,18 +1510,16 @@ public partial class OverlayWindow : Window
         var hwnd = new WindowInteropHelper(this).Handle;
         if (hwnd == IntPtr.Zero || _gameWindowHandle == IntPtr.Zero) return;
         if (IsLayoutEditing && _isTopmost) return;
-        // Do not trust the cached topmost state here. Protected/fullscreen RO
-        // clients can silently move their own HWND ahead of us in the topmost
-        // band without changing our WS_EX_TOPMOST flag. Reissuing this
-        // non-activating call is what keeps the click-through overlay visible.
+        // Check native stacking before promoting to avoid churn between companion windows.
         var browser = Application.Current?.Windows.OfType<QuestBrowserWindow>().FirstOrDefault(w=>w.IsVisible);
         var quest = _settings.OverlayPanels.GetValueOrDefault("quest")?.Layer > 0
             ? Application.Current?.Windows.OfType<QuestPassiveWindow>().FirstOrDefault(window =>
                 window.IsVisible && Equals(window.Tag, "RoAura.QuestTracker")) : null;
         var above = (Window?)quest ?? browser;
         var after = above is null ? HwndTopmost : new WindowInteropHelper(above).Handle;
-        SetWindowPos(hwnd, after, 0, 0, 0, 0,
-            SwpNoMove | SwpNoSize | SwpNoActivate);
+        if (!_isTopmost || !QuestWindowNative.IsAbove(hwnd, _gameWindowHandle) ||
+            (above is not null && !QuestWindowNative.IsAbove(after, hwnd)))
+            SetWindowPos(hwnd, after, 0, 0, 0, 0, SwpNoMove | SwpNoSize | SwpNoActivate);
         _isTopmost = true;
     }
 

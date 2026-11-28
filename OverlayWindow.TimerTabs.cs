@@ -94,9 +94,9 @@ public partial class OverlayWindow
             return;
         }
         var needsClip = occlusionChanged || _timerActionBounds != bounds || _timerActionGameBounds != gameBounds || !_timerHeader!.IsVisible;
-        // The main overlay is raised each tick. Keep its controls above it even
-        // when their bounds and clipping have stayed the same.
-        if (!needsClip) QuestWindowNative.Place(_timerHeader!, bounds);
+        if (!needsClip && !QuestWindowNative.IsAbove(new WindowInteropHelper(_timerHeader!).Handle,
+                new WindowInteropHelper(this).Handle))
+            QuestWindowNative.Place(_timerHeader!, bounds);
         if (needsClip)
         {
             QuestWindowNative.Place(_timerHeader!, bounds);

@@ -13,6 +13,7 @@ public partial class OverlayWindow
     internal bool IsMvpMapVisible => _mvpMapPopup?.IsVisible == true;
     private MvpTimer? _hoveredMvp;
     private double _mvpPopupHeight;
+    private Rect _mvpPopupPlacement;
     private DateTime _mvpHoverSince;
 
     private static IEnumerable<FrameworkElement> TimerLabels(DependencyObject root)
@@ -69,7 +70,13 @@ public partial class OverlayWindow
         var placement = MvpMapPlacement.Find(panel, new Size(width,height),
             new Rect(game.Left,game.Top,game.Right-game.Left,game.Bottom-game.Top),8*dpi);
         if (placement.IsEmpty || _controlScreenBounds.Any(rect => rect.IntersectsWith(placement))) { HideMvpMap(); return; }
-        QuestWindowNative.Place(_mvpMapPopup, placement);
+        if (!_mvpMapPopup.IsVisible || _mvpPopupPlacement != placement ||
+            !QuestWindowNative.IsAbove(new System.Windows.Interop.WindowInteropHelper(_mvpMapPopup).Handle,
+                new System.Windows.Interop.WindowInteropHelper(this).Handle))
+        {
+            QuestWindowNative.Place(_mvpMapPopup, placement);
+            _mvpPopupPlacement = placement;
+        }
         if (!_mvpMapPopup.IsVisible) _mvpMapPopup.Show();
     }
     private FrameworkElement? CreateMvpMapHeader(MvpTimer timer)

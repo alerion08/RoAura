@@ -9,6 +9,7 @@ namespace RoAura;
 public partial class OverlayWindow
 {
     private Window? _overlayCursor;
+    private Rect _overlayCursorPlacement;
 
     private void StartOverlayCursor()
     {
@@ -51,7 +52,13 @@ public partial class OverlayWindow
             _overlayCursor.SourceInitialized += (_, _) => QuestWindowNative.Configure(_overlayCursor, true, true);
         }
         var dpi = QuestWindowNative.Scale(new WindowInteropHelper(_overlayCursor).EnsureHandle());
-        QuestWindowNative.Place(_overlayCursor, new Rect(pointer, new Size(16 * dpi, 21 * dpi)));
+        var placement = new Rect(pointer, new Size(16 * dpi, 21 * dpi));
+        if (!_overlayCursor.IsVisible || _overlayCursorPlacement != placement ||
+            !QuestWindowNative.IsAbove(new WindowInteropHelper(_overlayCursor).Handle, new WindowInteropHelper(this).Handle))
+        {
+            QuestWindowNative.Place(_overlayCursor, placement);
+            _overlayCursorPlacement = placement;
+        }
         if (!_overlayCursor.IsVisible) _overlayCursor.Show();
     }
 

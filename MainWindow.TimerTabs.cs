@@ -50,7 +50,11 @@ public partial class MainWindow
             {
                 var remove = new Button { Content = "×", MinHeight = 0, MinWidth = 0, Padding = new Thickness(2, 0, 2, 0),
                     Margin = new Thickness(5, 0, 0, 0) };
-                remove.SetResourceReference(StyleProperty, "GhostButtonStyle");
+                var hitArea = new FrameworkElementFactory(typeof(Border));
+                hitArea.SetValue(Border.BackgroundProperty, System.Windows.Media.Brushes.Transparent);
+                hitArea.AppendChild(new FrameworkElementFactory(typeof(ContentPresenter)));
+                remove.Template = new ControlTemplate(typeof(Button)) { VisualTree = hitArea };
+                remove.SetResourceReference(ForegroundProperty, "RoDeepBlueBrush");
                 remove.SetResourceReference(ToolTipProperty, "TimerTabDelete");
                 remove.Click += (_, args) => { args.Handled = true; DeleteTimerTab(index); };
                 header.Children.Add(remove);

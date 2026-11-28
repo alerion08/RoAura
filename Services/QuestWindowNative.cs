@@ -31,6 +31,14 @@ internal static class QuestWindowNative
     internal static Geometry? ExclusionClip(FrameworkElement visual,Size size,IEnumerable<Rect> screenBounds)=>
         OverlayOcclusion.CreateClip(size,screenBounds.Select(r=>new Rect(visual.PointFromScreen(r.TopLeft),visual.PointFromScreen(r.BottomRight))));
     internal static Rect Bounds(IntPtr hwnd) => GetWindowRect(hwnd,out var r) ? new Rect(r.Left,r.Top,Math.Max(0,r.Right-r.Left),Math.Max(0,r.Bottom-r.Top)) : Rect.Empty;
+    internal static bool IsAbove(IntPtr window, IntPtr reference)
+    {
+        if (window == IntPtr.Zero || reference == IntPtr.Zero || window == reference) return false;
+        for (var above = GetWindow(reference, 3); above != IntPtr.Zero; above = GetWindow(above, 3))
+            if (above == window) return true;
+        return false;
+    }
+
     internal static bool IsOwnedBy(IntPtr window,IntPtr owner)
     { for(var i=0;i<12 && window!=IntPtr.Zero;i++) {window=GetWindow(window,4);if(window==owner && owner!=IntPtr.Zero)return true;}return false; }
     [DllImport("user32.dll")] private static extern IntPtr GetWindow(IntPtr hwnd,uint command);
