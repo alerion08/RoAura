@@ -193,7 +193,10 @@ public sealed partial class StorageAnalysisControl : UserControl
         {
             var card = _database.Item(group.Key);
             var entry = group.First();
-            var item = new Item(group.Key, card?.Name ?? entry.Name ?? $"#{group.Key}", Category(entry.Type ?? card?.Type),
+            var name = card?.Name ?? entry.Name ?? $"#{group.Key}";
+            var type = StorageAnalysis.HasCostumePrefix(name) || StorageAnalysis.HasCostumePrefix(entry.Name)
+                ? "Costume" : entry.Type ?? card?.Type;
+            var item = new Item(group.Key, name, Category(type),
                 group.Sum(entry => entry.Amount), string.Join(", ", group.Select(entry => entry.Slot).Distinct().Order()),
                 card is null || (!card.RagnarokPlusDetailsCaptured && card.NpcSellPrice == 0) ? null : NpcWithOvercharge(card.NpcSellPrice),
                 vending.TryGetValue(group.Key, out var price) ? price : null, bids[group.Key].ToArray(), group.ToArray(),

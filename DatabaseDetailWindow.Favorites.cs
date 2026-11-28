@@ -233,7 +233,19 @@ public partial class DatabaseDetailWindow
         void AddWatch(string side, string label)
         {
             var listing = new MarketListing { ItemId = item.Id, ItemName = item.Name, ShopType = side };
-            var button = new Button();
+            var statusText = new TextBlock { TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center };
+            var conditions = new TextBlock
+            {
+                TextAlignment = TextAlignment.Right, TextWrapping = TextWrapping.Wrap,
+                VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(8, 0, 0, 0), FontSize = 11
+            };
+            var row = new Grid();
+            row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridUnitType.Star) });
+            row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
+            Grid.SetColumn(conditions, 1);
+            row.Children.Add(statusText);
+            row.Children.Add(conditions);
+            var button = new Button { Content = row };
             AddLink(label, () =>
             {
                 popup.IsOpen = false;
@@ -254,13 +266,18 @@ public partial class DatabaseDetailWindow
             {
                 var current = _settings.ActiveMarketWatchRules.FirstOrDefault(rule => rule.ItemId == item.Id && rule.Buying == (side == "BUY"));
                 button.Visibility = current is null ? Visibility.Collapsed : Visibility.Visible;
-                button.Content = (side == "BUY", current?.Enabled == true) switch
+                statusText.Text = (side == "BUY", current?.Enabled == true) switch
                 {
                     (true, true) => T("Скупка отслеживается", "Buy orders are tracked"),
                     (false, true) => T("Продажи отслеживаются", "Sales are tracked"),
                     (true, false) => T("Отслеживание скупки на паузе", "Buy order tracking paused"),
                     _ => T("Отслеживание продаж на паузе", "Sales tracking paused")
                 };
+                conditions.Text = current is null ? "" : current.WithoutPrice
+                    ? T("Любая цена", "Any price") : current.PriceCaption;
+                if (current?.SuppressCurrentOffers == true)
+                    conditions.Text += "\n" + T("Только новые предложения", "New offers only");
+                System.Windows.Automation.AutomationProperties.SetName(button, $"{statusText.Text}. {conditions.Text}");
             }
         }
     }

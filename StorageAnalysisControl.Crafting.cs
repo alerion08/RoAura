@@ -201,11 +201,11 @@ public sealed partial class StorageAnalysisControl
 
     private bool IsCostume(StorageAnalysis.Craft craft, HashSet<int> storedCostumes)
     {
-        if (craft.Name.StartsWith("Costume ", StringComparison.OrdinalIgnoreCase)) return true;
+        if (StorageAnalysis.HasCostumePrefix(craft.Name)) return true;
         if (craft.ResultId is not { } id) return false;
         if (storedCostumes.Contains(id)) return true;
         if (_database?.Item(id) is not { } item) return false;
-        return item.Type.Contains("costume", StringComparison.OrdinalIgnoreCase) ||
+        return StorageAnalysis.HasCostumePrefix(item.Name) || item.Type.Contains("costume", StringComparison.OrdinalIgnoreCase) ||
                item.AegisName.StartsWith("C_", StringComparison.OrdinalIgnoreCase) ||
                item.Stats.Any(stat => stat.Key.StartsWith("Costume_", StringComparison.OrdinalIgnoreCase) ||
                                       stat.Value.Contains("costume", StringComparison.OrdinalIgnoreCase));
