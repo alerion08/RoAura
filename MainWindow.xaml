@@ -1209,7 +1209,7 @@
                                                               Loaded="MvpMonsterBox_Loaded" DataContextChanged="MvpMonsterBox_DataContextChanged"
                                                               DropDownClosed="MvpMonster_DropDownClosed" SelectionChanged="MvpMonster_SelectionChanged"/>
                                                     <TextBlock Grid.Row="1" Text="{DynamicResource Name}" Style="{StaticResource FieldLabelStyle}"/>
-                                                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
+                                                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" LostKeyboardFocus="TimerName_Commit" KeyDown="TimerName_KeyDown" Style="{StaticResource FieldEditorStyle}"/>
                                                     <TextBlock Grid.Row="2" Text="{DynamicResource TimerTabLabel}" Style="{StaticResource FieldLabelStyle}"/>
                                                     <ComboBox Grid.Row="2" Grid.Column="1" Margin="0,4,14,4" Height="32"
                                                               ItemsSource="{Binding DataContext.TimerTabs, ElementName=RootWindow}"

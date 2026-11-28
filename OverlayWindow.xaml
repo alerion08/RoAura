@@ -656,7 +656,7 @@
                 <StackPanel>
                 <TextBlock x:Name="TimerPanelPreview" Text="{DynamicResource MvpTimers}" FontWeight="Bold" Foreground="#FFFFD45C" Visibility="Collapsed" Margin="0,0,0,5"/>
                 <Border x:Name="TimerHeaderAnchor" Height="29" MinWidth="132"/>
-                <ItemsControl ItemsSource="{Binding ActiveTimerTabView}">
+                <ItemsControl x:Name="TimerRows" ItemsSource="{Binding ActiveTimerTabView}">
                     <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -705,6 +705,8 @@
                 </ItemsControl>
                 </StackPanel>
             </Border>
+            <ItemsControl x:Name="TimerRowsMeasure" Visibility="Hidden" IsHitTestVisible="False"
+                          ItemsSource="{Binding ActiveMvpTimers}" ItemTemplate="{Binding ItemTemplate, ElementName=TimerRows}"/>
         </Canvas>
 
         <Canvas x:Name="LootListTrackerLayer" IsHitTestVisible="False" ClipToBounds="True"

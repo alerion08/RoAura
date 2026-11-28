@@ -941,4 +941,6 @@
     <sys:String x:Key="TimerTrackerRefresh">Обновить трекер</sys:String>
     <sys:String x:Key="TimerTabPrevious">Предыдущая вкладка</sys:String>
     <sys:String x:Key="TimerTabNext">Следующая вкладка</sys:String>
+    <sys:String x:Key="TimerTrackerRefreshOne">Перезапустить таймер с текущего времени</sys:String>
+    <sys:String x:Key="TimerTabDelete">Удалить вкладку</sys:String>
 </ResourceDictionary>

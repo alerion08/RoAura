@@ -43,30 +43,86 @@ internal static class HoverItemLookup
             string.Equals(item.Name.Trim(), candidate, StringComparison.OrdinalIgnoreCase)).DistinctBy(item => item.Id).ToArray();
     }
 
-    internal static string SearchText(string? text) => text is null ? "" : Refine.Replace(Quantity.Replace(text.Trim(), ""), "");
+    internal static string SearchText(string? text)
+    {
+        if (text is null) return "";
+        var cleaned = Refine.Replace(Quantity.Replace(text.Trim(), ""), "");
+        cleaned = Regex.Replace(cleaned, @"[^\p{L}\p{N}'’+\-()\[\] ]+", " ");
+        cleaned = Regex.Replace(cleaned, @"\s+", " ").Trim();
+        return cleaned.Count(char.IsLetter) >= 3 ? cleaned : "";
+    }
 
     internal static DatabaseItem[] Suggest(string text, IReadOnlyList<DatabaseItem> items)
     {
-        var query = SearchText(text).ToUpperInvariant();
+        var query = Normalize(SearchText(text));
         if (query.Length < 5) return [];
-        var candidates = items.Select(item => (Item: item, Name: item.Name.Trim().ToUpperInvariant()))
-            .Where(entry => Math.Abs(entry.Name.Length - query.Length) <= 1 && OneEditApart(query, entry.Name))
-            .Select(entry => entry.Item).DistinctBy(item => item.Id).OrderBy(item => item.Name).Take(8);
-        return candidates.ToArray();
+        var limit = query.Length >= 11 ? 2 : 1;
+        return items.Select(item => (Item: item, Name: Normalize(item.Name)))
+            .Where(entry => Math.Abs(entry.Name.Length - query.Length) <= limit)
+            .Select(entry => (entry.Item, Distance: EditDistance(query, entry.Name)))
+            .Where(entry => entry.Distance <= limit)
+            .OrderBy(entry => entry.Distance).ThenBy(entry => entry.Item.Name)
+            .Select(entry => entry.Item).DistinctBy(item => item.Id).Take(8).ToArray();
+
+        static string Normalize(string value) => new(value.Where(char.IsLetterOrDigit).Select(char.ToUpperInvariant).ToArray());
     }
 
-    private static bool OneEditApart(string left, string right)
+    private static int EditDistance(string left, string right)
     {
-        if (left.Length > right.Length) return OneEditApart(right, left);
-        var different = left.Length != right.Length;
-        for (var i = 0; i < left.Length; i++)
+        var previous = Enumerable.Range(0, right.Length + 1).ToArray();
+        var row = new int[right.Length + 1];
+        for (var i = 1; i <= left.Length; i++)
         {
-            if (left[i] == right[i]) continue;
-            if (left.Length != right.Length) return left.AsSpan(i).SequenceEqual(right.AsSpan(i + 1));
-            if (different) return false;
-            different = true;
+            row[0] = i;
+            for (var j = 1; j <= right.Length; j++)
+                row[j] = Math.Min(Math.Min(previous[j] + 1, row[j - 1] + 1),
+                    previous[j - 1] + (left[i - 1] == right[j - 1] ? 0 : 1));
+            (previous, row) = (row, previous);
         }
-        return different;
+        return previous[^1];
+    }
+
+    internal static Int32Rect FindTooltip(byte[] pixels, int width, int height, double pointerX, double pointerY)
+    {
+        var edges = new List<(int Left, int Right, int Y)>();
+        var best = Int32Rect.Empty;
+        var bestScore = double.PositiveInfinity;
+        var minY = Math.Max(0, (int)pointerY - 42);
+        var maxY = Math.Min(height, (int)pointerY + 22);
+        for (var y = minY; y < maxY; y++)
+        for (var x = 0; x < width;)
+        {
+            if (pixels[y * width + x] >= 118) { x++; continue; }
+            var start = x++;
+            while (x < width && pixels[y * width + x] < 118) x++;
+            if (x - start is < 35 or > 350 || start > pointerX + 45 || x < pointerX - 25) continue;
+            foreach (var top in edges)
+            {
+                var h = y - top.Y;
+                if (h is < 9 or > 27 || Math.Abs(top.Left - start) > 5 || Math.Abs(top.Right - x) > 5) continue;
+                var left = Math.Max(top.Left, start);
+                var right = Math.Min(top.Right, x);
+                if (right - left < 35) continue;
+                var light = 0;
+                var dark = 0;
+                for (var row = top.Y + 2; row < y - 1; row++)
+                for (var col = left + 2; col < right - 2; col += 2)
+                {
+                    var value = pixels[row * width + col];
+                    if (value >= 175) light++;
+                    else if (value < 125) dark++;
+                }
+                var samples = (h - 3) * ((right - left - 3) / 2);
+                if (light < 8 || dark < samples / 2 || light > samples / 2) continue;
+                var horizontal = Math.Max(0, Math.Max(left - pointerX, pointerX - right));
+                var score = Math.Abs(pointerY - y - 5) + horizontal * .7 + Math.Abs(h - 16) * .4;
+                if (score >= bestScore) continue;
+                bestScore = score;
+                best = new Int32Rect(left, top.Y, right - left, h + 1);
+            }
+            edges.Add((start, x, y));
+        }
+        return best;
     }
 
     internal sealed record Screenshot(BitmapSource Image, double PointerX, double PointerY);
@@ -105,25 +161,27 @@ internal static class HoverItemLookup
         var gray = new FormatConvertedBitmap(capture.Image, PixelFormats.Gray8, null, 0);
         var pixels = new byte[gray.PixelWidth * gray.PixelHeight];
         gray.CopyPixels(pixels, gray.PixelWidth, 0);
-        const int scale = 3;
-        var width = gray.PixelWidth * scale;
-        var height = gray.PixelHeight * scale;
-        var enlarged = new byte[width * height];
-        for (var y = 0; y < height; y++)
-            for (var x = 0; x < width; x++)
-                enlarged[y * width + x] = pixels[(y / scale) * gray.PixelWidth + x / scale];
-
         var lines = new List<(string Text, double Distance)>();
-        await ReadPassAsync();
-        for (var i = 0; i < enlarged.Length; i++) enlarged[i] = (byte)(255 - enlarged[i]);
-        await ReadPassAsync();
-        for (var i = 0; i < enlarged.Length; i++)
-            enlarged[i] = (byte)Math.Clamp((127 - enlarged[i]) * 2 + 127, 0, 255);
-        await ReadPassAsync();
-        return lines.OrderBy(line => line.Distance).Select(line => line.Text).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
-
-        async Task ReadPassAsync()
+        var tooltip = FindTooltip(pixels, gray.PixelWidth, gray.PixelHeight, capture.PointerX, capture.PointerY);
+        if (!tooltip.IsEmpty)
         {
+            await ReadPassAsync(tooltip, 4, value => (byte)(255 - value), -30);
+            await ReadPassAsync(tooltip, 4, value => (byte)Math.Clamp((130 - value) * 3 + 127, 0, 255), -29);
+        }
+        var full = new Int32Rect(0, 0, gray.PixelWidth, gray.PixelHeight);
+        await ReadPassAsync(full, 3, value => value, 0);
+        await ReadPassAsync(full, 3, value => (byte)(255 - value), 0);
+        return lines.OrderBy(line => line.Distance).Select(line => line.Text)
+            .Where(text => SearchText(text).Length != 0).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+
+        async Task ReadPassAsync(Int32Rect area, int scale, Func<byte, byte> transform, double priority)
+        {
+            var width = area.Width * scale;
+            var height = area.Height * scale;
+            var enlarged = new byte[width * height];
+            for (var y = 0; y < height; y++)
+            for (var x = 0; x < width; x++)
+                enlarged[y * width + x] = transform(pixels[(area.Y + y / scale) * gray.PixelWidth + area.X + x / scale]);
             using var writer = new DataWriter();
             writer.WriteBytes(enlarged);
             using var bitmap = SoftwareBitmap.CreateCopyFromBuffer(writer.DetachBuffer(), BitmapPixelFormat.Gray8, width, height);
@@ -131,14 +189,13 @@ internal static class HoverItemLookup
             foreach (var line in result.Lines)
             {
                 if (line.Words.Count == 0) continue;
-                // The item tooltip normally sits immediately above the pointer.
-                var left = line.Words.Min(word => word.BoundingRect.X) / scale;
-                var right = line.Words.Max(word => word.BoundingRect.Right) / scale;
-                var bottom = line.Words.Max(word => word.BoundingRect.Bottom) / scale;
+                var left = area.X + line.Words.Min(word => word.BoundingRect.X) / scale;
+                var right = area.X + line.Words.Max(word => word.BoundingRect.Right) / scale;
+                var bottom = area.Y + line.Words.Max(word => word.BoundingRect.Bottom) / scale;
                 var horizontal = Math.Max(0, Math.Max(left - capture.PointerX - 12, capture.PointerX - right - 12));
                 var vertical = capture.PointerY - bottom;
                 if (horizontal > 65 || vertical < -25 || vertical > 43) continue;
-                lines.Add((line.Text, Math.Abs(vertical - 9) + horizontal * .6 + (vertical < 0 ? 9 : 0)));
+                lines.Add((line.Text, priority + Math.Abs(vertical - 9) + horizontal * .6 + (vertical < 0 ? 9 : 0)));
             }
         }
     }

@@ -26,6 +26,22 @@ public sealed class HoverItemLookupTests
     }
 
     [Fact]
+    public void LocatesDarkTooltipAndIgnoresUnreadablePunctuation()
+    {
+        const int width = 140, height = 60;
+        var pixels = Enumerable.Repeat((byte)225, width * height).ToArray();
+        for (var y = 13; y <= 28; y++)
+        for (var x = 18; x < 115; x++)
+            pixels[y * width + x] = (byte)(y is > 16 and < 25 && x % 5 == 0 ? 235 : 70);
+
+        var bounds = HoverItemLookup.FindTooltip(pixels, width, height, 28, 33);
+        Assert.Equal(new System.Windows.Int32Rect(18, 13, 97, 16), bounds);
+        Assert.Equal("", HoverItemLookup.SearchText("@@@..."));
+        DatabaseItem[] items = [new() { Id = 1, Name = "Tiger's Footskin" }];
+        Assert.Equal(1, Assert.Single(HoverItemLookup.Suggest("Tlger’s.Footskln", items)).Id);
+    }
+
+    [Fact]
     public void RecognizedTextSurvivesWhenOnlyApproximateMatchesExist()
     {
         DatabaseItem[] catalog = [new() { Id = 1, Name = "White Herb" }, new() { Id = 2, Name = "Red Herb" }];
