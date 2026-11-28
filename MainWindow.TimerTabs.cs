@@ -13,80 +13,97 @@ public partial class MainWindow
         RenderTimerTabs();
     }
 
+    private bool _renderingTimerTabs;
+
     private void RenderTimerTabs(int? editing = null)
     {
-        TimerTabStrip.Children.Clear();
-        var count = Math.Min(3, Settings.TimerTabs.Count);
-        for (var index = 0; index < count; index++)
+        _renderingTimerTabs = true;
+        try
         {
-            var tab = index;
-            if (editing == tab)
+            TimerTabStrip.Items.Clear();
+            for (var tab = 0; tab < Math.Min(3, Settings.TimerTabs.Count); tab++)
+                TimerTabStrip.Items.Add(CreateTimerTab(tab, editing == tab));
+            if (Settings.TimerTabs.Count < 3)
             {
-                var name = new TextBox { Text = Settings.TimerTabs[tab], Width = 90, MaxLength = 32, Margin = new Thickness(2) };
-                var finished = false;
-                MouseButtonEventHandler? outside = null;
-                void Finish(bool save)
-                {
-                    if (finished) return;
-                    finished = true;
-                    if (outside is not null) PreviewMouseDown -= outside;
-                    if (save && !string.IsNullOrWhiteSpace(name.Text))
-                    {
-                        Settings.TimerTabs[tab] = name.Text.Trim();
-                        RequestSave();
-                    }
-                    Dispatcher.BeginInvoke(new Action(() => { if (TimerTabStrip.Children.Contains(name)) RenderTimerTabs(); }));
-                }
-                name.KeyDown += (_, args) =>
-                {
-                    if (args.Key is not (Key.Enter or Key.Escape)) return;
-                    args.Handled = true;
-                    Finish(args.Key == Key.Enter);
-                };
-                outside = (_, args) =>
-                {
-                    if (!name.IsMouseOver) Finish(true);
-                };
-                PreviewMouseDown += outside;
-                name.Unloaded += (_, _) => PreviewMouseDown -= outside;
-                name.LostKeyboardFocus += (_, _) => Finish(true);
-                TimerTabStrip.Children.Add(name);
-                name.Focus();
-                name.SelectAll();
-                continue;
+                var add = new TabItem { Header = "+" };
+                add.SetResourceReference(ToolTipProperty, "TimerTabAdd");
+                TimerTabStrip.Items.Add(add);
             }
-            var button = new Button { Content = Settings.TimerTabs[tab], Margin = new Thickness(2), MaxWidth = 100 };
-            if (tab == Settings.ActiveTimerTab) button.SetResourceReference(StyleProperty, "PrimaryButtonStyle");
-            button.Click += (_, _) => SelectTimerTab(tab);
-            button.PreviewMouseLeftButtonDown += (_, args) =>
+            TimerTabStrip.SelectedIndex = Settings.ActiveTimerTab;
+            if (editing is int index && TimerTabStrip.Items[index] is TabItem { Header: TextBox editor })
             {
-                if (args.ClickCount != 2 || Settings.ActiveTimerTab != tab) return;
-                args.Handled = true;
-                RenderTimerTabs(tab);
-            };
-            var entry = new StackPanel { Orientation = Orientation.Horizontal };
-            entry.Children.Add(button);
-            if (tab == Settings.ActiveTimerTab)
-            {
-                var remove = new Button { Content = "×", Width = 24, Padding = new Thickness(0), Margin = new Thickness(0, 2, 4, 2) };
-                remove.SetResourceReference(ToolTipProperty, "TimerTabDelete");
-                remove.Click += (_, _) => DeleteTimerTab(tab);
-                entry.Children.Add(remove);
+                editor.Focus();
+                editor.SelectAll();
             }
-            TimerTabStrip.Children.Add(entry);
         }
-        if (count >= 3) return;
-        var add = new Button { Content = "+", Margin = new Thickness(2) };
-        add.SetResourceReference(ToolTipProperty, "TimerTabAdd");
-        add.Click += (_, _) =>
+        finally { _renderingTimerTabs = false; }
+    }
+
+    private TabItem CreateTimerTab(int index, bool editing)
+    {
+        var tab = new TabItem { Tag = index };
+        if (!editing)
         {
-            if (Settings.TimerTabs.Count >= 3) return;
-            Settings.TimerTabs.Add(Settings.TimerTabs.Count == 1 ? "2" : "3");
-            Settings.ActiveTimerTab = Settings.TimerTabs.Count - 1;
-            RequestSave();
-            RenderTimerTabs(Settings.ActiveTimerTab);
+            var header = new StackPanel { Orientation = Orientation.Horizontal };
+            header.Children.Add(new TextBlock { Text = Settings.TimerTabs[index], VerticalAlignment = VerticalAlignment.Center });
+            if (index == Settings.ActiveTimerTab)
+            {
+                var remove = new Button { Content = "×", MinHeight = 0, MinWidth = 0, Padding = new Thickness(2, 0, 2, 0),
+                    Margin = new Thickness(5, 0, 0, 0) };
+                remove.SetResourceReference(StyleProperty, "GhostButtonStyle");
+                remove.SetResourceReference(ToolTipProperty, "TimerTabDelete");
+                remove.Click += (_, args) => { args.Handled = true; DeleteTimerTab(index); };
+                header.Children.Add(remove);
+            }
+            tab.Header = header;
+            tab.PreviewMouseLeftButtonDown += (_, args) =>
+            {
+                if (args.ClickCount != 2 || Settings.ActiveTimerTab != index || args.Source is Button) return;
+                args.Handled = true;
+                RenderTimerTabs(index);
+            };
+            return tab;
+        }
+        var name = new TextBox { Text = Settings.TimerTabs[index], Width = 90, MaxLength = 32 };
+        tab.Header = name;
+        var finished = false;
+        void Finish(bool save)
+        {
+            if (finished) return;
+            finished = true;
+            if (save && !string.IsNullOrWhiteSpace(name.Text))
+            {
+                Settings.TimerTabs[index] = name.Text.Trim();
+                RequestSave();
+            }
+            Dispatcher.BeginInvoke(new Action(() => { if (TimerTabStrip.Items.Contains(tab)) RenderTimerTabs(); }));
+        }
+        MouseButtonEventHandler outside = (_, _) => { if (!name.IsMouseOver) Finish(true); };
+        PreviewMouseDown += outside;
+        name.Unloaded += (_, _) => PreviewMouseDown -= outside;
+        name.LostKeyboardFocus += (_, _) => Finish(true);
+        name.KeyDown += (_, args) =>
+        {
+            if (args.Key is not (Key.Enter or Key.Escape)) return;
+            args.Handled = true;
+            Finish(args.Key == Key.Enter);
         };
-        TimerTabStrip.Children.Add(add);
+        return tab;
+    }
+
+    private void TimerTabStrip_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_renderingTimerTabs || e.Source != TimerTabStrip || TimerTabStrip.SelectedItem is not TabItem tab) return;
+        if (tab.Tag is int index)
+        {
+            SelectTimerTab(index);
+            return;
+        }
+        if (Settings.TimerTabs.Count >= 3) return;
+        Settings.TimerTabs.Add((Settings.TimerTabs.Count + 1).ToString());
+        Settings.ActiveTimerTab = Settings.TimerTabs.Count - 1;
+        RequestSave();
+        RenderTimerTabs(Settings.ActiveTimerTab);
     }
 
     private void TimerQuickRestart_Click(object sender, RoutedEventArgs e) => RequestSave();

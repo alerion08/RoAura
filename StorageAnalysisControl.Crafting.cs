@@ -66,23 +66,44 @@ public sealed partial class StorageAnalysisControl
         var samples = _history.Select(point => (point.At, Count: point.Counts.GetValueOrDefault(mode)?.GetValueOrDefault(item.Id) ?? 0)).ToArray();
         if (samples.Length < 2) return;
 
-        var max = Math.Max(1, samples.Max(point => point.Count));
-        var range = Math.Max(1, (samples[^1].At - samples[0].At).TotalSeconds);
-        var line = new Polyline
-        {
-            Stretch = Stretch.Fill, Height = 56, StrokeThickness = 2, Margin = new Thickness(1, 4, 1, 4),
-            Points = new PointCollection(samples.Select(point =>
-                new Point((point.At - samples[0].At).TotalSeconds / range, 1 - (double)point.Count / max)))
-        };
-        line.SetResourceReference(Polyline.StrokeProperty, "RoBlueBrush");
+        var max = samples.Max(point => point.Count);
         var min = samples.Min(point => point.Count);
-        if (min == samples.Max(point => point.Count))
+        var range = Math.Max(1, (samples[^1].At - samples[0].At).TotalSeconds);
+        var chart = new Canvas { Height = 64, Margin = new Thickness(0, 4, 0, 4), Background = Brushes.Transparent };
+        var line = new Polyline { StrokeThickness = 2, IsHitTestVisible = false };
+        line.SetResourceReference(Polyline.StrokeProperty, "RoBlueBrush");
+        chart.Children.Add(line);
+        var markers = new List<(int Index, System.Windows.Shapes.Ellipse Marker)>();
+        for (var index = 0; index < samples.Length; index++)
         {
-            var flat = new Border { Height = 2, Margin = new Thickness(0, 20, 0, 20) };
-            flat.SetResourceReference(Border.BackgroundProperty, "RoBlueBrush");
-            history.Children.Add(flat);
+            var point = samples[index];
+            if (index > 0 && index < samples.Length - 1 && point.Count == samples[index - 1].Count) continue;
+            var marker = new System.Windows.Shapes.Ellipse
+            {
+                Width = 10, Height = 10, StrokeThickness = 1.5,
+                ToolTip = T($"{point.Count:N0} шт. · {point.At.ToLocalTime():g}", $"{point.Count:N0} pcs · {point.At.ToLocalTime():g}")
+            };
+            marker.SetResourceReference(System.Windows.Shapes.Shape.FillProperty, "RoBlueBrush");
+            marker.SetResourceReference(System.Windows.Shapes.Shape.StrokeProperty, "RoPanelBrush");
+            chart.Children.Add(marker);
+            markers.Add((index, marker));
         }
-        else history.Children.Add(line);
+
+        chart.SizeChanged += (_, _) =>
+        {
+            var width = Math.Max(0, chart.ActualWidth - 12);
+            var points = samples.Select(point => new Point(
+                6 + (point.At - samples[0].At).TotalSeconds / range * width,
+                max == min ? 32 : 6 + (double)(max - point.Count) / (max - min) * 52)).ToArray();
+            line.Points = new PointCollection(points);
+            foreach (var (index, marker) in markers)
+            {
+                var point = points[index];
+                Canvas.SetLeft(marker, point.X - marker.Width / 2);
+                Canvas.SetTop(marker, point.Y - marker.Height / 2);
+            }
+        };
+        history.Children.Add(chart);
         Text(history, $"{samples[0].At.ToLocalTime():d} — {samples[^1].At.ToLocalTime():d} · {min:N0}–{max:N0}");
     }
 
