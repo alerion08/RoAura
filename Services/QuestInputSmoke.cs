@@ -316,7 +316,11 @@ internal static class QuestInputSmoke
                     restarted.KillTimeInput="invalid old draft";
                     var restartAt=DateTime.UtcNow;
                     var restartHandler=typeof(MainWindow).GetMethod("RestartMvpTimer_Click",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!;
-                    restartHandler.Invoke(settingsWindow,[new Button {DataContext=restarted},new RoutedEventArgs()]);
+                    restarted.QuickRestart = true;
+                    try { restartHandler.Invoke(settingsWindow,[new Button {DataContext=restarted},new RoutedEventArgs()]); }
+                    finally { restarted.QuickRestart = false; }
+                    if (Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w => w.IsVisible))
+                        throw new InvalidOperationException("Quick restart opened a wizard.");
                     if(restarted.KilledAtUtc<restartAt || restarted.RemainingSeconds<restarted.DurationMinutes*60-2)
                         throw new InvalidOperationException("Restart reused an old/invalid kill-clock draft.");
                     DebugLog.Write("MVP RESTART PASS: existing kill-clock draft replaced with now.");
