@@ -29,6 +29,9 @@ public sealed class AppSettings : INotifyPropertyChanged
     private string _finishMoveHotkey = "Escape";
     private string _timersHotkey = "F10";
     private string _databaseHotkey = "F7";
+    private string _hoverItemCatalogHotkey = "Ctrl+Shift+F";
+    private string _hoverItemSellHotkey = "Ctrl+Shift+G";
+    private string _hoverItemBuyHotkey = "Ctrl+Shift+H";
     private string _questBrowserHotkey = "F6";
     private string _questTrackerHotkey = "F5";
     private string _pauseSessionHotkey = "Pause";
@@ -69,7 +72,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string AddMvpTimerHotkey { get => _addMvpTimerHotkey; set => Set(ref _addMvpTimerHotkey, NormalizeHotkey(value, "F4")); }
     [JsonIgnore] public bool HotkeyConflicts => new[] { SettingsHotkey, OverlaysHotkey, FinishMoveHotkey, TimersHotkey, DatabaseHotkey,
         QuestBrowserHotkey, QuestTrackerHotkey, PauseSessionHotkey, StartSessionHotkey, AddMvpTimerHotkey, InterfaceLayoutHotkey }
-        .Concat(Services.MvpTimerHotkeys.Keys(this)).Where(value => Services.HotkeyChord.TryParse(value,out _)).Select(Services.HotkeyChord.Canonical).GroupBy(value=>value).Any(group=>group.Count()>1);
+        .Concat(Services.MvpTimerHotkeys.Keys(this)).Concat([HoverItemCatalogHotkey, HoverItemSellHotkey, HoverItemBuyHotkey]).Where(value => Services.HotkeyChord.TryParse(value,out _)).Select(Services.HotkeyChord.Canonical).GroupBy(value=>value).Any(group=>group.Count()>1);
     [JsonIgnore] public bool FarmingHotkeyConflict => Services.FarmingHotkeys.HasConflict(this);
     private double _marketBackgroundRefreshMinutes = 10;
     private int _marketWatchHistoryRetentionDays = 30;
@@ -158,6 +161,9 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string FinishMoveHotkey { get => _finishMoveHotkey; set => Set(ref _finishMoveHotkey, NormalizeHotkey(value, "Escape")); }
     public string TimersHotkey { get => _timersHotkey; set => Set(ref _timersHotkey, NormalizeHotkey(value, "F10")); }
     public string DatabaseHotkey { get => _databaseHotkey; set => Set(ref _databaseHotkey, NormalizeHotkey(value, "F7")); }
+    public string HoverItemCatalogHotkey { get => _hoverItemCatalogHotkey; set => Set(ref _hoverItemCatalogHotkey, NormalizeHotkey(value, "None")); }
+    public string HoverItemSellHotkey { get => _hoverItemSellHotkey; set => Set(ref _hoverItemSellHotkey, NormalizeHotkey(value, "None")); }
+    public string HoverItemBuyHotkey { get => _hoverItemBuyHotkey; set => Set(ref _hoverItemBuyHotkey, NormalizeHotkey(value, "None")); }
     public string QuestBrowserHotkey { get => _questBrowserHotkey; set => Set(ref _questBrowserHotkey, NormalizeHotkey(value,"F6")); }
     public string QuestTrackerHotkey { get => _questTrackerHotkey; set => Set(ref _questTrackerHotkey, NormalizeHotkey(value,"F5")); }
     [JsonIgnore] public bool QuestHotkeyConflict { get { var enabled=Services.QuestHotkeys.Enabled(this); return !enabled.Browser || !enabled.Tracker; } }

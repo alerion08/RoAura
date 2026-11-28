@@ -560,6 +560,7 @@ public partial class App : Application
                 Dispatcher.BeginInvoke(() => _settingsWindow?.RestartMvpTimerInGame(number, killedAtUtc));
             };
             _inputHook.ToggleDatabasePressed += ToggleDatabase;
+            _inputHook.HoverItemPressed += action => Dispatcher.BeginInvoke(new Action(() => LookupHoveredItem(action)));
             _inputHook.ToggleQuestBrowserPressed+=()=>Dispatcher.BeginInvoke(()=>_settingsWindow?.ToggleQuestBrowser());
             _inputHook.ToggleQuestTrackerPressed+=()=>Dispatcher.BeginInvoke(()=>_settingsWindow?.ToggleQuestTracker());
             _inputHook.Install();
@@ -1429,6 +1430,44 @@ public partial class App : Application
         var ids = _activeDatabase.Items.Where(item => string.Equals(item.Name.Trim(), name.Trim(), StringComparison.OrdinalIgnoreCase))
             .Select(item => item.Id).Distinct().Take(2).ToArray();
         return ids.Length == 1 ? ids[0] : null;
+    }
+
+    private bool _hoverLookupRunning;
+
+    private async void LookupHoveredItem(HoverItemAction action)
+    {
+        if (_hoverLookupRunning || _settingsWindow?.Settings is not { } settings ||
+            _activeDatabase is not { } database || _databaseOverlay is not { } overlay ||
+            !GameServerProfile.SupportsDatabaseOverlay(settings.ServerProfile) ||
+            (action != HoverItemAction.Catalog && !GameServerProfile.SupportsMarket(settings.ServerProfile)) ||
+            !ForegroundProcess.TryGetForegroundAllowedBounds(settings.AllowedProcesses, out var bounds)) return;
+
+        var profile = settings.ServerProfile;
+        _hoverLookupRunning = true;
+        try
+        {
+            var capture = HoverItemLookup.Capture(bounds, QuestWindowNative.Cursor());
+            if (capture is null) return;
+            var lines = await HoverItemLookup.ReadAsync(capture);
+            if (!StillInGame()) return;
+            var matches = lines.Select(line => HoverItemLookup.Match(line, database.Items))
+                .FirstOrDefault(items => items.Length != 0) ?? [];
+            await overlay.ShowHoveredItemsAsync(action, matches);
+            RefreshKeyboardMode();
+        }
+        catch (Exception ex)
+        {
+            DebugLog.Write($"HOVER ITEM LOOKUP: {ex.GetType().Name}: {ex.Message}");
+            if (StillInGame())
+            {
+                overlay.ShowHoverReadError();
+                RefreshKeyboardMode();
+            }
+        }
+        finally { _hoverLookupRunning = false; }
+
+        bool StillInGame() => ReferenceEquals(_databaseOverlay, overlay) && settings.ServerProfile == profile &&
+            ForegroundProcess.TryGetForegroundAllowedBounds(settings.AllowedProcesses, out var current) && current == bounds;
     }
 
     internal RagnarokPlusMarketWindow? StorageBrowser => _databaseOverlay?.StorageBrowser;

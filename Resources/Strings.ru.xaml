@@ -933,4 +933,7 @@
     <sys:String x:Key="HistoryCardItemQuantity">Найдено предметов</sys:String>
     <sys:String x:Key="ReminderCountdownTenths">Десятые доли при остатке меньше 10 сек.</sys:String>
     <sys:String x:Key="StorageAnalysisTitle">Анализ хранилища</sys:String>
+    <sys:String x:Key="HoverItemCatalogHotkey">Предмет под курсором — база</sys:String>
+    <sys:String x:Key="HoverItemSellHotkey">Предмет под курсором — продажа</sys:String>
+    <sys:String x:Key="HoverItemBuyHotkey">Предмет под курсором — скупка</sys:String>
 </ResourceDictionary>

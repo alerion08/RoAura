@@ -193,11 +193,60 @@ public partial class DatabaseOverlayWindow : Window
         _details.ShowDetails(card);
     }
 
+    private HoverItemAction? _hoverChoiceAction;
+
+    internal async Task ShowHoveredItemsAsync(HoverItemAction action, DatabaseItem[] items)
+    {
+        if (!IsDatabaseOpen) ShowForGame();
+        SearchModeTabs.SelectedItem = ItemsMode;
+        _hoverChoiceAction = null;
+
+        if (items.Length == 1)
+        {
+            await OpenHoveredItemAsync(action, items[0]);
+            return;
+        }
+
+        SearchBox.Clear();
+        _details.ResetDetails();
+        ResultsList.ItemsSource = items.Select(item =>
+            new DatabaseSearchResult(DatabaseSearchKind.Items, item, item.Name, $"#{item.Id} · {item.Type}")).ToArray();
+        _hoverChoiceAction = items.Length != 0 ? action : null;
+        FooterText.Text = items.Length == 0
+            ? T("Не удалось определить предмет. Можно ввести название вручную.", "Could not identify the item. Enter the name to search.")
+            : T("Выберите нужный предмет.", "Choose the item to open.");
+    }
+
+    internal void ShowHoverReadError()
+    {
+        if (!IsDatabaseOpen) ShowForGame();
+        SearchModeTabs.SelectedItem = ItemsMode;
+        FooterText.Text = T("Распознавание подсказки недоступно. Используйте поиск по названию.", "Tooltip recognition unavailable. Search by name instead.");
+    }
+
+    private async Task OpenHoveredItemAsync(HoverItemAction action, DatabaseItem item)
+    {
+        if (action == HoverItemAction.Catalog)
+        {
+            SearchBox.Text = $"#{item.Id}";
+            ShowQuestCard(item);
+            return;
+        }
+
+        // Configure the side before switching tabs, so its Checked handler does not submit another search.
+        MarketBuyMode.IsChecked = action == HoverItemAction.Buying;
+        MarketSellMode.IsChecked = action == HoverItemAction.Selling;
+        SearchModeTabs.SelectedItem = MarketMode;
+        SearchBox.Text = $"#{item.Id}";
+        await RefreshMarketResultsAsync(item);
+    }
+
     public void HideDatabase()
     {
         _marketSearchCancellation?.Cancel();
         _marketSearchCancellation = null;
         _marketSearchVersion++;
+        _hoverChoiceAction = null;
         IsDatabaseOpen = false;
         _visibilityTimer.Stop();
         Hide();
@@ -551,7 +600,10 @@ public partial class DatabaseOverlayWindow : Window
                 RecordRagnarokPlusOffers(item.Id, listings, type == "BUY");
             }
             else
-                listings = await _market.SearchAsync(query, type, cancellation.Token);
+            {
+                listings = await _market.SearchAsync(selectedItem?.Name ?? query, type, cancellation.Token);
+                if (selectedItem is not null) listings = listings.Where(offer => offer.ItemId == selectedItem.Id).ToArray();
+            }
             if (searchVersion != _marketSearchVersion || cancellation.IsCancellationRequested) return;
             ResultsList.ItemsSource = listings.Select(MarketResult).ToList();
             if (SearchBox.Text.Trim() == query) ShowMarketPriceDepth(listings, type == "BUY", previousListings);
@@ -603,6 +655,7 @@ public partial class DatabaseOverlayWindow : Window
     {
         if (e.Source is TabControl { SelectedItem: TabItem { Tag: string tag } } && Enum.TryParse(tag, out DatabaseSearchKind kind))
         {
+            _hoverChoiceAction = null;
             var previousKind = _kind;
             _kind = kind;
             // Selection can change while InitializeComponent constructs the visual tree.
@@ -642,6 +695,7 @@ public partial class DatabaseOverlayWindow : Window
     private void Search_TextChanged(object sender, TextChangedEventArgs e)
     {
         if (!IsLoaded || _restoringSearchQuery) return;
+        _hoverChoiceAction = null;
         _searchQueries[_kind] = SearchBox.Text;
         if (_kind == DatabaseSearchKind.Market) ClearMarketPriceDepth();
         else RefreshResults();
@@ -673,6 +727,12 @@ public partial class DatabaseOverlayWindow : Window
     private async void Results_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (ResultsList.SelectedItem is not DatabaseSearchResult result) return;
+        if (_hoverChoiceAction is { } hoverAction && result.Value is DatabaseItem hovered)
+        {
+            _hoverChoiceAction = null;
+            await OpenHoveredItemAsync(hoverAction, hovered);
+            return;
+        }
         if (_kind == DatabaseSearchKind.Market && _settings.ServerProfile == GameServerProfile.RagnarokPlus &&
             result.Value is DatabaseItem item)
         {

@@ -20,16 +20,18 @@ public sealed class GlobalInputHook : IDisposable
     private int _polling;
     private volatile bool _keyboardBlocked,_finishMoveEnabled;
     private Entry[] _entries=[];
-    private sealed class Entry(HotkeyChord chord,Action action,bool finish)
+    private sealed class Entry(HotkeyChord chord,Action action,bool finish,bool gameOnly)
     {
         public readonly HotkeyChord Chord=chord;
         public readonly Action Action=action;
         public readonly bool Finish=finish;
+        public readonly bool GameOnly=gameOnly;
         public int Held;
     }
     public event Action? ToggleSettingsPressed,ToggleOverlaysPressed,EscapePressed,ToggleTimersPressed,
         InterfaceLayoutPressed,StartSessionPressed,PauseSessionPressed,AddMvpTimerPressed,ToggleDatabasePressed,ToggleQuestBrowserPressed,ToggleQuestTrackerPressed;
     public event Action<int>? RestartMvpTimerPressed;
+    internal event Action<HoverItemAction>? HoverItemPressed;
     public GlobalInputHook(AppSettings settings)
     {
         _settings=settings;_keyboardProc=KeyboardHookCallback;
@@ -52,9 +54,9 @@ public sealed class GlobalInputHook : IDisposable
     {
         var entries=new List<Entry>();
         var used=new HashSet<HotkeyChord>();
-        void Add(string value,Action action,bool finish=false)
+        void Add(string value,Action action,bool finish=false,bool gameOnly=false)
         {
-            if(HotkeyChord.TryParse(value,out var chord) && used.Add(chord))entries.Add(new(chord,action,finish) { Held=Down(chord.VirtualKey)?1:0 });
+            if(HotkeyChord.TryParse(value,out var chord) && used.Add(chord))entries.Add(new(chord,action,finish,gameOnly) { Held=Down(chord.VirtualKey)?1:0 });
         }
         Add(_settings.SettingsHotkey,()=>ToggleSettingsPressed?.Invoke());
         Add(_settings.OverlaysHotkey,()=>ToggleOverlaysPressed?.Invoke());
@@ -74,6 +76,9 @@ public sealed class GlobalInputHook : IDisposable
             var slot = number;
             if (MvpTimerHotkeys.Enabled(_settings, slot)) Add(timerKeys[slot - 1], () => RestartMvpTimerPressed?.Invoke(slot));
         }
+        Add(_settings.HoverItemCatalogHotkey, () => HoverItemPressed?.Invoke(HoverItemAction.Catalog), gameOnly:true);
+        Add(_settings.HoverItemSellHotkey, () => HoverItemPressed?.Invoke(HoverItemAction.Selling), gameOnly:true);
+        Add(_settings.HoverItemBuyHotkey, () => HoverItemPressed?.Invoke(HoverItemAction.Buying), gameOnly:true);
         Volatile.Write(ref _entries,entries.ToArray());
     }
     private static bool Down(int key)=>(GetAsyncKeyState(key)&0x8000)!=0;
@@ -98,7 +103,7 @@ public sealed class GlobalInputHook : IDisposable
             {
                 var down=Down(entry.Chord.VirtualKey);
                 var wasHeld=Interlocked.Exchange(ref entry.Held,down?1:0)!=0;
-                if(allowed && !suppressed && down && !wasHeld && (!entry.Finish || _finishMoveEnabled) &&
+                if(allowed && !entry.GameOnly && !suppressed && down && !wasHeld && (!entry.Finish || _finishMoveEnabled) &&
                     entry.Chord.Matches(entry.Chord.VirtualKey,modifiers))entry.Action();
             }
         }
@@ -123,7 +128,7 @@ public sealed class GlobalInputHook : IDisposable
             foreach(var entry in Volatile.Read(ref _entries).Where(entry=>entry.Chord.VirtualKey==key))
             {
                 var wasHeld=Interlocked.Exchange(ref entry.Held,isDown?1:0)!=0;
-                if(!suppressed && isDown && !wasHeld && (!entry.Finish||_finishMoveEnabled) && entry.Chord.Matches(key,modifiers))entry.Action();
+                if(!suppressed && (!entry.GameOnly || gameForeground) && isDown && !wasHeld && (!entry.Finish||_finishMoveEnabled) && entry.Chord.Matches(key,modifiers))entry.Action();
             }
             if(!_keyboardBlocked || !gameForeground || suppressed || IsAlwaysForwarded(key))
                 return CallNextHookEx(_keyboardHook,code,message,data);

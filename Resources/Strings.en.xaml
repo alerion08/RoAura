@@ -933,4 +933,7 @@
     <sys:String x:Key="HistoryCardItemQuantity">Matching items</sys:String>
     <sys:String x:Key="ReminderCountdownTenths">Show tenths below 10 seconds</sys:String>
     <sys:String x:Key="StorageAnalysisTitle">Storage analysis</sys:String>
+    <sys:String x:Key="HoverItemCatalogHotkey">Hovered item — database</sys:String>
+    <sys:String x:Key="HoverItemSellHotkey">Hovered item — selling</sys:String>
+    <sys:String x:Key="HoverItemBuyHotkey">Hovered item — buying</sys:String>
 </ResourceDictionary>

@@ -103,8 +103,11 @@
       </Grid></StackPanel>
      </Expander>
     </Grid></GroupBox>
-    <GroupBox Header="{DynamicResource Database}" Margin="0,0,0,12"><Grid Margin="10"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <GroupBox Header="{DynamicResource Database}" Margin="0,0,0,12"><Grid Margin="10"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <TextBlock Grid.Row="0" Text="{DynamicResource DatabaseHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="0" Grid.Column="1" Value="{Binding DatabaseHotkey, Mode=TwoWay}"/>
+     <TextBlock Grid.Row="1" Text="{DynamicResource HoverItemCatalogHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="1" Grid.Column="1" Value="{Binding HoverItemCatalogHotkey, Mode=TwoWay}"/>
+     <TextBlock Grid.Row="2" Text="{DynamicResource HoverItemSellHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="2" Grid.Column="1" Value="{Binding HoverItemSellHotkey, Mode=TwoWay}"/>
+     <TextBlock Grid.Row="3" Text="{DynamicResource HoverItemBuyHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="3" Grid.Column="1" Value="{Binding HoverItemBuyHotkey, Mode=TwoWay}"/>
     </Grid></GroupBox>
     <GroupBox Header="{DynamicResource Quests}" Margin="0,0,0,12"><Grid Margin="10"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <TextBlock Grid.Row="0" Text="{DynamicResource QBrowserHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="0" Grid.Column="1" Value="{Binding QuestBrowserHotkey, Mode=TwoWay}"/>
