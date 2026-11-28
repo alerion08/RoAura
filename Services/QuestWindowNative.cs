@@ -36,6 +36,20 @@ internal static class QuestWindowNative
     [DllImport("user32.dll")] private static extern IntPtr GetWindow(IntPtr hwnd,uint command);
     internal static bool LeftMouseDown=>(GetAsyncKeyState(1)&0x8000)!=0;
     [DllImport("user32.dll")] private static extern short GetAsyncKeyState(int key);
+    [StructLayout(LayoutKind.Sequential)]
+    private struct CursorInfo
+    {
+        public int Size, Flags;
+        public IntPtr Handle;
+        public PointNative Position;
+    }
+    [DllImport("user32.dll")] private static extern bool GetCursorInfo(ref CursorInfo info);
+    internal static bool IsSystemCursorHidden()
+    {
+        var info = new CursorInfo { Size = Marshal.SizeOf<CursorInfo>() };
+        return GetCursorInfo(ref info) && ((info.Flags & 1) == 0 || info.Handle == IntPtr.Zero);
+    }
+
     internal static Point Cursor() { GetCursorPos(out var p);return new Point(p.X,p.Y); }
     internal static double Scale(IntPtr hwnd) {var dpi=GetDpiForWindow(hwnd);return dpi>0?dpi/96d:1;}
     [DllImport("user32.dll")] internal static extern IntPtr GetForegroundWindow();

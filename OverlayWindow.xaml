@@ -655,7 +655,8 @@
                     MouseLeftButtonDown="MvpTimerPanel_MouseLeftButtonDown" MouseMove="MvpTimerPanel_MouseMove" MouseLeftButtonUp="MvpTimerPanel_MouseLeftButtonUp">
                 <StackPanel>
                 <TextBlock x:Name="TimerPanelPreview" Text="{DynamicResource MvpTimers}" FontWeight="Bold" Foreground="#FFFFD45C" Visibility="Collapsed" Margin="0,0,0,5"/>
-                <ItemsControl ItemsSource="{Binding ActiveMvpTimers}">
+                <Border x:Name="TimerHeaderAnchor" Height="29" MinWidth="132"/>
+                <ItemsControl ItemsSource="{Binding ActiveTimerTabView}">
                     <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>

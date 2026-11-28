@@ -936,4 +936,9 @@
     <sys:String x:Key="HoverItemCatalogHotkey">Предмет под курсором — база</sys:String>
     <sys:String x:Key="HoverItemSellHotkey">Предмет под курсором — продажа</sys:String>
     <sys:String x:Key="HoverItemBuyHotkey">Предмет под курсором — скупка</sys:String>
+    <sys:String x:Key="TimerTabLabel">Вкладка таймеров</sys:String>
+    <sys:String x:Key="TimerTabAdd">Добавить вкладку</sys:String>
+    <sys:String x:Key="TimerTrackerRefresh">Обновить трекер</sys:String>
+    <sys:String x:Key="TimerTabPrevious">Предыдущая вкладка</sys:String>
+    <sys:String x:Key="TimerTabNext">Следующая вкладка</sys:String>
 </ResourceDictionary>

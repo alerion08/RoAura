@@ -40,6 +40,9 @@ public sealed class MvpTimer : INotifyPropertyChanged
         value.HasValue && double.IsFinite(value.Value) ? Math.Clamp(value.Value, 0, 1) : null;
     public void ClearMarker() { MarkerX = null; MarkerY = null; }
 
+    private int _tabIndex;
+    public int TabIndex { get => _tabIndex; set => Set(ref _tabIndex, Math.Clamp(value, 0, 2)); }
+
     public Guid Id { get; set; } = Guid.NewGuid();
     public bool IsMvp { get => _isMvp; set => Set(ref _isMvp, value); }
     public string Name { get => _name; set { if (Set(ref _name, value)) { OnPropertyChanged(nameof(NumberedName)); OnPropertyChanged(nameof(DisplayText)); } } }

@@ -18,7 +18,8 @@ public sealed class GlobalInputHook : IDisposable
     private bool _cachedAllowed,_screenshotChordHeld;
     private Timer? _timer;
     private int _polling;
-    private volatile bool _keyboardBlocked,_finishMoveEnabled;
+    private volatile bool _keyboardBlocked,_finishMoveEnabled,_databaseEscapeEnabled;
+    private bool _databaseEscapeHeld;
     private Entry[] _entries=[];
     private sealed class Entry(HotkeyChord chord,Action action,bool finish,bool gameOnly)
     {
@@ -32,6 +33,8 @@ public sealed class GlobalInputHook : IDisposable
         InterfaceLayoutPressed,StartSessionPressed,PauseSessionPressed,AddMvpTimerPressed,ToggleDatabasePressed,ToggleQuestBrowserPressed,ToggleQuestTrackerPressed;
     public event Action<int>? RestartMvpTimerPressed;
     internal event Action<HoverItemAction>? HoverItemPressed;
+    internal event Action? DatabaseEscapePressed;
+    internal void SetDatabaseEscapeEnabled(bool enabled) => _databaseEscapeEnabled = enabled;
     public GlobalInputHook(AppSettings settings)
     {
         _settings=settings;_keyboardProc=KeyboardHookCallback;
@@ -124,7 +127,14 @@ public sealed class GlobalInputHook : IDisposable
             if(!isDown&&!isUp)return CallNextHookEx(_keyboardHook,code,message,data);
             var key=Marshal.ReadInt32(data);
             var modifiers=Modifiers();
+            if (key == 0x1B && isUp && !gameForeground) _databaseEscapeHeld = false;
             var suppressed=HotkeyCaptureGate.IsCapturing || HotkeyCaptureGate.AwaitingReleaseKey>0;
+            if (key == 0x1B && gameForeground && !suppressed && (_databaseEscapeHeld || (_databaseEscapeEnabled && isDown && modifiers == ModifierKeys.None)))
+            {
+                if (!_databaseEscapeHeld && isDown) DatabaseEscapePressed?.Invoke();
+                _databaseEscapeHeld = isDown;
+                return new IntPtr(1);
+            }
             foreach(var entry in Volatile.Read(ref _entries).Where(entry=>entry.Chord.VirtualKey==key))
             {
                 var wasHeld=Interlocked.Exchange(ref entry.Held,isDown?1:0)!=0;

@@ -293,6 +293,8 @@ public partial class MainWindow : Window
     private void Settings_RuntimeChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (_applyingPreset) return;
+        if (e.PropertyName == nameof(AppSettings.ActiveTimerTab) && TimerTabStrip.IsLoaded)
+            RenderTimerTabs();
         if (e.PropertyName == nameof(AppSettings.TrackSteal))
         {
             RequestSave();
@@ -2130,6 +2132,7 @@ public partial class MainWindow : Window
         var wizard = new MvpTimerWizardWindow(_monsters, usesReferenceCatalog: UsesReferenceTimerCatalog,
             serverUtcOffsetMinutes: Settings.ServerUtcOffsetMinutes) { Owner = this };
         if (wizard.ShowDialog() != true || wizard.CreatedTimer is not { } timer) return;
+        timer.TabIndex = Settings.ActiveTimerTab;
         Settings.ActiveMvpTimers.Add(timer);
         MvpTimerHotkeys.RefreshNumbers(Settings.ActiveMvpTimers);
         MvpTimersGrid.SelectedItem = timer;

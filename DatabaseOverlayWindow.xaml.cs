@@ -68,6 +68,8 @@ public partial class DatabaseOverlayWindow : Window
             var results = await _market.SearchAsync(item.Name, side, cancellation);
             return results.Where(offer => offer.ItemId == item.Id).ToArray();
         };
+        KeyDown += CloseOnEscape;
+        _details.KeyDown += CloseOnEscape;
         _details.HideRequested += () => HideRequested?.Invoke();
         _market.DataUpdated += Market_DataUpdated;
         RefreshLanguage();
@@ -193,27 +195,39 @@ public partial class DatabaseOverlayWindow : Window
         _details.ShowDetails(card);
     }
 
+    private void CloseOnEscape(object sender, KeyEventArgs args)
+    {
+        if (args.Key != Key.Escape || args.Handled || !IsDatabaseOpen) return;
+        args.Handled = true;
+        HideRequested?.Invoke();
+    }
+
     private HoverItemAction? _hoverChoiceAction;
 
-    internal async Task ShowHoveredItemsAsync(HoverItemAction action, DatabaseItem[] items)
+    internal async Task ShowHoveredItemsAsync(HoverItemAction action, DatabaseItem[] items, string recognized, bool approximate)
     {
         if (!IsDatabaseOpen) ShowForGame();
         SearchModeTabs.SelectedItem = ItemsMode;
         _hoverChoiceAction = null;
 
-        if (items.Length == 1)
+        if (items.Length == 1 && !approximate)
         {
             await OpenHoveredItemAsync(action, items[0]);
             return;
         }
 
-        SearchBox.Clear();
+        _restoringSearchQuery = true;
+        SearchBox.Text = recognized;
+        SearchBox.CaretIndex = recognized.Length;
+        _searchQueries[DatabaseSearchKind.Items] = recognized;
+        _restoringSearchQuery = false;
         _details.ResetDetails();
         ResultsList.ItemsSource = items.Select(item =>
             new DatabaseSearchResult(DatabaseSearchKind.Items, item, item.Name, $"#{item.Id} · {item.Type}")).ToArray();
         _hoverChoiceAction = items.Length != 0 ? action : null;
         FooterText.Text = items.Length == 0
-            ? T("Не удалось определить предмет. Можно ввести название вручную.", "Could not identify the item. Enter the name to search.")
+            ? (recognized.Length == 0 ? T("Не удалось прочитать подсказку.", "Could not read the tooltip.") :
+                T("Название распознано, но в каталоге нет совпадения. Поправьте запрос.", "Name read, but no catalog match. Edit the query."))
             : T("Выберите нужный предмет.", "Choose the item to open.");
     }
 

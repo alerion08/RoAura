@@ -1176,13 +1176,8 @@
                         <Border Grid.ColumnSpan="3" Margin="0,0,0,8" Padding="14,9" CornerRadius="7" Background="{DynamicResource UiBackground_E5F0FC}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{DynamicResource MvpTimersTitle}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource MvpTimersHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/></StackPanel><Button Grid.Column="1" Content="{DynamicResource AddMvpTimer}" Click="AddMvpTimer_Click" Style="{StaticResource PrimaryButtonStyle}"/></Grid></Border>
                         <Border Grid.Row="1" Style="{StaticResource WorkspacePanelStyle}">
                             <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions><Grid Margin="2,0,2,10"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{DynamicResource MvpTimers}" FontWeight="Bold" FontSize="15"/><TextBlock Foreground="{DynamicResource RoMutedBrush}" FontSize="11"><Run Text="{Binding ActiveMvpTimers.Count, Mode=OneWay}"/><Run Text=" "/><Run Text="{DynamicResource ConfiguredTimers}"/></TextBlock></StackPanel><Button Grid.Column="1" Content="{DynamicResource Add}" Click="AddMvpTimer_Click" Style="{StaticResource PrimaryButtonStyle}"/></Grid>
-                                <TextBlock Grid.Row="1" Text="{Binding TimerRouteSummary}" TextWrapping="Wrap"
-                                           Foreground="{DynamicResource RoMutedBrush}" FontSize="11" Margin="2,0,2,5">
-                                    <TextBlock.Style><Style TargetType="TextBlock"><Style.Triggers>
-                                        <DataTrigger Binding="{Binding TimerRouteSummary}" Value=""><Setter Property="Visibility" Value="Collapsed"/></DataTrigger>
-                                    </Style.Triggers></Style></TextBlock.Style>
-                                </TextBlock>
-                                <ListBox Grid.Row="2" x:Name="MvpTimersGrid" ItemsSource="{Binding ActiveMvpTimers}" BorderThickness="0" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <WrapPanel Grid.Row="1" x:Name="TimerTabStrip" Margin="0,0,0,6" Loaded="TimerTabStrip_Loaded"/>
+                                <ListBox Grid.Row="2" x:Name="MvpTimersGrid" ItemsSource="{Binding ActiveTimerTabView}" BorderThickness="0" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                     <ListBox.ItemContainerStyle><Style TargetType="ListBoxItem"><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="Padding" Value="0"/><Setter Property="Margin" Value="0,0,0,7"/><Setter Property="BorderThickness" Value="0"/></Style></ListBox.ItemContainerStyle>
                                     <ListBox.ItemTemplate><DataTemplate><Border Padding="10" CornerRadius="8" BorderThickness="1"><Border.Style><Style TargetType="Border"><Setter Property="Background" Value="{DynamicResource UiBackground_F8FBFF}"/><Setter Property="BorderBrush" Value="{DynamicResource RoSoftBorderBrush}"/><Style.Triggers><DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True"><Setter Property="Background" Value="{DynamicResource RoSelectionBrush}"/><Setter Property="BorderBrush" Value="{DynamicResource RoBlueBrush}"/></DataTrigger><DataTrigger Binding="{Binding HasOverlappingRespawn}" Value="True"><Setter Property="BorderBrush" Value="{DynamicResource UiForeground_B06A20}"/><Setter Property="ToolTip" Value="{DynamicResource TimerRouteOverlap}"/></DataTrigger></Style.Triggers></Style></Border.Style>
                                         <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="52"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
@@ -1206,7 +1201,7 @@
                                             <GroupBox Header="{DynamicResource TimerSettings}">
                                                 <Grid>
                                                     <Grid.ColumnDefinitions><ColumnDefinition Width="175"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                                                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                                                     <TextBlock Text="{DynamicResource TimerMonster}" Style="{StaticResource FieldLabelStyle}"/>
                                                     <ComboBox x:Name="MvpMonsterBox" Grid.Column="1" Height="32" Margin="0,4,14,4" Padding="10,0,36,0" VerticalContentAlignment="Center"
                                                               ItemsSource="{Binding MvpMonsterView, ElementName=RootWindow}" DisplayMemberPath="DisplayName"
@@ -1215,14 +1210,18 @@
                                                               DropDownClosed="MvpMonster_DropDownClosed" SelectionChanged="MvpMonster_SelectionChanged"/>
                                                     <TextBlock Grid.Row="1" Text="{DynamicResource Name}" Style="{StaticResource FieldLabelStyle}"/>
                                                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
-                                                    <TextBlock Grid.Row="2" Text="{DynamicResource Minutes}" Style="{StaticResource FieldLabelStyle}"/>
-                                                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DurationMinutes, UpdateSourceTrigger=LostFocus}" Style="{StaticResource FieldEditorStyle}"/>
-                                                    <TextBlock Grid.Row="3" Text="{DynamicResource KillTime}" Style="{StaticResource FieldLabelStyle}"/>
-                                                    <Grid Grid.Row="3" Grid.Column="1" Margin="0,0,14,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Row="2" Text="{DynamicResource TimerTabLabel}" Style="{StaticResource FieldLabelStyle}"/>
+                                                    <ComboBox Grid.Row="2" Grid.Column="1" Margin="0,4,14,4" Height="32"
+                                                              ItemsSource="{Binding DataContext.TimerTabs, ElementName=RootWindow}"
+                                                              SelectedIndex="{Binding TabIndex, Mode=TwoWay}"/>
+                                                    <TextBlock Grid.Row="3" Text="{DynamicResource Minutes}" Style="{StaticResource FieldLabelStyle}"/>
+                                                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding DurationMinutes, UpdateSourceTrigger=LostFocus}" Style="{StaticResource FieldEditorStyle}"/>
+                                                    <TextBlock Grid.Row="4" Text="{DynamicResource KillTime}" Style="{StaticResource FieldLabelStyle}"/>
+                                                    <Grid Grid.Row="4" Grid.Column="1" Margin="0,0,14,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                                                         <TextBox Text="{Binding KillTimeInput, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}" Margin="0,4,6,4" ToolTip="HH:mm:ss"/>
                                                         <Button Grid.Column="1" Content="{DynamicResource MvpApplyKillTime}" Click="ApplyMvpKillTime_Click" VerticalAlignment="Center"/>
                                                     </Grid>
-                                                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="0,10,0,4">
+                                                    <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Margin="0,10,0,4">
                                                         <CheckBox Content="{DynamicResource Enabled}" IsChecked="{Binding Enabled}"/>
                                                         <TextBlock Text="{DynamicResource RespawnWindowStart}" TextWrapping="Wrap" Margin="0,6,0,0"/>
                                                         <TextBox Text="{Binding RespawnWindowStartMinutes, UpdateSourceTrigger=LostFocus}" Style="{StaticResource FieldEditorStyle}"/>

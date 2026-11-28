@@ -133,7 +133,12 @@ public partial class OverlayWindow : Window
     public OverlayWindow(AppSettings settings, SettingsStore store, GoldGoblinService goldGoblin)
     {
         InitializeComponent();
-        Closed += (_, _) => HideMvpMap();
+        Closed += (_, _) =>
+        {
+            HideMvpMap();
+            _timerHeader?.Close();
+            _overlayCursor?.Close();
+        };
         _settings = settings;
         _store = store;
         _goldGoblin = goldGoblin;
@@ -167,8 +172,10 @@ public partial class OverlayWindow : Window
             UpdateRateIndicators();
             UpdateTimerPanelPreviewPosition();
             RefreshMvpMapHover();
+            UpdateTimerHeader();
         };
         _timer.Start();
+        StartOverlayCursor();
         Loaded += (_, _) => SyncOverlayToGameWindow(true);
         UpdateTimerPanelVisibility();
         RefreshServerProfile();
@@ -1151,6 +1158,7 @@ public partial class OverlayWindow : Window
     private void UpdateTimerPanelVisibility()
     {
         var hasRunningTimers = _settings.ActiveMvpTimers.Any(timer => timer.IsVisible);
+        // Keep the tab header usable while moving between tabs without running timers.
         MvpTimerPanel.Visibility = (_settings.TimersOverlayVisible || _layoutTimerPreview) &&
                                    FeatureAvailability.CanUse(_settings.ServerProfile, _settings.PacketCaptureEnabled, AppFeature.MvpTimers) &&
                                    (_timerPanelEditMode || _layoutTimerPreview || hasRunningTimers)

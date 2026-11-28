@@ -43,6 +43,32 @@ internal static class HoverItemLookup
             string.Equals(item.Name.Trim(), candidate, StringComparison.OrdinalIgnoreCase)).DistinctBy(item => item.Id).ToArray();
     }
 
+    internal static string SearchText(string? text) => text is null ? "" : Refine.Replace(Quantity.Replace(text.Trim(), ""), "");
+
+    internal static DatabaseItem[] Suggest(string text, IReadOnlyList<DatabaseItem> items)
+    {
+        var query = SearchText(text).ToUpperInvariant();
+        if (query.Length < 5) return [];
+        var candidates = items.Select(item => (Item: item, Name: item.Name.Trim().ToUpperInvariant()))
+            .Where(entry => Math.Abs(entry.Name.Length - query.Length) <= 1 && OneEditApart(query, entry.Name))
+            .Select(entry => entry.Item).DistinctBy(item => item.Id).OrderBy(item => item.Name).Take(8);
+        return candidates.ToArray();
+    }
+
+    private static bool OneEditApart(string left, string right)
+    {
+        if (left.Length > right.Length) return OneEditApart(right, left);
+        var different = left.Length != right.Length;
+        for (var i = 0; i < left.Length; i++)
+        {
+            if (left[i] == right[i]) continue;
+            if (left.Length != right.Length) return left.AsSpan(i).SequenceEqual(right.AsSpan(i + 1));
+            if (different) return false;
+            different = true;
+        }
+        return different;
+    }
+
     internal sealed record Screenshot(BitmapSource Image, double PointerX, double PointerY);
 
     internal static Screenshot? Capture(ForegroundProcess.WindowBounds bounds, Point cursor)
@@ -90,6 +116,9 @@ internal static class HoverItemLookup
         var lines = new List<(string Text, double Distance)>();
         await ReadPassAsync();
         for (var i = 0; i < enlarged.Length; i++) enlarged[i] = (byte)(255 - enlarged[i]);
+        await ReadPassAsync();
+        for (var i = 0; i < enlarged.Length; i++)
+            enlarged[i] = (byte)Math.Clamp((127 - enlarged[i]) * 2 + 127, 0, 255);
         await ReadPassAsync();
         return lines.OrderBy(line => line.Distance).Select(line => line.Text).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
 

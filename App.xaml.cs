@@ -549,6 +549,10 @@ public partial class App : Application
             _inputHook.ToggleSettingsPressed += ToggleSettings;
             _inputHook.ToggleOverlaysPressed += ToggleOverlays;
             _inputHook.EscapePressed += ExitOverlayEditMode;
+            _inputHook.DatabaseEscapePressed += () => Dispatcher.BeginInvoke(new Action(() =>
+            {
+                if (_databaseOverlay?.IsDatabaseOpen == true) HideDatabase();
+            }));
             _inputHook.ToggleTimersPressed += ToggleTimers;
             _inputHook.StartSessionPressed += () => Dispatcher.BeginInvoke(() => StartCharacterStatisticsSession());
             _inputHook.InterfaceLayoutPressed += () => Dispatcher.BeginInvoke(() => _settingsWindow?.ToggleInterfaceLayout());
@@ -1447,13 +1451,25 @@ public partial class App : Application
         try
         {
             var capture = HoverItemLookup.Capture(bounds, QuestWindowNative.Cursor());
-            if (capture is null) return;
+            if (capture is null)
+            {
+                overlay.ShowHoverReadError();
+                RefreshKeyboardMode();
+                DebugLog.Write("HOVER ITEM LOOKUP: capture unavailable");
+                return;
+            }
             var lines = await HoverItemLookup.ReadAsync(capture);
             if (!StillInGame()) return;
             var matches = lines.Select(line => HoverItemLookup.Match(line, database.Items))
                 .FirstOrDefault(items => items.Length != 0) ?? [];
-            await overlay.ShowHoveredItemsAsync(action, matches);
+            var recognized = lines.FirstOrDefault(line => line.Any(char.IsLetter));
+            var suggestions = matches.Length == 0 && recognized is not null
+                ? HoverItemLookup.Suggest(recognized, database.Items) : [];
+            DebugLog.Write($"HOVER ITEM LOOKUP: {lines.Length} lines, {matches.Length} matches, {suggestions.Length} suggestions");
+            var navigation = overlay.ShowHoveredItemsAsync(action, matches.Length == 0 ? suggestions : matches,
+                HoverItemLookup.SearchText(recognized), matches.Length == 0);
             RefreshKeyboardMode();
+            await navigation;
         }
         catch (Exception ex)
         {
@@ -1542,7 +1558,12 @@ public partial class App : Application
                 _settingsWindow?.Settings.AllowedProcesses ?? [], out _)) { }
     }
 
-    public void RefreshKeyboardMode()=>_inputHook?.SetKeyboardBlocked(_databaseOverlay?.IsDatabaseOpen==true || _settingsWindow?.IsQuestBrowserOpen==true || _settingsWindow?.IsMvpWizardOpen==true);
+    public void RefreshKeyboardMode()
+    {
+        var databaseOpen = _databaseOverlay?.IsDatabaseOpen == true;
+        _inputHook?.SetDatabaseEscapeEnabled(databaseOpen);
+        _inputHook?.SetKeyboardBlocked(databaseOpen || _settingsWindow?.IsQuestBrowserOpen == true || _settingsWindow?.IsMvpWizardOpen == true);
+    }
 
     public void CloseDatabaseOverlay()
     {

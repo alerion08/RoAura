@@ -110,7 +110,11 @@ public partial class MainWindow
                     if (!timers.Contains(restartSource)) return;
                     restartSource.ApplyRestartDraft(timer);
                 }
-                else timers.Add(timer);
+                else
+                {
+                    timer.TabIndex = Settings.ActiveTimerTab;
+                    timers.Add(timer);
+                }
                 MvpTimerHotkeys.RefreshNumbers(timers);
                 SaveSettings();
             }

@@ -26,6 +26,15 @@ public sealed class HoverItemLookupTests
     }
 
     [Fact]
+    public void RecognizedTextSurvivesWhenOnlyApproximateMatchesExist()
+    {
+        DatabaseItem[] catalog = [new() { Id = 1, Name = "White Herb" }, new() { Id = 2, Name = "Red Herb" }];
+        Assert.Empty(HoverItemLookup.Match("Whlte Herb: 1 ea.", catalog));
+        Assert.Equal("Whlte Herb", HoverItemLookup.SearchText("Whlte Herb: 1 ea."));
+        Assert.Equal(1, Assert.Single(HoverItemLookup.Suggest("Whlte Herb: 1 ea.", catalog)).Id);
+    }
+
+    [Fact]
     public void ReturnsDistinctChoicesForIdenticalNames()
     {
         DatabaseItem[] catalog =

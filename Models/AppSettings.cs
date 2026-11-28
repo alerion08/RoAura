@@ -115,6 +115,7 @@ public sealed class AppSettings : INotifyPropertyChanged
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarketWatch)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveMarketWatchRules)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveMvpTimers)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveTimerTabView)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveGoldGoblinPriceRules)));
             }
         }
@@ -371,6 +372,40 @@ public sealed class AppSettings : INotifyPropertyChanged
     public ObservableCollection<ReminderItem> Reminders { get; set; } = [];
     public ObservableCollection<EquipmentTracker> Equipment { get; set; } = [];
     public ObservableCollection<MvpTimer> TocMvpTimers { get; set; } = [];
+    public ObservableCollection<string> TimerTabs { get; set; } = ["MVP"];
+
+    private int _activeTimerTab;
+    public int ActiveTimerTab
+    {
+        get => Math.Clamp(_activeTimerTab, 0, Math.Max(0, Math.Min(3, TimerTabs?.Count ?? 0) - 1));
+        set
+        {
+            var normalized = Math.Clamp(value, 0, 2);
+            if (_activeTimerTab == normalized) return;
+            Set(ref _activeTimerTab, normalized);
+            _timerTabView?.Refresh();
+        }
+    }
+
+    private System.Windows.Data.ListCollectionView? _timerTabView;
+    [JsonIgnore]
+    public System.Windows.Data.ListCollectionView ActiveTimerTabView
+    {
+        get
+        {
+            if (_timerTabView?.SourceCollection == ActiveMvpTimers) return _timerTabView;
+            _timerTabView = new System.Windows.Data.ListCollectionView(ActiveMvpTimers)
+            {
+                Filter = item => item is MvpTimer timer && EffectiveTimerTab(timer) == ActiveTimerTab
+            };
+            _timerTabView.LiveFilteringProperties.Add(nameof(MvpTimer.TabIndex));
+            _timerTabView.IsLiveFiltering = true;
+            return _timerTabView;
+        }
+    }
+
+    internal int EffectiveTimerTab(MvpTimer timer) => timer.TabIndex < Math.Min(3, TimerTabs?.Count ?? 0) ? timer.TabIndex : 0;
+
     [JsonIgnore] public ObservableCollection<MvpTimer> ActiveMvpTimers => ServerProfile == GameServerProfile.Toc ? TocMvpTimers : MvpTimers;
     public ObservableCollection<GoldGoblinPriceRule> TocGoldGoblinPriceRules { get; set; } = [];
     public ObservableCollection<GoldGoblinPriceRule> RagnarokPlusGoldGoblinPriceRules { get; set; } = [];

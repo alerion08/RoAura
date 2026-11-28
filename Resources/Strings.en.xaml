@@ -936,4 +936,9 @@
     <sys:String x:Key="HoverItemCatalogHotkey">Hovered item — database</sys:String>
     <sys:String x:Key="HoverItemSellHotkey">Hovered item — selling</sys:String>
     <sys:String x:Key="HoverItemBuyHotkey">Hovered item — buying</sys:String>
+    <sys:String x:Key="TimerTabLabel">Timer tab</sys:String>
+    <sys:String x:Key="TimerTabAdd">Add tab</sys:String>
+    <sys:String x:Key="TimerTrackerRefresh">Refresh tracker</sys:String>
+    <sys:String x:Key="TimerTabPrevious">Previous tab</sys:String>
+    <sys:String x:Key="TimerTabNext">Next tab</sys:String>
 </ResourceDictionary>
