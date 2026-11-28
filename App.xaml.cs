@@ -475,6 +475,7 @@ public partial class App : Application
         _databaseOverlay = new DatabaseOverlayWindow(settings, _activeDatabase, _marketService);
         _databaseOverlay.HideRequested += HideDatabase;
         _settingsWindow = new MainWindow(settings, _settingsStore, _overlay, _packetCapture, _goldGoblin);
+        _overlay.TimerRestartRequested += timer => _settingsWindow?.RestartMvpTimerInGame(timer, DateTime.UtcNow);
         if (AppEnvironment.IsDevelopment) _settingsWindow.Title = "RoAura DEV — Character Statistics";
         _settingsWindow.Show();
         _overlay.Show();

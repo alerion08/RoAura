@@ -30,6 +30,7 @@ public partial class OverlayWindow
             !ForegroundProcess.TryGetForegroundAllowedBounds(_settings.AllowedProcesses, out var game))
         { HideMvpMap(); return; }
         var cursor = QuestWindowNative.Cursor();
+        if (IsOverTimerRestart(cursor)) { HideMvpMap(); return; }
         MvpTimer? selected = null;
         Rect hit = Rect.Empty;
         foreach (var label in TimerLabels(MvpTimerPanel).Where(label => label.IsVisible && label.ActualWidth > 0))

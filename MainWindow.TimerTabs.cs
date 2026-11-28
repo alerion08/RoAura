@@ -89,6 +89,8 @@ public partial class MainWindow
         TimerTabStrip.Children.Add(add);
     }
 
+    private void TimerQuickRestart_Click(object sender, RoutedEventArgs e) => RequestSave();
+
     private void TimerName_Commit(object sender, KeyboardFocusChangedEventArgs e) => RequestSave();
 
     private void TimerName_KeyDown(object sender, KeyEventArgs e)

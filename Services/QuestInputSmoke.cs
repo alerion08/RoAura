@@ -645,6 +645,15 @@ internal static class QuestInputSmoke
             if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP timer text lost the row hover map.");
             if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("MVP map stole game focus.");
             SaveElement(panel,"timer-map-badge");SaveDesktop(overlay,"timer-map-hover");
+            await Until(() => overlay.FindTimerRestartButton(timer)?.IsVisible == true, "timer restart button is visible");
+            Hover(overlay.FindTimerRestartButton(timer)!);
+            await Until(() => overlay.IsTimerRestartHintVisible && !overlay.IsMvpMapVisible,
+                "restart hint replaces minimap above timer row");
+            if (QuestWindowNative.GetForegroundWindow() != game || !panel.IsVisible)
+                throw new InvalidOperationException("Timer restart hint disrupted game focus or tracker visibility.");
+            Hover(countdown);
+            await Until(() => !overlay.IsTimerRestartHintVisible && overlay.IsMvpMapVisible,
+                "timer minimap returns after leaving restart button");
             var gameRect=QuestWindowNative.Bounds(game);SetCursorPos((int)gameRect.Right-5,(int)gameRect.Bottom-5);
             await Until(()=>!overlay.IsMvpMapVisible,"MVP map closes outside the row");
             await VerifyTimerPanelStyle(panel, settings);

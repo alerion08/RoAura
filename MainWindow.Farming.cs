@@ -30,7 +30,14 @@ public partial class MainWindow
     internal void RestartMvpTimerInGame(int number, DateTime killedAtUtc)
     {
         var target = MvpTimerHotkeys.Resolve(Settings, number);
-        if (target is null) return;
+        if (target is not null) RestartMvpTimerInGame(target, killedAtUtc);
+    }
+
+    internal void RestartMvpTimerInGame(MvpTimer target, DateTime killedAtUtc)
+    {
+        if (!Settings.ActiveMvpTimers.Contains(target) ||
+            !FeatureAvailability.CanUse(Settings.ServerProfile, Settings.PacketCaptureEnabled, AppFeature.MvpTimers)) return;
+        if (TryQuickRestartTimer(target, killedAtUtc)) return;
         if (_gameMvpWizard is { } current)
         {
             var same = current.IsRestart && current.Draft.Id == target.Id;
@@ -44,6 +51,14 @@ public partial class MainWindow
             return;
         }
         OpenMvpTimerInGame(target, killedAtUtc);
+    }
+
+    private bool TryQuickRestartTimer(MvpTimer timer, DateTime killedAtUtc)
+    {
+        if (!timer.QuickRestart) return false;
+        timer.StartFromKillTime(killedAtUtc);
+        SaveSettings(applyPacketCapture: false);
+        return true;
     }
 
     private void OpenMvpTimerInGame(MvpTimer? restartSource = null, DateTime? killedAtUtc = null)

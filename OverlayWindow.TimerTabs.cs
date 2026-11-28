@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Interop;
+using System.Windows.Media.Effects;
 using RoAura.Models;
 using RoAura.Services;
 
@@ -9,6 +10,11 @@ namespace RoAura;
 
 public partial class OverlayWindow
 {
+    internal event Action<MvpTimer>? TimerRestartRequested;
+    private Border? _restartHint;
+    internal bool IsTimerRestartHintVisible => _restartHint?.IsVisible == true;
+    internal Button? FindTimerRestartButton(MvpTimer timer) => _timerRefreshButtons.GetValueOrDefault(timer);
+
     private const double TimerActionWidth = 19;
     private Window? _timerHeader;
     private Button? _previousTimerTab, _nextTimerTab;
@@ -25,6 +31,7 @@ public partial class OverlayWindow
     {
         if (!IsVisible || !_overlaysVisible || !MvpTimerPanel.IsVisible)
         {
+            HideRestartHint();
             _timerHeader?.Hide();
             return;
         }
@@ -36,6 +43,7 @@ public partial class OverlayWindow
                 (window is DatabaseOverlayWindow or DatabaseDetailWindow or QuestBrowserWindow) &&
                 ForegroundProcess.IsForegroundWindow(new WindowInteropHelper(window).Handle)))
         {
+            HideRestartHint();
             _timerHeader?.Hide();
             return;
         }
@@ -69,6 +77,7 @@ public partial class OverlayWindow
         var gameBounds = new Rect(game.Left, game.Top, game.Right - game.Left, game.Bottom - game.Top);
         if (end.X <= origin.X || end.Y <= origin.Y || !gameBounds.IntersectsWith(new Rect(origin, end)))
         {
+            HideRestartHint();
             _timerHeader!.Hide();
             return;
         }
@@ -76,9 +85,11 @@ public partial class OverlayWindow
         _timerTabHeading!.Width = TimerHeaderAnchor.ActualWidth;
         _timerTabHeading.Height = TimerHeaderAnchor.ActualHeight;
         UpdateTimerRefreshButtons(origin);
+        if (_restartHint is not null && !IsOverTimerRestart(QuestWindowNative.Cursor())) HideRestartHint();
         var bounds = new Rect(origin, end);
         if (occlusion.Any(rect => rect.Contains(bounds)))
         {
+            HideRestartHint();
             _timerHeader!.Hide();
             return;
         }
@@ -131,7 +142,8 @@ public partial class OverlayWindow
         _nextTimerTab = TimerAction("›", "TimerTabNext", () => MoveTimerTab(1));
         _timerTabTitle = new TextBlock
         {
-            Foreground = Brushes.White, FontWeight = FontWeights.SemiBold, TextAlignment = TextAlignment.Center,
+            Foreground = Brushes.White, FontWeight = FontWeights.Bold, FontSize = 14,
+            Effect = TimerTextShadow(), TextAlignment = TextAlignment.Center,
             TextTrimming = TextTrimming.CharacterEllipsis, VerticalAlignment = VerticalAlignment.Center,
             IsHitTestVisible = false
         };
@@ -161,14 +173,17 @@ public partial class OverlayWindow
             {
                 button = TimerAction("↻", "TimerTrackerRefreshOne", () =>
                 {
-                    timer.StartFromKillTime(DateTime.UtcNow);
-                    _store.Save(_settings);
-                    UpdateCooldowns();
+                    HideRestartHint();
                     HideMvpMap();
+                    TimerRestartRequested?.Invoke(timer);
                 });
                 button.Width = TimerActionWidth;
                 button.Height = 17;
-                button.FontSize = 12;
+                button.FontSize = 13;
+                button.ClearValue(FrameworkElement.ToolTipProperty);
+                var restartButton = button;
+                button.MouseEnter += (_, _) => ShowRestartHint(restartButton);
+                button.MouseLeave += (_, _) => HideRestartHint();
                 _timerRefreshButtons.Add(timer, button);
                 _timerActions!.Children.Add(button);
             }
@@ -177,6 +192,7 @@ public partial class OverlayWindow
         }
         foreach (var timer in _timerRefreshButtons.Keys.Where(timer => !visible.Contains(timer)).ToArray())
         {
+            if (_timerRefreshButtons[timer].IsMouseOver) HideRestartHint();
             _timerActions!.Children.Remove(_timerRefreshButtons[timer]);
             _timerRefreshButtons.Remove(timer);
         }
@@ -184,10 +200,57 @@ public partial class OverlayWindow
 
     private Button TimerAction(string caption, string tooltip, Action run)
     {
-        var button = new Button { Content = caption, Style = (Style)FindResource("TimerOverlayActionStyle") };
+        var button = new Button
+        {
+            Content = new TextBlock { Text = caption, Foreground = Brushes.White, FontWeight = FontWeights.Bold, Effect = TimerTextShadow() },
+            Foreground = Brushes.White,
+            Style = (Style)FindResource("TimerOverlayActionStyle")
+        };
         button.SetResourceReference(FrameworkElement.ToolTipProperty, tooltip);
         button.Click += (_, _) => run();
         return button;
+    }
+
+    private static DropShadowEffect TimerTextShadow() =>
+        new() { Color = Colors.Black, ShadowDepth = 0, BlurRadius = 4, Opacity = 1 };
+
+    private bool IsOverTimerRestart(Point pointer)
+    {
+        if (_timerHeader?.IsVisible != true || _timerOcclusion.Any(rect => rect.Contains(pointer))) return false;
+        return _timerRefreshButtons.Values.Any(button => button.IsVisible &&
+            new Rect(button.PointToScreen(new Point()), button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)))
+                .Contains(pointer));
+    }
+
+    private void ShowRestartHint(Button button)
+    {
+        if (_timerActions is not { } actions || !IsOverTimerRestart(QuestWindowNative.Cursor())) return;
+        HideMvpMap();
+        HideRestartHint();
+        var hint = new Border
+        {
+            Background = new SolidColorBrush(Color.FromArgb(246, 21, 33, 47)),
+            BorderBrush = new SolidColorBrush(Color.FromRgb(191, 208, 230)),
+            BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(4), Padding = new Thickness(6, 3, 6, 3),
+            IsHitTestVisible = false,
+            Child = new TextBlock
+            {
+                Text = LocalizationService.Get("TimerTrackerRefreshOne"), Foreground = Brushes.White, FontSize = 12, TextWrapping = TextWrapping.Wrap
+            }
+        };
+        hint.Measure(new Size(TimerHeaderAnchor.ActualWidth, double.PositiveInfinity));
+        Canvas.SetLeft(hint, Math.Max(0, Canvas.GetLeft(button) + button.Width - hint.DesiredSize.Width));
+        Canvas.SetTop(hint, Math.Max(0, Canvas.GetTop(button) - hint.DesiredSize.Height - 3));
+        Panel.SetZIndex(hint, 1);
+        actions.Children.Add(hint);
+        _restartHint = hint;
+    }
+
+    private void HideRestartHint()
+    {
+        if (_restartHint is null) return;
+        _timerActions?.Children.Remove(_restartHint);
+        _restartHint = null;
     }
 
     private void MoveTimerTab(int offset)

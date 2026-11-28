@@ -2149,8 +2149,16 @@ public partial class MainWindow : Window
     {
         var timer = (sender as FrameworkElement)?.DataContext as MvpTimer ?? MvpTimersGrid.SelectedItem as MvpTimer;
         if (timer is null) return;
-        timer.Restart();
-        SaveSettings();
+        var now = DateTime.UtcNow;
+        if (TryQuickRestartTimer(timer, now)) return;
+        var wizard = new MvpTimerWizardWindow(_monsters, timer, now, UsesReferenceTimerCatalog,
+            Settings.ServerUtcOffsetMinutes) { Owner = this };
+        if (wizard.ShowDialog() == true && wizard.CreatedTimer is { } draft &&
+            Settings.ActiveMvpTimers.Contains(timer))
+        {
+            timer.ApplyRestartDraft(draft);
+            SaveSettings();
+        }
     }
 
     private void ApplyMvpKillTime_Click(object sender, RoutedEventArgs e)

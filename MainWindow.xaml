@@ -1226,6 +1226,8 @@
                                                         <TextBlock Text="{DynamicResource RespawnWindowStart}" TextWrapping="Wrap" Margin="0,6,0,0"/>
                                                         <TextBox Text="{Binding RespawnWindowStartMinutes, UpdateSourceTrigger=LostFocus}" Style="{StaticResource FieldEditorStyle}"/>
                                                         <CheckBox Content="{DynamicResource TimerKeepCompleted}" IsChecked="{Binding ShowAfterCompletion}" Margin="0,6,0,0"/>
+                                                        <CheckBox Content="{DynamicResource TimerQuickRestart}" IsChecked="{Binding QuickRestart, UpdateSourceTrigger=PropertyChanged}"
+                                                                  Click="TimerQuickRestart_Click" Margin="0,6,0,0"/>
                                                     </StackPanel>
                                                 </Grid>
                                             </GroupBox>

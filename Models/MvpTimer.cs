@@ -40,6 +40,9 @@ public sealed class MvpTimer : INotifyPropertyChanged
         value.HasValue && double.IsFinite(value.Value) ? Math.Clamp(value.Value, 0, 1) : null;
     public void ClearMarker() { MarkerX = null; MarkerY = null; }
 
+    private bool _quickRestart;
+    public bool QuickRestart { get => _quickRestart; set => Set(ref _quickRestart, value); }
+
     private int _tabIndex;
     public int TabIndex { get => _tabIndex; set => Set(ref _tabIndex, Math.Clamp(value, 0, 2)); }
 
